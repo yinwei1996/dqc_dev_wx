@@ -1,0 +1,95 @@
+<!--
+ /**
+ * 店铺介绍
+ * storeIntro.wxml
+ * -----------------------------------
+ * 18/12/13
+ */
+ -->
+
+<!-- 店铺介绍 -->
+<view class="store-intro" wx:if="{{ corp }}">
+
+  <!-- 店铺头部 -->
+  <view class="store-nav">
+
+    <!--公司图片-->
+    <image class="nav-bg" mode="widthFix" src="{{ corp.wxStoreNavBgUrl }}" />
+
+    <!--公司名称-->
+    <view class="store-inf">
+
+      <view class="store-inf-inner">
+
+        <!-- 企业LOGO -->
+        <image class="corp-logo" src="{{ corp.fullCorpLogoUrl }}" mode="aspectFit" wx:if="{{ corp.fullCorpLogoUrl }}" />
+
+        <!-- 企业名称 -->
+        <view class="corp-name">
+          <text>{{ corp.corpName }}</text>
+        </view>
+
+        <view class="corp-count">
+          <text class="self-label" wx:if="{{ corp.self }}">自营</text>
+        </view>
+
+      </view>
+
+    </view> <!-- .store-inf -->
+
+  </view> <!-- .store-nav -->
+
+  <!-- 主营商品 -->
+  <view class="floor-wrapper" wx:if="{{ types }}">
+
+    <view class="title">
+      <text>主营商品</text>
+    </view>
+
+    <view class="body">
+
+      <view class="type-nav"
+          wx:for="{{ types }}"
+          wx:for-item="type"
+          wx:key="{{ typeId }}"
+          hover-class="none"
+          data-type-id="{{ type.typeId }}"
+          bindtap="clickTypeNav">
+          <image src="{{ type.fullTypeImageUrl }}"/>
+          <text>{{ type.typeName }}</text>
+      </view>
+
+    </view>
+
+  </view> <!-- .floor-wrapper -->
+
+  <view class="corp-inf">
+
+    <view class="corp-tel" bindtap="clickTel" wx:if="{{ corp.corpCsTel }}">
+      <text>{{ corp.corpCsTel }}</text>
+      <image src="../../../image/icos/tel_primary_81.png" />
+    </view>
+
+    <view class="corp-addr" bindtap="navLocation">
+      <view>{{ corp.corpProvinceName }}{{ corp.corpCityName }}{{ corp.corpDistrictName }}{{ corp.corpAddress }}</view>
+      <image src="../../../image/icos/location_nav_primary_81.png" />
+    </view>
+
+    <view class="corp-desc" bindtap="showDescSheet" wx:if="{{ corp.corpDesc }}">
+      <view>{{ corp.corpDesc }}</view>
+      <image src="../../../image/icos/more_primary_81.png" />
+    </view>
+
+  </view> <!-- .corp-inf -->
+
+  <view class="corp-mask {{ hiddenDescSheet }}" bindtap="closeDescSheet"></view>
+
+  <view class="corp-desc-sheet {{ hiddenDescSheet }}" style="height:1000rpx" wx:if="{{ corp.corpDesc }}">
+    <view class="corp-desc-name">— {{ corp.corpName }} —</view>
+    <scroll-view class="corp-desc-detail" scroll-y="true" style="height:775rpx">{{ corp.corpDesc }}</scroll-view>
+    <view class="corp-desc-close" bindtap="closeDescSheet">
+      <image src="../../../image/icos/check_primary_81.png" />
+    </view>
+  </view>
+
+</view>

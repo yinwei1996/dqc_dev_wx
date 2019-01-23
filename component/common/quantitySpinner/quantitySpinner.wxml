@@ -1,0 +1,41 @@
+<!--
+/**
+ * 组件 - 数量Spinner
+ * quantitySpinner.wxml
+ * -----------------------------------
+ * 18/03/30 Jerry 新增
+ */
+-->
+<template name="quantitySpinner">
+
+  <view class="quantity-spinner">
+
+    <image src="../../../image/icos/minus_48.png"
+      data-key="{{key}}"
+      data-quantity="{{quantity}}"
+      data-min-quantity="{{minQuantity}}"
+      data-max-quantity="{{maxQuantity}}"
+      data-unit="{{unit}}"
+      bindtap="quantityReduce"
+      wx:if="{{ quantity > minQuantity }}" />
+    <image src="../../../image/icos/minus_48.png"
+      class="disabled"
+      wx:else />
+
+    <text>{{quantity}}</text>
+
+    <image src="../../../image/icos/plus_48.png"
+      data-key="{{key}}"
+      data-quantity="{{quantity}}"
+      data-min-quantity="{{minQuantity}}"
+      data-max-quantity="{{maxQuantity}}"
+      data-unit="{{unit}}"
+      bindtap="quantityAdd"
+      wx:if="{{ !maxQuantity || quantity < maxQuantity }}" />
+    <image src="../../../image/icos/plus_48.png"
+      class="disabled"
+      wx:else />
+
+  </view>
+
+</template>

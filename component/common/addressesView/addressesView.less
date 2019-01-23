@@ -1,0 +1,56 @@
+/**
+ * 组件 - 地址列表样式
+ * addressesView.less
+ * -----------------------------------
+ * 18/04/05 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.address-item {
+  .flex-between;
+  position: relative;
+  width: 100%;
+  height: @bar-height-xl;
+  border-bottom: @border-gray-light;
+
+  /* 收货人及联系方式 */
+  .address-user {
+
+    text {
+
+      &:first-child {
+        font-size: @text-size-m3;
+        margin-right: @text-margin-l;
+      }
+
+    }
+
+    /* 默认地址提示 */
+    .is-default {
+      .tip-label-primary;
+      margin-left: @text-margin-xl;
+      vertical-align: @text-margin-xs;
+    } /* .is-default */
+
+  } /* .address-user */
+
+  /* 省市区及详细地址 */
+  .address-location {
+    margin-top: @text-margin-xs;
+    font-size: @text-size-s;
+  } /* .address-location */
+
+  /* 删除地址 */
+  .address-del {
+    .flex-center;
+    position: absolute;
+    right: 30rpx;
+    width: 245rpx;
+    height: 65rpx;
+    color: @color-white;
+    background-color: @color-red;
+    z-index: 2;
+  } /* .address-del */
+
+} /* .address-item */

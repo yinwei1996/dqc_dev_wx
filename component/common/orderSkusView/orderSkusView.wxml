@@ -1,0 +1,55 @@
+<!--
+/**
+ * 组件 - 订单SKU
+ * orderSkusView.wxml
+ * -----------------------------------
+ * 18/04/05 Jerry 新增
+ */
+-->
+
+<template name="orderSkusView">
+
+  <view class="order-skus" wx:if="{{ maps && maps.length }}">
+
+    <!-- 精简模式并且有多个SKU（大于1个） -->
+    <block wx:if="{{ !showAll && maps.length > 1 }}">
+
+      <view class="order-sku order-sku-summary">
+        <image
+          src="{{map.imgUrl}}"
+          data-sku-id="{{map.skuId}}"
+          bindtap="{{orderSkuClick}}"
+          wx:for="{{maps}}"
+          wx:for-item="map"
+          wx:key="sysNo" />
+      </view>
+
+    </block>
+
+    <!-- 其他情况 -->
+    <block wx:else>
+
+      <view
+        class="order-sku"
+        data-sku-id="{{map.skuId}}"
+        bindtap="{{orderSkuClick}}"
+        wx:for="{{maps}}"
+        wx:for-item="map"
+        wx:key="sysNo">
+
+        <image src="{{ map.fullImgUrl || map.imgUrl }}" />
+
+        <view class="sku-text">
+          <view class="sku-name">{{map.skuName}}</view>
+          <view class="sku-spec" wx:if="{{ map.spec }}">{{map.spec}}</view>
+          <view class="sku-quantity" wx:if="{{ !ignoreQuantity }}">￥{{map.payablePrice}} x{{map.quantity}}{{map.unit}}</view>
+          <view class="sku-memo" wx:if="{{ !ignoreQuantity && map.memo }}">{{map.memo}}</view>
+        </view> <!-- .sku-text -->
+
+      </view>
+
+    </block>
+
+  </view> <!-- .order-skus -->
+
+</template>

@@ -1,0 +1,21 @@
+/**
+ * 订单详情
+ * orderDetail.less
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../less/orderProps.less';
+@import '../../../component/common/addressesView/addressesView.less';
+@import '../../../component/common/ordersView/ordersView.less';
+@import '../../../component/common/orderSkusView/orderSkusView.less';
+
+.order-detail {
+
+  /* 最后一个 .order-prop 底边着重显示 */
+  .order-prop:last-child {
+    border-bottom: @border-gray-light-5;
+  } /* .order-prop:last-child */
+
+} /* .order-detail */

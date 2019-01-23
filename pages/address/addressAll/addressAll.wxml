@@ -1,0 +1,35 @@
+<!--
+/**
+ * 收货地址列表
+ * addressAll.wxml
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+
+<view class="address-all">
+
+<!-- 收发货地址 -->
+<view class="resale-wrapper tabs">
+
+  <!-- Tab导航 -->
+  <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+  <scroll-view
+          scroll-y="true"
+          enable-back-to-top="true"
+          style="height:{{scrollViewHeight}}">
+    <template is="addressesView" data="{{ addresses: allAddress, opAddressId: opAddressId }}" />
+  </scroll-view>
+
+  <!-- 地址 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary-outline" bindtap="addAddress">新增{{ typeText || '收货' }}地址</button>
+  </view> <!-- .ops -->
+
+</view>
+
+</view>

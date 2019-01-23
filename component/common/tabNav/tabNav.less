@@ -1,0 +1,149 @@
+/**
+ * 组件 - TabNav（不参与wxss编译）
+ * tabNav.wxml
+ * -----------------------------------
+ * 18/03/29 Jerry 新增
+ */
+
+ .tabs {
+
+  /* Tab导航 */
+  .tab-nav {
+    .flex-start;
+
+    /* 导航项 */
+    .nav-item {
+      .flex-center;
+      width: 25%;
+      height: @bar-height;
+      background-color: @color-nav;
+
+      text {
+        padding: 0 @text-margin-xs;
+        height: @bar-height / 2;
+        color: @color-gray-dark;
+        border-bottom: solid 4rpx transparent;
+      }
+
+      &.active {
+
+        text {
+          color: @color-primary;
+          border-bottom-color: @color-primary;
+        }
+
+      } /* &.active */
+
+    } /* .nav-item */
+
+    /* 一项 */
+    &.x1 {
+
+      .nav-item {
+        width: 100%;
+      }
+
+    } /* &.x1 */
+
+    /* 两项 */
+    &.x2 {
+
+      .nav-item {
+        width: 50%;
+      }
+
+    } /* &.x2 */
+
+    /* 三项 */
+    &.x3 {
+
+      .nav-item {
+        width: 33.3%;
+      }
+
+    } /* &.x3 */
+
+    /* 两项 */
+    &.x4 {
+
+      .nav-item {
+        width: 25%;
+      }
+
+    } /* &.x2 */
+
+    /* 五项 */
+    &.x5 {
+
+      .nav-item {
+        width: 20%;
+      }
+
+    } /* &.x5 */
+
+  } /* .tab-nav */
+
+  /* Tab内容 */
+  .tab-content {
+
+    .content-item {
+      display: none;
+
+      &.active {
+        display: block;
+
+        /* 描述信息Tab使用 flex + column 布局，垂直无缝拼接 desc 图片 */
+        &.desc-item {
+          display: flex;
+          flex-direction: column;
+        }
+
+      } /* &.active */
+
+      /* 图文详情图片 */
+      .desc-img {
+        width: 100%;
+      }
+
+    } /* .content-item */
+
+  } /* .tab-content */
+
+} /* .tabs */
+
+/*
+.index-nav{
+  position: fixed;
+  left:0;
+  top:0;
+  z-index: 1000;
+}
+*/
+
+.index-nav-body{
+  height: @bar-height;
+  white-space: nowrap;
+  background: @color-white;
+  overflow: hidden;
+}
+.name{
+  display: block;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: @text-size-s3;
+  width: auto;
+  margin-top: 20rpx;
+}
+
+.index-nav-body  {
+  .nitem {
+    display: inline-block;
+    height: @bar-height;
+    margin: 0 28rpx;
+  }
+}
+
+.tab-active {
+  color: @color-primary;
+  border-bottom: 2px solid @color-primary;
+}

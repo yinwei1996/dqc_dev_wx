@@ -1,0 +1,51 @@
+<!--
+ /**
+ * SKU如何冲泡
+ * skuHowTo.wxml
+ * -----------------------------------
+ * 18/05/21 Jerry 新增
+ */
+ -->
+
+<import src="../../../component/common/skuCommentsView/skuCommentsView.wxml" />
+
+<view class="sku-how-to">
+
+  <view class="steps">
+
+    <view class="step-item" wx:for="{{ steps }}" wx:for-item="step" wx:key="notexist">
+
+      <view class="step-ico">
+        <image src="../../../image/icos/leaf2_81.png" />
+      </view>
+
+      <view class="step-text">{{ step.text }}</view>
+
+    </view>
+
+  </view> <!-- .steps -->
+
+  <view class="timer-wrapper">
+
+    <view class="timer-title">{{ loops[currentLoopIndex].idx }}<text>/</text>{{ ( loops.length - 1 ) / 2 }}</view>
+
+    <view class="timer-bg"><canvas canvas-id="canvasTimerBg" /></view>
+    <view class="timer-val"><canvas canvas-id="canvasTimerVal" /></view>
+
+    <view class="timer-waiting" wx:if="{{ currentSeconds > 0 }}">等待 {{ currentSeconds }} 秒</view>
+    <block wx:else>
+      <view class="timer-op" bindtap="continueLoop">{{ buttonText || loops[currentLoopIndex].text }}</view>
+      <view class="timer-arrow" wx:if="{{ currentLoopIndex < loops.length - 1 }}">
+        <image src="../../../image/icos/arrow_right_green_48.png" />
+      </view>
+      <view class="timer-tip" wx:if="{{ loops[currentLoopIndex].tip }}">{{ loops[currentLoopIndex].tip }}</view>
+    </block>
+
+  </view> <!-- .timer-wrapper -->
+
+  <view class="op-btns-fixed">
+    <button class="btn" bindtap="cancelCountdown" wx:if="{{ currentSeconds > 0 }}">取消倒计时</button>
+    <button class="btn btn-primary-outline" bindtap="reset" wx:elif="{{ currentLoopIndex == loops.length - 1 }}">再泡一饼</button>
+  </view>
+
+</view>

@@ -1,0 +1,285 @@
+/* 订单属性 */
+.res-item {
+  background-color: #fff;
+  border-bottom: @border-gray-light-5;
+
+  &:last-child {
+    border-bottom-color: @color-white;
+  }
+
+  .it-tit,
+  .it-sub,
+  .it-list {
+    padding: 0 20rpx;
+    overflow: hidden;
+    color: rgba(80, 80, 80, 1);
+
+    text {
+      font-size: 28rpx;
+    }
+
+    .fl {
+      float: left;
+    }
+
+    .fr {
+      float: right;
+    }
+
+    .bor-b {
+      border-bottom: 1px solid #eee;
+    }
+
+    .adress {
+      color: rgba(101, 113, 122, 1);
+      font-size: 24rpx;
+      float:left;
+      margin-left:30rpx;
+    }
+
+  } /* .it-tit */
+
+  .it-tit,
+  .it-sub{
+    border-bottom: 1px solid #eee;
+    line-height: 80rpx;
+  }
+
+  .it-lists {
+
+    border-bottom: 1px solid #eee;
+    padding: 10rpx 0;
+
+    .it-list {
+
+      line-height: 55rpx;
+
+    } /* .it-list */
+
+  }
+
+  .contact {
+    padding: 20rpx;
+
+    view {
+      color: rgba(101, 113, 122, 1);
+      font-size: 24rpx;
+      line-height: 40rpx;
+      width: 100%;
+      .text-ellipsis;
+    }
+
+  } /* .contact */
+
+  .table {
+    padding: 20rpx;
+
+    .tr-th,
+    .tr {
+      height: 72rpx;
+      .flex-center;
+
+      text {
+        flex: 1;
+        font-size: 24rpx;
+
+        &:last-child {
+          width: 90%;
+          .text-ellipsis;
+        }
+      }
+
+    }
+
+    .tr {
+      color: rgba(101, 113, 122, 1);
+
+    }
+
+  } /* .table */
+
+  .it-sub {
+    .flex-between;
+
+    view {
+      font-size: 24rpx;
+
+      text {
+        font-size: 24rpx;
+        color: rgba(0, 95, 188, 1);
+      }
+
+    }
+
+  } /* .it-sub */
+
+  .it-inner {
+    border-bottom: 1px solid #eee;
+    padding: 0 20rpx;
+    height: 160rpx;
+    .flex-between;
+
+    .it-info{
+
+      image {
+        width: 100rpx;
+        height: 100rpx;
+        margin-right: 20rpx;
+      }
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+
+        text {
+          width: 180rpx;
+          .text-ellipsis;
+        }
+
+      }
+
+    }
+
+    .it {
+      flex: 1;
+      padding-left: 10rpx;
+      box-sizing: border-box;
+      height: 120rpx;
+
+      view {
+        width: 90%;
+        .text-ellipsis;
+      }
+
+    }
+
+    view,text {
+      font-size: 24rpx;
+      color: rgba(101, 113, 122, 1);
+      line-height: 40rpx;
+    }
+
+  } /* .it-inner */
+
+  .it-is {
+    .flex-end;
+    padding: 20rpx 0;
+    border-bottom: 1px solid #eee;
+
+    .it {
+      flex: 1;
+      height: 160rpx;
+      text-align: right;
+
+      view {
+        display: flex;
+        align-items: center;
+      }
+
+      &:first-child {
+        padding-right: 60rpx;
+        border-right: 1px solid rgba(220, 231, 238, 1);
+
+        view {
+          justify-content: flex-end;
+
+          image {
+            margin-left: 8rpx;
+          }
+
+        }
+      }
+
+      &:last-child {
+        padding-left: 60rpx;
+
+        view {
+          justify-content: flex-start;
+
+          image {
+            margin-right: 8rpx;
+          }
+
+        }
+      }
+
+      image {
+        width: 25rpx;
+        height: 25rpx;
+      }
+
+      view, text {
+        font-size: 24rpx;
+        color: rgba(101, 113, 122, 1);
+        line-height: 40rpx;
+      }
+
+    } /* .it-is */
+
+  } /* .it-is */
+
+  .it-ops {
+    height: 100rpx;
+    padding: 0 20rpx;
+    margin-left: 20rpx;
+    .flex-end;
+
+    navigator,
+    view {
+      border: 1px solid #005fbc;
+      color: #005fbc;
+      padding: 10rpx 30rpx;
+      border-radius: 8rpx;
+      font-size: 24rpx;
+      text-align: center;
+      margin-left: 20rpx;
+    }
+
+  } /* .it-ops */
+
+  .it-flex {
+    padding: 0 20rpx;
+    color: rgba(80, 80, 80, 1);
+    line-height:55rpx;
+    .flex-start;
+
+    text {
+      font-size: 28rpx;
+
+      &:last-child {
+        flex: 1;
+        color: rgba(101, 113, 122, 1);
+        font-size: 24rpx;
+        margin-left:30rpx;
+        line-height:40rpx;
+      }
+
+    }
+
+  } /* .it-flex */
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .is-read {
+    padding: 20rpx;
+    .flex-between;
+  }
+
+  .ft-s3 {
+    font-size: 30rpx!important;
+  }
+
+} /* .res-item */
+
+.no-b {
+  border-bottom: 0!important;
+}
+
+.septa {
+  width: 100%;
+  height: 20rpx;
+  background-color: #eee;
+}

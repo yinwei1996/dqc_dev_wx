@@ -1,0 +1,53 @@
+/**
+ * 限时购列表
+ * flashSaleAlll.less
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../component/common/flashSalesView/flashSalesView.less';
+
+.flashSale-all {
+
+  /* 导航区域 */
+  .sale-navs {
+    .flex-center;
+    background-color: #444;
+
+    .sale-nav {
+      .flex-center;
+      width: 20%;
+      height: @bar-height-l;
+      border-bottom: solid 5rpx transparent;
+
+      view {
+        text-align: center;
+        font-size: @text-size-s3;
+        color: @color-gray-light;
+      }
+
+      &.sel {
+        border-color: @color-primary;
+      }
+
+      &.today {
+        background-color: #222;
+
+        view {
+          color: @color-white;
+        }
+
+      } /* &.today */
+
+    } /* .sale-nav */
+
+  } /* .sale-navs */
+
+  .sale-countdown {
+    .flex-center;
+    height: @bar-height;
+    color: @color-gray-dark;
+  } /* .sale-countdown */
+
+} /* .flashSale-all */

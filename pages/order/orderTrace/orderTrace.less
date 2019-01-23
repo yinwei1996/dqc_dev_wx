@@ -1,0 +1,81 @@
+/**
+ * 订单跟踪
+ * orderTrace.less
+ * -----------------------------------
+ * 18/04/09 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+
+.order-trace {
+
+
+  .trace-text {
+    .flex-start;
+    .block-padding;
+    height: 150rpx;
+    border-bottom: @border-gray-light-5;
+
+    image {
+      .ico-avatar-s;
+      .opacity-gray;
+      margin-right: @text-margin-l;
+    }
+
+    .order-code,
+    .delivery-code {
+      font-size: @text-size-s3;
+    }
+
+  } /* .trace-text */
+
+
+  /* 收支明细 */
+  .logs {
+
+    .log-item {
+      position: relative;
+      margin-left: 65rpx;
+      padding: @block-padding-left @block-padding-left @block-padding-left 50rpx;
+      border-left: @border-gray-light;
+
+      image {
+        .ico-s;
+        position: absolute;
+        top: 33rpx;
+        left: -13rpx;
+        background-color: @color-white;
+      }
+
+      .log-text {
+
+        text {
+          display: block;
+
+          &.log-time {
+            margin-bottom: 5rpx;
+            font-size: @text-size-s;
+          }
+
+          &.log-summary {
+            font-size: @text-size-s3;
+          }
+
+        }
+
+      } /* .log-text */
+
+      &:first-child {
+        border-bottom: @border-gray-light;
+
+        text {
+          color: @color-primary;
+        }
+
+      }
+
+    } /* .log-item */
+
+  } /* .logs */
+
+} /* .order-trace */

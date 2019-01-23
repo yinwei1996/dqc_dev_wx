@@ -1,0 +1,90 @@
+<!--
+/**
+ * RMA申请详情
+ * rmaDetail.wxml
+ * -----------------------------------
+ * 18/04/23 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/orderSkusView/orderSkusView.wxml" />
+
+<view class="rma-detail">
+
+  <!-- 审核通过的显示 status，其余显示 approveStatus -->
+  <view class="page-title">
+
+    <block wx:if="{{ rma.approveStatus == 'Approved' }}">退换货{{rma.statusTitle}}</block>
+    <block wx:else>退换货{{rma.approveStatusTitle}}</block>
+
+    <image src="../../../image/icos/check_all_green_48.png" wx:if="{{ rma.status == 'Done' }}" />
+
+  </view>
+
+  <view class="order-props">
+
+    <!-- 订单单号 -->
+    <view class="order-prop order-code">
+      <label>订单</label>
+      <text>{{rma.orderCode}}</text>
+    </view>
+
+    <!-- 类型 -->
+    <view class="order-prop rma-type">
+      <label>{{rma.typeTitle}}</label>
+      <text wx:if="{{ rma.type == 'Refund' }}">￥{{rma.payableAmount}}</text>
+    </view>
+
+    <!-- 申请原因 -->
+    <view class="order-prop reason">
+      <label>申请原因</label>
+      <text>{{rma.reason}}</text>
+    </view>
+
+    <!-- 申请时间 -->
+    <view class="order-prop create-time">
+      <label>申请时间</label>
+      <text>{{rma.createTimeString}}</text>
+    </view> <!-- .create-time -->
+
+    <!-- 实退信息 -->
+    <block wx:if="{{ rma.paidAmount > 0 }}">
+
+      <!-- 实退金额 -->
+      <view class="order-prop paid-amount">
+        <label>实退金额</label>
+        <text>￥{{rma.paidAmount}}</text>
+      </view> <!-- .paid-amount -->
+
+      <!-- 实退时间 -->
+      <view class="order-prop pay-time">
+        <label>实退时间</label>
+        <text>{{rma.payTimeString}}</text>
+      </view> <!-- .pay-time -->
+
+    </block>
+
+    <!-- 备注 -->
+    <view class="order-prop memo" wx:if="{{rma.memo}}">
+      <text>{{rma.memo}}</text>
+    </view>
+
+  </view> <!-- .order-props -->
+
+  <!-- 关联订单SKU -->
+  <view class="rma-skus">
+    <template is="orderSkusView" data="{{ maps: rma.orderSkuMaps }}" />
+  </view>
+
+  <!-- 退换货操作 -->
+  <view class="op-btns-fixed">
+
+    <!-- 联系客服（通用按钮） -->
+    <button class="btn" open-type="contact">联系客服</button>
+
+    <!-- 个人中心（通用按钮） -->
+    <button class="btn" bindtap="redirectMyCenter">企业中心</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view>

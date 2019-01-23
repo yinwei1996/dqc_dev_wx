@@ -1,0 +1,194 @@
+<!--
+ /**
+ * 求购单-详情页
+ * demandDetails.wxml
+ * -----------------------------------
+ * 18/11/14
+ -->
+
+<import src="../../../component/common/searchBar/searchBar.wxml" />
+<import src="../../../component/common/resaleItem/resaleItem.wxml" />
+
+<view class="res-detail">
+
+    <view class="res-item" wx:if="{{ demand }}">
+
+        <view class="it-tit no-b">
+
+            <text class="fl ft-s3">{{demand.title}}</text>
+
+        </view>
+
+        <view class="it-sub bor-b">
+
+            <view>求购单号：{{demand.demandCode}}</view>
+
+            <view>报价截至：{{demand.expireTimeStr}}(最后{{lastDays}}天)</view>
+
+        </view>
+
+        <view class="it-tit">
+
+            <text class="fl">求购商品</text>
+
+        </view>
+
+        <view class="it-inner">
+
+            <view class="it-info">
+                <image
+                        src="{{demand.skuImgUrlFull}}"
+                        data-id="{{demand.skuImgUrlFull}}"
+                        bindtap="previewImgClick" />
+            </view>
+
+            <view class="it">
+                <view>{{demand.skuName}}</view>
+                <view>{{demand.skuSpec}}</view>
+            </view>
+
+            <view class="it">
+                <view>单价</view>
+                <view>{{demand.minPrice}}-{{demand.maxPrice}}元</view>
+                <view>x{{demand.skuQuantity}}{{demand.skuUnit}}</view>
+            </view>
+
+            <view class="it">
+              <block wx:if="{{demand.isPriceIncludeDeliveryFee}}">
+                <view>运费</view>
+                <view>{{demand.minDeliveryFee}}-{{demand.maxDeliveryFee}}元</view>
+              </block>  
+                <view>{{demand.minDeliveryDays}}-{{demand.maxDeliveryDays}}天交货期</view>
+            </view>
+
+
+        </view>
+
+        <view class="it-is bor-b">
+
+            <view class="it">
+                <view>
+                    <text>{{demand.payTypeTitle}}</text>
+                    <image src="../../../image/resale/yes.png"></image>
+                </view>
+                <view>
+                    <text>{{ demand.isPriceIncludeTax ? '单价含税费' : '单价不含税费' }}</text>
+                    <image src="../../../image/resale/{{ demand.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+                </view>
+                <view>
+                    <text>{{ demand.isPriceIncludeDeliveryFee ? '单价含运费' : '单价不含运费' }}</text>
+                    <image src="../../../image/resale/{{ demand.isPriceIncludeDeliveryFee ? 'yes':'no' }}.png"></image>
+                </view>
+                <view>
+                    <text>{{ demand.isPriceBargain ? '单价可议' : '单价不可议' }}</text>
+                    <image src="../../../image/resale/{{ demand.isPriceBargain ? 'yes':'no' }}.png"></image>
+                </view>
+            </view>
+
+            <view class="it">
+                <view>
+                    <image src="../../../image/resale/yes.png"></image>
+                    <text>{{demand.deliveryTypeTitle}}</text>
+                </view>
+                <view>
+                    <image src="../../../image/resale/{{ demand.isDeliveryFeeBargain ? 'yes':'no' }}.png"></image>
+                    <text>{{ demand.isDeliveryFeeBargain ? '运费可议' : '运费不可议' }}</text>
+                </view>
+                <view>
+                    <image src="../../../image/resale/{{ demand.isDeliveryDaysBargain ? 'yes':'no' }}.png"></image>
+                    <text>{{ demand.isDeliveryDaysBargain ? '交货期可议' : '交货期不可议' }}</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="it-tit bor-b">
+
+            <text class="fl">收货地区</text>
+
+            <text class="adress">{{demand.deliveryProvinceName}}{{demand.deliveryCityName}}</text>
+
+        </view>
+
+        <view class="bor-b" wx:if="{{ demand.desc }}">
+
+            <view class="it-tit">
+
+                <text class="fl">描述信息</text>
+
+            </view>
+
+            <view class="contact">
+
+                <view>{{ demand.desc }}</view>
+
+            </view>
+
+        </view>
+
+        <view class="bor-b">
+
+            <view class="it-tit">
+
+                <text class="fl">求购商</text>
+
+            </view>
+
+            <view class="contact">
+
+                <block wx:if="{{isJoin}}">
+                  <view>联系人：{{demand.contactName}}</view>
+                  <view>联系方式：{{demand.contactMobile}}</view>
+                </block>
+                <block wx:else>
+                  <view>联系人：{{demand.contactName}}</view>
+                  <view>联系方式：{{demand.contactMobileMasked}}</view>
+                </block>
+            </view>
+
+        </view>
+
+        <view class="bor-b">
+
+            <view class="it-tit">
+
+                <text>收到最新报价</text>
+
+            </view>
+
+            <view class="table" wx:if="{{ quotes!='' }}">
+
+                <view class="tr-th">
+                    <text>报价时间</text>
+                    <text>所在地区</text>
+                    <text>供应商</text>
+                </view>
+
+                <view class="tr" wx:for="{{ quotes }}" wx:key="quote">
+                    <text>{{item.createTimeStr}}</text>
+                    <text>{{item.warehouseProvinceName}}-{{item.warehouseCityName}}</text>
+                    <text>{{item.userName}}</text>
+                </view>
+
+            </view>
+            <view class="it-center" wx:else>还没有报价~</view>
+
+
+        </view>
+
+        <view class="btn-modify" wx:if="{{demand.approveStatus=='Approved' && isOneself}}">您已发布</view>
+        <view class="btn-modify" wx:elif="{{demand.approveStatus=='Approved' && isJoin && !isOneself}}">已加入</view>
+
+        <!-- "立即报价"按钮 -->
+        <navigator
+                class="btn-modify"
+                url="/pages/demand/myDemandQuoteModify/myDemandQuoteModify?demandId={{ demand.demandId }}"
+                hover-class="none"
+                bindtap="saveDemand"
+                wx:elif="{{demand.approveStatus=='Approved' && !isJoin}}">立即报价</navigator>
+
+        <view class="btn-modify" wx:elif="{{demand.approveStatus=='ApprovedAndDone'}}">已成功</view>
+        <view class="btn-modify" wx:elif="{{demand.approveStatus=='ApprovedAndExpired'}}">已结束</view>
+
+    </view>
+
+</view>

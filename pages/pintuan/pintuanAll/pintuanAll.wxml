@@ -1,0 +1,49 @@
+<!--
+/**
+ * 拼团列表
+ * pintuanAlll.wxml
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/pintuansView/pintuansView.wxml" />
+<import src="../../../component/common/ordersView/ordersView.wxml" />
+
+<view class="pintuan-all">
+
+  <!-- Tab区域 -->
+  <view class="tabs">
+
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+    <!-- Tab内容 -->
+    <view class="tab-content">
+
+      <!-- 全部拼团 -->
+      <scroll-view
+        class="content-item {{ tab == 'all' ? 'active' : '' }}"
+        style="height:{{scrollViewHeight}}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower">
+        <template is="pintuansView" data="{{ pintuans: pintuans }}" />
+      </scroll-view>
+
+      <!-- 我的拼团订单 -->
+      <scroll-view
+        class="content-item {{ tab == 'order' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="ordersView" data="{{ orders: orders, buyerOps: true, ignoreSkuQuantity: true }}" />
+      </scroll-view>
+
+    </view> <!-- .tab-content -->
+
+  </view> <!-- .tabs -->
+
+</view>

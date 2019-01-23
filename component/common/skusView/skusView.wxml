@@ -1,0 +1,141 @@
+<!--
+/**
+ * 组件 - SKU列表
+ * skusView.wxml
+ * -----------------------------------
+ * 18/03/29 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="skusView">
+
+  <view class="skus-view {{ fullwidth ? 'full-width' : '' }} {{ lst ? 'inline':'' }}">
+
+    <block wx:if="{{ lst }}">
+
+      <navigator
+          class="sku-item"
+          url="/pages/sku/skuDetail/skuDetail?skuId={{sku.skuId}}"
+          hover-class="sku-item-hover"
+          wx:for="{{ skus.records || skus }}"
+          wx:for-item="sku"
+          wx:key="skuId">
+
+          <view class="sku-img">
+            <image src="{{sku.fullImgUrl}}" />
+          </view>
+
+          <view class="sku-info">
+
+            <view class="sku-name">{{sku.skuName}}</view>
+
+            <view class="sku-box">
+
+              <text>{{sku.brandName}} {{sku.deliveryDaysTitle}}</text>
+
+              <view class="sku-price-and-tags">
+                <text class="self-label" wx:if="{{sku.isSelf}}">自营</text>
+                <text class="sku-price">￥{{sku.price}}</text>
+              </view>
+
+            </view>
+
+          </view>
+
+
+      </navigator>
+
+    </block>
+
+    <block wx:else>
+
+      <!-- 左侧列 -->
+      <view class="sku-grp">
+
+        <navigator
+                class="sku-item"
+                url="/pages/sku/skuDetail/skuDetail?skuId={{sku.skuId}}"
+                hover-class="sku-item-hover"
+                wx:for="{{ skus.records || skus }}"
+                wx:for-item="sku"
+                wx:key="skuId"
+                wx:if="{{ index % 2 == 0 }}">
+
+          <!-- fullwidth 模式，image mode设为"widthFix"，且不显示名称及单价 -->
+          <block wx:if="{{ fullwidth }}">
+
+            <view class="sku-img">
+              <image src="{{sku.fullImgUrl}}" mode="widthFix" />
+            </view>
+
+          </block>
+
+          <block wx:else>
+
+            <view class="sku-img">
+              <image src="{{sku.fullImgUrl}}" />
+            </view>
+
+            <view class="sku-name">{{sku.skuName}}</view>
+
+            <view class="sku-price-and-tags">
+              <text class="self-label" wx:if="{{sku.isSelf}}">自营</text>
+              <text class="sku-price">￥{{sku.price}}</text>
+            </view>
+
+          </block>
+
+        </navigator>
+
+      </view> <!-- .sku-grp -->
+
+      <!-- 右侧列 -->
+      <view class="sku-grp">
+
+        <navigator
+                class="sku-item"
+                url="/pages/sku/skuDetail/skuDetail?skuId={{sku.skuId}}"
+                hover-class="sku-item-hover"
+                wx:for="{{ skus.records || skus }}"
+                wx:for-item="sku"
+                wx:key="skuId"
+                wx:if="{{ index % 2 == 1 }}">
+
+          <!-- fullwidth 模式，image mode设为"widthFix"，且不显示名称及单价 -->
+          <block wx:if="{{ fullwidth }}">
+
+            <view class="sku-img">
+              <image src="{{sku.fullImgUrl}}" mode="widthFix" />
+            </view>
+
+          </block>
+
+          <block wx:else>
+
+            <view class="sku-img">
+              <image src="{{sku.fullImgUrl}}" />
+            </view>
+
+            <view class="sku-name">{{sku.skuName}}</view>
+
+            <view class="sku-price-and-tags">
+              <text class="self-label" wx:if="{{sku.isSelf}}">自营</text>
+              <text class="sku-price">￥{{sku.price}}</text>
+            </view>
+
+          </block>
+
+        </navigator>
+
+      </view> <!-- .sku-grp -->
+
+    </block>
+
+  </view> <!-- .skus-view -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: skus }}" />
+
+</template>

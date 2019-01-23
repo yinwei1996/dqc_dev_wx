@@ -1,0 +1,230 @@
+
+
+@color-white: #fff;
+@color-gray: #ccc;
+@color-gray-light: #f0f0f0;
+@color-gray-dark: #aaa;
+@color-red: #a40000;
+@color-orange: #ff5722;
+@color-yellow: #ffd900;
+@color-placeholder: #808080;
+
+@color-text: #333;
+
+@color-nav: #f9f9f9;
+
+@color-warn: #fffbe6;
+
+@color-wechat: #2f9833;
+
+@color-primary: #005fbc;
+@color-primary-light: lighten(@color-primary, 8%);
+@color-primary-dark: darken(@color-primary, 8%);
+
+@border-primary: solid 1px @color-primary;
+@border-gray: solid 1px @color-gray;
+@border-gray-light: solid 1px @color-gray-light;
+@border-gray-dark: solid 1px @color-gray-dark;
+
+@border-primary-2: solid 2px @color-primary;
+@border-gray-2: solid 2px @color-gray;
+@border-gray-light-2: solid 2px @color-gray-light;
+@border-gray-dark-2: solid 2px @color-gray-dark;
+
+@border-primary-5: solid 5px @color-primary;
+@border-gray-5: solid 5px @color-gray;
+@border-gray-light-5: solid 5px @color-gray-light;
+@border-gray-dark-5: solid 5px @color-gray-dark;
+
+@btn-radius: 8rpx;
+@btn-mini-radius: 5rpx;
+
+@ico-size-xs: 20rpx;
+@ico-size-s: 28rpx;
+@ico-size-m: 40rpx;
+@ico-size-l: 50rpx;
+@ico-size-xl: 60rpx;
+
+@text-size-xxs: 18rpx;
+@text-size-xs: 20rpx;
+@text-size-s: 22rpx;
+@text-size-s2: 23rpx;
+@text-size-s3: 24rpx;
+@text-size-s4: 25rpx;
+@text-size-s5: 26rpx;
+@text-size-m: 28rpx;
+@text-size-m2: 29rpx;
+@text-size-m3: 30rpx;
+@text-size-m4: 31rpx;
+@text-size-m5: 32rpx;
+@text-size-l: 35rpx;
+@text-size-xl: 40rpx;
+@text-size-xxl: 45rpx;
+
+@list-line-height: 90rpx;
+@list-line-height-l: 120rpx;
+@list-line-height-xl: 150rpx;
+
+@text-margin-xs: 5rpx;
+@text-margin-s: 10rpx;
+@text-margin: 15rpx;
+@text-margin-l: 20rpx;
+@text-margin-xl: 25rpx;
+@text-margin-xxl: 30rpx;
+
+@bar-height-xs: 40rpx;
+@bar-height-s: 60rpx;
+@bar-height: 80rpx;
+@bar-height-l: 100rpx;
+@bar-height-xl: 120rpx;
+
+/* 块边距 - 标准 */
+@block-padding-left: 20rpx;
+@block-padding: 0 @block-padding-left;
+
+.block-padding() {
+  padding: @block-padding;
+}
+
+.block-margin() {
+  margin: @block-padding;
+}
+
+.clear-after() {
+
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+
+.tip-label {
+  padding: 2rpx 5rpx;
+  text-align: center;
+  font-size: @text-size-xs;
+  border-radius: 5rpx;
+}
+
+.tip-label-primary {
+  .tip-label;
+  color: @color-white;
+  background-color: @color-primary;
+}
+
+.tip-label-primary-outline {
+  .tip-label;
+  color: @color-primary;
+  background-color: fade(@color-primary, 20%);
+}
+
+.ico-xs() {
+  width: @ico-size-xs;
+  height: @ico-size-xs;
+}
+
+.ico-s() {
+  width: @ico-size-s;
+  height: @ico-size-s;
+}
+
+.ico-m() {
+  width: @ico-size-m;
+  height: @ico-size-m;
+}
+
+.ico-l() {
+  width: @ico-size-l;
+  height: @ico-size-l;
+}
+
+.ico-xl() {
+  width: @ico-size-xl;
+  height: @ico-size-xl;
+}
+
+.ico-avatar-l() {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 10rpx;
+}
+
+.ico-avatar() {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 10rpx;
+}
+
+.ico-avatar-s() {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 10rpx;
+}
+
+.ico-sku() {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 5rpx;
+}
+
+.ico-sku-s() {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 5rpx;
+}
+
+.img-sku-s() {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.img-sku() {
+  width: 240rpx;
+  height: 240rpx;
+}
+
+.opacity-gray() {
+  opacity: .5;
+}
+
+.opacity-gray-light() {
+  opacity: .3;
+}
+
+.opacity-gray-dark() {
+  opacity: .7;
+}
+
+.flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.flex-start() {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.flex-end() {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.flex-between() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.text-ellipsis() {
+  overflow:hidden; /* 超出一行文字自动隐藏 */
+  text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+  white-space:nowrap; /* 强制不换行 */
+}

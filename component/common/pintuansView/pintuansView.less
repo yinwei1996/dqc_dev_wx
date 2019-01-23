@@ -1,0 +1,83 @@
+/**
+ * 组件 - 拼团列表
+ * pintuansView.less
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.pintuan-item {
+  border-bottom: @border-gray-light;
+
+  &:first-child {
+    border-top: @border-gray-light;
+  }
+
+  /* SKU主图 */
+  .pintuan-img {
+
+    image {
+      width: 100%;
+      height: 330rpx;
+    }
+  } /* .pintuan-img */
+
+  .pintuan-text {
+    padding: @block-padding-left;
+    position: relative;
+
+
+  } /* .pintuan-text */
+
+  /* SKU名称 */
+  .pintuan-name {
+    .flex-start;
+    height: 50rpx;
+    overflow:hidden; /* 超出一行文字自动隐藏 */
+    text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+    white-space:nowrap; /* 强制不换行 */
+
+    text {
+      .tip-label-primary;
+      margin-right: @text-margin;
+    }
+
+  } /* .pintuan-name */
+
+  /* SKU单价 */
+  .pintuan-price {
+    .flex-start;
+    height: 50rpx;
+    font-size: @text-size-l;
+    color: @color-primary;
+  } /* .pintuan-price */
+
+  /* 最近拼团团长的头像 */
+  .pintuan-avatars {
+    .flex-end;
+
+    image {
+      margin-right: -@text-margin-l;
+      width: 60rpx;
+      height: 60rpx;
+      border: solid 3rpx @color-white;
+      border-radius: 60rpx;
+    }
+
+    text {
+      margin-left: 30rpx;
+      font-size: @text-size-s;
+    }
+
+  } /* .pintuan-avatars */
+
+  /* pintuan-item hover 样式 */
+  &.pintuan-item-hover {
+
+    .pintuan-img {
+      opacity: .7;
+    }
+  } /* &.pintuan-item-hover */
+
+} /* .pintuan-item */

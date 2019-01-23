@@ -1,0 +1,54 @@
+/**
+ * 订单属性行
+ * orderProps.less
+ * -----------------------------------
+ * 18/03/31 Jerry 新增
+ */
+
+
+/* 订单属性 */
+.order-props {
+
+  .order-prop {
+    .flex-between;
+    .block-padding;
+    min-height: @list-line-height;
+    border-bottom: @border-gray-light;
+
+    label, text {
+
+      text {
+        font-size: @text-size-s;
+      }
+
+    } /* label */
+
+    /* 收货地址项，样式单独调整 */
+    &.order-address {
+      padding: 0;
+      border-bottom: none;
+
+      .address-item {
+        .block-padding;
+        background-color: @color-warn;
+        border-bottom: dashed 3rpx @color-gray-light;
+      }
+
+    } /* &.order-address */
+
+    /* 银行卡项，样式单独调整 */
+    &.order-bankcard {
+      padding: 0;
+      border-bottom: none;
+
+      .card-item {
+        .block-padding;
+        background-color: @color-warn;
+        border-bottom: dashed 3rpx @color-gray-light;
+      }
+
+    } /* &.order-bankcard */
+
+  } /* .order-prop */
+
+} /* .order-props */

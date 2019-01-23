@@ -1,0 +1,37 @@
+/**
+ * 申请提现详情
+ * withdrawalDetail.less
+ * -----------------------------------
+ * 18/04/26 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+@import '../../../less/orderProps.less';
+@import '../../../component/common/bankcardsView/bankcardsView.less';
+
+.withdrawal-detail {
+
+  .normal-amount {
+    .flex-center;
+    .block-padding;
+    margin-top: 100rpx;
+    font-size: @text-size-l;
+  }
+
+  input {
+    text-align: center;
+  }
+
+  /* 提示区域 */
+  .tips {
+    .block-padding;
+    font-size: @text-size-s;
+    text-align: center;
+
+    text {
+      display: block;
+    }
+
+  } /* .tips */
+
+} /* .withdrawal-detail */

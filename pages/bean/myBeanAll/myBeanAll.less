@@ -1,0 +1,36 @@
+/**
+ * 我的云豆样式
+ * myBeanAll.less
+ * -----------------------------------
+ * 18/03/17 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+@import '../../../component/common/tabNav/tabNav.less';
+@import '../../../component/common/accountLogsView/accountLogsView.less';
+
+.my-bean-all {
+
+  /* 最近统计 */
+  .recent {
+    .flex-start;
+    .block-padding;
+    height: 180rpx;
+    box-sizing: border-box;
+    border-bottom: @border-gray-light-5;
+
+    .last-week,
+    .last-month {
+      width: 50%;
+
+      .body {
+        display: block;
+        margin-top: @text-margin;
+
+      } /* .body */
+
+    } /* .last-week, .last-month */
+
+  } /* .recent */
+
+} /* .my-bean-all */

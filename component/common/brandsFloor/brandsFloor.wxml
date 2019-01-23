@@ -1,0 +1,30 @@
+<!--
+/**
+ * 组件 - 品牌列表
+ * brandsFloor.wxml
+ * -----------------------------------
+ * 18/09/18 Jerry 新增
+ */
+-->
+
+<template name="brandsFloor">
+
+  <view class="brands-floor">
+
+    <navigator
+      class="brand-item"
+      url="/pages/brand/brandDetail/brandDetail?brandId={{brand.brandId}}"
+      hover-class="brand-item-hover"
+      wx:for="{{ brands.records || brands }}"
+      wx:for-item="brand"
+      wx:key="brandId">
+
+      <view class="brand-img">
+        <image src="{{brand.fullBrandImageUrl}}" mode="aspectFit" lazy-load="true" />
+      </view> <!-- .brand-img -->
+
+    </navigator>
+
+  </view>
+
+</template>

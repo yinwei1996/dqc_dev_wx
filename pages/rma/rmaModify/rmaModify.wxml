@@ -1,0 +1,46 @@
+<!--
+/**
+ * RMA申请编辑
+ * rmaModify.wxml
+ * -----------------------------------
+ * 18/04/23 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/orderSkusView/orderSkusView.wxml" />
+
+<view class="rma-modify">
+
+  <view class="order-props">
+
+    <!-- 订单单号 -->
+    <view class="order-prop order-code">
+      <label>订单</label>
+      <text>{{rma.orderCode}}</text>
+    </view>
+
+  </view>
+
+  <!-- 关联订单SKU -->
+  <view class="rma-skus">
+    <template is="orderSkusView" data="{{ maps: rma.orderSkuMaps }}" />
+  </view>
+
+  <view class="ipt-item">
+    <label class="ipt-label">类型</label>
+    <picker range="{{types}}" range-key="text" bindchange="inputType">
+        <view wx:if="{{rma.typeTitle}}">{{rma.typeTitle}}</view>
+        <view class="empty" wx:else>退换货类型</view>
+    </picker>
+  </view>
+
+  <view class="ipt-item">
+    <label class="ipt-label">原因</label>
+    <textarea value="{{rma.reason}}" placeholder="申请原因" maxlength="500" bindinput="inputReason" />
+  </view>
+
+  <view class="op-btns">
+    <button class="btn btn-primary" bindtap="saveRMA">申请</button>
+  </view>
+
+</view>

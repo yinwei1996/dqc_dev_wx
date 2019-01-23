@@ -1,0 +1,102 @@
+<!--
+/**
+ * 订单下单
+ * orderConfirm.wxml
+ * -----------------------------------
+ * 18/03/23 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/checkboxCustom/checkboxCustom.wxml" />
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+<import src="../../../component/common/orderSkusView/orderSkusView.wxml" />
+
+<view class="order-confirm {{hidden}}">
+
+  <!-- 订单汇总项 -->
+  <view class="order-props">
+
+    <!-- 收货地址 -->
+    <view class="order-prop order-address" bindtap="selectAddress">
+
+      <block wx:if="{{ order.address }}">
+        <template is="addressesView" data="{{ addresses: [ order.address ], readonly: true }}" />
+      </block>
+      <block wx:else>
+        <label>未选择收货地址</label>
+        <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
+      </block>
+
+    </view> <!-- .order-address -->
+
+    <!-- 商品合计 -->
+    <view class="order-prop sku-amount">
+      <label>商品合计</label>
+      <text>￥{{order.skuAmount}}</text>
+    </view> <!-- .sku-amount -->
+
+    <!-- 运费 -->
+    <view class="order-prop delivery-amount">
+      <label>运费</label>
+      <text>￥{{order.deliveryAmount}}</text>
+    </view> <!-- .delivery-amount -->
+
+    <!-- 开发票 -->
+    <!--<view class="order-prop invoice" bindtap="selectInvoice">-->
+      <!--<label>发票</label>-->
+      <!--<block wx:if="{{order.invoice}}">-->
+        <!--<text>{{order.invoice.contentTypeTitle}} / {{order.invoice.titleName}}</text>-->
+      <!--</block>-->
+      <!--<block wx:else>-->
+        <!--<image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />-->
+      <!--</block>-->
+    <!--</view> &lt;!&ndash; .invoice &ndash;&gt;-->
+
+    <!-- 优惠券 -->
+    <view class="order-prop order-coupon" bindtap="selectCoupon">
+
+      <block wx:if="{{ order.couponItem }}">
+        <label>优惠券</label>
+        <text>￥-{{order.couponItem.denomination}}</text>
+      </block>
+      <block wx:elif="{{ order.availableCouponItemCount > 0 }}">
+        <label>优惠券<text> ({{ order.availableCouponItemCount }}张可用)</text></label>
+        <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
+      </block>
+      <block wx:else>
+        <label>优惠券</label>
+        <text>-</text>
+      </block>
+
+    </view> <!-- .order-coupon -->
+
+  </view> <!-- .order-props -->
+
+  <!-- 分组及订单SKU -->
+  <view class="order-packages">
+
+  <view class="package-item" wx:if="{{ order.skuGroups.length > 0 }}" wx:for="{{order.skuGroups}}" wx:for-item="grp" wx:key="orderId">
+
+    <view class="package-text">
+      <text class="self-label" wx:if="{{ grp.self }}">自营</text>
+      <text>{{ grp.sellerName }}</text>
+    </view>
+
+    <template is="orderSkusView" data="{{ maps: grp.skuMaps, showAll: true }}" />
+
+  </view>
+
+  </view> <!-- .order-packages -->
+
+  <!-- 服务协议 -->
+  <view class="order-agreement" wx:if="{{!order.environmentProduct}}">
+    您正在使用体验系统，订单付款结果不作为发货依据
+  </view> <!-- .order-agreement -->
+
+  <!-- 合计金额及"付款"操作 -->
+  <view class="op-btns-fixed">
+    <button wx:if="{{ isAgree && order.address }}" class="btn btn-primary order-pay" bindtap="preparePay">去付款 ￥{{order.payableAmount}}</button>
+    <button wx:else class="btn order-pay" disabled="true">去付款 ￥{{order.payableAmount}}</button>
+  </view>
+
+</view>

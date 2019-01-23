@@ -1,0 +1,22 @@
+<!--
+/**
+ * RMA备选订单
+ * rmaOrders.wxml
+ * -----------------------------------
+ * 18/04/23 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/ordersView/ordersView.wxml" />
+
+<view class="rma-orders">
+
+  <scroll-view scroll-y="true" enable-back-to-top="true" style="height:{{scrollViewHeight}}" bindscrolltolower="handleScrollToLower">
+    <template is="ordersView" data="{{ orders: orders, rmaOps: true, ignoreSkuQuantity: true }}" />
+  </scroll-view>
+
+  <view class="op-btns-fixed">
+    <button class="btn" bindtap="redirectMyCenter">企业中心</button>
+  </view>
+
+</view>

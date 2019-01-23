@@ -1,0 +1,25 @@
+<!--
+/**
+ * 品牌详情样式
+ * brandDetail.less
+ * -----------------------------------
+ * 18/09/18 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/skusView/skusView.wxml" />
+
+<view class="activity-detail">
+
+  <!-- 商品列表 -->
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+
+    <template is="skusView" data="{{ skus: skus }}" />
+
+  </scroll-view>
+
+</view>

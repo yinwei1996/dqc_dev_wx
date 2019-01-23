@@ -1,0 +1,73 @@
+<!--
+/**
+ * 订单评价
+ * orderComment.wxml
+ * -----------------------------------
+ * 18/04/09 Jerry 新增
+ */
+-->
+
+<view class="order-comment {{hidden}}">
+
+  <view class="comment-item" wx:for="{{maps}}" wx:for-item="map" wx:key="sysNo" data-no="{{map.sysNo}}" data-readonly="{{ !map.comment.createTime ? '' : 'true' }}" bindtap="clickMap">
+
+    <!-- 订单SKU -->
+    <view class="order-sku">
+      <image src="{{map.fullImgUrl}}/x245" />
+      <view class="sku-text">
+        <text class="sku-name">{{map.skuName}}</text>
+        <text class="sku-spec">{{map.spec}}</text>
+      </view>
+    </view> <!-- .order-sku -->
+
+    <!-- 评分星级 -->
+    <view class="stars">
+
+      <label>评分</label>
+
+      <view>
+
+        <image src="{{ map.comment.commentVal >= 20 ? '../../../image/icos/star_green_48.png' : '../../../image/icos/star_48.png' }}" data-action="star1" />
+        <image src="{{ map.comment.commentVal >= 40 ? '../../../image/icos/star_green_48.png' : '../../../image/icos/star_48.png' }}" data-action="star2" />
+        <image src="{{ map.comment.commentVal >= 60 ? '../../../image/icos/star_green_48.png' : '../../../image/icos/star_48.png' }}" data-action="star3" />
+        <image src="{{ map.comment.commentVal >= 80 ? '../../../image/icos/star_green_48.png' : '../../../image/icos/star_48.png' }}" data-action="star4" />
+        <image src="{{ map.comment.commentVal >= 100 ? '../../../image/icos/star_green_48.png' : '../../../image/icos/star_48.png' }}" data-action="star5" />
+
+      </view>
+
+    </view> <!-- .stars -->
+
+    <!-- 评价内容 -->
+    <view class="content">
+
+      <block wx:if="{{!map.comment.createTime}}">
+        <textarea placeholder="填写优质评价，不定期参与抽奖哦" maxlength="500" data-no="{{map.sysNo}}" bindinput="inputCommentMemo" />
+      </block>
+      <block wx:else>
+        <text class="create-time">{{map.comment.createTimeString}}</text>
+        <text>{{map.comment.commentMemo}}</text>
+      </block>
+
+    </view> <!-- .content -->
+
+    <!-- 评价图片 -->
+    <view class="imgs">
+
+        <view class="img-preview" wx:for="{{map.comment.fullImgUrls}}" wx:key="idx">
+          <image src="{{item.url}}" data-idx="{{item.idx}}" data-action="showImageOps" />
+          <image class="loading" src="../../../image/icos/loading_40.gif" wx:if="{{item.isTemp}}" />
+        </view>
+
+        <image class="img-add" src="../../../image/icos/plus_48.png" data-action="chooseImages" wx:if="{{ !map.comment.fullImgUrlsCount || map.comment.fullImgUrlsCount < 5 }}" wx:if="{{!map.comment.createTime}}" />
+
+    </view> <!-- .imgs -->
+
+    <!-- 提交评价 -->
+    <view class="ops" wx:if="{{!map.comment.createTime}}">
+      <button size="mini" class="btn" data-action="save" wx:if="{{map.comment.commentVal && map.comment.commentMemo}}">提交评价</button>
+      <button size="mini" class="btn disabled" wx:else>提交评价</button>
+    </view> <!-- .ops -->
+
+  </view>
+
+</view>

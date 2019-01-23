@@ -1,0 +1,349 @@
+/**
+ * 拼团详情
+ * pintuanDetail.less
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.pintuan-detail {
+
+  /* 轮播大图 */
+  .pintuan-imgs {
+    position: relative;
+    padding-bottom: 25rpx;
+
+    image {
+      width: 100%;
+      height: 330rpx;
+    }
+
+    .indicator-tip {
+      position: absolute;
+      right: @block-padding-left;
+      bottom: 50rpx;
+      width: 40rpx;
+      height: 20rpx;
+      line-height: 20rpx;
+      text-align: center;
+      font-size: @text-size-xs;
+      border-radius: 5rpx;
+      border: @border-gray-light;
+      background-color: fade(@color-white, 50%);
+    }
+
+  } /* .pintuan-imgs */
+
+  /* 名称、摘要 */
+  .pintuan-text {
+    position: relative;
+    padding: @block-padding;
+
+    .pintuan-name {
+    } /* .pintuan-name */
+
+    .pintuan-summary {
+      display: block;
+      margin-top: 10rpx;
+      color: @color-gray-dark;
+      font-size: @text-size-s3;
+    } /* .pintuan-summary */
+
+  } /* .pintuan-text */
+
+  /* 单价 */
+  .pintuan-price {
+    position: relative;
+    padding: @block-padding;
+    padding-top: 15rpx;
+    padding-bottom: 25rpx;
+    border-bottom: @border-gray-light-5;
+
+    .current-price {
+      font-size: @text-size-l;
+      color: @color-primary;
+    } /* .current-price */
+
+    .ori-price {
+      margin-left: 20rpx;
+      color: @color-gray-dark;
+      text-decoration: line-through;
+    } /* .ori-price */
+
+    /* 分享按钮 */
+    button {
+      position: absolute;
+      top: 5rpx;
+      right: 0;
+      width: 100rpx;
+      height: 75rpx;
+      background: none;
+
+      image {
+        opacity: .8;
+        .ico-m;
+      }
+
+      &::after {
+        border: none;
+      }
+
+    } /* button */
+
+  } /* .pintuan-price */
+
+  /* SKU属性（入口项） */
+  .pintuan-prop-entry {
+    .flex-between;
+    padding: @block-padding;
+    height: 100rpx;
+    border-bottom: @border-gray-light;
+
+    image {
+      padding: 40rpx 0;
+      .ico-xs;
+      .opacity-gray;
+    }
+
+  } /* .pintuan-prop-entry */
+
+  /* 最近评价 */
+  .pintuan-tip {
+    border-bottom: @border-gray-light-5;
+  } /* .recent-comment */
+
+  /* 最早拼团详情列表 */
+  .early-pintuan-items {
+    border-bottom: @border-gray-light-5;
+
+    .pintuan-item {
+      .flex-between;
+      .block-padding;
+      height: 150rpx;
+      border-bottom: @border-gray-light;
+
+      image {
+        .ico-avatar-s;
+        margin-right: 15rpx;
+      }
+
+      .item-inf {
+        .flex-start;
+
+        .item-tip {
+          margin-top: 5rpx;
+          font-size: @text-size-s3;
+
+          text {
+            color: @color-primary;
+          }
+
+        } /* .item-tip */
+
+      } /* .item-inf */
+
+      /* 参团按钮 */
+      .item-op {
+        .flex-center;
+        width: 150rpx;
+        height: 60rpx;
+        color: @color-primary;
+        border: @border-primary;
+        border-radius: 5rpx;
+      } /* .item-op */
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+    } /* .pintuan-item */
+
+    &:empty {
+      display: none;
+    }
+
+  } /* .early-pintuan-items */
+
+  /* 产品参数区域 */
+  .pintuan-specs {
+    padding-bottom: 25rpx;
+
+    /* SKU参数项 */
+    .spec-item {
+      .clear-after;
+      .block-margin;
+      padding: 20rpx 0;
+      border-bottom: @border-gray-light;
+
+      label {
+        float: left;
+        display: block;
+        width: 110rpx;
+        color: @color-gray-dark;
+      }
+
+      text {
+        display: block;
+      }
+
+      &:first-child {
+        margin-top: 20rpx;
+      }
+
+      &:last-child {
+        margin-bottom: 20rpx;
+        border-bottom: none;
+      }
+
+    } /* .spec-item */
+
+  } /* .pintuan-specs */
+
+  /* 描述区域 */
+  .pintuan-desc {
+    /* 留出最底部的100rpx */
+    padding-bottom: 100rpx;
+
+    .desc-img {
+      width: 100%;
+    }
+
+  } /* .pintuan-desc */
+
+  /* 底部菜单 */
+  .ops {
+    .flex-center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .op-item {
+      .flex-center;
+      width: 50%;
+      height: 100rpx;
+      font-size: @text-size-l;
+      background-color: @color-nav;
+
+      &:last-child {
+        color: @color-white;
+        background-color: @color-primary;
+      }
+    }
+
+  } /* .ops */
+
+  /* 数量选择器-遮罩层 */
+  .quantity-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 100rpx;
+    background-color: @color-text;
+    opacity: .4;
+    z-index: 998;
+  }
+
+  /* 数量选择器-浮动层 */
+  .quantity-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 100rpx;
+    padding: @block-padding-left;
+    box-sizing: border-box;
+    background: @color-white;
+    z-index: 999;
+
+    .pintuan-inf {
+      .flex-start;
+      height: 180rpx;
+      border-bottom: @border-gray;
+
+      /* SKU小图 */
+      .pintuan-img {
+        .ico-sku;
+      }
+
+      .pintuan-text {
+        padding: 0 15rpx;
+        background-color: transparent;
+
+         text {
+          display: block;
+
+          /* 单价着重显示 */
+          &:first-child {
+            color: @color-primary;
+            font-size: @text-size-l;
+          }
+
+         } /* text */
+
+      } /* .pintuan-text */
+
+    } /* .pintuan-inf */
+
+    /* SKU属性项 */
+    .pintuan-prop {
+      padding: 30rpx 0;
+      border-bottom: @border-gray-light;
+
+      label {
+        margin-left: 15rpx;
+        line-height: 65rpx;
+      }
+
+      /* 规格分组 */
+      &.pintuan-group {
+
+        view {
+          float: right;
+
+          text {
+            display: inline-block;
+            margin: 0 15rpx;
+            padding: 10rpx 30rpx;
+            border-radius: 5rpx;
+            border: @border-gray;
+
+            /* 分组规格的选中样式 */
+            &.sel {
+              color: @color-primary;
+              border-color: @color-primary;
+              background-color: fade(@color-primary, 10%);
+            } /* &.sel */
+
+          } /* text */
+
+        } /* view */
+
+      } /* .pintuan-group */
+
+      /* SKU数量 */
+      &.pintuan-quantity {
+        border-bottom: none;
+
+        .quantity-spinner {
+          float: right;
+        }
+
+      } /* .pintuan-quantity */
+
+    } /* .pintuan-prop */
+
+    /* 右上角取消按钮 */
+    .op-cancel {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 30rpx;
+      .ico-m;
+      .opacity-gray;
+    }
+
+  } /* .region-sheet */
+
+} /* .pintuan-detail */

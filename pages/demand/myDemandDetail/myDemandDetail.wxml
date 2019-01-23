@@ -1,0 +1,286 @@
+<!--
+ /**
+ * 求购详情页
+ * myDemandDetail.wxml
+ * -----------------------------------
+ * 18/11/15
+ */
+ -->
+
+<import src="../../../component/common/resaleItem/resaleItem.wxml" />
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+
+<view class="res-modify" style="height:{{scrollViewHeight}}">
+
+    <!--求购信息-->
+    <view class="res-item" wx:if="{{ demand }}">
+
+            <view
+                    class="it-tit"
+                    data-id="{{ demand.demandId }}">
+
+                <text class="fl">{{ demand.title }}</text>
+                <text class="fr">{{ demand.statusTitle }}</text>
+
+            </view>
+
+            <view class="it-sub">
+
+                <view>发布时间：{{ demand.createTimeString }}</view>
+
+                <view>报价截至：{{ demand.expireTimeString }}</view>
+
+            </view>
+
+            <view class="it-inner">
+
+                <view class="it-info">
+                    <image src="{{ demand.skuImgUrlFull }}"
+                           data-id="{{ demand.skuImgUrlFull }}"
+                           bindtap="previewImgClick" />
+                </view>
+
+                <view class="it">
+                    <view>{{ demand.skuName }}</view>
+                    <view>{{ demand.skuSpec }}</view>
+                </view>
+
+                <view class="it">
+                    <view>单价</view>
+                    <view>{{ demand.minPrice }}~{{ demand.maxPrice }}元</view>
+                    <view>x{{ demand.skuQuantity }}{{ demand.skuUnit }}</view>
+                </view>
+
+                <view class="it">
+                    <view>运费</view>
+                    <view>{{ demand.minDeliveryFee }}~{{ demand.maxDeliveryFee }}元</view>
+                    <view>{{ demand.minDeliveryDays }}~{{ demand.maxDeliveryDays }}天交货期</view>
+                </view>
+
+
+            </view>
+
+            <view class="it-is">
+
+                <view class="it">
+                    <view>
+                        <text>{{ demand.payTypeTitle }}</text>
+                        <image src="../../../image/resale/yes.png"></image>
+                    </view>
+                    <view>
+                        <text>{{ demand.isPriceIncludeTax ? '单价包含税费' : '单价不含税费' }}</text>
+                        <image src="../../../image/resale/{{ demand.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+                    </view>
+                    <view>
+                        <text>{{ demand.isPriceIncludeDeliveryFee ? '单价包含运费' : '单价不含运费' }}</text>
+                        <image src="../../../image/resale/{{ demand.isPriceIncludeDeliveryFee ? 'yes':'no' }}.png"></image>
+                    </view>
+                    <view>
+                        <text>{{ demand.isPriceIncludeTax ? '单价可议' : '单价不可议' }}</text>
+                        <image src="../../../image/resale/{{ demand.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+                    </view>
+                </view>
+
+                <view class="it">
+                    <view>
+                        <image src="../../../image/resale/yes.png"></image>
+                        <text>{{ demand.deliveryTypeTitle }}</text>
+                    </view>
+                    <view>
+                        <image src="../../../image/resale/{{ res.isPriceIncludeDeliveryFee ? 'yes':'no' }}.png"></image>
+                        <text>{{ demand.isPriceIncludeDeliveryFee ? '运费可议' : '运费不可议' }}</text>
+                    </view>
+                    <view>
+                        <image src="../../../image/resale/{{ res.isDeliveryDaysBargain ? 'yes':'no' }}.png"></image>
+                        <text>{{ demand.isDeliveryDaysBargain ? '交货期可议' : '交货期不可议' }}</text>
+                    </view>
+                </view>
+
+            </view>
+
+            <view class="it-lists">
+
+                <view class="it-list">
+
+                    <text class="fl">联系方式</text>
+
+                    <text class="adress">{{ demand.contactName }}</text>
+
+                    <text class="adress">{{ demand.contactMobile }}</text>
+
+                </view>
+
+                <view class="it-flex">
+
+                    <text>收货地址</text>
+
+                    <text>{{ demand.deliveryAddressEntity.fullAddress }}</text>
+
+
+                </view>
+
+                <view class="it-flex" wx:if="{{ demand.desc }}">
+
+                    <text>描述信息</text>
+
+                    <text>{{ demand.desc }}</text>
+
+                </view>
+
+            </view>
+
+            <view class="it-ops">
+
+                <!--商城详情-->
+                <navigator url="/pages/demand/demandDetails/demandDetails?demandId={{ demand.demandId }}">商城详情</navigator>
+
+                <block wx:if="{{ demand.onSaleAvailable }}">
+
+                    <!--上架-->
+                    <view data-id="{{ demand.demandId }}" bindtap="upLineClick">上架</view>
+
+                </block>
+
+                <block wx:if="{{ demand.offSaleAvailable }}">
+
+                    <!--下架-->
+                    <view data-id="{{ demand.demandId }}" bindtap="downLineClick">下架</view>
+
+                </block>
+
+                <block wx:if="{{ demand.modifyAvailable }}">
+
+                    <!--编辑-->
+                    <navigator url="/pages/demand/demandModify/demandModify?demandId={{ demand.demandId }}">编辑</navigator>
+
+                </block>
+
+            </view>
+
+    </view>
+
+    <!--收到的报价消息-->
+    <view wx:if="{{ quotes }}">
+
+        <!--收到的报价数-->
+        <view class="it-sub">
+
+            <view>收到<text>{{ demand.quoteCount || 0 }}</text>条报价消息</view>
+
+        </view>
+
+        <view
+                class="res-item"
+                wx:for="{{ quotes }}"
+                wx:key="item"
+                wx:for-item="quote"
+                data-id="{{ quote.quoteId }}">
+
+            <view class="it-tit">
+
+                <text class="fl">报价时间：{{ quote.createTimeString }}</text>
+
+                <text class="fr">{{ quote.statusTitle }}</text>
+
+            </view>
+
+            <view class="it-sub">
+
+                <view>发货地：{{ quote.warehouseProvinceName }}-{{ quote.warehouseCityName }}</view>
+
+                <view wx:if="{{ quote.userName }}">供应商：{{ quote.userName }}</view>
+
+            </view>
+
+            <!--未阅读-->
+            <view
+                    class="is-read"
+                    data-id="{{ quote.quoteId }}"
+                    bindtap="readQuoteClick"
+                    wx:if="{{ quote.readAvailable }}">
+
+                <text>...</text>
+                <text>查看</text>
+
+            </view>
+
+            <!--已阅读-->
+            <view wx:else>
+                <view class="it-inner">
+
+                    <view class="it-info">
+                        <image src="{{ quote.fullImgUrl }}"
+                               data-id="{{ quote.fullImgUrl }}"
+                               bindtap="previewImgClick" />
+                    </view>
+
+                    <view class="it">
+                        <view>供应价</view>
+                        <view>{{ quote.price }}元</view>
+                        <view>x{{ quote.quantity }}{{ quote.skuUnit }}</view>
+                    </view>
+
+                    <view class="it">
+                        <view>运费</view>
+                        <view>{{ quote.deliveryFee }}元</view>
+                        <view>{{ quote.deliveryDays }}天交货</view>
+                    </view>
+
+                    <view class="it">
+                        <view>联系人</view>
+                        <view>{{ quote.contactName }}</view>
+                        <view>{{ quote.contactMobile }}</view>
+                    </view>
+
+                </view>
+
+                <view class="it-lists">
+
+                    <view class="it-flex">
+
+                        <text>发货地址</text>
+
+                        <text>{{ quote.fullAddress }}</text>
+
+                    </view>
+
+                    <view class="it-flex" wx:if="{{ quote.memo }}">
+
+                        <text>报价备注</text>
+
+                        <text>{{ quote.memo }}</text>
+
+                    </view>
+
+                </view>
+
+                <view class="it-ops" wx:if="{{ quote.statusTitle != '已失效' }}">
+
+                    <block wx:if="{{ quote.doneAvailable }}">
+
+                        <!--确认合作-->
+                        <view data-id="{{ quote.quoteId }}" bindtap="receiveDoneClick">确认合作</view>
+
+                    </block>
+
+                    <block wx:if="{{ quote.contractAvailable }}">
+
+                        <!--签订合同-->
+                        <navigator url="">签订合同</navigator>
+
+                    </block>
+
+                    <block wx:if="{{ quote.doneContractId && quote.doneContractId != '' }}">
+
+                        <!--查看合同-->
+                        <navigator url="">查看合同</navigator>
+
+                    </block>
+
+                </view>
+            </view>
+
+        </view>
+    </view>
+
+</view>

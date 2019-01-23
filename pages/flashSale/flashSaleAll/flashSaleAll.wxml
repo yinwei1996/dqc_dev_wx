@@ -1,0 +1,47 @@
+<!--
+/**
+ * 限时购列表
+ * flashSaleAlll.wxml
+ * -----------------------------------
+ * 18/11/19 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/flashSalesView/flashSalesView.wxml" />
+
+<view class="flashSale-all">
+
+  <!-- 导航区域 -->
+  <view class="sale-navs">
+
+    <view
+      class="sale-nav {{ sale.isToday ? 'today' : '' }} {{ sale.saleId == curSale.saleId ? 'sel' : '' }}"
+      data-sale-id="{{sale.saleId}}"
+      bindtap="clickNav"
+      wx:for="{{sales}}"
+      wx:for-item="sale"
+      wx:key="saleId">
+      <view>
+        <view class="nav-date">{{sale.validTimeString}}</view>
+        <view class="nav-status" wx:if="{{ sale.isToday }}">抢购中</view>
+        <view class="nav-status" wx:if="{{ sale.isFuture }}">即将开抢</view>
+        <view class="nav-status" wx:if="{{ sale.isPast }}">已开抢</view>
+      </view>
+    </view> <!-- .sale-nav -->
+
+  </view> <!-- .sale-navs -->
+
+  <!-- 倒计时区域 -->
+  <view class="sale-countdown" wx:if="{{ curCountdownString }}">——— {{curCountdownString}} ———</view>
+
+  <!-- 我的限时购订单 -->
+  <scroll-view
+    class="sale-skus"
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+    <template is="flashSalesView" data="{{ skus: skus }}" />
+  </scroll-view>
+
+</view>

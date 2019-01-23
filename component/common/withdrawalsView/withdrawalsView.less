@@ -1,0 +1,64 @@
+/**
+ * 组件 - 提现列表样式
+ * withdrawalsView.less
+ * -----------------------------------
+ * 18/05/30 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.withdrawal-item {
+  .flex-between;
+  .block-padding;
+  position: relative;
+  width: 100%;
+  height: @list-line-height-l;
+  border-bottom: @border-gray-light;
+
+  .withdrawal-inf {
+    .flex-start;
+
+    .card-logo {
+      .flex-start;
+      margin-right: @text-margin-l;
+
+      image {
+        .ico-xl;
+      }
+
+    }
+
+    .withdrawal-text {
+
+      /* 申请时间 */
+      .create-time {
+        margin-bottom: @text-margin-xs;
+        font-size: @text-size-s;
+        color: @color-gray-dark;
+      } /* .card-bank */
+
+      /* 提现金额 */
+      .payable-amount {
+
+        text {
+          margin-left: @text-margin-s;
+          font-size: @text-size-s;
+        }
+
+      } /* .payable-amount */
+
+    } /* .withdrawal-text */
+
+  } /* .withdrawal-inf */
+
+  /* .status */
+  .status {
+    margin-right: @text-margin;
+
+    &.done {
+      color: @color-primary;
+    }
+
+  } /* .status */
+
+} /* .withdrawal-item */

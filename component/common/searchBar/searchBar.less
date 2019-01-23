@@ -1,0 +1,102 @@
+/**
+ * 组件 - 搜索条样式（不参与wxss编译）
+ * search.less
+ * -----------------------------------
+ * 18/03/19 Jerry 新增
+ */
+
+.search-bar {
+  .flex-center;
+  position: relative;
+  width: 100%;
+  height: 100rpx;
+  background-color: @color-nav;
+  z-index: 1;
+
+  /* 前缀图标 */
+  .prefix-ico {
+    position: absolute;
+    top: 31rpx;
+    left: 40rpx;
+    .ico-m;
+  }
+
+  /* 后缀图标 */
+  .endfix-ico {
+    position: absolute;
+    top: 31rpx;
+    right: 140rpx;
+    .ico-m;
+  }
+
+  /* 输入框 / 首页假入口 */
+  .ipt {
+    .flex-center;
+    margin: 0 18rpx;
+    padding: 0 70rpx;
+    width: 100%;
+    height: 65rpx;
+    background-color: @color-white;
+    border: @border-gray-light;
+    border-radius: 30rpx;
+  }
+
+  input.ipt {
+    margin-right: 120rpx;
+  }
+
+  /* 搜索 / 取消 */
+  .op {
+    position: absolute;
+    right: 40rpx;
+    color: @color-text;
+  }
+
+  text {
+    color: @color-gray-dark;
+  }
+
+} /* .search-bar */
+
+
+/* 搜索历史 */
+.search-history {
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: @color-white;
+  /* 保证显示时，z-index在其他业务浮动层之上 */
+  z-index: 1;
+
+  .title {
+    position: relative;
+    display: block;
+    padding: 0 40rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+
+    image {
+      position: absolute;
+      top: 27rpx;
+      right: 40rpx;
+      .ico-s;
+    }
+
+  } /* .title */
+
+  .body {
+    padding: 0 40rpx;
+
+    text {
+      display: inline-block;
+      margin: 0 30rpx 20rpx 0;
+      padding: 5rpx 20rpx;
+      border-radius: 5rpx;
+      border: @border-gray;
+    }
+
+  } /* .body */
+
+} /* .search-history */

@@ -1,0 +1,32 @@
+/**
+ * 组件 - 分页提示
+ * pagingTip.less
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+
+.paging-tip {
+  position: relative;
+  display: block;
+  height: @bar-height;
+  line-height: @bar-height;
+  text-align: center;
+
+  .no-records {
+    padding-top: 25%;
+
+    image {
+      .img-sku;
+      .opacity-gray-light;
+      margin-bottom: -30rpx;
+    }
+
+  } /* .no-records */
+
+  text {
+    .flex-center;
+    height: @bar-height;
+    color: @color-gray-dark;
+  }
+
+} /* .paging-tip */

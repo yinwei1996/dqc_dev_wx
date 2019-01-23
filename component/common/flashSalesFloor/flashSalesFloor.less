@@ -1,0 +1,50 @@
+/**
+ * 组件 - 限时购楼层
+ * flashSalesFloor.less
+ * -----------------------------------
+ * 18/11/20 Jerry 新增
+ */
+
+/* 限时购楼层 */
+.flash-sales-floor {
+  .clear-after;
+  width: 100%;
+  white-space: nowrap;
+
+  .sale-sku {
+    display: inline-block;
+    width: 33.3%;
+    padding: @text-margin;
+    box-sizing: border-box;
+
+    .sku-img {
+      .flex-center;
+
+      image {
+        .img-sku-s;
+      }
+
+    } /* .sku-img */
+
+    .sku-name {
+      overflow: hidden;
+      height: 65rpx;
+      font-size: @text-size-s3;
+      white-space: initial;
+    }
+
+    .sku-price {
+      margin-top: @text-margin-s;
+      color: @color-primary;
+
+      text {
+        color: @color-gray-dark;
+        font-size: @text-size-s;
+        text-decoration: line-through;
+      }
+
+    } /* .sku-price */
+
+  } /* .sale-sku */
+
+} /* .flash-sales-floor */

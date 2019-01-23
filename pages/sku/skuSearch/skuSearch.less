@@ -1,0 +1,239 @@
+/**
+ * 搜索入口样式
+ * searchEntry.less
+ * -----------------------------------
+ * 18/03/26 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../component/common/searchBar/searchBar.less';
+@import '../../../component/common/skusView/skusView.less';
+
+.sku-all {
+
+  position: relative;
+  overflow: hidden;
+
+  /* icon */
+  .multipleIcon {
+    width: 24rpx;
+    height: 24rpx;
+    margin-left: 12rpx;
+  } /* icon */
+
+  .rotate90 {
+    transform: rotate(90deg);
+  }
+
+  .rotate270 {
+    transform: rotate(270deg);
+  }
+
+  /* .lst-nav  */
+  .lst-nav {
+    background-color: @color-white;
+    height: 96rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 28rpx;
+
+    /* .sort-item  */
+    .sort-item {
+      flex: 1;
+      .flex-center;
+
+      .multipleIcon {
+        width: 24rpx;
+        height: 24rpx;
+        margin-left: 12rpx;
+      }
+
+      .filterIcon {
+        width: 28rpx;
+        height: 28rpx;
+        margin-left: 12rpx;
+      }
+
+    }  /* sort-item */
+
+    .sel {
+
+      text {
+        color: @color-primary;
+      }
+
+    } /* .sel */
+
+  } /* .lst-nav  */
+
+  .sku-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    /* 综合 弹层 */
+    .muptile-floor {
+      height: 100%;
+
+      /* 浮动层 */
+      .muptile-sheet {
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 0 24rpx;
+        box-sizing: border-box;
+        background: @color-white;
+        z-index: 999;
+
+        /* 综合 .item */
+        .m-item {
+          padding: 28rpx 0;
+          .flex-between;
+          border-top: 1px solid #eee;
+
+          image {
+            width: 48rpx;
+            height: 48rpx;
+          }
+
+          .imageC {
+            width: 32rpx;
+            height: 40rpx;
+          }
+
+        } /* .m-item */
+
+      } /* .muptile-sheet */
+
+    } /* .muptile-floor  */
+
+  } /* .sku-wrapper  */
+
+  /* 筛选 弹层 */
+  .filter-floor {
+    height: 100%;
+
+    /* 浮动层 */
+    .filter-sheet {
+      width: 89%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      z-index: 999;
+
+      /* .filter-tag */
+      .filter-tag {
+        overflow: hidden;
+        padding: 0 20rpx;
+
+        .tag-item {
+          width: 31.7%;
+          margin: 0 2.3333% 14rpx 0;
+          text-align: center;
+          line-height: 76rpx;
+          background-color: rgba(240, 240, 240, 1);
+          float: left;
+          padding: 0 4rpx;
+          box-sizing: border-box;
+
+          .text-ellipsis;
+
+          &:nth-child(3n) {
+            margin: 0 0 14rpx 0;
+          }
+        } /* .tag-item */
+
+        .sel {
+          color: @color-primary;
+        }
+
+        .title {
+          margin: 20rpx 0;
+          line-height: 60rpx;
+          .flex-between;
+        }
+
+        .border-bom {
+          border-bottom: 1px solid #eee;
+        }
+
+        .price-box {
+
+          .flex-between;
+
+          .ipt {
+            flex: 1;
+            line-height: 76rpx;
+            text-align: center;
+            background-color: rgba(240, 240, 240, 1);
+            border-bottom: 0;
+            border-radius: 8rpx;
+          }
+
+          view {
+            margin: 0 4rpx;
+          }
+
+        } /* .price-box */
+
+      } /* .filter-tag */
+
+      .filter-btn {
+        overflow: hidden;
+
+        view {
+          width: 50%;
+          float: left;
+          text-align: center;
+          line-height: 96rpx;
+        }
+
+        .reset {
+          border-top: 1px solid #eee;
+        }
+
+        .confirm {
+          color: @color-white;
+          background-color: @color-primary;
+        }
+
+      } /* .filter-btn */
+
+    } /* .filter-sheet */
+
+  } /* .muptile-floor */
+
+  /* 遮罩层 */
+  .mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: @color-text;
+
+    opacity: .4;
+    z-index: 998;
+  } /* .mask */
+
+  /* countTags */
+  .countTags {
+    display: inline-block;
+    width: 30rpx;
+    height: 30rpx;
+    text-align: center;
+    line-height: 30rpx;
+    border-radius: 100%;
+    background-color: #2e3033;
+    font-size: 24rpx;
+    color: @color-white;
+    margin-left: 6rpx;
+  } /* .countTags */
+
+} /* .sku-all */
+

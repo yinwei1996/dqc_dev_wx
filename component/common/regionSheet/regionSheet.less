@@ -1,0 +1,114 @@
+/**
+ * 组件 - 区域Sheet
+ * regionSheet.less
+ * -----------------------------------
+ * 18/04/12 Jerry 新增
+ */
+
+/* 背景遮罩 */
+.region-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: @color-text;
+  opacity: .4;
+  z-index: 998;
+}
+
+/* 地区选择 */
+.region-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: @color-white;
+  z-index: 999;
+
+  .title {
+    .flex-start;
+    .block-padding;
+    height: 90rpx;
+    font-weight: bold;
+  }
+
+  .selected-values {
+    .flex-start;
+    .block-padding;
+    height: 90rpx;
+    border-bottom: @border-gray-light;
+
+    text {
+      margin-right: @text-margin;
+
+      &.placeholder {
+        color: @color-primary;
+        font-weight: bold;
+      }
+    }
+
+  } /* .selected-values */
+
+  /* 备选省市区区域 */
+  .candidate-values {
+
+    scroll-view {
+      height: 550rpx;
+
+      text {
+        .flex-start;
+        .text-ellipsis;
+        float: left;
+        padding-left: 30rpx;
+        width: 49%;
+        height: 90rpx;
+        box-sizing: border-box;
+
+        &.checked {
+          color: @color-primary;
+          font-weight: bold;
+        }
+
+      }
+
+    } /* .scroll-view */
+
+  } /* .candidate-values */
+
+  .op-ok {
+    .flex-center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 120rpx;
+    height: 90rpx;
+
+    &.disabled {
+      color: @color-gray;
+    }
+
+  } /* .op-ok */
+
+} /* .region-sheet */
+
+.region-label {
+  position: relative;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 10rpx;
+  font-size: @text-size-l;
+
+  .empty {
+    color: @color-placeholder;
+  }
+
+  image {
+    position: absolute;
+    top: 29rpx;
+    right: 0;
+    opacity: .5;
+    .ico-s;
+  }
+
+} /* .region-label */

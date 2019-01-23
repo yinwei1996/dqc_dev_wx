@@ -1,0 +1,28 @@
+<!--
+/**
+ * 云豆抵扣订单金额
+ * beanReduce.wxml
+ * -----------------------------------
+ * 18/04/25 Jerry 新增
+ */
+-->
+
+<view class="bean-reduce {{hidden}}">
+
+  <view class="page-title">
+    {{ bean.isLimit ? '订单限额' : '可用' }}{{bean.actualVal}}个云豆<text class="text-s">（￥{{bean.actualAmount}}）</text>
+  </view>
+
+  <view class="ipt-item">
+    <label class="ipt-label">抵扣云豆</label>
+    <input type="number" maxlength="8" placeholder="请输入抵扣云豆" focus="true" bindinput="inputBean" />
+    <view class="ipt-btn" wx:if="{{bean.amount}}">￥{{bean.amount}}</view>
+  </view>
+
+  <view class="page-tip center">最少抵扣{{bean.minVal}}个云豆，最多{{bean.currentVal}}个</view>
+
+  <view class="op-btns">
+    <button class="btn btn-primary" bindtap="redirectOrderConfirm">确定</button>
+  </view>
+
+</view>

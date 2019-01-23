@@ -1,0 +1,60 @@
+<!--
+/**
+ * 组件 - 银行卡列表样式
+ * bankcardsView.wxml
+ * -----------------------------------
+ * 18/04/26 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="bankcardsView">
+
+  <view class="card-item"
+    data-card-id="{{card.cardId}}"
+    data-is-default="{{card.isDefault}}"
+    data-bank-title="{{card.cardBankTitle}}"
+    data-code-masked="{{card.cardCodeMasked}}"
+    wx:for="{{cards}}"
+    wx:for-item="card"
+    wx:key="cardId"
+    bindtap="{{ readonly ? '' : 'cardClick' }}"
+    bindtouchstart="{{ readonly ? '' : 'cardTouchStart' }}"
+    bindtouchmove="{{ readonly ? '' : 'cardTouchMove' }}"
+    bindtouchend="{{ readonly ? '' : 'cardTouchEnd' }}">
+
+    <!-- 发卡银行及卡号 -->
+    <view class="card-inf">
+
+      <view class="card-logo">
+        <image src="../../../image/icos/banks/{{card.cardBank}}.jpg" />
+      </view>
+
+      <view class="card-text">
+
+        <view class="card-bank">
+          <text>{{card.cardBankTitle}}</text>
+        </view>
+
+        <view class="card-code">
+          <text>尾号 {{card.cardCodeMasked}}</text>
+          <text class="is-default" wx:if="{{ card.isDefault && !ignoreDefault }}">默认银行卡</text>
+        </view>
+
+      </view>
+
+    </view>
+
+    <!-- 导航右向箭头 -->
+    <image src="../../../image/icos/arrow_right_48.png" class="nav-arrow" wx:if="{{!ignoreArrow}}" />
+
+    <!-- 删除银行卡 -->
+    <view class="card-del {{ opCardId == card.cardId ? '' : 'hidden' }}" data-action="del" wx:if="{{!readonly}}">删除</view>
+
+  </view>
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: cards }}" />
+
+</template>

@@ -1,0 +1,51 @@
+/**
+ * 组件 - 退换货列表样式
+ * rmasView.less
+ * -----------------------------------
+ * 18/04/08 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+@import '../orderSkusView/orderSkusView.less';
+
+.rma-item {
+  .block-padding;
+  border-bottom: @border-gray-light-5;
+
+  /* 订单文字项 */
+  .rma-text {
+    .flex-between;
+    height: 100rpx;
+  } /* .rma-text */
+
+  /* 订单状态 */
+  .rma-status {
+    color: @color-primary;
+
+  } /* .rma-status */
+
+  /* 订单金额等 */
+  .rma-total {
+    .flex-between;
+    height: 80rpx;
+
+    text {
+      font-size: @text-size-s;
+    }
+
+    .rma-flags {
+      .flex-start;
+
+      text {
+        .tip-label-primary;
+      }
+
+    } /* .rma-flags */
+
+  } /* .rma-total */
+
+  &:last-child {
+    border-bottom: none;
+  } /* &.last-child */
+
+} /* .rma-item */

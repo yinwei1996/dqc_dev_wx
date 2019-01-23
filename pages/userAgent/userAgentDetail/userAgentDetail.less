@@ -1,0 +1,42 @@
+/**
+ * 会员代理详情
+ * userAgentDetail.less
+ * -----------------------------------
+ * 18/06/09 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+
+.user-agent-detail {
+
+  .apply-tip {
+    padding: 220rpx @block-padding-left;
+    text-align: center;
+
+    image {
+      .ico-avatar;
+    }
+
+    .summary {
+      .flex-center;
+      height: 200rpx;
+      font-size: @text-size-l;
+
+      image {
+        .ico-l;
+        margin-left: @text-margin;
+      }
+
+    } /* .summary */
+
+    .nick-name {
+      margin-top: @text-margin;
+    }
+
+    .mobile {
+      font-size: @text-size-s3;
+    }
+
+  } /* .apply-tip */
+
+} /* .user-agent-detail */

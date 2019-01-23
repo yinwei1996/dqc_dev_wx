@@ -1,0 +1,58 @@
+<!--
+/**
+ * 优惠券列表
+ * couponAll.wxml
+ * -----------------------------------
+ * 18/04/12 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/couponsView/couponsView.wxml" />
+
+<view class="coupon-all">
+
+  <!-- Tab区域 -->
+  <view class="tabs">
+
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+    <!-- Tab内容 -->
+    <view class="tab-content">
+
+      <!-- 未使用 -->
+      <scroll-view
+        class="content-item {{ tab == 'available' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="couponsView" data="{{ coupons: available_coupons }}" />
+      </scroll-view>
+
+      <!-- 已使用 -->
+      <scroll-view
+        class="content-item {{ tab == 'used' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="couponsView" data="{{ coupons: used_coupons }}" />
+      </scroll-view>
+
+      <!-- 已失效 -->
+      <scroll-view
+        class="content-item {{ tab == 'expired' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="couponsView" data="{{ coupons: expired_coupons }}" />
+      </scroll-view>
+
+    </view> <!-- .tab-content -->
+
+  </view> <!-- .tabs -->
+
+</view>

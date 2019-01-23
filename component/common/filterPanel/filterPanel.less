@@ -1,0 +1,119 @@
+/**
+ * 组件 - 筛选模板样式（搜索）
+ * search.less
+ */
+
+@import "../../../variables.wxss";
+@import '../tabNav/tabNav.less';
+
+.showBtn {
+  display: block;
+}
+.hiddenBtn {
+  display: none;
+}
+
+
+/* 筛选条件*/
+.filterBtn {
+  position: fixed;
+  width: 100%;
+  background-color: #fff;
+  border-top: 2rpx solid #eeeeee;
+  z-index: 10;
+  // 一级菜单 nav_btn总容器
+  .nav_btn {
+    width: 100%;
+    display: flex;
+    background-color: #fff;
+    //  一级菜单 item
+    .firstMenu {
+      width:25%;
+      line-height: 70rpx;
+      font-size:32rpx;
+      border-right:1px solid #eeeeee;
+      border-bottom: 1px solid #eeeeee;
+      text-align:center;
+      .filter_img{
+        width: 26rpx;
+        height: 26rpx;
+        margin-left: 10rpx;
+        vertical-align: middle;
+      }
+    }
+    //   点击以后选项的样式
+    //.firstMenu.active {
+    //  color: @color-primary;
+    //}
+    .firstMenu.active .filter_img {
+      transform: rotate(180deg);
+
+    }
+  }
+  .secondMenu_panel {
+    /* 综合选项面板 */
+    width:100%;
+    border-bottom: 1px solid  #eeeeee;
+
+    position: fixed;
+    .secondMenu {
+      width: 100%;
+      line-height:70rpx;
+      border-bottom: 1px solid  #eeeeee;
+      padding-left: 15rpx;
+      background-color: #ffffff;
+    }
+    .secondMenu:last-child{
+      border: 0;
+    }
+  }
+
+  /* 筛选条件内容面板 */
+  .filter {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 10px;
+    .filter_condition {
+      width: 95%;
+      padding: 0 2.5% 1%;
+      display: block;
+      font-size:30rpx;
+      color: #999;
+      .promotion {
+        display: flex;
+        justify-content:space-around;
+        margin-top: 15rpx;
+        line-height: 55rpx;
+        span {
+          background-color: #eeeeee;
+          width: 30%;
+          text-align: center;
+        }
+      }
+      .low_price,.high_price {
+        width: 50%;
+        font-size: 30rpx;
+        background-color: #eeeeee;
+      }
+      input{
+        border: 0;
+        text-align: center;
+      }
+    }
+  }
+  .confirm_btn {
+    width: 100%;
+    display: flex;
+    .resetBtn {
+      width: 50%;
+    }
+    .confirmBtn {
+      width: 50%;
+    }
+  }
+
+
+
+} /* .filterBtn */

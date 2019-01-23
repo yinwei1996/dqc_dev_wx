@@ -1,0 +1,58 @@
+<!--
+/**
+ * 收货地址编辑
+ * addressModify.wxml
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/regionSheet/regionSheet.wxml" />
+
+<view class="address-modify">
+  <scroll-view scroll-y="true" style="height:100%">
+    <!--<view class="ipt-item">-->
+      <!--<label class="ipt-label">公司名称</label>-->
+      <!--<input value="{{address.userName}}" maxlength="20" placeholder="请输入公司名称" focus="true" bindinput="inputUserName" />-->
+    <!--</view>-->
+
+    <view class="ipt-item">
+      <label class="ipt-label">{{ typeText }}人</label>
+      <input value="{{address.userName}}" maxlength="20" placeholder="请输入收货人姓名" focus="true" bindinput="inputUserName" />
+    </view>
+
+    <view class="ipt-item">
+      <label class="ipt-label">{{ typeText }}人电话</label>
+      <input value="{{address.mobile}}" maxlength="11" placeholder="请输入{{ typeText }}人电话" type="number" bindinput="inputMobile" />
+    </view>
+
+    <view class="ipt-item">
+      <label class="ipt-label">所在地区</label>
+      <view class="region-label" bindtap="showRegionSheet">
+        <text class="empty" wx:if="{{!address.provinceName}}">{{ typeText }}省市区</text>
+        <text wx:if="{{address.provinceName}}">{{address.provinceName}}<block wx:if="{{address.cityName}}"> {{address.cityName}}</block><block wx:if="{{address.areaName}}"> {{address.areaName}}</block>
+        </text>
+        <image src="../../../image/icos/arrow_right_48.png" />
+      </view>
+    </view>
+
+    <view class="ipt-item">
+      <label class="ipt-label">详细地址</label>
+      <input value="{{address.address}}" maxlength="100" placeholder="请输入详细地址" bindinput="inputAddress" bindconfirm="saveAddress" />
+    </view>
+
+    <!--<view class="ipt-item">-->
+      <!--<label class="ipt-label">身份证号码</label>-->
+      <!--<input value="{{address.address}}" maxlength="18" placeholder="请输入身份证号码" bindinput="inputAddress" bindconfirm="saveAddress" />-->
+    <!--</view>-->
+
+    <!--<view class="settingAddr">设为默认地址</view>-->
+  </scroll-view>
+
+  <view class="op-btns">
+    <button class="btn btn-primary" bindtap="saveAddress">提交</button>
+  </view>
+
+  <template is="regionSheet" data="{{ hidden: hiddenRegionSheet, provinces: provinces, cities: cities, districts: districts, input: input, hiddenCandidate: hiddenCandidate }}" />
+
+</view>

@@ -1,0 +1,45 @@
+/**
+ * 组件 - 品牌楼层
+ * brandsFloor.less
+ * -----------------------------------
+ * 18/09/18 Jerry 新增
+ */
+
+/* 品牌楼层 */
+.brands-floor {
+  .clear-after;
+
+  .brand-item {
+    .flex-center;
+    float: left;
+    position: relative;
+    width: 25%;
+    height: 130rpx;
+    box-sizing: border-box;
+    border-right: @border-gray-light;
+    border-top: @border-gray-light;
+
+    &:nth-child(4n) {
+      border-right: none;
+    }
+
+    /* 入口主图 */
+    .brand-img {
+
+      image {
+        width: 150rpx;
+        height: 120rpx;
+      }
+    } /* .brand-img */
+
+    /* brand-item hover 样式 */
+    &.brand-item-hover {
+
+      .brand-img {
+        opacity: .7;
+      }
+    } /* &.brand-item-hover */
+
+  } /* .brand-item */
+
+} /* .brands-floor */

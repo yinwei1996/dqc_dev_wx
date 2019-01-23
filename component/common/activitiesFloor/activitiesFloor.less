@@ -1,0 +1,70 @@
+/**
+ * 组件 - 活动楼层
+ * activitiesFloor.less
+ * -----------------------------------
+ * 18/09/18 Jerry 新增
+ */
+
+/* 活动楼层 */
+.activities-floor {
+  .clear-after;
+
+  .activity-item {
+    float: left;
+    position: relative;
+    width: 33.3%;
+    height: 220rpx;
+    box-sizing: border-box;
+    border-right: @border-gray-light;
+    border-top: @border-gray-light;
+
+    &:nth-child(3n) {
+      border-right: none;
+    }
+
+    .activity-text {
+      padding: 20rpx;
+      position: relative;
+    } /* .activity-text */
+
+    /* 活动名称 */
+    .activity-name {
+      font-size: @text-size-s4;
+      overflow:hidden; /* 超出一行文字自动隐藏 */
+      text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+      white-space:nowrap; /* 强制不换行 */
+    }
+
+    /* 活动摘要 */
+    .activity-summary {
+      font-size: @text-size-s2;
+      color: @color-gray;
+      overflow:hidden; /* 超出一行文字自动隐藏 */
+      text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+      white-space:nowrap; /* 强制不换行 */
+
+    } /* .activity-name */
+
+    /* 入口主图 */
+    .activity-img {
+      position: absolute;
+      bottom: 20rpx;
+      right: 20rpx;
+
+      image {
+        width: 100rpx;
+        height: 100rpx;
+      }
+    } /* .activity-img */
+
+    /* activity-item hover 样式 */
+    &.activity-item-hover {
+
+      .activity-img {
+        opacity: .7;
+      }
+    } /* &.activity-item-hover */
+
+  } /* .activity-item */
+
+} /* .activity-floor */

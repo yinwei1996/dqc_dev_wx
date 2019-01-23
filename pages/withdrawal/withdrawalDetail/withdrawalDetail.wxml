@@ -1,0 +1,85 @@
+<!--
+/**
+ * 申请提现详情
+ * withdrawalDetail.wxml
+ * -----------------------------------
+ * 18/04/26 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/bankcardsView/bankcardsView.wxml" />
+
+<view class="withdrawal-detail {{hidden}}">
+
+  <!-- 审核通过的显示 status，其余显示 approveStatus -->
+  <view class="page-title">
+
+    <block wx:if="{{ withdrawal.payTime }}">提现申请已完成</block>
+    <block wx:elif="{{ withdrawal.approveStatus == 'Approved' }}">提现申请处理中</block>
+    <block wx:else>提现申请{{withdrawal.approveStatusTitle}}</block>
+
+    <image src="../../../image/icos/check_all_green_48.png" wx:if="{{ withdrawal.status == 'Done' }}" />
+
+  </view>
+
+  <view class="order-props">
+
+    <!-- 提现银行卡 -->
+    <view class="order-prop">
+      <template is="bankcardsView" data="{{ cards: [ withdrawal.card ], readonly: true, ignoreDefault: true, ignoreArrow: true }}" />
+    </view>
+
+    <!-- 申请时间 -->
+    <view class="order-prop create-time">
+      <label>申请时间</label>
+      <text>{{withdrawal.createTimeString}}</text>
+    </view> <!-- .create-time -->
+
+    <!-- 手续费 -->
+    <view class="order-prop commission-amount">
+      <label>已扣除手续费</label>
+      <text>￥{{withdrawal.commissionAmount}}</text>
+    </view>
+
+    <!-- 提现金额 -->
+    <view class="order-prop payable-amount">
+      <label>提现金额</label>
+      <text>￥{{withdrawal.payableAmount}}</text>
+    </view>
+
+    <!-- 转账信息 -->
+    <block wx:if="{{ withdrawal.paidAmount > 0 }}">
+
+      <!-- 转账金额 -->
+      <view class="order-prop paid-amount">
+        <label>转账金额</label>
+        <text>￥{{withdrawal.paidAmount}}</text>
+      </view> <!-- .paid-amount -->
+
+      <!-- 转账时间 -->
+      <view class="order-prop pay-time">
+        <label>转账时间</label>
+        <text>{{withdrawal.payTimeString}}</text>
+      </view> <!-- .pay-time -->
+
+    </block>
+
+    <!-- 备注 -->
+    <view class="order-prop memo" wx:if="{{withdrawal.memo}}">
+      <text>{{withdrawal.memo}}</text>
+    </view>
+
+  </view>
+
+  <!-- 退换货操作 -->
+  <view class="op-btns-fixed">
+
+    <!-- 联系客服（通用按钮） -->
+    <button class="btn" open-type="contact">联系客服</button>
+
+    <!-- 个人中心（通用按钮） -->
+    <button class="btn" bindtap="redirectMyCenter">个人中心</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view>

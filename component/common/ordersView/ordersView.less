@@ -1,0 +1,89 @@
+/**
+ * 组件 - 订单列表样式
+ * ordersView.less
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.order-item {
+  border-bottom: @border-gray-light-5;
+
+  /* 订单文字项 */
+  .order-text {
+    .block-padding;
+    .flex-between;
+    height: @bar-height;
+  } /* .order-text */
+
+  /* 订单状态 */
+  .order-status {
+    color: @color-text;
+
+    &.status-ToPay {
+      color: @color-red;
+    }
+
+    &.status-Done {
+      color: @color-primary;
+    }
+
+    &.status-Canceled {
+      color: @color-gray-dark;
+    }
+
+  } /* .order-status */
+
+  /* 订单金额等 */
+  .order-total {
+    .flex-between;
+    padding: @text-margin-s @text-margin-xxl;
+
+    text {
+      font-size: @text-size-s;
+    }
+
+    .order-flags {
+      .flex-start;
+
+      text {
+        .tip-label-primary;
+      }
+
+    } /* .order-flags */
+
+  } /* .order-total */
+
+  /* 操作区域 */
+  .order-ops {
+    padding: @text-margin-s @text-margin-xxl;
+    text-align: right;
+
+    &:empty {
+      display: none;
+    }
+
+    button {
+
+      &:not(:first-child) {
+        margin-left: @text-margin-l;
+      }
+    } /* button */
+
+  } /* .order-ops */
+
+  &:last-child {
+    border-bottom: none;
+  } /* &.last-child */
+
+  /* order-item-hover 放在 .order-item 里面的 navigator 上 */
+  .order-item-hover {
+
+    image {
+      opacity: .8;
+    }
+
+  } /* &.order-item-hover */
+
+} /* .order-item */

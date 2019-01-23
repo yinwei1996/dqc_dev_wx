@@ -1,0 +1,53 @@
+<!--
+/**
+ * 组件 - SKU评价列表
+ * skuCommentsView.wxml
+ * -----------------------------------
+ * 18/04/02 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="skuCommentsView">
+
+  <view class="sku-comments-view">
+
+    <view class="comment-item" wx:for="{{ comments.records || comments }}" wx:for-item="comment" wx:key="sysNo">
+
+      <view class="comment-avatar">
+        <image src="../../../image/icos/tab_user.png" />
+      </view>
+
+      <view class="comment-text">
+
+        <view class="comment-title">
+          <text class="comment-user">{{comment.createrNameMasked}}</text>
+          <text class="comment-time">{{comment.createTimeString}}</text>
+        </view>
+
+        <view class="comment-stars">
+          <block wx:for="{{comment.stars}}" wx:for-item="star" wx:key="star">
+            <image src="../../../image/icos/star_green_48.png" wx:if="{{star}}" />
+            <image class="opacity-gray-light" src="../../../image/icos/star_48.png" wx:else />
+          </block>
+        </view>
+
+        <!-- 评论内容 -->
+        <view class="comment-memo">{{comment.commentMemo}}</view>
+
+        <!-- 评论配图 -->
+        <view class="comment-imgs" wx:if="{{comment.fullImgUrls}}">
+          <image src="{{item}}" wx:for="{{comment.fullImgUrls}}" wx:key="item" data-src="{{item}}" bindtap="commentImagePreview" />
+        </view> <!-- comment-imgs -->
+
+      </view> <!-- .comment-text -->
+
+    </view> <!-- .comment-item -->
+
+    <!-- 分页提示 -->
+    <template is="pagingTip" data="{{ records: comments }}" />
+
+  </view> <!-- .sku-comments-view -->
+
+</template>

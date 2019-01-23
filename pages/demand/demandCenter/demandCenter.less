@@ -1,0 +1,58 @@
+/**
+ * 发布求购-列表页
+ * demand.less
+ * -----------------------------------
+ * 18/11/8
+ */
+
+@import '../../../variables.less';
+
+page {
+  background-color: #eee;
+}
+
+
+/* 菜单区域 */
+.menu {
+  margin-top: 30rpx;
+
+  /* 菜单项 */
+  .menu-item {
+    padding: 0 30rpx;
+    .flex-between;
+    height: 100rpx;
+    border: none;
+    border-radius: 0;
+
+    .menu-inf {
+      .flex-start;
+
+      /* 前置图标 */
+      .menu-ico {
+        margin: 0 15rpx 0 5rpx;
+        .ico-m;
+      } /* .menu-ico */
+
+      /* 文字 */
+      text {
+        font-size: @text-size-l;
+      } /* text */
+
+    } /* .menu-inf */
+
+    .menu-nav {
+      padding: 0 5rpx;
+      .ico-xs;
+      .opacity-gray;
+    }
+
+    &.menu-item-hover {
+
+      .menu-nav {
+        opacity: 1;
+      }
+    } /* &.menu-item-hover */
+
+  } /* .menu-item */
+
+} /* .menu */

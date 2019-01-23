@@ -1,0 +1,54 @@
+<!--
+/**
+ * 退换货列表样式
+ * rmasView.less
+ * -----------------------------------
+ * 18/04/08 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+<import src="../orderSkusView/orderSkusView.wxml" />
+
+<template name="rmasView">
+
+  <navigator
+    class="rma-item"
+    url="/pages/rma/rmaDetail/rmaDetail?orderId={{rma.orderId}}"
+    hover-class="none"
+    wx:for="{{ rmas.records || rmas }}"
+    wx:for-item="rma"
+    wx:key="rmaId">
+
+    <view class="rma-text">
+      <text class="rma-code">{{rma.typeTitle}} - 订单 {{rma.orderCode}}</text>
+      <!-- 审核通过的显示 status，其余显示 approveStatus -->
+      <text class="rma-status" wx:if="{{ rma.approveStatus == 'Approved' }}">{{rma.statusTitle}}</text>
+      <text class="rma-status" wx:else>{{rma.approveStatusTitle}}</text>
+    </view> <!-- .rma-text -->
+
+    <!-- 订单SKU -->
+    <template is="orderSkusView" data="{{ maps: rma.orderSkuMaps, ignoreQuantity: ignoreSkuQuantity }}" />
+
+    <view class="rma-total">
+
+      <view class="rma-flags">
+        <text wx:if="{{ rma.orderRefType == 'Pintuan' }}">拼团</text>
+      </view> <!-- .rma-flags -->
+
+      <block wx:if="{{ rma.type == 'Refund' }}">
+        <text class="rma-amount" wx:if="{{rma.payTime}}">实退￥{{rma.payableAmount}}</text>
+        <text class="rma-amount" wx:else>申请退款 ￥{{rma.payableAmount}}</text>
+      </block>
+      <block wx:else>
+        <text class="rma-amount">{{rma.typeTitle}}</text>
+      </block>
+
+    </view> <!-- .rma-total -->
+
+  </navigator>
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: rmas }}" />
+
+</template>

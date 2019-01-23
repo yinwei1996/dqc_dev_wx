@@ -1,0 +1,144 @@
+<!--
+ /**
+ * 拼团详情
+ * pintuanDetail.wxml
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+ -->
+
+<view class="pintuan-detail {{hidden}}">
+
+  <!-- 商品大图 -->
+  <view class="pintuan-imgs">
+    <image src="{{pintuan.fullImgUrl}}" mode="widthFix" data-src="{{pintuan.fullImgUrl}}" bindtap="handleImagePreview" />
+  </view>
+
+  <!-- 名称、摘要 -->
+  <view class="pintuan-text">
+    <text class="pintuan-name">{{pintuan.pintuanName}}</text>
+    <text class="pintuan-summary">{{pintuan.summary}}</text>
+  </view>
+
+  <!-- 单价 -->
+  <view class="pintuan-price">
+
+    <text class="current-price">￥{{pintuan.price}}</text>
+
+    <block wx:if="{{ pintuan.oriPrice && (pintuan.oriPrice - pintuan.price) > 0 }}">
+      <text class="ori-price">￥{{pintuan.oriPrice}}</text>
+    </block>
+
+    <!-- 分享按钮 -->
+    <button open-type="share">
+      <image src="../../../image/icos/share_48.png" />
+    </button>
+
+  </view>
+
+  <!-- 数量 -->
+  <view class=" selected-quantity pintuan-prop-entry">
+    <label>已选择 {{sku.spec}}，{{pintuan.skuQuantity}}{{sku.unit}}</label>
+  </view>
+
+  <!-- 如何冲泡 -->
+  <view class=" how-to pintuan-prop-entry" bindtap="redirectHowTo">
+    <label>如何冲泡</label>
+    <image src="../../../image/icos/arrow_right_48.png" />
+  </view>
+
+  <!-- 拼团说明 -->
+  <view class=" pintuan-tip pintuan-prop-entry">
+    <label>支付开团并邀请{{ pintuan.itemUserCount - 1 }}人参团，人数不足自动退款</label>
+  </view>
+
+  <!-- 最早参团列表 -->
+  <view class="early-pintuan-items">
+
+    <block wx:for="{{earlyPintuanItems}}" wx:key="itemId">
+
+    <view class="pintuan-item" wx:if="{{ item.expireSeconds > 0 && pintuan.itemUserCount - item.actualUserCount > 0 }}">
+
+      <view class="item-inf">
+
+        <image src="{{ item.createrAvatarUrl }}" />
+
+        <view class="item-text">
+          <view class="item-user">{{ item.createrNickName }}</view>
+          <view class="item-tip">还差 <text>{{ pintuan.itemUserCount - item.actualUserCount }}</text> 人成团，剩余 <text>{{ item.expireSecondsString }}</text> 结束</view>
+        </view>
+
+      </view> <!-- .item-inf -->
+
+      <!-- "参团"按钮 -->
+      <view class="item-op" data-item-id="{{item.itemId}}" bindtap="handleItemClick">去参团</view>
+
+    </view> <!-- .pintuan-item -->
+
+    </block>
+
+  </view> <!-- .early-pintuan-items -->
+
+  <!-- 产品参数 -->
+  <view class="pintuan-specs">
+
+    <view class="spec-item" wx:if="{{sku.sellerName}}">
+      <label>厂家</label>
+      <text>{{sku.sellerName}}</text>
+    </view>
+
+    <view class="spec-item" wx:if="{{sku.areaNameLv1}}">
+      <label>产地</label>
+      <text>{{sku.areaNameLv1}}</text>
+    </view>
+
+    <view class="spec-item">
+      <label>规格</label>
+      <text>{{sku.spec}} / {{sku.unit}}</text>
+    </view>
+
+    <view class="spec-item" wx:if="{{ sku.producingYear && sku.producingYear > 0 }}">
+      <label>年份</label>
+      <text>{{sku.producingYear}}</text>
+    </view>
+
+    <view class="spec-item" wx:if="{{sku.craftName}}">
+      <label>工艺</label>
+      <text>{{sku.craftName}}</text>
+    </view>
+
+    <view class="spec-item" wx:if="{{sku.shapeName}}">
+      <label>形状</label>
+      <text>{{sku.shapeName}}</text>
+    </view>
+
+    <view class="spec-item" wx:if="{{sku.packing}}">
+      <label>包装</label>
+      <text>{{sku.packing}}</text>
+    </view>
+
+  </view> <!-- .pintuan-specs -->
+
+  <!-- 图文描述 -->
+  <view class="pintuan-desc">
+    <block wx:for="{{sku.descImgUrls}}" wx:key="item"><image src="{{item}}" class="desc-img" mode="widthFix" lazy-load="true" /></block>
+  </view> <!-- .pintuan-desc -->
+
+  <!-- 底部菜单 -->
+  <view class="op-btns-fixed">
+
+    <!-- 单独购买 -->
+    <button class="btn" bindtap="buyNow">单独购买 ￥{{sku.price}}</button>
+
+    <!-- 开团 -->
+    <button class="btn btn-primary" bindtap="confirm" wx:if="{{ pintuan.newItemAvailable }}">{{pintuan.itemUserCount}}人团 ￥{{pintuan.price}}</button>
+    <!-- 已结束（下架） -->
+    <button class="btn" disabled="true" wx:elif="{{ !pintuan.isOnSale }}">已结束</button>
+    <!-- 已抢光 -->
+    <button class="btn" disabled="true" wx:elif="{{ pintuan.itemDoneCount >=pintuan.itemMaxCount }}">已抢光</button>
+    <!-- 已达到开团上限 -->
+    <button class="btn" disabled="true" wx:else>已达到开团上限</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view>

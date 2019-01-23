@@ -1,0 +1,28 @@
+<!--
+/**
+ * 退换货列表样式
+ * rmaAll.less
+ * -----------------------------------
+ * 18/04/08 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/rmasView/rmasView.wxml" />
+
+<view class="rma-all {{hidden}}">
+
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+    <template is="rmasView" data="{{ rmas: rmas }}" />
+  </scroll-view>
+
+  <view class="op-btns-fixed">
+    <button class="btn" bindtap="redirectMyCenter">企业中心</button>
+    <button class="btn" bindtap="requestRMA">申请退换货</button>
+  </view>
+
+</view>

@@ -1,0 +1,83 @@
+<!--
+ /**
+ * 求购-列表页
+ * demand.wxml
+ * -----------------------------------
+ * 18/11/8
+ */
+ -->
+
+<import src="../../../component/common/searchBar/searchBar.wxml" />
+<import src="../../../component/common/resaleItem/resaleItem.wxml" />
+
+<view class="res-all">
+
+    <!-- 搜索楼层 -->
+    <view class="search-bar inputable">
+
+        <image class="prefix-ico" src="../../../image/icos/search_32.png" />
+
+        <input class="ipt" type="text" value="" placeholder="输入关键词搜索" bindinput="searchInput" />
+
+        <text class="op" bindtap="searchConfirm">搜索</text>
+
+    </view>
+
+    <!-- 头部标题 -->
+    <view class="res-top">
+        <text>{{ recordCount }}家企业正在求购！立即加入报价！</text>
+        <navigator url="/pages/demand/demandModify/demandModify">发布求购</navigator>
+        <image src="../../../image/resale/resale_tit.png" />
+    </view>
+
+    <!-- 排序 -->
+    <view class="res-sort">
+
+        <view
+            wx:for="{{ sortList }}"
+            wx:for-item="sort"
+            wx:key="sort"
+            class="sort {{ sort.isSelected ? 'sel' : '' }}"
+            hover-class="none"
+            data-key="{{ sort.nextVal }}"
+            bindtap="sortClick">
+
+            <text class="{{ index }}">{{ sort.name }}</text>
+
+            <block wx:if="{{ index == 0 }}">
+
+                <image class="imageO" wx:if="{{ sort.isDescSelected }}" src="../../../image/resale/sort-all-asc-o.png" />
+                <image class="imageO" wx:else src="../../../image/resale/sort-all-o.png" />
+
+            </block>
+
+            <block wx:else>
+
+                <image class="imageC" wx:if="{{ sort.isAscSelected }}" src="../../../image/resale/sort-all-desc.png" />
+                <image class="imageC" wx:elif="{{ sort.isDescSelected }}" src="../../../image/resale/sort-all-asc.png" />
+                <image class="imageC" wx:else src="../../../image/resale/sort-all.png" />
+
+            </block>
+
+        </view>
+
+    </view>
+
+    <!-- 列表 -->
+    <view class="res-content">
+
+        <!-- 求购列表 -->
+        <scroll-view
+                scroll-y="true"
+                enable-back-to-top="true"
+                style="height:{{scrollViewHeight}}"
+                bindscrolltolower="scrollToLower">
+
+            <template is="resaleItem" data="{{ demandList: demandList, type: 'demand', noPagingTip: false }}"/>
+
+        </scroll-view>
+
+    </view>
+
+
+</view>

@@ -1,0 +1,116 @@
+/**
+ * 组件 - 限时购列表
+ * flashSalesView.less
+ * -----------------------------------
+ * 18/11/19 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.sale-sku {
+  .flex-between;
+  padding: @text-margin;
+  border-bottom: @border-gray-light;
+
+  &:first-child {
+    border-top: @border-gray-light;
+  }
+
+  /* SKU主图 */
+  .sku-img {
+    width: 30%;
+
+    image {
+      .img-sku-s;
+    }
+  } /* .sku-img */
+
+  .sku-text {
+    width: 68%;
+
+
+  } /* .sku-text */
+
+  /* SKU名称 */
+  .sku-name {
+    margin-bottom: 10rpx;
+    height: 80rpx;
+    overflow:hidden; /* 超出一行文字自动隐藏 */
+
+    text {
+      .tip-label-primary;
+      margin-right: @text-margin;
+    }
+
+  } /* .sku-name */
+
+  .sku-price-and-ops {
+    .flex-between;
+
+    /* SKU单价 */
+    .sku-price {
+      width: 60%;
+      font-size: @text-size-m3;
+      color: @color-primary;
+    } /* .sku-price */
+
+    .sku-op {
+      width: 40%;
+      text-align: right;
+
+      button {
+        margin-right: @text-margin;
+        width: 180rpx;
+      }
+
+    } /* .sku-op */
+
+  } /* .sku-price-and-ops */
+
+  .sku-ori-price-and-qty {
+    .flex-end;
+
+    .sku-ori-price {
+      width: 28%;
+      font-size: @text-size-s;
+      color: @color-gray-dark;
+      text-decoration: line-through;
+    }
+
+    .sku-qty {
+      .flex-end;
+      width: 72%;
+
+      .qty-text {
+        font-size: @text-size-s;
+        color: @color-gray-dark;
+      }
+
+      .progress {
+        margin: 0 @text-margin 0 @text-margin-s;
+        width: 180rpx;
+        height: 15rpx;
+        background-color: @color-gray-light;
+        border-radius: 8rpx;
+
+        .progress-bar {
+          height: 15rpx;
+          background-color: @color-primary;
+          border-radius: 8rpx;
+        }
+
+      } /* .qty-progress */
+
+    } /* .sku-qty */
+
+  } /* .sku-ori-price-and-qty */
+
+  /* sale-sku hover 样式 */
+  &.sale-sku-hover {
+
+    .sku-img {
+      opacity: .7;
+    }
+  } /* &.sale-sku-hover */
+
+} /* .sale-sku */

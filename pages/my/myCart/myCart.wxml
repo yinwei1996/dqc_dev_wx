@@ -1,0 +1,107 @@
+<!--
+/**
+ * 采购单
+ * myCart.wxml
+ * -----------------------------------
+ * 18/03/21 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/quantitySpinner/quantitySpinner.wxml" />
+<import src="../../../component/common/pagingTip/pagingTip.wxml" />
+
+<view class="my-cart {{hidden}}">
+
+  <!-- 按卖家遍历 -->
+  <view class="cart-seller" wx:for="{{sellers}}" wx:for-item="seller" wx:key="{{seller.seller}}">
+
+    <view class="seller-title"
+      bindtap="sellerClick"
+      data-action="uncheckSeller"
+      data-seller-id="{{ seller.seller }}"
+      wx:if="{{ seller.checked }}">
+      <image class="item-check" src="../../../image/icos/checked_primary_48.png" />
+      <text class="self-label" wx:if="{{ seller.self }}">自营</text>
+      <text>{{ seller.sellerName }}</text>
+    </view>
+
+    <view class="seller-title"
+      bindtap="sellerClick"
+      data-action="checkSeller"
+      data-seller-id="{{ seller.seller }}"
+      wx:else>
+      <image class="item-check opacity-gray" src="../../../image/icos/unchecked_48.png" />
+      <text class="self-label" wx:if="{{ seller.self }}">自营</text>
+      <text>{{ seller.sellerName }}</text>
+    </view>
+
+    <view class="cart-item"
+          wx:for="{{seller.items}}"
+          wx:key="{{item.skuId}}"
+          data-sku-id="{{item.skuId}}"
+          bindtap="itemClick"
+          bindtouchstart="itemTouchStart"
+          bindtouchmove="itemTouchMove"
+          bindtouchend="itemTouchEnd">
+
+        <image class="item-check" src="../../../image/icos/checked_primary_48.png" data-action="uncheck"wx:if="{{item.checked}}" />
+        <image class="item-check opacity-gray" src="../../../image/icos/unchecked_48.png" data-action="check" wx:else />
+
+      <view class="item-inf" data-action="sku">
+
+        <!--<image src="{{item.imgUrl}}" />-->
+        <image class="item-img sku-img" src="{{item.fullImgUrl}}" data-action="sku" />
+
+        <view class="item-text">
+          <text class="item-name" data-action="sku">{{item.skuName}}</text>
+          <text class="item-spec" data-action="sku">{{item.spec}} </text>
+          <text class="item-price" data-action="sku">￥{{item.price}}</text>
+        </view>
+
+      </view> <!-- .item-inf -->
+
+      <template is="quantitySpinner"
+        data="{{ key: item.skuId, quantity: item.quantity, minQuantity: item.wholesaleMinQuantity, maxQuantity: item.wholesaleMaxQuantity, unit: item.unit }}" />
+
+      <!-- 删除SKU项 -->
+      <view class="item-del {{ opItemSkuId == item.skuId ? '' : 'hidden' }}" data-action="del">删除</view>
+
+    </view> <!-- .cart-sku -->
+    <view class="sku-delivery" wx:if="{{ seller.sellerDeliveryFee != 0 }}">
+      <text>配送费用 ¥ {{ seller.sellerDeliveryFee }}，满 ¥ {{ seller.sellerDeliveryFreeAmount }}免邮</text>
+    </view><!-- .sku-delivery -->
+
+  </view> <!-- .cart-seller -->
+
+  <!-- 列表空白时的提示 -->
+  <template is="pagingTip" data="{{ records: sellers }}" />
+
+  <!-- 合计及下单 -->
+  <view class="cart-ops" bindtap="opsClick" wx:if="{{ sellers.length > 0 }}">
+
+    <view class="cart-total">
+
+      <view class="total-qty">
+
+        <image class="item-check" src="../../../image/icos/checked_primary_48.png" data-action="uncheckAll" wx:if="{{ payableQty > 0 && payableQty == totalQty }}" />
+        <image class="item-check opacity-gray" src="../../../image/icos/unchecked_48.png" data-action="checkAll" wx:else />
+
+        <text wx:if="{{payableQty}}">已选 ({{payableQty}})</text>
+        <text wx:else>未选择</text>
+
+      </view>
+
+      <view class="total-amount">￥{{payableAmount}}</view>
+
+    </view> <!-- .cart-total -->
+
+    <block wx:if="{{ payableQty > 0 }}">
+      <view class="cart-done" data-action="done">下单</view>
+    </block>
+    <block wx:else>
+      <view class="cart-done disabled">下单</view>
+    </block>
+
+  </view> <!-- .cart-ops -->
+
+</view>

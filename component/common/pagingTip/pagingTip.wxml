@@ -1,0 +1,56 @@
+<!--
+/**
+ * 分页提示
+ * pagingTip.wxml
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+-->
+<template name="pagingTip">
+
+  <!--
+    records参数接受两种形式的数据：
+    1. { records: .., pageIndex: .., pageCount: .. }（根据条件显示对应的全部提示）
+    2. [] 业务数组（只在符合条件时，显示空白列表提示；如果数组不为空，不显示整个组件）
+  -->
+
+  <!-- 优先给出加载中提示 -->
+  <view class="paging-tip" wx:if="{{ records.loading }}">
+    <text>拼命加载中...</text>
+  </view>
+
+  <!-- 第一种类型的records参数 -->
+  <view class="paging-tip" wx:elif="{{ records && records.records }}">
+
+    <!-- 没有数据 -->
+    <block wx:if="{{ !records.pageCount }}">
+      <view class="no-records">
+        <image src="../../../image/paging_bg.png" />
+        <text>—  没有符合条件的记录  —</text>
+      </view>
+    </block>
+
+    <!-- 正在加载提示 -->
+    <block wx:elif="{{ records.pagingAvailable }}">
+      <text>拼命加载中...</text>
+    </block>
+
+    <!-- 已经全部加载 -->
+    <block wx:else>
+      <text>—  已经到底了  —</text>
+    </block>
+
+  </view>
+
+  <!-- 第二种类型的records参数 -->
+  <view class="paging-tip" wx:elif="{{ records.length == 0 }}">
+
+    <!-- 没有下拉分页 -->
+    <view class="no-records">
+      <image src="../../../image/paging_bg.png" />
+      <text>—  没有符合条件的记录  —</text>
+    </view>
+
+  </view>
+
+</template>

@@ -1,0 +1,215 @@
+/**
+ * 采购单样式
+ * myCart.less
+ * -----------------------------------
+ * 18/03/21 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../component/common/quantitySpinner/quantitySpinner.less';
+@import '../../../component/common/pagingTip/pagingTip.less';
+
+/* 采购单 */
+.my-cart {
+  /* 留出底部"统计"栏的高度，总计：100rpx。这里扣掉 最后一个 .cart-item 的 margin-bottom 10rpx，剩 90rpx */
+  padding-bottom: 70rpx;
+
+  /* 商家信息 */
+  .seller-title {
+    .flex-start;
+    padding:@text-margin-l;
+    border-bottom: @border-gray-light;
+
+    image {
+      margin-right: @text-margin-s;
+    }
+
+  } /* .seller-title */
+
+  .seller-name {
+    .flex-start;
+    padding: @block-padding;
+    height: 80rpx;
+    border-bottom: @border-gray;
+
+    .seller-ico {
+      padding: 0 8rpx;
+      .ico-m;
+    }
+
+    text {
+      margin-left: 15rpx;
+      font-size: @text-size-l;
+    }
+
+  } /* .seller-name */
+
+  /* .cart-seller */
+  .cart-seller {
+    clear: both;
+    /* .wire */
+    .wire {
+      width: 100%;
+      height: 30rpx;
+      background-color: #eee;
+    } /* .wire */
+  }/* .cart-seller */
+
+  /* 采购单项目 */
+  .cart-item {
+    .flex-start;
+    padding-left: @text-margin-l;
+    position: relative;
+
+      /* 是否选中项目 */
+      .item-check {
+        .ico-m;
+      } /* .item-check */
+
+    /* 图片、名称、规格、单价 */
+    .item-inf {
+      .flex-start;
+      padding-right: @text-margin-l;
+      height: 180rpx;
+      border-bottom: @border-gray-light;
+
+      /* SKU小图 */
+      .item-img {
+        .ico-sku-s;
+      } /* image */
+
+      /* SKU名称、规格、单价 */
+      .item-text {
+        margin-left: 15rpx;
+
+        text {
+          display: block;
+          font-size: @text-size-m;
+
+          &.item-name {
+            .text-ellipsis;
+            width: 500rpx;
+          }
+
+          &.item-spec {
+            margin-top: @text-margin-xs;
+            font-size: @text-size-xs;
+          }
+
+          &.item-price {
+            margin-top: 5rpx;
+            color: @color-primary;
+          }
+
+        } /* text */
+
+      } /* .item-text */
+
+    } /* .item-inf */
+
+    /* SKU数量 */
+    .quantity-spinner {
+      position: absolute;
+      top: 90rpx;
+      right: 15rpx;
+      /* 浮动在 .item-text 之上 */
+      z-index: 1;
+    } /* .quantity-spinner */
+
+    /* 删除项目 */
+    .item-del {
+      .flex-center;
+      position: absolute;
+      top: 90rpx;
+      right: 35rpx;
+      width: 255rpx;
+      height: 65rpx;
+      color: @color-white;
+      background-color: @color-red;
+      z-index: 2;
+    } /* .item-del */
+
+    &:last-child {
+      margin-bottom: 10rpx;
+      border-bottom: none;
+    }
+
+  } /* .cart-item */
+
+  .item-check {
+    .ico-m;
+  } /* .item-check */
+
+  /* 采购单邮费 */
+  .sku-delivery {
+    float: right;
+    margin: 30rpx 0;
+    padding-right: 30rpx;
+    text {
+      font-size: @text-size-s;
+    }
+  }
+  /* 合计及下单 */
+  .cart-ops {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    height: @bar-height;
+    /* 浮动在 .quantity-spinner 之上 */
+    z-index: 2;
+
+    /* 合计 */
+    .cart-total {
+      .flex-between;
+      padding: 0 @text-margin-l;
+      width: 70%;
+      box-sizing: border-box;
+      background-color: @color-gray-light;
+
+      /* 总件数 */
+      .total-qty {
+        .flex-start;
+        background-color: @color-gray-light;
+
+        image {
+          padding: 15rpx 0;
+          .ico-m;
+        }
+
+        text {
+          margin-left: 15rpx;
+        }
+
+      } /* .total-qty */
+
+      /* 总金额 */
+      .total-amount {
+        .flex-end;
+        font-size: @text-size-m3;
+        color: @color-primary;
+        background-color: @color-gray-light;
+      
+      } /* .total-amount */
+
+    } /* .cart-total */
+
+    /* 下单 */
+    .cart-done {
+      .flex-center;
+      width: 30%;
+      font-size: @text-size-m3;
+      color: @color-white;
+      background-color: @color-primary;
+
+      &.disabled {
+        color: @color-gray;
+        background-color: @color-gray-dark;
+      }
+
+    } /* .cart-done */
+
+  } /* .cart-ops */
+
+} /* .my-cart */

@@ -1,0 +1,195 @@
+<!--
+ /**
+ * 首页
+ * index.wxml
+ * -----------------------------------
+ * 18/03/19 Jerry 新增
+ */
+ -->
+
+<import src="../../../component/common/searchBar/searchBar.wxml" />
+<import src="../../../component/common/flashSalesFloor/flashSalesFloor.wxml" />
+<import src="../../../component/common/activitiesFloor/activitiesFloor.wxml" />
+<import src="../../../component/common/brandsFloor/brandsFloor.wxml" />
+<import src="../../../component/common/pintuansView/pintuansView.wxml" />
+<import src="../../../component/common/skusView/skusView.wxml" />
+<import src="../../../component/common/resaleItem/resaleItem.wxml" />
+
+<view>
+
+  <view class="floor-wrapper ad-wrapper">
+    <!--  wx:if="{{ ads && ads.length }}"-->
+
+    <!-- 搜索楼层（与广告保持同样的显示条件） -->
+    <template is="searchBar" bindtap="handleSearchClick" />
+
+    <!-- 广告楼层 -->
+    <view wx:if="{{swiperList}}">
+
+      <swiper
+          indicator-dots="false"
+          indicator-color="rgba(0, 0, 0, 0)"
+          indicator-active-color="rgba(0, 0, 0, 0)"
+          autoplay="true"
+          circular="true"
+          interval="10000"
+          duration="1500"
+          bindchange="changeAD">
+
+        <swiper-item wx:for="{{swiperList}}" wx:key="advertisementId">
+          <image mode="widthFix" lazy-load="true" wx:if="{{item.fullImgUrl}}" src="{{item.fullImgUrl}}" data-lnk-url="{{item.linkUrl}}" bindtap="clickAD" />
+        </swiper-item>
+
+      </swiper>
+
+      <text class="indicator-tip">{{ swiperIndex || 1 }}/{{ swiperList.length }}</text>
+
+    </view> <!-- .ad-wrapper -->
+
+  </view> <!-- .floor-wrapper -->
+
+  <!-- 快捷操作入口楼层 取前12条 -->
+  <view class="floor-wrapper ops-wrapper" wx:if="{{typesLevel1}}">
+    <view class="op-item"
+        wx:for="{{ typesLevel1 }}"
+        wx:key="{{ typeId }}"
+        hover-class="none"
+        data-key="{{ item.typeId }}"
+        bindtap="handleTypesClick">
+      <image src="{{ item.fullTypeImageUrl }}"/>
+      <text>{{ item.typeName }}</text>
+    </view>
+
+  </view> <!-- .ops-wrapper -->
+
+  <!-- 限时购楼层 -->
+  <view class="floor-wrapper" wx:if="{{flashSale}}">
+
+    <view class="title" bindtap="redirectFlashSaleAll">
+      <view class="flex-start">
+        <image class="title-img" src="../../../image/icos/floor_title_flash_sale.png" mode="aspectFit" />
+        <view class="flash-sale-countdown">
+          <text class="countdown-label">{{flashSaleCountdownLabel}}</text>
+          <text class="countdown-val"wx:if="{{flashSaleCountdownVal}}">{{flashSaleCountdownVal}}</text>
+        </view>
+      </view>
+      <image src="../../../image/icos/arrow_right_81.png" class="title-more" />
+    </view>
+
+    <view class="body">
+      <template is="flashSalesFloor" data="{{ sales: flashSaleSkus }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <!-- 活动楼层 -->
+  <view class="floor-wrapper" wx:if="{{ activities && activities.length }}">
+
+    <view class="title">
+      <image class="title-img" src="../../../image/icos/floor_title_activity.png" mode="aspectFit" />
+    </view>
+
+    <view class="body">
+      <template is="activitiesFloor" data="{{ activities: activities }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <!-- 拼团楼层 -->
+  <view class="floor-wrapper" wx:if="{{ pintuans && pintuans.length }}">
+
+    <view class="title" bindtap="redirectPintuanAll">
+      <text class="title-text">精选拼团</text>
+      <image src="../../../image/icos/arrow_right_48.png" class="title-more" />
+    </view>
+
+    <view class="body">
+      <template is="pintuansView" data="{{ pintuans: pintuans }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <!-- 品牌楼层 -->
+  <view class="floor-wrapper" wx:if="{{ brands && brands.length }}">
+
+    <view class="title">
+      <image class="title-img" src="../../../image/icos/floor_title_brand.png" mode="aspectFit" />
+    </view>
+
+    <view class="body">
+      <template is="brandsFloor" data="{{ brands: brands }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <!-- 供求列表主页入口楼层 -->
+  <!--<view class="floor-wrapper resale-wrapper" wx:if="{{ demandList }}">-->
+
+    <!--<view class="tit">-->
+      <!--<view class="tab {{ depot.idx == 0 ? 'active':'' }}" data-key="demand" bindtap="resTabClick">求购信息</view>-->
+      <!--&lt;!&ndash;<view class="tab {{ depot.idx == 1 ? 'active':'' }}" data-key="supply" bindtap="resTabClick">供应信息</view>&ndash;&gt;-->
+    <!--</view>-->
+
+    <!--<view class="body">-->
+
+        <!--&lt;!&ndash; 求供列表 &ndash;&gt;-->
+        <!--<template is="resaleItem" data="{{ demandList: demandList, type: depot.res || 'demand', noPagingTip: true }}"/>-->
+
+        <!--<view class="more">-->
+          <!--&lt;!&ndash;查看更多&ndash;&gt;-->
+          <!--<navigator url="{{ depot.resUrl || '/pages/demand/demandAll/demandAll' }}" hover-class="none">查看更多</navigator>-->
+        <!--</view>-->
+
+    <!--</view>-->
+
+    <!--<view class="title" bindtap="redirectDemandAll">-->
+      <!--<view class="flex-start">-->
+        <!--<image class="title-img" src="../../../image/icos/floor_title_demand.png" mode="aspectFit" />-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_81.png" class="title-more" />-->
+    <!--</view>-->
+
+    <!--<view class="body">-->
+      <!--<template is="resaleItem" data="{{ demandList: demandList, type: depot.res || 'demand', noPagingTip: true }}"/>-->
+    <!--</view>-->
+
+  <!--</view>-->
+
+  <!-- 推荐商品楼层 -->
+  <view class="floor-wrapper" wx:if="{{ recommendSKUs && recommendSKUs.length }}">
+
+    <view class="title">
+      <image class="title-img" src="../../../image/icos/floor_title_recommend.png" mode="aspectFit" />
+    </view>
+
+    <view class="body">
+      <template is="skusView" data="{{ skus: recommendSKUs }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <!--新上架商品楼层-->
+  <view class="floor-wrapper" style="border-bottom:none" wx:if="{{ newSKUs && newSKUs.length }}">
+
+    <view class="title">
+      <image class="title-img" src="../../../image/icos/floor_title_new.png" mode="aspectFit" />
+    </view>
+
+    <view class="body">
+      <template is="skusView" data="{{ skus: newSKUs }}" />
+    </view>
+
+  </view>
+  <!-- .floor-wrapper -->
+
+  <view class="no-records">
+    <image src="../../../image/paging_bg.png" />
+    <text>—  空空如也  —</text>
+  </view>
+
+</view>

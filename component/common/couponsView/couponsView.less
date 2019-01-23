@@ -1,0 +1,107 @@
+/**
+ * 组件 - 优惠券列表样式
+ * couponsView.less
+ * -----------------------------------
+ * 18/04/12 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.coupon-item {
+  .flex-between;
+  border-radius: 5rpx;
+
+  /* 优惠券信息 */
+  .coupon-inf {
+    .flex-center;
+    margin: @block-padding-left 0 0 @block-padding-left;
+    width: 30%;
+    height: 150rpx;
+    background-color: @color-primary;
+
+    /* 面额 */
+    .coupon-amount {
+      text-align: center;
+      color: @color-white;
+
+      text {
+        color: @color-white;
+        font-size: @text-size-xxl;
+      }
+
+    } /* .coupon-amount */
+
+    /* 消费限制 */
+    .coupon-limit {
+      margin-top: 5rpx;
+      color: @color-white;
+      font-size: @text-size-s;
+    } /* .coupon-limit */
+
+  } /* .coupon-inf */
+
+  /* 优惠券备注 */
+  .coupon-summary {
+    .flex-start;
+    .block-padding;
+    margin: @block-padding-left @block-padding-left 0 0;
+    position: relative;
+    width: 70%;
+    height: 150rpx;
+    box-sizing: border-box;
+    background-color: @color-gray-light;
+
+    /* 商品限制 */
+    .coupon-scope {
+      color: fade(@color-text, 80%);
+      font-size: @text-size-s3;
+    } /* .coupon-scope */
+
+    /* 有效期 */
+    .coupon-expire-time {
+      margin-top: 10rpx;
+      color: @color-gray-dark;
+      font-size: @text-size-xs;
+    } /* .coupon-expire-time */
+
+    /* 快过期、已使用、已失效提示 */
+    .coupon-tip {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 2rpx 5rpx;
+      color: @color-white;
+      font-size: @text-size-xs;
+      background-color: @color-primary;
+    } /* .expire-soon */
+
+    /* "立即使用"按钮 */
+    .coupon-use {
+      position: absolute;
+      bottom: 32rpx;;
+      right: 15rpx;
+      .flex-center;
+      width: 120rpx;
+      height: 40rpx;
+      color: @color-primary;
+      font-size: @text-size-xs;
+      border: @border-primary;
+      border-radius: 20rpx;
+    } /* .coupon-use */
+
+  } /* .coupon-summary */
+
+  /* 已使用的优惠券 */
+  &.used, &.expired {
+
+    .coupon-inf {
+      background-color: fade(@color-text, 50%);
+    }
+
+    .coupon-tip {
+      background-color: fade(@color-text, 50%);
+    }
+
+  } /* &.used */
+
+} /* .coupon-item */

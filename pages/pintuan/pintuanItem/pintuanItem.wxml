@@ -1,0 +1,145 @@
+<!--
+ /**
+ * 拼团详情
+ * pintuanItem.wxml
+ * -----------------------------------
+ * 18/04/11 Jerry 新增
+ */
+ -->
+
+<view class="pintuan-detail {{hidden}}">
+
+  <!-- 商品大图 -->
+  <view class="pintuan-imgs">
+    <image src="{{pintuan.fullImgUrl}}" mode="widthFix" data-src="{{pintuan.fullImgUrl}}" bindtap="handleImagePreview" />
+  </view>
+
+  <!-- 名称、摘要 -->
+  <view class="pintuan-text">
+    <text class="pintuan-name">{{pintuan.pintuanName}}</text>
+    <text class="pintuan-summary">{{pintuan.summary}}</text>
+  </view>
+
+  <!-- 单价 -->
+  <view class="pintuan-price">
+
+    <text class="current-price">￥{{pintuan.price}}</text>
+
+    <block wx:if="{{ pintuan.oriPrice && (pintuan.oriPrice - pintuan.price) > 0 }}">
+      <text class="ori-price">￥{{pintuan.oriPrice}}</text>
+    </block>
+
+    <!-- 分享按钮 -->
+    <button open-type="share">
+      <image src="../../../image/icos/share_48.png" />
+    </button>
+
+  </view>
+
+
+  <!-- 可以参团 -->
+  <block wx:if="{{ item.joinItemAvailable }}">
+
+    <view class="pintuan-tip">
+
+      <view class="tip-text" wx:if="{{ item.leader }}">开团成功</view>
+      <view class="tip-text" wx:elif="{{ item.member }}">参团成功</view>
+
+      <view class="tip-summary">
+        还差 <text>{{ item.itemUserCount - item.actualUserCount }}</text> 人成团，剩余 <text>{{ item.expireSecondsString }}</text> 结束
+      </view>
+
+    </view>
+
+  </block>
+
+  <!-- 已成团 -->
+  <block wx:elif="{{ item.actualUserCount >= pintuan.itemUserCount }}">
+
+    <!-- 成团提示 -->
+    <view class="pintuan-tip">
+      <view class="tip-text">拼团已成团</view>
+      <view class="tip-summary">预计3个工作日内发货</view>
+    </view> <!-- .pintuan-tip -->
+
+  </block>
+
+  <!-- 未成团 -->
+  <block wx:elif="{{ pintuan.itemUserCount > item.actualUserCount }}">
+
+    <view class="pintuan-tip">
+      <view class="tip-text">拼团未成团</view>
+      <view class="tip-summary">人数不足</view>
+    </view> <!-- .pintuan-tip -->
+
+  </block>
+
+  <!-- 已结束（下架） -->
+  <block wx:else>
+
+    <view class="pintuan-tip">
+      <view class="tip-text">拼团已结束</view>
+    </view> <!-- .pintuan-tip -->
+
+  </block>
+
+
+  <!-- 参团人数 -->
+  <view class="pintuan-avatars">
+
+    <view class="pintuan-avatar" wx:for="{{item.avatarUrls}}" wx:for-item="url" wx:key="url">
+      <image src="{{ url || '../../../image/icos/tab_user_sel.png' }}" />
+      <text wx:if="{{ index == 0 }}">团长</text>
+    </view>
+
+    <view class="pintuan-avatar" wx:for="{{item.emptyAvatarUrls}}" wx:for-item="url" wx:key="url">
+      <image class="opacity-gray-light" src="../../../image/icos/question_81.png" />
+    </view>
+
+  </view> <!-- .pintuan-avatars -->
+
+
+  <!-- 拼团流程 -->
+  <view class="pintuan-steps">
+
+    <view class="pintuan-step {{ item.expireSeconds > 0 && pintuan.itemUserCount - item.actualUserCount > 0 ? 'sel' : '' }}">
+      <text>邀请好友参团</text>
+      <image src="../../../image/icos/arrow_right_48.png" />
+    </view>
+
+    <view class="pintuan-step {{ item.actualUserCount >= pintuan.itemUserCount ? 'sel' : '' }}">
+      <text>成团分别发货</text>
+      <image src="../../../image/icos/arrow_right_48.png" />
+    </view>
+
+    <view class="pintuan-step {{ item.expireSeconds <= 0 && pintuan.itemUserCount - item.actualUserCount > 0 ? 'sel' : '' }}">
+      <text>人数不足自动退款</text>
+    </view>
+
+  </view> <!-- .pintuan-steps -->
+
+  <!-- 操作区 -->
+  <view class="op-btns-fixed">
+
+    <!-- 可以参团 -->
+    <block wx:if="{{ item.joinItemAvailable }}">
+
+      <button class="btn" bindtap="redirectPintuanAll">逛逛其他拼团</button>
+
+      <!-- 团长已开团 或 团员已参团 -->
+      <button open-type="share" class="btn btn-primary" wx:if="{{ item.leader || item.member }}">邀请好友参团</button>
+
+      <!-- 其他情况 -->
+      <button class="btn btn-primary" bindtap="join" wx:else>立即参团</button>
+
+    </block>
+
+    <!-- 不可以参团 -->
+    <block wx:else>
+      <button class="btn" bindtap="redirectIndex">回到首页</button>
+      <button class="btn" bindtap="redirectPintuanAll">逛逛其他拼团</button>
+    </block>
+
+  </view>
+
+</view>

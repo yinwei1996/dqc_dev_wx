@@ -1,0 +1,289 @@
+<!--
+/**
+ * 组件 - myResaleItem
+ * -----------------------------------
+ * 18/11/15
+ */
+-->
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="myResaleItem">
+
+    <!-- 求购 -->
+    <block wx:if="{{ type === 'demand' }}">
+
+      <view class="skus-view">
+
+        <view
+                class="res-item"
+                wx:for="{{ demandList.records || demandList }}"
+                wx:for-item="res"
+                wx:key="res">
+
+          <view class="it-tit">
+
+            <text class="fl">{{ res.title }}</text>
+            <text class="fr">{{ res.statusTitle }}</text>
+
+          </view>
+
+          <view class="it-sub">
+
+            <view>收到<text>{{ res.quoteCount }}</text>条报价</view>
+
+            <view>发布时间：{{ res.createTimeString }}</view>
+
+            <view>报价截至：{{ res.expireTimeString }}</view>
+
+          </view>
+
+          <view class="it-inner">
+
+            <view class="it-info">
+              <image
+                      src="{{ res.fullImgUrl }}"
+                      data-id="{{ res.fullImgUrl }}"
+                      bindtap="previewImgClick" />
+            </view>
+
+            <view class="it">
+              <view>{{ res.skuName }}</view>
+              <view>{{ res.skuSpec }}</view>
+            </view>
+
+            <view class="it">
+              <view>单价</view>
+              <view>{{ res.minPrice }}~{{ res.maxPrice }}元</view>
+              <view>x{{ res.skuQuantity }}{{ res.skuUnit }}</view>
+            </view>
+
+            <view class="it">
+              <view>运费</view>
+              <view>{{ res.minDeliveryFee }}~{{ res.maxDeliveryFee }}元</view>
+              <view>{{ res.minDeliveryDays }}~{{ res.maxDeliveryDays }}天交货期</view>
+            </view>
+
+
+          </view>
+
+          <view class="it-is">
+
+            <view class="it">
+              <view>
+                <text>{{ res.payTypeTitle }}</text>
+                <image src="../../../image/resale/yes.png"></image>
+              </view>
+              <view>
+                <text>{{ res.isPriceIncludeTax ? '单价包含税费' : '单价不含税费' }}</text>
+                <image src="../../../image/resale/{{ res.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+              </view>
+              <view>
+                <text>{{ res.isPriceIncludeDeliveryFee ? '单价包含运费' : '单价不含运费' }}</text>
+                <image src="../../../image/resale/{{ res.isPriceIncludeDeliveryFee ? 'yes':'no' }}.png"></image>
+              </view>
+              <view>
+                <text>{{ res.isPriceIncludeTax ? '单价可议' : '单价不可议' }}</text>
+                <image src="../../../image/resale/{{ res.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+              </view>
+            </view>
+
+            <view class="it">
+              <view>
+                <image src="../../../image/resale/yes.png"></image>
+                <text>{{ res.deliveryTypeTitle }}</text>
+              </view>
+              <view>
+                <image src="../../../image/resale/{{ res.isPriceIncludeDeliveryFee ? 'yes':'no' }}.png"></image>
+                <text>{{ res.isPriceIncludeDeliveryFee ? '运费可议' : '运费不可议' }}</text>
+              </view>
+              <view>
+                <image src="../../../image/resale/{{ res.isDeliveryDaysBargain ? 'yes':'no' }}.png"></image>
+                <text>{{ res.isDeliveryDaysBargain ? '交货期可议' : '交货期不可议' }}</text>
+              </view>
+            </view>
+
+          </view>
+
+          <view class="it-ops">
+
+            <block wx:if="{{ res.mallAvailable }}">
+
+              <!--商城详情-->
+              <navigator url="/pages/demand/demandDetails/demandDetails?demandId={{ res.demandId }}">商城详情</navigator>
+
+            </block>
+
+            <block wx:if="{{ res.onSaleAvailable }}">
+
+              <!--上架-->
+              <view data-id="{{ res.demandId }}" bindtap="upLineClick">上架</view>
+
+            </block>
+
+            <block wx:if="{{ res.offSaleAvailable }}">
+
+              <!--下架-->
+              <view data-id="{{ res.demandId }}" bindtap="downLineClick">下架</view>
+
+            </block>
+
+            <block wx:if="{{ res.modifyAvailable }}">
+
+              <!--编辑-->
+              <navigator url="/pages/demand/demandModify/demandModify?demandId={{ res.demandId }}">编辑</navigator>
+
+            </block>
+
+            <block wx:if="{{ res.approveStatus != 'WaitingApprove' }}">
+
+              <!--查看报价-->
+              <navigator url="/pages/demand/myDemandDetail/myDemandDetail?demandId={{ res.demandId }}">查看报价</navigator>
+
+            </block>
+
+
+
+          </view>
+
+        </view>
+
+      </view>
+
+      <!-- 分页提示 -->
+      <template wx:if="{{ !noPagingTip }}" is="pagingTip" data="{{ records: demandList }}" />
+
+    </block>
+    <!-- 供应 -->
+    <block wx:if="{{ type === 'supply' }}">
+
+      <view class="skus-view">
+
+        <view
+                class="res-item"
+                wx:for="{{ demandList.records || demandList }}"
+                wx:for-item="res"
+                wx:key="res">
+
+          <view class="it-tit">
+
+            <text class="fl">{{ res.title }}</text>
+            <text class="fr">{{ res.statusTitle }}</text>
+
+          </view>
+
+          <view class="it-sub">
+
+            <view>收到<text>{{ res.quoteCount }}</text>条询价</view>
+
+            <view>发布时间：{{ res.createTimeString }}</view>
+
+            <view>询价截至：{{ res.expireTimeString }}</view>
+
+          </view>
+
+          <view class="it-inner">
+
+            <view class="it-info">
+              <image
+                      src="{{ res.fullImgUrl }}"
+                      data-id="{{ res.fullImgUrl }}"
+                      bindtap="previewImgClick" />
+              <view class="info">
+                <text>{{ res.skuName }}</text>
+                <text>{{ res.skuSpec }}</text>
+              </view>
+            </view>
+
+            <view class="it">
+              <view>单价</view>
+              <view>{{ res.minPrice }}~{{ res.maxPrice }}元</view>
+              <view>x{{ res.skuQuantity }}{{ res.skuUnit }}</view>
+            </view>
+
+            <view class="it">
+              <view>发货地</view>
+              <view>{{res.deliveryProvinceName}}-{{res.deliveryCityName}}</view>
+            </view>
+
+
+          </view>
+
+          <view class="it-is">
+
+            <view class="it">
+              <view>
+                <text>{{ res.payTypeTitle }}</text>
+                <image src="../../../image/resale/yes.png"></image>
+              </view>
+              <view>
+                <text>{{ res.isPriceIncludeTax ? '单价包含税费' : '单价不含税费' }}</text>
+                <image src="../../../image/resale/{{ res.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+              </view>
+              <view>
+                <text>{{ res.isPriceIncludeTax ? '单价可议' : '单价不可议' }}</text>
+                <image src="../../../image/resale/{{ res.isPriceIncludeTax ? 'yes':'no' }}.png"></image>
+              </view>
+            </view>
+
+            <view class="it">
+              <view>
+                <text>{{ res.deliveryTypeTitle }}</text>
+                <image src="../../../image/resale/yes.png"></image>
+              </view>
+            </view>
+
+          </view>
+
+          <view class="it-ops">
+
+            <block wx:if="{{ res.mallAvailable }}">
+
+              <!--商城详情-->
+              <navigator url="/pages/demand/demandDetails/demandDetails?demandId={{ res.demandId }}">商城详情</navigator>
+
+            </block>
+
+            <block wx:if="{{ res.onSaleAvailable }}">
+
+              <!--上架-->
+              <view data-id="{{ res.demandId }}" bindtap="upLineClick">上架</view>
+
+            </block>
+
+            <block wx:if="{{ res.offSaleAvailable }}">
+
+              <!--下架-->
+              <view data-id="{{ res.demandId }}" bindtap="downLineClick">下架</view>
+
+            </block>
+
+            <block wx:if="{{ res.modifyAvailable }}">
+
+              <!--编辑-->
+              <navigator url="/pages/demand/demandModify/demandModify?demandId={{ res.demandId }}">编辑</navigator>
+
+            </block>
+
+            <block wx:if="{{ res.approveStatus != 'WaitingApprove' }}">
+
+              <!--查看报价-->
+              <navigator url="/pages/demand/myDemandDetail/myDemandDetail?demandId={{ res.demandId }}">查看询价</navigator>
+
+            </block>
+
+
+
+          </view>
+
+        </view>
+
+      </view>
+
+      <!-- 分页提示 -->
+      <template wx:if="{{ !noPagingTip }}" is="pagingTip" data="{{ records: demandList }}" />
+
+    </block>
+
+
+
+</template>

@@ -1,0 +1,32 @@
+/**
+ * 组件 - 数量Spinner（不参与wxss编译）
+ * quantitySpinner.wxml
+ * -----------------------------------
+ * 18/03/30 Jerry 新增
+ */
+
+.quantity-spinner {
+
+  image {
+    float: left;
+    padding: 18rpx 20rpx;
+    width: 30rpx;
+    height: 30rpx;
+
+    &.disabled {
+      opacity: .1;
+    }
+  }
+
+  text {
+    float: left;
+    display: inline-block;
+    width: 150rpx;
+    height: 60rpx;
+    line-height: 60rpx;
+    text-align: center;
+    font-size: @text-size-l;
+    border: @border-gray;
+    border-radius: 5rpx;
+  }
+} /* .quantity-spinner */

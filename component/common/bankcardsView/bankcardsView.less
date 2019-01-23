@@ -1,0 +1,66 @@
+/**
+ * 组件 - 银行卡列表样式
+ * bankcardsView.less
+ * -----------------------------------
+ * 18/04/26 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.card-item {
+  .flex-between;
+  position: relative;
+  width: 100%;
+  height: @list-line-height-l;
+  border-bottom: @border-gray-light;
+
+  .card-inf {
+    .flex-start;
+
+    .card-logo {
+      .flex-start;
+      margin-right: @text-margin-l;
+
+      image {
+        .ico-xl;
+      }
+
+    }
+
+    .card-text {
+
+      /* 银行卡号 */
+      .card-code {
+
+        /* 默认提示 */
+        .is-default {
+          .tip-label-primary;
+          margin-left: @text-margin-xl;
+          vertical-align: 5rpx;
+        } /* .is-default */
+
+      } /* .card-code */
+
+      /* 发卡银行 */
+      .card-bank {
+        margin-bottom: @text-margin-xs;
+        font-size: @text-size-s3;
+      } /* .card-bank */
+
+    } /* .card-text */
+
+  } /* .card-inf */
+
+  /* 删除银行卡 */
+  .card-del {
+    .flex-center;
+    position: absolute;
+    right: 30rpx;
+    width: 245rpx;
+    height: 65rpx;
+    color: @color-white;
+    background-color: @color-red;
+    z-index: 2;
+  } /* .card-del */
+
+} /* .card-item */

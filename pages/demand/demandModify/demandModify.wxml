@@ -1,0 +1,364 @@
+<!--
+ /**
+ * 发布求购页
+ * demandModify.wxml
+ * -----------------------------------
+ * 18/11/9
+ */
+ -->
+
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+
+<view class="res-modify">
+
+    <!--商品基本信息-->
+    <view class="res-info">
+
+        <!-- 商品名称 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">商品名称</label>
+            <view class="ipt-val">
+                <input
+                        class="form-control"
+                        focus="true"
+                        placeholder="请输入商品名称"
+                        maxlength="50"
+                        value="{{demand.skuName}}"
+                        bindinput="inputSkuName" />
+            </view>
+        </view>
+
+        <!-- 商品规格 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">商品规格</label>
+            <view class="ipt-val">
+                <input
+                        class="form-control"
+                        placeholder="请输入商品规格（如：型号、尺寸、大小 ...）"
+                        maxlength="20"
+                        value="{{demand.skuSpec}}"
+                        bindinput="inputSkuSpec" />
+            </view>
+        </view>
+
+        <!-- 商品单位 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">商品单位</label>
+            <view class="ipt-val">
+                <input
+                        class="form-control"
+                        placeholder="请输入商品单位（如：件、公斤、箱、袋 ...）"
+                        maxlength="10"
+                        value="{{demand.skuUnit}}"
+                        bindinput="inputSkuUnit" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+
+        <view class="ipt-item">
+            <label class="ipt-label req">所属分类</label>
+            <picker range="{{ skuTypes1 }}" range-key="typeName" bindchange="bindChangeType1">
+                <view wx:if="{{demand.skuType1Title}}">{{demand.skuType1Title}}</view>
+                <view class="empty" wx:else>{{ skuTypes1[index1].typeName }}</view>
+                <!--<view class="empty">{{ types[index].typeName }} </view>-->
+            </picker>
+
+            <picker range="{{ skuTypes2 }}" range-key="typeName" bindchange="bindChangeType2">
+                <view wx:if="{{demand.skuType2Title}}">{{demand.skuType2Title}}</view>
+                <view class="empty" wx:else>{{ skuTypes2[index2].typeName }}</view>
+            </picker>
+
+            <picker range="{{ skuTypes3 }}" range-key="typeName" bindchange="bindChangeType3">
+                <view wx:if="{{demand.skuType3Title}}">{{demand.skuType3Title}}</view>
+                <view class="empty" wx:else>{{ skuTypes3[index3].typeName }}</view>
+            </picker>
+        </view>
+
+    </view>
+
+    <!--商品图片-->
+    <view class="res-info">
+
+        <view class="ipt-tit req">商品图片</view>
+
+        <!-- 联系人姓名 -->
+        <view class="ipt-item no-b-b">
+
+            <view class="upload-img">
+
+                <view class="up-btn" bindtap="chooseImages">
+
+                    <image class="it-icon" src="../../../image/icos/plus_48.png"></image>
+
+                </view>
+
+                <!--图片预览-->
+                <view  wx:for="{{ tempImgs }}"
+                       class="it-img"
+                       wx:key="item" >
+
+                    <image class="it-item"
+                           src="{{ item }}"
+                           mode="scaleToFill"
+                           data-id="{{ item }}"
+                           bindtap="previewImgClick" ></image>
+
+                </view>
+
+            </view>
+
+            <text>最多五张</text>
+
+        </view> <!-- .ipt-item -->
+
+    </view>
+
+    <!--数量/单价-->
+    <view class="res-info">
+
+        <view class="ipt-tit">数量/单价</view>
+
+        <!-- 商品数量 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">商品数量</label>
+            <view class="ipt-val">
+                <input
+                        type="number"
+                        class="form-control"
+                        placeholder="请输入商品数量，大于0以上的数字"
+                        maxlength="8"
+                        value="{{demand.skuQuantity}}"
+                        bindinput="inputSkuQuantity" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+        <view class="ipt-item">
+            <label class="ipt-label req">报价截至日期</label>
+            <picker mode="date" value="{{ date }}" start="" end="" bindchange="bindDateChange">
+                <view wx:if="{{ date }}">{{ date }}</view>
+                <view class="empty" wx:else>请选择</view>
+            </picker>
+        </view>
+
+        <!-- 单价区间 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">单价区间(元)</label>
+            <view class="ipt-val">
+                <input
+                        type="number"
+                        class="form-control"
+                        placeholder="请输入最低单价，大于0以上的数字"
+                        maxlength="8"
+                        value="{{demand.minPrice}}"
+                        bindinput="inputMinPrice" />
+                <input
+                        type="number"
+                        class="form-control"
+                        placeholder="请输入最高单价，大于0以上的数字"
+                        maxlength="8"
+                        value="{{demand.maxPrice}}"
+                        bindinput="inputMaxPrice" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+        <!-- 单价是否可议 -->
+        <view class="res-checkbox">
+
+            <checkbox-group bindchange="checkboxChange" data-name="isPriceIncludeTax">
+                <label class="checkbox">
+                    <checkbox value="1" checked="{{demand.isPriceIncludeTax}}"/>单价含税费
+                </label>
+            </checkbox-group>
+
+            <checkbox-group bindchange="checkboxChange" data-name="isPriceIncludeDeliveryFee">
+                <label class="checkbox">
+                    <checkbox value="1" checked="{{demand.isPriceIncludeDeliveryFee}}"/>单价含运费
+                </label>
+            </checkbox-group>
+
+            <checkbox-group bindchange="checkboxChange" data-name="isPriceBargain">
+                <label class="checkbox">
+                    <checkbox value="1" checked="{{demand.isPriceBargain}}"/>单价可议
+                </label>
+            </checkbox-group>
+
+        </view>
+
+    </view>
+
+    <!--交货/运费-->
+    <view class="res-info">
+
+        <view class="ipt-tit">交货/运费</view>
+
+        <view class="ipt-item">
+            <label class="ipt-label req">交货方式</label>
+            <picker range="{{ deliveryTypes }}" range-key="typeName" bindchange="inputDeliveryType">
+                <view wx:if="{{ demand.deliveryTypeTitle }}">{{ demand.deliveryTypeTitle }}</view>
+                <view class="empty" wx:else>请选择交货方式</view>
+            </picker>
+        </view>
+
+        <view wx:if="{{ !deliveryFee }}">
+
+            <!-- 运费区间 -->
+            <view class="ipt-item">
+                <label class="ipt-label req">运费区间(元)</label>
+                <view class="ipt-val">
+                    <input
+                            type="number"
+                            class="form-control"
+                            placeholder="请输入最低运费，大于0以上的数字"
+                            maxlength="8"
+                            value="{{demand.minDeliveryFee}}"
+                            bindinput="inputMinDeliveryFee" />
+                    <input
+                            type="number"
+                            class="form-control"
+                            placeholder="请输入最高运费，大于0以上的数字"
+                            maxlength="8"
+                            value="{{demand.maxDeliveryFee}}"
+                            bindinput="inputMaxDeliveryFee" />
+                </view>
+            </view> <!-- .ipt-item -->
+
+            <!-- 运费是否可议 -->
+            <view class="res-checkbox">
+
+                <checkbox-group bindchange="checkboxChange" data-name="isDeliveryFeeBargain">
+                    <label class="checkbox">
+                        <checkbox value="1" checked="{{demand.isDeliveryFeeBargain}}"/>运费可议
+                    </label>
+                </checkbox-group>
+
+            </view>
+
+        </view>
+
+        <!-- 交货期区间 -->
+        <view class="ipt-item">
+            <label for="minDeliveryDays" class="ipt-label req">交货期区间(天)</label>
+            <view class="ipt-val">
+                <input
+                        type="number"
+                        class="form-control"
+                        placeholder="请输入最短交货期(天)，大于0以上的数字"
+                        maxlength="8"
+                        value="{{demand.minDeliveryDays}}"
+                        bindinput="inputMinDeliveryDays" />
+                <input
+                        type="number"
+                        id="maxDeliveryDays"
+                        name="maxDeliveryDays"
+                        class="form-control"
+                        placeholder="请输入最长交货期(天)，大于0以上的数字"
+                        maxlength="8"
+                        value="{{demand.maxDeliveryDays}}"
+                        bindinput="inputMaxDeliveryDays" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+        <!-- 交货期区间是否可议 -->
+        <view class="res-checkbox">
+
+            <checkbox-group bindchange="checkboxChange" data-name="isDeliveryDaysBargain">
+                <label class="checkbox">
+                    <checkbox value="1" checked="{{demand.isDeliveryDaysBargain}}"/>交货期可议
+                </label>
+            </checkbox-group>
+
+        </view>
+
+        <!-- 收货地址 -->
+        <view class="ipt-item">
+
+            <view class="order-prop order-address" bindtap="selectAddress">
+                <label class="ipt-label req">收货地址</label>
+                <block wx:if="{{ address }}">
+                    <template is="addressesView" data="{{ addresses: address, readonly: true }}" />
+                </block>
+                <block wx:else>
+                    <label>未选择收货地址</label>
+                    <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
+                </block>
+
+            </view> <!-- .order-address -->
+
+        </view>
+
+    </view>
+
+    <!--支付-->
+    <view class="res-info">
+
+        <view class="ipt-tit">支付</view>
+
+        <view class="ipt-item">
+            <label class="ipt-label req">支付方式</label>
+            <picker range="{{ payTypes }}" range-key="typeName" bindchange="inputPayType">
+                <view wx:if="{{ demand.payTypeTitle }}">{{ demand.payTypeTitle }}</view>
+                <view class="empty" wx:else>请选择支付方式</view>
+            </picker>
+        </view>
+
+    </view>
+
+    <!--联系人-->
+    <view class="res-info">
+
+        <view class="ipt-tit">联系人</view>
+
+        <!-- 联系人姓名 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">联系人姓名</label>
+            <view class="ipt-val">
+                <input
+                        class="form-control"
+                        placeholder="请输入联系人姓名"
+                        maxlength="50"
+                        value="{{demand.contactName}}"
+                        bindinput="inputContactName" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+        <!-- 联系方式 -->
+        <view class="ipt-item">
+            <label class="ipt-label req">联系方式</label>
+            <view class="ipt-val">
+                <input
+                        type="number"
+                        class="form-control"
+                        placeholder="请输入联系方式"
+                        maxlength="15"
+                        value="{{demand.contactMobile}}"
+                        bindinput="inputContactMobile" />
+            </view>
+        </view> <!-- .ipt-item -->
+
+    </view>
+
+    <!--描述信息-->
+    <view class="res-info" style="border-bottom: 0;">
+
+        <view class="ipt-tit">描述信息</view>
+
+        <view class="ipt-item no-b-b">
+
+                <textarea
+                        id="desc"
+                        name="desc"
+                        class="form-control"
+                        maxlength="2000"
+                        placeholder="请输描述信息"
+                        bindinput="inputDesc"
+                        value="{{demand.desc}}"></textarea>
+
+        </view> <!-- .ipt-item -->
+
+    </view>
+
+    <!-- "发布求购"按钮 -->
+    <view class="btn-modify" bindtap="modify" wx:if="{{isModify}}">保存</view>
+    <view class="btn-modify" bindtap="saveDemand" wx:else>发布求购</view>
+
+</view>

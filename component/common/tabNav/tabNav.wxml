@@ -1,0 +1,56 @@
+<!--
+/**
+ * 组件 - TabNav
+ * tabNav.wxml
+ * -----------------------------------
+ * 18/03/29 Jerry 新增
+ */
+-->
+<template name="tabNav">
+
+  <!-- Tab导航 -->
+  <!--<view class="tab-nav x{{items.length}}">-->
+
+    <!--<view-->
+      <!--class="nav-item {{ currentTab == item.key ? 'active' : '' }}"-->
+      <!--data-nav-key="{{item.key}}"-->
+      <!--bindtap="tabNavClick"-->
+      <!--wx:for="{{items}}"-->
+      <!--wx:key="item">-->
+      <!--<text>{{item.text}}</text>-->
+    <!--</view>-->
+
+  <!--</view>-->
+
+  <block wx:if="{{ fullwidth }}">
+
+      <view class="index-nav">
+        <scroll-view scroll-x="true" class="index-nav-body" style="width: 750rpx;white-space: nowrap;" scroll-left = "{{ currentIndex * 82 }}">
+          <view data-nav-key="{{item.key}}"
+                  bindtap="tabNavClick"
+                  wx:for="{{items}}"
+                  wx:key="item"
+                  class="nitem">
+            <view class="name {{ currentTab == item.key ? 'tab-active' : '' }}">{{item.text}}</view>
+          </view>
+        </scroll-view>
+      </view>
+  </block>
+
+  <block wx:else>
+
+    <view class="tab-nav x{{items.length}}">
+
+      <view class="nav-item {{ currentTab == item.key ? 'active' : '' }}"
+              data-nav-key="{{item.key}}"
+              bindtap="tabNavClick"
+              wx:for="{{items}}"
+              wx:key="item">
+        <text>{{item.text}}</text>
+      </view>
+
+    </view>
+
+  </block>
+
+</template>

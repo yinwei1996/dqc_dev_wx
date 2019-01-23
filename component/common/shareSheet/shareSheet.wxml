@@ -1,0 +1,34 @@
+<!--
+/**
+ * 组件 - 分享Sheet
+ * shareSheet.wxml
+ * -----------------------------------
+ * 18/05/30 Jerry 新增
+ */
+-->
+
+<template name="shareSheet">
+
+  <!-- 分享选择器-遮罩层 -->
+  <view class="share-mask {{hidden}}" data-action="mask" bindtap="{{hide}}"></view>
+
+  <!-- 分享选择器-浮动层，需要加上 if sku != null 的判断，否则初始时 image 读取不到图片会报错 -->
+  <view class="share-sheet {{hidden}}" bindtap="{{hide}}">
+
+    <view class="share-item">
+      <button class="btn" open-type="share" data-action="wechat">
+        <image src="../../../image/icos/wechat_green_120.png" />
+        <view>微信好友</view>
+      </button>
+    </view> <!-- .share-item -->
+
+    <view class="share-item">
+      <button class="btn" data-action="poster">
+        <image src="../../../image/icos/poster_green_120.png" />
+        <view>商品海报</view>
+      </button>
+    </view> <!-- .share-item -->
+
+  </view>
+
+</template>

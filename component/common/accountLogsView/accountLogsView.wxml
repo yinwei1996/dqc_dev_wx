@@ -1,0 +1,29 @@
+<!--
+/**
+ * 账户日志列表
+ * accountLogsView.wxml
+ * -----------------------------------
+ * 18/05/03 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="accountLogsView">
+
+  <view class="log-item" wx:for="{{ logs.records || logs }}" wx:for-item="log" wx:key="sysNo">
+
+    <view class="log-text">
+      <text class="log-time">{{log.createTimeString}}</text>
+      <text class="log-summary">{{ log.memo || '未备注' }}</text>
+    </view> <!-- .log-text -->
+
+    <view class="log-val" wx:if="{{ log.difAmount >= 0 }}">+{{log.difAmount}}</view>
+    <view class="log-val minus-val" wx:else>{{log.difAmount}}</view>
+
+  </view> <!-- .log-item -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: logs }}" />
+
+</template>

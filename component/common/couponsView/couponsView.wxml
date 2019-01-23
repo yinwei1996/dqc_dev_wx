@@ -1,0 +1,52 @@
+<!--
+/**
+ * 组件 - 优惠券列表
+ * couponsView.wxml
+ * -----------------------------------
+ * 18/04/12 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="couponsView">
+
+  <view
+    class="coupon-item {{ item.useTime ? 'used' : '' }} {{ !item.useTime && item.itemExpireSeconds < 0 ? 'expired' : '' }}"
+    hover-class="none"
+    data-action="{{ !item.useTime && item.itemExpireSeconds > 0 ? 'useCoupon' : '' }}"
+    data-item-id="{{item.itemId}}"
+    bindtap="{{ readonly ? '' : 'couponClick' }}"
+    wx:for="{{ coupons.records || coupons }}"
+    wx:key="itemId">
+
+    <!-- 优惠券信息 -->
+    <view class="coupon-inf">
+      <view>
+        <view class="coupon-amount">￥<text>{{item.denomination}}</text></view>
+        <view class="coupon-limit" wx:if="{{item.paidAmountStart}}">满{{item.paidAmountStart}}元可用</view>
+      </view>
+    </view> <!-- .coupon-inf -->
+
+    <!-- 优惠券备注 -->
+    <view class="coupon-summary">
+
+      <view>
+        <view class="coupon-scope">全场商品通用</view>
+        <view class="coupon-expire-time">{{item.issueTimeString}} - {{item.itemExpireTimeString}}</view>
+      </view>
+
+      <view class="coupon-use" wx:if="{{ !item.useTime && item.itemExpireSeconds > 0 }}">立即使用</view>
+
+      <view class="coupon-tip" wx:if="{{ !item.useTime && item.itemExpireSeconds > 0 && item.itemExpireSeconds / 3600 / 24 < 7 }}">快过期</view>
+      <view class="coupon-tip" wx:if="{{ item.useTime }}">已使用</view>
+      <view class="coupon-tip" wx:if="{{ !item.useTime && item.itemExpireSeconds < 0 }}">已失效</view>
+
+    </view> <!-- .coupon-summary -->
+
+  </view>
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: coupons }}" />
+
+</template>

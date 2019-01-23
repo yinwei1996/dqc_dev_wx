@@ -1,0 +1,121 @@
+<!--
+/**
+ * 订单列表
+ * ordersView.wxml
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+<import src="../orderSkusView/orderSkusView.wxml" />
+
+<template name="ordersView">
+
+  <view>
+
+    <view class="order-item" wx:for="{{ orders.records || orders }}" wx:for-item="order" wx:key="orderId">
+
+      <navigator url="/pages/order/orderDetail/orderDetail?orderId={{order.orderId}}" hover-class="order-item-hover">
+
+        <!-- 订单信息 -->
+        <view class="order-text">
+          <text class="order-code">订单 {{order.orderCode}}</text>
+          <!-- 退换货备选订单时，不显示订单状态（rmaOps == true） -->
+          <text class="order-status status-{{order.status}}" wx:if="{{ !rmaOps }}">{{order.statusTitle}}</text>
+        </view>
+
+        <!-- 订单SKU -->
+        <template is="orderSkusView" data="{{ maps: order.skuMaps, ignoreQuantity: ignoreSkuQuantity }}" />
+
+      </navigator>
+
+      <!-- 总计金额 -->
+      <view class="order-total">
+
+        <view class="order-flags">
+
+          <!-- 拼团订单 -->
+          <block wx:if="{{ order.refType == 'Pintuan' }}">
+
+            <!-- 已成团 -->
+            <text wx:if="{{ order.status == 'Canceled' }}">未成团</text>
+            <text wx:elif="{{ !order.lastInterveneNo }}">已成团</text>
+            <text wx:elif="{{ order.lastInterveneType == 'Pintuan' }}">拼团中</text>
+            <text wx:else>拼团订单</text>
+
+          </block>
+
+        </view> <!-- .order-flags -->
+
+        <view class="order-amount">
+          <text>共{{order.skuQuantity}}件商品，</text>
+          <text wx:if="{{ order.payTime != null }}">实付款 ￥{{order.payableAmount}}</text>
+          <text wx:else>应付款 ￥{{order.payableAmount}}</text>
+        </view>
+
+      </view> <!-- .order-total -->
+
+      <!-- 买家操作区（主要按钮放在最右边） -->
+      <view class="order-ops" data-order-id="{{order.orderId}}" catchtap="orderBuyerOpClick" wx:if="{{buyerOps}}">
+
+        <!-- 买家 - 取消订单 -->
+        <button size="mini" class="btn" data-action="cancel" wx:if="{{ order.cancelAvailable }}">取消订单</button>
+
+        <!-- 买家 - 付款 -->
+        <button size="mini" class="btn btn-primary-outline" data-action="pay" wx:if="{{ order.status == 'ToPay' }}">订单付款</button>
+
+        <!-- 买家 - 查看物流 -->
+        <button size="mini" class="btn" data-action="trace" wx:if="{{ order.status == 'Delivered' }}">查看物流</button>
+
+        <!-- 买家 - 确认收货 -->
+        <button size="mini" class="btn btn-primary-outline" data-action="done" wx:if="{{ order.status == 'Delivered' }}">确认收货</button>
+
+        <!-- 买家 - 评价晒单 -->
+        <button size="mini" class="btn" data-action="comment" wx:if="{{ order.status == 'Done' }}">评价晒单</button>
+
+        <!-- 买家 - 再次购买 -->
+        <button size="mini" class="btn btn-primary-outline" data-action="buyAgain" wx:if="{{ order.status == 'Done' }}">再次购买</button>
+
+      </view>
+
+      <!-- 买家操作区（主要按钮放在最右边）发票 -->
+      <view class="order-ops" data-order-id="{{order.orderId}}" catchtap="invoiceBuyerOpClick" wx:if="{{invoiceOps}}">
+
+        <!-- 买家 - 开票申请 -->
+        <button size="mini" class="btn btn-primary-outline" data-action="invoiceApplication" wx:if="{{ order.status == 'Done' }}">申请开票</button>
+
+      </view>
+
+      <!-- 退换货操作区（主要按钮放在最右边） -->
+      <view class="order-ops" data-order-id="{{order.orderId}}" catchtap="orderRmaOpClick" wx:if="{{rmaOps}}">
+
+        <block wx:if="{{ !order.rmaExpired }}">
+          <!-- 申请退换货 -->
+          <button size="mini" class="btn btn-primary-outline" data-action="rma" wx:if="{{ order.status == 'Done' }}">申请退换货</button>
+        </block>
+        <block wx:else>
+          <button size="mini" class="btn" disabled="true">已超出申请时效</button>
+        </block>
+
+      </view>
+
+      <!-- 合伙人操作区（主要按钮放在最右边） -->
+      <view class="order-ops" data-order-id="{{order.orderId}}" catchtap="orderPartnerOpClick" wx:if="{{partnerOps}}">
+
+        <!-- 合伙人 - 查看物流 -->
+        <button size="mini" class="btn" data-action="trace" wx:if="{{ order.status == 'Delivered' }}">查看物流</button>
+
+        <!-- 合伙人 - 订单发货 -->
+        <button size="mini" class="btn btn-primary-outline" data-action="delivery" wx:if="{{ order.deliveryAvailable }}">订单发货</button>
+
+      </view>
+
+    </view> <!-- .order-item -->
+
+  </view>
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: orders }}" />
+
+</template>

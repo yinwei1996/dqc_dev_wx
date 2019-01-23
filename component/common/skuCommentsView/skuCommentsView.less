@@ -1,0 +1,80 @@
+/**
+ * 组件 - SKU评价列表（不参与wxss编译）
+ * skuCommentsView.wxml
+ * -----------------------------------
+ * 18/04/02 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.comment-item {
+  .clear-after;
+  .block-padding;
+  padding-top: 25rpx;
+  padding-bottom: 25rpx;
+  border-bottom: @border-gray-light;
+
+  /* 用户头像 */
+  .comment-avatar {
+    float: left;
+    width: 15%;
+    text-align: left;
+
+    image {
+      .ico-avatar-s;
+      .opacity-gray;
+    }
+
+  } /* .comment-avatar */
+
+  /* 用户名称及评论内容 */
+  .comment-text {
+    float: left;
+    width: 85%;
+    box-sizing: border-box;
+
+    .comment-title {
+      height: 45rpx;
+      line-height: 45rpx;
+
+      .comment-user {
+      }
+
+      .comment-time {
+        float: right;
+        color: @color-gray;
+      }
+
+    }
+
+    /* 星星 */
+    .comment-stars {
+
+      image {
+        .ico-s;
+      }
+
+    } /* .comment-stars */
+
+    .comment-memo {
+      margin-top: 15rpx;
+    }
+
+    .comment-imgs {
+      margin-top: 15rpx;
+
+      image {
+        float: left;
+        margin: 15rpx 15rpx 0 0;
+        .ico-avatar;
+      }
+
+    } /* .comment-imgs */
+
+  } /* .comment-text */
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+} /* .comment-item */

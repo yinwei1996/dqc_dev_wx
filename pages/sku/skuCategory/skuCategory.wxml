@@ -1,0 +1,41 @@
+<!--
+/**
+ * SKU分类样式
+ * skuCategory.less
+ * -----------------------------------
+ * 18/03/19 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/skusView/skusView.wxml" />
+
+<view class="sku-category">
+
+  <!-- Tab区域 -->
+  <view class="tabs">
+
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab , fullwidth: true, currentIndex: index}}" />
+
+    <!-- Tab内容 -->
+    <view class="tab-content">
+
+    <!-- 商品列表 -->
+    <scroll-view
+      class="content-item {{ navItem.key == tab ? 'active' : '' }}"
+      scroll-y="true"
+      enable-back-to-top="true"
+      bindscrolltolower="scrollToLower"
+      style="height:{{scrollViewHeight}}"
+      wx:for="{{ tabNavItems }}" wx:for-item="navItem" wx:key="key">
+
+      <template is="skusView" data="{{ skus: navItem.skus }}" />
+
+    </scroll-view> <!-- .content-item -->
+
+    </view>
+
+  </view> <!-- .tabs -->
+
+</view>

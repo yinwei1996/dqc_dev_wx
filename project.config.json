@@ -1,0 +1,98 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.0",
+	"appid": "wx456bd337207ac5de",
+	"projectname": "hc-mall-wechat",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": [
+				{
+					"name": "test",
+					"pathName": "",
+					"title": "",
+					"cacheKey": ""
+				}
+			]
+		},
+		"conversation": {
+			"current": 0,
+			"list": [
+				{
+					"name": "test",
+					"query": "",
+					"boxQI": "",
+					"service": {}
+				}
+			]
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 0,
+			"list": [
+				{
+					"id": 0,
+					"name": "单聊分享-店铺",
+					"pathName": "pages/common/store/store",
+					"query": "seller=b7b0800f3c8f11e88dde00163e0d04ec&sellerName=TestSellerName",
+					"scene": "1007"
+				},
+				{
+					"id": -1,
+					"name": "单聊分享-拼团Detail",
+					"pathName": "pages/pintuan/pintuanDetail/pintuanDetail",
+					"query": "pintuanId=aaa55b113d3811e8b7ad54e1ad01c5be&r=2acfe7d720ae4a6a88e43a6290affebc",
+					"scene": "1007"
+				},
+				{
+					"id": -1,
+					"name": "单聊分享-拼团Item",
+					"pathName": "pages/pintuan/pintuanItem/pintuanItem",
+					"query": "itemId=65dc787326e8415da1bf2e12a5ff6397&r=2acfe7d720ae4a6a88e43a6290affebc",
+					"scene": "1007"
+				},
+				{
+					"id": 3,
+					"name": "单聊分享-商品海报",
+					"pathName": "pages/sku/skuDetail/skuDetail",
+					"query": "skuId=b9f2e2b26e384eac93413d77b9882a0c&r=dc7c0a0df1404867b40c3f9c3ce47e63",
+					"scene": "1012"
+				},
+				{
+					"id": 4,
+					"name": "myCart",
+					"pathName": "pages/my/myCart/myCart",
+					"query": "",
+					"scene": "1001"
+				},
+				{
+					"id": 5,
+					"name": "skuDetail",
+					"pathName": "pages/sku/skuDetail/skuDetail",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "PC登录扫描",
+					"pathName": "pages/common/index/index",
+					"query": "t=12345678901234567890123456789012",
+					"scene": "1011"
+				}
+			]
+		}
+	}
+}

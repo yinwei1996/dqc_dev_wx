@@ -1,0 +1,40 @@
+<!--
+ /**
+ * 求购中心页
+ * demandCenter.wxml
+ * -----------------------------------
+ * 18/11/20
+ */
+ -->
+
+<!-- 求购中心 -->
+<view class="menu">
+
+    <!-- 求购信息 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleDemandClick">
+        <view class="menu-inf">
+            <image src="../../../image/nav_icon/purchase_icon.png" class="menu-ico" />
+            <text>我的求购</text>
+        </view>
+        <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!-- 发出的求购报价 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleQuoteClick">
+        <view class="menu-inf">
+            <image src="../../../image/nav_icon/card.png" class="menu-ico" />
+            <text>发出的报价</text>
+        </view>
+        <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!-- 发布求购 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleModifyClick">
+        <view class="menu-inf">
+            <image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />
+            <text>发布求购</text>
+        </view>
+        <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+</view> <!-- .menu -->

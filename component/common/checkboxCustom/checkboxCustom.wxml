@@ -1,0 +1,24 @@
+<!--
+/**
+ * 组件 - 自定义CheckBox
+ * checkboxCustom.wxml
+ * -----------------------------------
+ * 18/03/30 Jerry 新增
+ */
+-->
+<template name="checkboxCustom">
+
+  <view class="checkbox-custom {{size}}">
+
+    <block wx:if="{{isCheck}}">
+      <image class="sku-check" src="../../../image/icos/checked_primary_48.png" bindtap="{{ bindtap || 'checkboxChange' }}" />
+    </block>
+    <block wx:else>
+      <image class="sku-check opacity-gray" src="../../../image/icos/unchecked_48.png" bindtap="{{ bindtap || 'checkboxChange' }}" />
+    </block>
+
+    <text wx:if="{{text}}" bindtap="{{ bindtap || 'checkboxChange' }}">{{text}}</text>
+
+  </view>
+
+</template>

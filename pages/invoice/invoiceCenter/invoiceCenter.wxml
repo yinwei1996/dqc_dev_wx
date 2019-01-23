@@ -1,0 +1,70 @@
+<!--
+ /**
+ * 我的发票
+ * invoiceCenter.wxml
+ * -----------------------------------
+ * 18/11/27
+ */
+ -->
+
+<import src="../../../component/common/ordersView/ordersView.wxml" />
+<import src="../../../component/common/invoiceItem/invoiceItem.wxml" />
+
+<view class="invoice-center">
+
+    <!-- Tab区域 -->
+    <view class="tabs">
+
+        <!-- Tab导航 -->
+        <view class="tab-nav x4">
+
+            <view class="nav-item {{ currentTab == index ? 'active' : '' }}"
+                    wx:for="{{ tabs }}"
+                    wx:key="item"
+                    data-key="{{ item.status }}"
+                    data-index="{{ index }}"
+                    bindtap="tabNavClick">
+
+                <text>{{item.text}}</text>
+            </view>
+
+        </view>
+
+        <!-- Tab内容 -->
+        <view class="tab-content">
+
+            <scroll-view
+                    class="content-item {{ navItem.key == tab ? 'active' : '' }}"
+                    scroll-y="true"
+                    enable-back-to-top="true"
+                    style="height:{{scrollViewHeight}}"
+                    bindscrolltolower="scrollToLower">
+
+                <!-- 发票列表 -->
+                <block  wx:if="{{ !isApplication }}">
+                    <template is="invoiceItem" data="{{ invoiceList: invoiceList}}"/>
+                </block>
+
+                <!-- 订单列表 -->
+                <block wx:else>
+                    <template is="ordersView" data="{{ orders: orderList, invoiceOps: true, ignoreSkuQuantity: true }}" />
+                </block>
+
+            </scroll-view>
+
+            <!-- 底部 专票/增票入口 -->
+            <view class="vat-inf">
+
+                <!-- 增票 -->
+                <navigator url="/pages/invoice/invoiceModify/invoiceModify?type=VATNormal">增票资质</navigator>
+
+                <!-- 专票 -->
+                <navigator url="/pages/invoice/invoiceModify/invoiceModify?type=VATSpecial">专票资质</navigator>
+
+            </view>
+
+        </view>
+
+    </view> <!-- .tabs -->
+
+</view>

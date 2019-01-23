@@ -1,0 +1,52 @@
+<!--
+/**
+ * 组件 - 地址列表
+ * addressesView.wxml
+ * -----------------------------------
+ * 18/04/05 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="addressesView">
+
+  <view class="address-item"
+    data-address-id="{{address.addressId}}"
+    data-is-default="{{address.isDefault}}"
+    data-user-name="{{address.userName}}"
+    data-mobile-masked="{{address.mobileMasked}}"
+    wx:for="{{addresses}}"
+    wx:for-item="address"
+    wx:key="addressId"
+    bindtap="{{ readonly ? '' : 'addressClick' }}"
+    bindtouchstart="{{ readonly ? '' : 'addressTouchStart' }}"
+    bindtouchmove="{{ readonly ? '' : 'addressTouchMove' }}"
+    bindtouchend="{{ readonly ? '' : 'addressTouchEnd' }}">
+
+    <view>
+
+      <!-- 收货人及联系方式 -->
+      <view class="address-user">
+        <text>{{address.userName}}</text>
+        <text>{{ ignoreMobileMasked ? address.mobile : address.mobileMasked }}</text>
+        <text class="is-default" wx:if="{{ address.isDefault && !ignoreDefault }}">默认地址</text>
+      </view>
+
+      <!-- 详细地址 -->
+      <view class="address-location">
+        <text>{{address.provinceName}} {{address.cityName}} {{address.areaName}} {{address.address}}</text>
+      </view>
+
+    </view>
+
+    <image src="../../../image/icos/arrow_right_48.png" class="nav-arrow" wx:if="{{!ignoreArrow}}" />
+
+    <!-- 删除地址 -->
+    <view class="address-del {{ opAddressId == address.addressId ? '' : 'hidden' }}" data-action="del" wx:if="{{!readonly}}">删除</view>
+
+  </view>
+
+  <template is="pagingTip" data="{{ records: addresses }}" />
+
+</template>

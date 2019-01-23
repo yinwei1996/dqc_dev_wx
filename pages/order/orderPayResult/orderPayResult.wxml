@@ -1,0 +1,79 @@
+<!--
+/**
+ * 订单付款结果
+ * orderPayResult.wxml
+ * -----------------------------------
+ * 18/03/30 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+
+<view class="order-pay-result {{hidden}}">
+
+  <view class="order-props">
+
+    <!-- 收货地址 -->
+    <view class="order-prop order-address">
+      <template is="addressesView" data="{{ addresses: [ order.address ], readonly: true, ignoreDefault: true, ignoreArrow: true }}" />
+    </view>
+
+    <!-- 订单单号 -->
+    <view class="order-prop order-code">
+      <label>订单</label>
+      <text>{{order.orderCode}}</text>
+    </view> <!-- .order-code -->
+
+    <!-- 实付金额（二选一显示） -->
+    <view class="order-prop paid-amount" wx:if="{{order.payTime}}">
+      <label>实付</label>
+      <text>￥{{order.paidAmount}}</text>
+    </view> <!-- .paid-amount -->
+
+    <!-- 应付金额（二选一显示） -->
+    <view class="order-prop payable-amount" wx:else>
+      <label>应付</label>
+      <text>￥{{order.payableAmount}}</text>
+    </view> <!-- .payable-amount -->
+
+  </view> <!-- .order-props -->
+
+  <!-- 支付成功提示（二选一显示） -->
+  <block wx:if="{{order.payTime}}">
+
+    <view class="result-tip">
+      <image class="item-nav" src="../../../image/icos/checked_primary_48.png" />
+      <text>支付成功</text>
+    </view>
+
+    <view class="result-summary">我们将尽快为您发货</view>
+
+  </block>
+
+  <!-- 支付失败提示（二选一显示） -->
+  <block wx:else>
+
+    <view class="result-tip failed">
+      <image class="item-nav" src="../../../image/icos/fail_red_48.png" />
+      <text>支付失败</text>
+    </view>
+
+    <view class="result-summary failed">请在 {{order.payExpireTimeString}} 之前完成付款，否则订单取消</view>
+
+    <!-- 重新支付 -->
+    <button class="btn btn-wechat" bindtap="handlePay" wx:if="{{!order.payTime}}">重新支付</button>
+
+  </block>
+
+  <!-- 操作区域 -->
+  <view class="op-btns-fixed">
+
+    <!-- 联系客服 -->
+    <button class="btn" open-type="contact">联系客服</button>
+
+    <!-- 查看订单 -->
+    <button class="btn" bindtap="redirectOrder">查看订单</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .order-pay-result -->

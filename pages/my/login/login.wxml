@@ -1,0 +1,34 @@
+<!--
+/**
+ * 登录
+ * login.js
+ * -----------------------------------
+ * 18/05/04 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/agreementSheet/agreementSheet.wxml" />
+
+<view class="login">
+
+  <view class="logo">
+    <image mode="aspectFit" src="../../../image/logo_start.png" />
+  </view>
+
+  <view class="op-btns">
+    <button class="btn btn-primary" open-type="getUserInfo" disabled="{{ buttonDisabled || disagree }}" bindgetuserinfo="bindUserInfo">{{buttonText}}</button>
+  </view>
+
+  <view class="agreement">
+    <image class="item-check" src="../../../image/icos/unchecked_48.png" data-action="agree" bindtap="clickAgreement" wx:if="{{disagree}}" />
+    <image class="item-check" src="../../../image/icos/checked_primary_48.png" data-action="disagree" bindtap="clickAgreement" wx:else />
+    <text>我已阅读并同意"</text><text class="agreement-name" bindtap="showAgreement">合采网用户注册协议</text><text>"</text>
+  </view>
+
+  <view class="copyright">
+    ©2018 云南炬龙科技有限公司
+  </view>
+
+   <template is="agreementSheet" data="{{ hidden: hiddenAgreementSheet, hide: 'closeAgreementSheet' }}" />
+
+</view>

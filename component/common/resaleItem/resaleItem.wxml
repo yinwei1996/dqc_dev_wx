@@ -1,0 +1,101 @@
+<!--
+/**
+ * 组件 - resaleItem
+ * quoteItem.wxml
+ * -----------------------------------
+ * 18/11/8
+ */
+-->
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="resaleItem">
+
+    <!-- 求购 -->
+    <block wx:if="{{ type === 'demand' }}">
+
+      <view>
+
+        <navigator
+              class="resale-item"
+              wx:for="{{ demandList.records || demandList }}"
+              wx:for-item="res"
+              wx:key="res"
+              hover-class="sale-sku-hover"
+              url="/pages/demand/demandDetails/demandDetails?demandId={{ res.demandId }}">
+
+        <view class="top">
+          <text class="name">{{ res.skuName }}</text>
+          <view class="time">
+            <text>截至时间：</text>
+            <text>{{ res.expireTimeString }}</text>
+          </view>
+        </view>
+
+        <view class="inner">
+          <view>
+            <view class="num-address">
+              <text>{{  res.skuQuantity }}{{ res.skuUnit }} </text>
+              <text>{{ res.deliveryProvinceName }}{{ res.deliveryCityName }}</text>
+            </view>
+            <text class="company">{{ res.createrName }}</text>
+          </view>
+
+          <view class="ops">
+
+            <navigator class="btn" url="/pages/demand/demandDetails/demandDetails?demandId={{ res.demandId }}">我要报价</navigator>
+
+          </view>
+        </view>
+      </navigator>
+
+      </view>
+
+      <!-- 分页提示 -->
+      <template wx:if="{{ !noPagingTip }}" is="pagingTip" data="{{ records: demandList }}" />
+
+    </block>
+    <!-- 供应 -->
+    <block wx:if="{{ type === 'supply' }}">
+
+      <view>
+
+      <view
+              class="resale-item"
+              wx:for="{{ demandList.records || demandList }}"
+              wx:for-item="res"
+              wx:key="res">
+
+        <view class="top">
+          <text class="name">{{ res.skuName }}</text>
+          <view class="time">
+            <text>截至时间：</text>
+            <text>{{ res.expireTimeString }}</text>
+          </view>
+        </view>
+
+        <view class="inner">
+          <view>
+            <view class="num-address">
+              <text>供应量：{{  res.skuQuantity }}{{ res.skuUnit }}</text>
+              <text></text>
+              <text>{{ res.deliveryProvinceName }}-{{ res.deliveryCityName }}</text>
+            </view>
+            <text class="company">{{ res.createrName }}</text>
+          </view>
+
+          <view>
+
+            <navigator class="btn" url="/pages/supply/supplyDetails/supplyDetails?demandId={{ res.demandId }}">我要询价</navigator>
+
+          </view>
+        </view>
+      </view>
+
+      </view>
+
+      <!-- 分页提示 -->
+      <template wx:if="{{ !noPagingTip }}" is="pagingTip" data="{{ records: demandList }}" />
+
+    </block>
+
+</template>

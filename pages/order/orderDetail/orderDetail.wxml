@@ -1,0 +1,121 @@
+<!--
+/**
+ * 订单详情
+ * orderDetail.js
+ * -----------------------------------
+ * 18/03/27 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/addressesView/addressesView.wxml" />
+<import src="../../../component/common/orderSkusView/orderSkusView.wxml" />
+
+<view class="order-detail {{hidden}}">
+
+  <view class="page-title">订单{{order.statusTitle}}</view>
+
+  <view class="order-props">
+
+    <!-- 收货地址 -->
+    <view class="order-prop order-address" wx:if="{{ order.address != null }}">
+      <template is="addressesView" data="{{ addresses: [ order.address ], readonly: true, ignoreDefault: true, ignoreArrow: true }}" />
+    </view> <!-- .order-address -->
+
+    <!-- 关联拼团 -->
+    <view class="order-prop pintuan" bindtap="redirectPintuanItem" wx:if="{{ order.refType == 'Pintuan' }}">
+      <label class="text-red" wx:if="{{ order.status == 'Canceled' }}">未成团</label>
+      <label class="text-primary" wx:elif="{{ !order.lastInterveneNo }}">已成团</label>
+      <label class="text-red" wx:elif="{{ order.lastInterveneType == 'Pintuan' }}">拼团中</label>
+      <label class="text-red" wx:else>拼团订单</label>
+      <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
+    </view> <!-- .pintuan -->
+
+    <!-- 订单单号 -->
+    <view class="order-prop order-code">
+      <label>单号</label>
+      <text>{{order.orderCode}}</text>
+    </view>
+
+    <!-- 开发票 -->
+    <view class="order-prop invoice" wx:if="{{order.invoice}}">
+      <label>发票</label>
+      <text>{{order.invoice.contentTypeTitle}} / {{order.invoice.titleName}}</text>
+    </view> <!-- .invoice -->
+
+    <!-- 已付款 -->
+    <block wx:if="{{order.payTimeString}}">
+
+      <!-- 实付金额 -->
+      <view class="order-prop paid-amount">
+        <label>实付金额</label>
+        <text>￥{{order.paidAmount}}</text>
+      </view> <!-- .paid-amount -->
+
+      <!-- 实付时间 -->
+      <view class="order-prop pay-time">
+        <label>实付时间</label>
+        <text>{{order.payTimeString}}</text>
+      </view> <!-- .pay-time -->
+
+    </block>
+
+    <!-- 未付款 -->
+    <block wx:else>
+
+      <!-- 应付金额 -->
+      <view class="order-prop payable-amount">
+        <label>应付金额</label>
+        <text>￥{{order.payableAmount}}</text>
+      </view> <!-- .payable-amount -->
+
+    </block>
+
+  </view> <!-- .order-props -->
+
+  <!-- 分组及订单SKU -->
+  <view class="order-packages">
+
+  <view class="package-item" wx:if="{{ order.skuGroups.length > 0 }}" wx:for="{{order.skuGroups}}" wx:for-item="grp" wx:key="orderId">
+
+    <view class="package-text">
+      <text class="self-label" wx:if="{{ grp.self }}">自营</text>
+      <text>{{ grp.sellerName }}</text>
+    </view>
+
+    <template is="orderSkusView" data="{{ maps: grp.skuMaps, showAll: true, orderSkuClick: 'orderSkuClick' }}" />
+
+  </view>
+
+  </view> <!-- .order-packages -->
+
+  <!-- 订单操作 -->
+  <view class="op-btns-fixed mini" bindtap="orderBuyerOpClick">
+
+    <!-- 取消订单（） -->
+    <button class="btn" data-action="cancel" wx:if="{{ order.cancelAvailable }}">取消订单</button>
+
+    <!-- 联系客服（通用按钮） -->
+
+    <!--<button class="btn" open-type="contact">联系客服</button>-->
+    <button class="btn" open-type="contact">联系客服</button>
+    <!-- 个人中心（通用按钮） -->
+    <button class="btn" data-action="myCenter">企业中心</button>
+
+    <!-- 付款 -->
+    <button class="btn btn-wechat" data-action="pay" wx:if="{{ order.status == 'ToPay' }}">微信支付</button>
+
+    <!-- 查看物流 -->
+    <button class="btn" data-action="trace" wx:if="{{ order.status == 'Delivered' }}">查看物流</button>
+
+    <!-- 确认收货 -->
+    <button class="btn btn-primary" data-action="done" wx:if="{{ order.status == 'Delivered' }}">确认收货</button>
+
+    <!-- 再次购买 -->
+    <button class="btn" data-action="buyAgain" wx:if="{{ order.status == 'Done' }}">再次购买</button>
+
+    <!-- 评价晒单 -->
+    <button class="btn" data-action="comment" wx:if="{{ order.status == 'Done' }}">评价晒单</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .order-detail -->

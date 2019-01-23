@@ -1,0 +1,513 @@
+/**
+ * app.less 全局样式
+ * -----------------------------------
+ * 18/03/14 Jerry 新增
+ */
+
+@import 'variables.less';
+
+page, view, input {
+  font-family: 'microsoft yahei';
+  font-size: @text-size-m;
+  color: @color-text;
+}
+
+/* input */
+input {
+  padding: 0 10rpx;
+  height: 80rpx;
+  font-size: @text-size-m3;
+  border-bottom: @border-gray;
+
+  &[disabled] {
+    border-bottom-color: transparent;
+  }
+
+}
+
+/* textarea */
+textarea {
+  padding: 0 10rpx;
+  width: 100%;
+  height: 180rpx;
+  font-size: @text-size-m3;
+  box-sizing: border-box;
+  border-bottom: @border-gray;
+}
+
+/* picker */
+picker {
+  padding: 0 10rpx;
+  border-bottom: @border-gray;
+
+  view {
+    .flex-start;
+    width: 100%;
+    height: 80rpx;
+    font-size: @text-size-m3;
+
+    &.empty {
+      color: #808080;
+    }
+  }
+
+}
+
+label.checkbox {
+  display: inline-block;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: @text-size-m3;
+
+  checkbox {
+    margin-right: 5rpx;
+  }
+}
+
+.flex-start {
+  .flex-start;
+}
+
+.flex-center {
+  .flex-center;
+}
+
+.flex-end {
+  .flex-end;
+}
+
+.flex-between {
+  .flex-between;
+}
+
+/* 是否隐藏 */
+.hidden {
+  display: none !important;
+}
+
+.opacity-gray {
+  .opacity-gray;
+}
+
+.opacity-gray-light {
+  .opacity-gray-light;
+}
+
+.opacity-gray-dark {
+  .opacity-gray-dark;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-s {
+  font-size: @text-size-s;
+}
+
+.text-m {
+  font-size: @text-size-m;
+}
+
+.text-l {
+  font-size: @text-size-l;
+}
+
+/* 通用文字样式 */
+.text-primary {
+  color: @color-primary !important;
+}
+
+.text-red {
+  color: @color-red !important;
+}
+
+.text-gray {
+  color: @color-gray !important;
+}
+
+.text-gray-light {
+  color: @color-gray-light !important;
+}
+
+.text-gray-dark {
+  color: @color-gray-dark !important;
+}
+
+
+.nav-arrow {
+  .ico-xs;
+  .opacity-gray;
+}
+
+
+/* 通用按钮样式 */
+.btn {
+  overflow: hidden;
+  color: fade(@color-text, 80%);
+  font-size: @text-size-m3;
+  box-sizing: border-box;
+  background-color: @color-white;
+  border: solid 1px @color-gray;
+  border-radius: @btn-radius;
+
+  &::after {
+    border: none;
+    background: none;
+  }
+
+  /* 迷你按钮 */
+  &[size="mini"] {
+    padding-left: @text-margin-xl;
+    padding-right: @text-margin-xl;
+    border-radius: @btn-mini-radius;
+    border-color: @color-gray-light;
+
+  } /* [size="mini"] */
+
+  /* 按钮禁用 */
+  &.disabled,
+  &[disabled] {
+    color: @color-gray-dark !important;
+    background-color: @color-gray-light !important;
+    border-color: @color-gray-light !important;
+
+  } /* &[disabled] */
+
+  /* 按钮按下状态 */
+  &.button-hover {
+    background-color: darken(@color-white, 5%);
+  } /* .button-hover */
+
+
+  /* 微信风格按钮 */
+  &.btn-wechat {
+    color: @color-white;
+    background-color: @color-wechat;
+    border-color: @color-wechat;
+
+    &.button-hover {
+      background-color: darken(@color-wechat, 5%);
+    } /* .button-hover */
+
+  } /* .btn-wechat */
+
+
+  /* 主要按钮 */
+  &.btn-primary {
+    color: @color-white;
+    background-color: @color-primary;
+    border-color: @color-primary;
+
+    &.button-hover {
+      background-color: darken(@color-primary, 5%);
+    } /* .button-hover */
+
+  } /* .btn-primary */
+
+
+  /* 主要按钮（淡色） */
+  &.btn-primary-light {
+    color: @color-white;
+    background-color: @color-primary-light;
+    border-color: @color-primary-light;
+
+    &.button-hover {
+      background-color: darken(@color-primary-light, 5%);
+    } /* .button-hover */
+
+  } /* .btn-primary */
+
+
+  /* 主要按钮 - 外边框形式 */
+  &.btn-primary-outline {
+    color: @color-primary;
+    background-color: @color-white;
+    border-color: @color-primary;
+
+    &.button-hover {
+      background-color: fade(@color-primary, 5%);
+    } /* .button-hover */
+
+  } /* .btn-primary-outline */
+
+
+  /* 主要按钮 - 黑色背景 */
+  &.btn-primary-black {
+    color: @color-white;
+    background-color: @color-text;
+
+    &.button-hover {
+      background-color: darken(@color-text, 5%);
+    } /* .button-hover */
+
+  } /* .btn-primary-block */
+
+
+  /* 按钮 - 橙色背景 */
+  &.btn-orange {
+    color: @color-white;
+    background-color: @color-orange;
+
+    &.button-hover {
+      background-color: darken(@color-orange, 5%);
+    } /* .button-hover */
+
+  } /* .btn-orange */
+
+
+
+} /* .btn */
+
+
+/* 操作按钮区域（块状垂直排列） */
+.op-btns {
+  .block-padding;
+  margin: 100rpx 0 50rpx;
+
+  button {
+    margin-bottom: @text-margin-xl;
+  }
+
+} /* .op-btns */
+
+
+/* 操作区域 */
+.op-btns-fixed {
+  .flex-end;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  background-color: @color-nav;
+
+  button {
+    .flex-center;
+    border-radius: 0;
+
+    image {
+      margin-right: @text-margin;
+      .ico-m;
+
+      &:first-child:last-child {
+        margin-right: 0;
+      }
+
+    } /* image */
+
+    &:not([class*="btn-"]) {
+      background-color: @color-nav;
+    }
+
+  } /* button */
+
+  /* 非迷你样式 */
+  &:not(.mini) {
+
+    button {
+      width: 50%;
+      height: 100rpx;
+      border-color: transparent;
+      border-radius: 0;
+
+      &:not([class*="btn-"]) {
+        border-left-color: @color-gray-light;
+      }
+
+      &:first-child {
+        border-left-color: transparent;
+      }
+
+      /* 唯一按钮 */
+      &:first-child:last-child {
+        width: 100%;
+      }
+
+    } /* button */
+
+  } /* &:not(.mini) */
+
+  /* 迷你样式 */
+  &.mini {
+    .block-padding;
+    /* 避开 x 底部的向上活动条 */
+    height: @bar-height-xl;
+
+    button {
+      margin: 0 0 0 @text-margin-l;
+      padding: @text-margin;
+      width: auto;
+      height: 60rpx;
+      font-size: @text-size-s4;
+      border-radius: 5rpx;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+    } /* button */
+
+  } /* &.mini */
+
+} /* .op-btns-fixed */
+
+
+
+/* ------------------------------
+ 输入框
+------------------------------ */
+.ipt-item {
+  .block-margin;
+  position: relative;
+  margin-top: @block-padding-left;
+  border-bottom: @border-gray;
+
+  input {
+    border-bottom: none;
+  }
+
+  picker {
+    border-bottom: none;
+  }
+
+  .ipt-label {
+    padding: 0 10rpx;
+    font-size: @text-size-s;
+  }
+
+  /* 输入框右侧的浮动按钮 */
+  .ipt-btn {
+    .flex-center;
+    position: absolute;
+    /* 从底部设置坐标（排除掉顶部的label） */
+    bottom: 0;
+    /* 10rpx padding */
+    right: 10rpx;
+    /* 高度与输入框保持一致 80rpx */
+    height: 80rpx;
+    /* 去掉按钮自带的边距、边框及背景 */
+    padding: 0;
+    font-size: @text-size-s3;
+    border: none;
+    background-color: transparent !important;
+    z-index: 2;
+
+    image {
+      .ico-m;
+      .opacity-gray-dark;
+
+      &:not(:first-child) {
+        margin-left: @text-margin-s;
+      }
+
+    }
+
+  } /* .ipt-btn */
+
+} /* .ipt-item */
+
+
+/* ------------------------------
+ 页标题
+------------------------------ */
+.page-title {
+  .flex-start;
+  .block-padding;
+  height: @bar-height-xl;
+  font-size: @text-size-xl;
+  background-color: @color-nav;
+  border-bottom: @border-gray-light;
+
+  image {
+    .ico-xl;
+    margin-left: @text-margin;
+  }
+
+} /* .page-title */
+
+
+/* ------------------------------
+ 页提示
+------------------------------ */
+.page-tip {
+  .flex-start;
+  .block-padding;
+  height: 80rpx;
+  font-size: @text-size-s;
+
+  view {
+
+    view {
+      .flex-start;
+      height: 40rpx;
+      font-size: @text-size-s;
+
+    } /* view */
+
+  } /* view */
+
+  &.center {
+    .flex-center;
+
+    view {
+    
+      view {
+        .flex-center;
+      }
+
+    } /* view */
+
+  } /* &.center */
+
+}
+
+.self-label {
+  margin-right: @text-margin-s;
+  padding: 0 5rpx;
+  font-size: @text-size-xs;
+  color: @color-white;
+  background-color: @color-primary;
+  border-radius: 5rpx;
+}
+
+/* 楼层模板 */
+.floor-wrapper {
+  border-bottom: @border-gray-light-5;
+
+  .title {
+    .flex-between;
+    margin: 0 @text-margin;
+    height: @bar-height;
+
+    .title-text {
+      font-size: @text-size-m4;
+    }
+
+    .title-img {
+      width: 160rpx;
+      height: 50rpx;
+    }
+
+    .title-more {
+      .ico-xs;
+      margin: 0 @text-margin-l;
+    }
+
+  } /* .title */
+
+  &:last-chilld {
+    border-bottom: none;
+  }
+
+} /* .floor-wrapper */
+
+/* 以上是新版的LESS内容 */

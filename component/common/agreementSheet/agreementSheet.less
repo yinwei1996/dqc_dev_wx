@@ -1,0 +1,68 @@
+/**
+ * 组件 - 用户协议Sheet
+ * agreementSheet.less
+ * -----------------------------------
+ * 18/05/30 Jerry 新增
+ */
+
+/* 分享选择器-遮罩层 */
+.agreement-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: @color-text;
+  opacity: .4;
+  z-index: 998;
+}
+
+/* 分享选择器-浮动层 */
+.agreement-sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 850rpx;
+  padding: @block-padding-left;
+  line-height: 50rpx;
+  box-sizing: border-box;
+  background: @color-white;
+  z-index: 999;
+
+  .agreement-title {
+    position: relative;
+    height: 70rpx;
+
+    text {
+      font-size: @text-size-xl;;
+    }
+
+    image {
+     .ico-m;
+     position: absolute;
+     top: 5rpx;
+     right: 0;
+    }
+
+  }
+
+  scroll-view {
+    height:850rpx - 70rpx - @block-padding-left;
+
+    .text-lg {
+      margin-top: 15rpx;
+      font-size: @text-size-m5;
+    }
+
+    .text-bold {
+      font-weight: bold;
+    }
+
+    .mg-r-xs {
+      margin-right: 15rpx;
+    }
+
+  }
+
+} /* .agreement-sheet */

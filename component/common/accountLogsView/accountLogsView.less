@@ -1,0 +1,43 @@
+/**
+ * 账户日志列表
+ * accountLogsView.less
+ * -----------------------------------
+ * 18/05/03 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.log-item {
+  .flex-between;
+  padding: 0 @block-padding-left;
+  border-bottom: @border-gray-light;
+
+  .log-text {
+    width: 75%;
+
+    text {
+      display: block;
+      font-size: @text-size-s3;
+
+      &.log-time {
+        color: @color-gray-dark;
+        font-size: @text-size-xs;
+      }
+
+    }
+
+  } /* .log-text */
+
+  .log-val {
+    .flex-end;
+    width: 25%;
+    height: @list-line-height;
+    font-size: @text-size-m;
+
+    &.minus-val {
+      color: @color-red;
+    }
+
+  } /* .log-val */
+
+} /* .log-item */

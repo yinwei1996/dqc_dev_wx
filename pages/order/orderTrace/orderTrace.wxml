@@ -1,0 +1,52 @@
+<!--
+/**
+ * 订单跟踪
+ * orderTrace.wxml
+ * -----------------------------------
+ * 18/04/09 Jerry 新增
+ */
+-->
+
+<view class="order-trace {{hidden}}">
+
+  <!-- 全部统计 -->
+  <view class="trace-text">
+
+    <image src="../../../image/icos/plane_81.png" />
+
+    <view>
+      <view class="delivery-code">{{deliveryCompany}} {{deliveryCode}}</view>
+      <view class="order-code">订单 {{orderCode}}</view>
+    </view>
+  </view> <!-- .trace-text -->
+
+  <!-- 物流明细 -->
+  <view class="logs">
+
+    <scroll-view class="body" scroll-y="true" enable-back-to-top="true" style="height:{{scrollViewHeight}}">
+
+      <view class="log-item" wx:for="{{logs}}" wx:for-item="log" wx:key="time">
+
+        <image src="../../../image/icos/dot_green_81.png" wx:if="{{ index == 0 }}" />
+        <image src="../../../image/icos/dot_81.png" wx:else />
+
+        <view class="log-text">
+          <text class="log-time">{{log.time}}</text>
+          <text class="log-summary">{{log.status}}</text>
+        </view> <!-- .log-text -->
+
+      </view> <!-- .log-item -->
+
+    </scroll-view> <!-- .body -->
+
+  </view> <!-- .logs -->
+
+
+  <!-- 物流操作 -->
+  <view class="op-btns-fixed" bindtap="orderBuyerOpClick">
+
+    <button class="btn" bindtap="redirectOrderDetail">返回订单详情</button>
+
+  </view> <!-- .op-btns-fixed -->
+
+</view>

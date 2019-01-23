@@ -1,0 +1,53 @@
+/**
+ * 订单付款结果
+ * orderPayResult.less
+ * -----------------------------------
+ * 18/03/30 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../less/orderProps.less';
+@import '../../../component/common/addressesView/addressesView.less';
+
+.order-pay-result {
+
+  /* 支付结果提示 */
+  .result-tip {
+    .flex-center;
+    .block-padding;
+    margin-top: 150rpx;
+    height: 100rpx;
+
+    image {
+      .ico-xl;
+    }
+
+    text {
+      margin-left: @text-margin-l;
+      font-size: @text-size-xxl;
+      color: @color-primary;
+    }
+
+    /* 支付失败 */
+    &.failed {
+
+      text {
+        color: @color-red;
+      }
+
+    } /* &.failed */
+
+  } /* .result-tip */
+
+  /* 支付结果摘要 */
+  .result-summary {
+    .flex-center;
+    margin-bottom: 80rpx;
+    font-size: @text-size-s3;
+  } /* .result-summary */
+
+  .btn-wechat {
+    margin: @block-padding;
+  }
+
+} /* .order-pay-result */

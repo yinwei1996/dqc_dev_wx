@@ -1,0 +1,217 @@
+/**
+ * 企业介绍
+ * storeIntro.less
+ * -----------------------------------
+ * 18/12/13
+ */
+
+@import '../../../variables.less';
+
+.store-intro {
+
+  /* 店铺导航 */
+  .store-nav {
+    .flex-center;
+    position: relative;
+    height: 250rpx;
+    overflow: hidden;
+
+    /* 导航背景 */
+    .nav-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* 店铺名称 */
+    .store-inf {
+      .flex-center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      .store-inf-inner {
+        position: relative;
+        margin-top: @bar-height-s;
+        padding: @text-margin @text-margin-l;
+        width: 720rpx - @text-margin-l * 2;
+        text-align: center;
+        background-color: rgba(255, 255, 255, .7);
+        border-radius: @text-margin-s;
+      }
+
+      .corp-logo {
+        .ico-avatar;
+        position: absolute;
+        top: -55rpx;
+        right: @text-margin-l;
+      }
+
+      .corp-name {
+        .flex-start;
+        height: @bar-height-s;
+
+        text {
+          font-size: @text-size-l;
+        }
+
+        image {
+          .ico-xs;
+          margin-left: @text-margin;
+          opacity: .5;
+        }
+
+      } /* .corp-name */
+
+      .corp-count {
+        .flex-start;
+
+        .self-label {
+          font-size: @text-size-s;
+        }
+
+      } /* .corp-count */
+
+    } /* .store-inf */
+
+  } /* .store-nav */
+
+  .floor-wrapper {
+    .clear-after;
+    padding: @text-margin;
+    border-bottom: @border-gray-light-5;
+
+    .title {
+      .flex-between;
+      height: @bar-height;
+
+      image {
+        .ico-xs;
+        opacity: .5;
+      }
+
+    } /* .title */
+
+    .type-nav {
+      .flex-start;
+      float: left;
+      margin: 0 @text-margin @text-margin 0;
+      padding: @text-margin;
+      width: ( 720rpx - @text-margin * 2 ) / 3;
+      height: @bar-height;
+      border: @border-gray-light;
+      border-radius: 6rpx;
+
+      image {
+        .ico-m;
+        margin-right: @text-margin;
+      }
+
+      &:nth-child(3n) {
+        margin-right: 0;
+      }
+
+    } /* .type-nav */
+
+  } /* .floor-wrapper */
+
+  .corp-inf {
+
+    .corp-tel {
+      .flex-between;
+      padding: @text-margin-xl @text-margin-l;
+      border-bottom: @border-gray-light;
+
+      image {
+        .ico-m;
+      }
+
+    } /* .corp-tel */
+
+    .corp-addr {
+      .flex-between;
+      padding: @text-margin-xl @text-margin-l;
+      border-bottom: @border-gray-light;
+
+      > view {
+        .flex-start;
+        width: 640rpx;
+        height: @bar-height-xs * 2;
+      }
+
+      image {
+        .ico-m;
+      }
+
+    } /* .corp-addr */
+
+    .corp-desc {
+      .flex-between;
+      padding: @text-margin-xl @text-margin;
+
+      view {
+        width: 640rpx;
+        height: @bar-height-xl;
+        overflow: hidden;
+      }
+
+      image {
+        .ico-m;
+      }
+
+    } /* .corp-desc */
+
+  } /* .corp-inf */
+
+  .corp-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: @color-text;
+    opacity: .4;
+    z-index: 998;
+  }
+
+  .corp-desc-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: @text-margin-xl;
+    background-color: @color-white;
+    z-index: 999;
+
+    .corp-desc-name {
+      .flex-center;
+      height: @bar-height-l;
+      font-size: @text-size-xl;
+    }
+
+    .corp-desc-detail {
+      padding: @text-margin 0;
+    }
+
+    .corp-desc-close {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      .flex-center;
+      height: @bar-height-xl;
+
+      image {
+        .ico-l;
+      }
+
+    } /* .corp-desc-close */
+
+  } /* .corp-desc-sheet */
+
+} /* .store-intro */

@@ -1,0 +1,28 @@
+<!--
+ /**
+ * SKU评价
+ * skuComment.wxml
+ * -----------------------------------
+ * 18/04/02 Jerry 新增
+ */
+ -->
+
+<import src="../../../component/common/skuCommentsView/skuCommentsView.wxml" />
+
+<view class="sku-comment-all {{hidden}}">
+
+  <view class="page-title">
+    {{commentTotal.commentCount}}次评价 / {{commentTotal.commentVal}}分
+  </view> 
+
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+
+    <template is="skuCommentsView" data="{{ comments: comments }}" />
+
+  </scroll-view>
+
+</view>

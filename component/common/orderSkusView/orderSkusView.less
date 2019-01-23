@@ -1,0 +1,86 @@
+/**
+ * 组件 - 订单SKU
+ * orderSkusView.less
+ * -----------------------------------
+ * 18/04/05 Jerry 新增
+ */
+
+.order-skus {
+  border-radius: 5rpx;
+
+  .order-sku {
+    .flex-between;
+    position: relative;
+    margin-bottom: 3rpx;
+    padding: @text-margin;
+    overflow: hidden;
+    background-color: @color-nav;
+
+    /* SKU小图 */
+    image {
+      .ico-sku-s;
+    }
+
+    /* SKU名称、规格、数量、单位 */
+    .sku-text {
+      margin-left: @text-margin;
+      width: 580rpx;
+
+      /* SKU名称 */
+      .sku-name {
+        overflow: hidden;
+        max-height: 65rpx;
+        font-size: @text-size-s3;
+      }
+
+      /* SKU规格 */
+      .sku-spec {
+        margin-top: @text-margin-xs;
+        font-size: @text-size-s;
+        color: @color-gray-dark;
+      } /* .sku-spec */
+
+      /* SKU数量 */
+      .sku-quantity {
+        margin-top: @text-margin-s;
+        font-size: @text-size-s;
+      } /* .sku-quantity */
+
+      .sku-memo {
+        margin-top: @text-margin-s;
+        padding-top: @text-margin-s;
+        font-size: @text-size-s;
+        border-top: @border-gray-light;
+      } /* .sku-memo */
+
+    } /* .sku-text */
+
+  } /* .order-sku */
+
+} /* .order-skus */
+
+/* 分组区域 */
+.order-packages {
+  padding-top: @bar-height / 3;
+  padding-bottom: @bar-height-xl;
+
+  .package-text {
+    .block-padding;
+    .flex-start;
+    height: @bar-height;
+
+    text:not(.self-label) {
+      font-size: @text-size-s3;
+    }
+
+  } /* .package-text */
+
+  .order-skus {
+
+    &:first-child {
+      padding-top: @block-padding-left;
+    }
+
+  }
+
+} /* .order-packages */

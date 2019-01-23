@@ -1,0 +1,71 @@
+<!--
+/**
+ * 组件 - invoiceItem
+ * -----------------------------------
+ * 18/11/28
+ */
+-->
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="invoiceItem">
+
+  <view>
+
+    <!-- 发票 -->
+    <view class="res-item"
+          wx:for="{{ invoiceList.records || invoiceList }}"
+          wx:key="res">
+
+      <view class="it-tit">
+
+        <text class="fl">开票人：{{ item.toCorpName }}</text>
+        <text class="fr">{{ item.statusTitle }}</text>
+
+      </view>
+
+      <view class="it-sub">
+
+        <view>{{ item.typeTitle }}</view>
+
+      </view>
+
+      <view class="invoice-inner">
+
+        <view class="it">
+          <view>申请时间</view>
+          <view>{{ item.createTimeString }}</view>
+        </view>
+
+        <view class="it">
+          <view>发票抬头</view>
+          <view>{{ item.titleName }}</view>
+        </view>
+
+        <view class="it">
+          <view>发票内容</view>
+          <view>{{ item.contentTypeTitle }}</view>
+        </view>
+
+        <view class="it">
+          <view>开票金额</view>
+          <view>¥{{ item.invoiceAmount }}</view>
+        </view>
+
+      </view>
+
+      <view class="it-ops">
+
+        <!--发票详情-->
+        <view data-id="{{ item.invoiceId }}" bindtap="invoiceDetailClick">发票详情</view>
+
+      </view>
+
+    </view>
+
+  </view>
+
+    <!-- 分页提示 -->
+    <template is="pagingTip" data="{{ records: invoiceList }}" />
+
+
+</template>

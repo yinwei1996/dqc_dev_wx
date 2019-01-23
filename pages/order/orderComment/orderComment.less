@@ -1,0 +1,146 @@
+/**
+ * 订单评价
+ * orderComment.less
+ * -----------------------------------
+ * 18/04/09 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+
+.order-comment {
+
+  .comment-item {
+    border-bottom: @border-gray-light-5;
+  }
+
+  /* SKU图片及名称 */
+  .order-sku {
+    .flex-start;
+    height: 180rpx;
+
+    image {
+      margin-left: 15rpx;
+      .ico-sku-s;
+    }
+
+    .sku-text {
+      margin-left: 15rpx;
+      background-color: transparent;
+
+      text {
+        display: block;
+        font-size: @text-size-m3;
+
+        &.sku-spec {
+          margin-top: 5rpx;
+          font-size: @text-size-s;
+          color: @color-gray-dark;
+        }
+
+      } /* text */
+
+    } /* .sku-text */
+
+  } /* .order-sku */
+
+  /* 星级 */
+  .stars {
+    .flex-start;
+    .block-padding;
+    height: 120rpx;
+
+    label {
+      margin-right: 30rpx;
+    }
+
+    image {
+      margin-right: 30rpx;
+      .ico-l;
+    }
+
+  } /* .stars */
+
+  /* 评价内容 */
+  .content {
+    .block-padding;
+
+    textarea {
+      width: 100%;
+      height: 160rpx;
+      box-sizing: border-box;
+      padding: 15rpx;
+      border: @border-gray-light;
+    }
+
+    text {
+      display: block;
+
+      &.create-time {
+        margin-bottom: 5rpx;
+        color: @color-gray-dark;
+        font-size: @text-size-s;
+      }
+    }
+
+  } /* .content */
+
+  /* 评价图片 */
+  .imgs {
+    .flex-start;
+    .block-padding;
+    height: 200rpx;
+
+    .img-preview {
+      .ico-avatar;
+      position: relative;
+      margin-right: 18rpx;
+      border: @border-gray-light;
+
+      image {
+        .ico-avatar;
+
+        &.loading {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 2;
+          opacity: .5;
+        }
+
+      } /* image */
+
+      &.img-temp {
+        .opacity-gray-light;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+    } /* .img-preview */
+
+    .img-add {
+      .ico-xl;
+      padding: 30rpx;
+      border: @border-gray-light;
+      border-radius: 10rpx;
+    }
+
+    &:empty {
+      height: 30rpx;
+    }
+
+  } /* .imgs */
+
+  /* 操作区域 */
+  .ops {
+    padding: @block-padding-left;
+    text-align: right;
+    border-top: @border-gray-light;
+  } /* .ops */
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+} /* .order-comment */

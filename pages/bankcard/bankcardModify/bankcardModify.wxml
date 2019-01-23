@@ -1,0 +1,51 @@
+<!--
+/**
+ * 银行卡编辑
+ * bankcardModify.wxml
+ * -----------------------------------
+ * 18/04/26 Jerry 新增
+ */
+-->
+
+<view class="bankcard-modify {{hidden}}">
+
+  <!-- 已绑定真实姓名 -->
+  <block wx:if="{{card.cardAccountMasked}}">
+
+    <view class="ipt-item">
+      <label class="ipt-label">账户</label>
+      <input value="{{card.cardAccountMasked}}" disabled="true" />
+      <button class="btn ipt-btn">
+        <text>已绑定</text>
+        <image src="../../../image/icos/success_green_48.png" />
+      </button>
+    </view>
+
+    <view class="ipt-item">
+      <label class="ipt-label">银行</label>
+      <picker range="{{cardBanks}}" range-key="text" bindchange="inputCardBank">
+          <view wx:if="{{card.cardBankTitle}}">{{card.cardBankTitle}}</view>
+          <view class="empty" wx:else>发卡银行</view>
+      </picker>
+    </view>
+
+    <view class="ipt-item">
+      <label class="ipt-label">卡号</label>
+      <input value="{{card.cardCode}}" maxlength="50" placeholder="银行卡号" type="number" bindinput="inputCardCode" />
+    </view>
+
+    <view class="op-btns">
+      <button class="btn btn-primary" bindtap="saveCard">保存</button>
+    </view>
+
+  </block>
+
+  <!-- 未绑定真实姓名 -->
+  <block wx:else>
+    <view class="no-account-tip">您还未补充个人信息，不能新增银行卡</view>
+    <view class="op-btns">
+      <button class="btn" bindtap="back">返回</button>
+    </view>
+  </block>
+
+</view>

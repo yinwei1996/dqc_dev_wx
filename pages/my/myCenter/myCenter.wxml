@@ -1,0 +1,177 @@
+<!--
+/**
+ * 个人中心
+ * myCenter.wxml
+ * -----------------------------------
+ * 18/03/16 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/ordersView/ordersView.wxml" />
+
+<view class="my-center {{hidden}}">
+
+  <!-- 个人信息 -->
+  <view class="user">
+
+    <view class="user-inf" bindtap="redirectUserModify">
+
+      <!-- 头像 -->
+      <image src="{{wxUser.avatarUrl}}" class="user-avatar" wx:if="{{wxUser.avatarUrl}}" />
+
+      <!-- 昵称、手机号 -->
+      <view class="user-text">
+        <view class="user-name">{{ wxUser.nickName || user.userNameMasked }}</view>
+        <view class="user-mobile" wx:if="{{ !user.userNameMasked || !user.mobileMasked }}">绑定会员信息</view>
+        <view class="user-mobile" wx:else>
+          {{ user.mobileMasked }}
+          <!--  确认图标 -->
+          <!--<image src="../../../image/icos/success_green_48.png" />-->
+        </view>
+      </view>
+
+    </view> <!-- .user-inf -->
+    <!--<view class="entry-icos">-->
+  <!-- 云小茗二维码 隐藏 -->
+    <!--&lt;!&ndash; 二维码 &ndash;&gt;-->
+    <!--<view class="user-agent" bindtap="redirectAgentDetail" wx:if="{{agentId}}">-->
+      <!--<image src="../../../image/icos/agent_81.png" />-->
+    <!--</view> &lt;!&ndash; .user-agent &ndash;&gt;-->
+
+    <!--&lt;!&ndash; 二维码 &ndash;&gt;-->
+    <!--<view class="user-qr-code" bindtap="redirectMyCode">-->
+      <!--<image src="../../../image/icos/qr_code_81.png" />-->
+    <!--</view> &lt;!&ndash; .user-qr-code &ndash;&gt;-->
+    <!--</view>-->
+
+  </view> <!-- .user -->
+  <!--  个人财产 -->
+
+
+  <!-- 最近订单 -->
+  <view class="recent-order" wx:if="{{recentOrder}}">
+    <template is="ordersView" data="{{ orders: [ recentOrder ], ignoreSkuQuantity: true }}" />
+  </view> <!-- .recent-order -->
+
+  <!-- 菜单区域 -->
+  <view class="menu">
+
+    <!-- 采购需求 -->
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handlePurchaseDemand">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
+        <!--<text>采购需求</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 我的订单 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleOrderClick">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/purchase_icon.png" class="menu-ico" />
+        <text>我的订单</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleInvoiceClick">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/supplay_demand.png" class="menu-ico" />
+        <text>我的发票</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleDemandClick">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
+        <!--<text>求购中心</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleSupplyClick">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
+        <!--<text>供应中心</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 供应需求 -->
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleSupplyDemand">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/supplay_demand.png" class="menu-ico" />-->
+        <!--<text>供应需求</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 提现 -->
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleWithdraw">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/withdraw_icon.png" class="menu-ico" />-->
+        <!--<text>提现</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 商户资料 -->
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleBeanClick">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/aptitude.png" class="menu-ico" />-->
+        <!--<text>商户资料</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 地址 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleAddressClick">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/address_icon.png" class="menu-ico" />
+        <text>收货地址</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!-- 退换货申请 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleRMAClick">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/return_icon.png" class="menu-ico" />
+        <text>退换货</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleMessage">-->
+      <!--<view class="menu-inf">-->
+        <!--<image src="../../../image/nav_icon/message.png" class="menu-ico" />-->
+        <!--<text>消息</text>-->
+      <!--</view>-->
+      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
+    <!--</button>-->
+
+    <!-- 联系客服 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" open-type="contact">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/customer_service.png" class="menu-ico" />
+        <text>联系客服</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+    <!-- 关于合采 -->
+    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleAboutClick">
+      <view class="menu-inf">
+        <image src="../../../image/nav_icon/returnMessage.png" class="menu-ico" />
+        <text>关于合采</text>
+      </view>
+      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
+    </button>
+
+  </view> <!-- .menu -->
+
+  <!--  退出账号 -->
+    <!--<button type="" class="login-btn" bindtap="">退出登录</button>-->
+
+</view>

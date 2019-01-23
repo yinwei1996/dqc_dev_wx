@@ -1,0 +1,149 @@
+/**
+ * 组件 - SKU列表（不参与wxss编译）
+ * skusView.wxml
+ * -----------------------------------
+ * 18/03/29 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.skus-view {
+  display: flex;
+  flex-direction: row;
+  background-color: @color-gray-light;
+
+  .sku-grp {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    box-sizing: border-box;
+    border-bottom: @border-gray-light-2;
+
+    &:nth-child(even) {
+      padding-left: 1rpx;
+    }
+
+    &:nth-child(odd) {
+      padding-right: 1rpx;
+    }
+
+  } /* .sku-grp */
+
+  .sku-item {
+    margin-top: 2rpx;
+    padding: @text-margin;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: @color-white;
+
+    /* SKU主图 */
+    .sku-img {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+
+      image {
+        .img-sku;
+      }
+    } /* .sku-img */
+
+    /* SKU名称 */
+    .sku-name {
+     overflow: hidden;
+     padding-top: @text-margin;
+     max-height: 65rpx;
+     font-size: @text-size-s3;
+     white-space: initial;
+    } /* .sku-name */
+
+    .sku-price-and-tags {
+     .flex-start;
+     padding-top: 5rpx;
+
+       /* SKU单价 */
+      .sku-price {
+       color: @color-primary;
+       font-size: @text-size-s5;
+      } /* .sku-price */
+
+    } /* .sku-price-and-tags */
+
+    /* sku-item hover 样式 */
+    &.sku-item-hover {
+
+      .sku-img {
+        opacity: .7;
+      }
+    } /* &.sku-item-hover */
+
+  } /* .sku-item */
+
+  /* 整行样式 */
+  &.full-width {
+
+    .sku-item {
+      display: block;
+      padding: 10rpx 0 0;
+      width: 100%;
+      border: none;
+
+      .sku-img {
+
+        image {
+          width: 100%;
+        }
+
+      }
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+    } /* .sku-item */
+
+  } /* &.full-width */
+
+  /* 列表样式 */
+  &.inline {
+    display: block;
+
+    .sku-item {
+      padding: 20rpx 8rpx;
+      display: flex;
+      justify-content: space-between;
+      box-sizing: border-box;
+      border-top: @border-gray-light;
+      margin-top: 0;
+
+      .sku-img {
+        width: 240rpx;
+        height: 240rpx;
+        margin-right: 20rpx;
+      } /* .sku-img */
+
+      .sku-info {
+        flex: 1;
+
+        .sku-name {
+          padding-top: 20rpx;
+          width: 100%;
+          height: 90rpx;
+          margin-bottom: 24rpx;
+        }
+
+        .sku-box {
+          height: 130rpx;
+        }
+
+      } /* .sku-info */
+
+      .sku-price-and-tags {
+        padding-top: 10rpx;
+      } /* .sku-price-and-tags */
+
+    } /* .sku-item */
+
+  } /* &.inline */
+
+} /* .skus-view */
+

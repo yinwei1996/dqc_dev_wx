@@ -18,7 +18,7 @@ __cfg = {
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
   host: 'http://localbox.hecai360.com/',
-  host: 'http://localhost/',
+  //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -402,6 +402,10 @@ request: function(opts){
       // 业务错误
       if (ret.data && ret.data.errorCode){
 
+        // 报错时，默认都移除可能有的loading提示
+        __me.navLoading(false);
+        __me.hideLoading();
+
         if (typeof opts.error == 'function'){
           opts.error(ret.data);
           return;
@@ -562,12 +566,14 @@ switchTab: function(url, loginRequired){
  微信注册
 ------------------------------ */
 wxRegister(opts){
+  __me.showLoading();
   wx.login({ success: (ret) => __me.afterWxLogin('wx/register', ret.code, opts || {}) });
 },
 /* ------------------------------
  微信登录
 ------------------------------ */
 wxLogin(opts){
+  __me.showLoading();
   wx.login({ success: (ret) => __me.afterWxLogin('wx/login', ret.code, opts || {}) });
 },
 /* ------------------------------
@@ -658,6 +664,9 @@ wxBindUserInfo(e, opts){
         opts.success();
         return;
       }
+
+      // 隐藏提示
+      __me.hideLoading();
 
       // 如果来自注册/登录页的按钮Click，返回到上一页
       if (opts.fromButtonClick){

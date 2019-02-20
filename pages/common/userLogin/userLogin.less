@@ -1,0 +1,65 @@
+/**
+ * 会员注册
+ * userRegister
+ * -----------------------------------
+ * 19/02/20 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+@import '../../../component/common/agreementSheet/agreementSheet.less';
+
+.user-register {
+  padding: 0 @text-margin-xxl;
+
+  .logo {
+    padding: @bar-height-xl 0;
+    text-align: center;
+
+    image {
+      height: @bar-height * 2;
+    }
+
+  } /* .logo */
+
+  /* 按钮区域 */
+  .op-btns {
+    margin: @bar-height 0 0;
+  }
+
+  /* 注册协议 */
+  .agreement {
+    .flex-center;
+
+    text {
+      font-size: @text-size-s5;
+    }
+
+    .agreement-name {
+      color: @color-blue;
+    }
+
+  } /* .agreement */
+
+  /* 切换按钮 */
+  .op-switch {
+    margin-top: @bar-height-l;
+
+    .btn {
+      color: @color-primary;
+      border: none;
+    }
+
+  } /* .login-btns */
+
+  .copyright {
+    .flex-center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100rpx;
+    color: @color-gray-dark;
+    font-size: @text-size-s;
+  }
+
+} /* .user-register */

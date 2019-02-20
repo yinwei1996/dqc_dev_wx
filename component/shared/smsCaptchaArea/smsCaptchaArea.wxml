@@ -1,0 +1,22 @@
+<!--
+/**
+ * 组件 - 短信验证码区域
+ * smsCaptchaArea
+ * -----------------------------------
+ * 19/02/20 Jerry 新增
+ */
+-->
+
+<view class="sms-captcha-area">
+
+  <view class="ipt-item">
+    <input type="number" maxlength="11" placeholder="手机号" focus="true" bindinput="inputMobile" />
+   </view>
+
+  <view class="ipt-item">
+    <input class="ipt-captcha" type="number" maxlength="6" placeholder="验证码" bindinput="inputCaptcha" />
+    <button class="btn ipt-btn" bindtap="sendCaptcha" wx:if="{{ !timeout }}">点击获取</button>
+    <button class="btn ipt-btn" disabled="true" wx:else>重新获取({{ timeout }}s)</button>
+  </view>
+
+</view>

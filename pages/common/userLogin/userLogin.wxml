@@ -1,0 +1,42 @@
+<!--
+/**
+ * 会员注册
+ * userRegister
+ * -----------------------------------
+ * 19/02/20 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/agreementSheet/agreementSheet.wxml" />
+
+<view class="user-register">
+
+  <view class="logo">
+    <image mode="aspectFit" src="../../../image/logo_login.png" />
+  </view>
+
+  <!-- 手机号 / 验证码 -->
+  <smsCaptchaArea id="smsCaptchaArea"
+    type="{{ isRegister ? 'register' : 'login' }}"
+    bind:inputMobile="inputText"
+    bind:inputCaptcha="inputText" />
+
+  <view class="op-btns">
+    <button class="btn btn-primary" disabled="{{ btnDisabled }}"open-type="getUserInfo" bindgetuserinfo="clickLogin">{{ isRegister ? "注册" : "登录" }}</button>
+  </view>
+
+  <view class="agreement" wx:if="{{ isRegister }}">
+    <text>点击注册，即表示同意</text><text class="agreement-name" bindtap="showAgreement">用户协议</text>
+  </view>
+
+  <view class="op-switch">
+    <button class="btn" hover-class="none" bindtap="clickSwitch">{{ isRegister ? "已有账号，立即登录" : "没有账号？立即注册" }}</button>
+  </view>
+
+  <view class="copyright">
+    ©2019 大清仓
+  </view>
+
+   <template is="agreementSheet" data="{{ hidden: hiddenAgreementSheet, hide: 'closeAgreementSheet' }}" />
+
+</view> <!-- .user-register -->

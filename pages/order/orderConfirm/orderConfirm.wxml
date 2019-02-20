@@ -32,43 +32,8 @@
     <!-- 商品合计 -->
     <view class="order-prop sku-amount">
       <label>商品合计</label>
-      <text>￥{{order.skuAmount}}</text>
+      <text>￥{{order.skuAmountString}}</text>
     </view> <!-- .sku-amount -->
-
-    <!-- 运费 -->
-    <view class="order-prop delivery-amount">
-      <label>运费</label>
-      <text>￥{{order.deliveryAmount}}</text>
-    </view> <!-- .delivery-amount -->
-
-    <!-- 开发票 -->
-    <!--<view class="order-prop invoice" bindtap="selectInvoice">-->
-      <!--<label>发票</label>-->
-      <!--<block wx:if="{{order.invoice}}">-->
-        <!--<text>{{order.invoice.contentTypeTitle}} / {{order.invoice.titleName}}</text>-->
-      <!--</block>-->
-      <!--<block wx:else>-->
-        <!--<image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />-->
-      <!--</block>-->
-    <!--</view> &lt;!&ndash; .invoice &ndash;&gt;-->
-
-    <!-- 优惠券 -->
-    <view class="order-prop order-coupon" bindtap="selectCoupon">
-
-      <block wx:if="{{ order.couponItem }}">
-        <label>优惠券</label>
-        <text>￥-{{order.couponItem.denomination}}</text>
-      </block>
-      <block wx:elif="{{ order.availableCouponItemCount > 0 }}">
-        <label>优惠券<text> ({{ order.availableCouponItemCount }}张可用)</text></label>
-        <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
-      </block>
-      <block wx:else>
-        <label>优惠券</label>
-        <text>-</text>
-      </block>
-
-    </view> <!-- .order-coupon -->
 
   </view> <!-- .order-props -->
 
@@ -95,8 +60,8 @@
 
   <!-- 合计金额及"付款"操作 -->
   <view class="op-btns-fixed">
-    <button wx:if="{{ isAgree && order.address }}" class="btn btn-primary order-pay" bindtap="preparePay">去付款 ￥{{order.payableAmount}}</button>
-    <button wx:else class="btn order-pay" disabled="true">去付款 ￥{{order.payableAmount}}</button>
+    <button wx:if="{{ isAgree && order.address }}" class="btn btn-primary order-pay" bindtap="preparePay">去付款 ￥{{order.payableAmountString}}</button>
+    <button wx:else class="btn order-pay" disabled="true">去付款 ￥{{order.payableAmountString}}</button>
   </view>
 
 </view>

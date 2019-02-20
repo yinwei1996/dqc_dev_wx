@@ -1,3 +1,6 @@
 {
-  "disableScroll": true
+  "disableScroll": true,
+  "usingComponents": {
+    "quantitySheet": "../../../component/shared/quantitySheet/quantitySheet"
+  }
 }

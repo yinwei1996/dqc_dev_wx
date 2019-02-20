@@ -10,7 +10,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.3.0",
 	"appid": "wx456bd337207ac5de",
-	"projectname": "hc-mall-wechat",
+	"projectname": "dqc-mall-wechat",
 	"condition": {
 		"search": {
 			"current": -1,

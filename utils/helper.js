@@ -17,7 +17,7 @@ __cfg = {
   // 体验版
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
-  //host: 'http://localbox.hecai360.com/',
+  host: 'http://localbox.hecai360.com/',
   //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
@@ -1470,6 +1470,23 @@ dateToDateString: function (d, noYear) {
 
   var year = true === noYear ? '' : d.getFullYear() + '-', month = d.getMonth() + 1, day = d.getDate();
   return [year, month < 10 ? '0' : '', month, '-', day < 10 ? '0' : '', day].join('');
+},
+/* ----------------------------------------
+ * 将以分为单位的金额转为字符串显示
+ -----------------------------------------*/
+fen2str: function (val) {
+
+  if (!val) return '';
+
+  var valString = '' + val;
+
+  if (valString.length === 1)
+    valString = '00' + valString;
+  else if (valString.length === 2)
+    valString = '0' + valString;
+
+  return valString.replace(/([0-9]{2})$/ig, '.$1');
+
 }
 
 };

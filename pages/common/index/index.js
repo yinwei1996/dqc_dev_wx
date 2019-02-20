@@ -13,9 +13,11 @@ Page({
  页面数据
  ------------------------------ */
 data: {
-    depot: {
-      idx: 0
-    }
+  tabNavItems: [
+    { key: 'activities', text: '活动中' },
+    { key: 'previewActivities', text: '预告' }
+  ],
+  tab: 'activities'
 },
 /* ------------------------------
  页面加载
@@ -23,7 +25,7 @@ data: {
 onLoad: function (opts) {
 
   // 更新导航标题
-  helper.navTitle('合采网');
+  helper.navTitle('大清仓');
 },
 /* ------------------------------
  页面显示
@@ -38,8 +40,8 @@ onShow: function(){
  ------------------------------ */
 onHide: function(){
 
-  // 清除已存在的限时购计时器
-  this.clearFlashSaleTimer();
+  // 清除已存在的活动计时器
+  this.clearActivityTimer();
 },
 /* ------------------------------
  下拉刷新
@@ -59,7 +61,7 @@ onShareAppMessage: function(){
   console.log('index.onShareAppMessage, path => ' + path);
 
   return {
-    title: '合采网',
+    title: '大清仓',
     path: path
   }
 },
@@ -68,8 +70,8 @@ onShareAppMessage: function(){
  ------------------------------ */
 queryData: function(){
 
-  // 清除已存在的限时购计时器
-  this.clearFlashSaleTimer();
+  // 清除已存在的活动计时器
+  this.clearActivityTimer();
 
   // 查询数据
   helper.request({ url: 'wx/index', success: this.bindData });
@@ -83,26 +85,11 @@ bindData: function(ret){
   // 广告
   this.bindADs(ret.ads);
 
-  // 一级SKU类型
-  this.bindTypes(ret.types);
-
-  // 限时购
-  this.bindFlashSales(ret.sale, ret.saleSkus);
+  // SKU类目
+  this.bindCategories(ret.categories);
 
   // 活动
-  this.bindActivities(ret.activities);
-
-  // 拼团
-  this.bindPintuans(ret.pintuans);
-
-  // SKU品牌
-  this.bindBrands(ret.brands);
-
-  // 推荐SKU
-  this.bindSKUs('recommend', ret.recommendSkus);
-
-  // 新品SKU
-  this.bindSKUs(null, ret.newSkus);
+  this.bindActivities(ret);
 
   // 停止下拉动画
   wx.stopPullDownRefresh();
@@ -117,38 +104,37 @@ bindADs: function(recs){
 /* ------------------------------
  绑定显示一级分类
  ------------------------------ */
-bindTypes: function(ret){
+bindCategories(ret){
 
-  // 最多显示12个
-  ret = ret.slice(0, 12);
-
-  helper.bindFullImgUrl(ret, 'typeImageUrl', 'fullTypeImageUrl');
+  // 最多显示4个
+  ret = ret.slice(0, 4);
 
   // 绑定分类
-  this.setData({ typesLevel1: ret });
+  this.setData({ categories: ret });
 
 },
 /* ------------------------------
- 绑定限时购
+ 绑定显示活动列表
  ------------------------------ */
-bindFlashSales: function(sale, saleSkus){
+bindActivities(ret){
 
-  if (!sale || !saleSkus || !saleSkus.length)
-    return;
-
-  helper.bindFullImgUrl(saleSkus, 'imgUrl', 'fullImgUrl');
-
-  // 绑定分类
-  this.setData({ flashSale: sale, flashSaleSkus: saleSkus });
-
-  // 刷新倒计时
-  this.refreshFlashSaleCountdown();
+  // 绑定数据
+  this.setData({
+    activities: ret.activities,
+    activityCount: ret.activityCount,
+    previewActivities: ret.previewActivities,
+    previewActivityCount: ret.previewActivityCount,
+    tabNavItems: [
+      { key: 'activities', text: '活动中[' + ret.activityCount + ']' },
+      { key: 'previewActivities', text: '预告[' + ret.previewActivityCount + ']' }
+    ]
+  });
 
 },
 /* ------------------------------
  刷新限时购倒计时
 ------------------------------ */
-refreshFlashSaleCountdown: function(){
+refreshActivityCountdown: function(){
 
   var
     that = this,
@@ -171,8 +157,8 @@ refreshFlashSaleCountdown: function(){
     countdown--;
 
     if (!that.data.flashSaleCountdownTimer) {
-      that.setData({ flashSaleCountdownTimer: setInterval(function(){ that.refreshFlashSaleCountdown() }, 1000) });
-      console.log('已创建限时购计时器');
+      that.setData({ flashSaleCountdownTimer: setInterval(function(){ that.refreshActivityCountdown() }, 1000) });
+      console.log('已创建活动计时器');
     }
 
   }
@@ -184,7 +170,7 @@ refreshFlashSaleCountdown: function(){
     countdown = null;
 
     // 清除计时器
-    this.clearFlashSaleTimer();
+    this.clearActivityTimer();
 
   }
 
@@ -197,9 +183,9 @@ refreshFlashSaleCountdown: function(){
 
 },
 /* ------------------------------
- 清除限时购计时器
+ 清除活动计时器
  ------------------------------ */
-clearFlashSaleTimer: function(){
+clearActivityTimer: function(){
 
     if (!this.data.flashSaleCountdownTimer)
       return;
@@ -208,50 +194,8 @@ clearFlashSaleTimer: function(){
     clearInterval(this.data.flashSaleCountdownTimer);
     this.setData({ flashSaleCountdownTimer: null, flashSaleCountdown: null });
 
-    console.log('已清除限时购计时器');
+    console.log('已清除活动计时器');
 
-},
-/* ------------------------------
- 绑定显示活动列表
- ------------------------------ */
-bindActivities: function(ret){
-
-  // 绑定数据
-  this.setData({ activities: helper.bindFullImgUrl(ret, 'entryImageUrl', 'fullEntryImageUrl') });
-},
-/* ------------------------------
- 绑定显示拼团列表
- ------------------------------ */
-bindPintuans: function(ret){
-
-  var that = this;
-
-  // 绑定数据
-  this.setData({ pintuans: helper.bindFullImgUrl(ret) });
-
-},
-/* ------------------------------
- 绑定显示品牌列表
- ------------------------------ */
-bindBrands: function(ret){
-
-  // 绑定数据
-  this.setData({ brands: helper.bindFullImgUrl(ret, 'brandImageUrl', 'fullBrandImageUrl') });
-},
-/* ------------------------------
- 绑定显示SKU列表
- ------------------------------ */
-bindSKUs: function(type, recs, callback){
-
-  var localData = {};
-
-  // 绑定完整图片URL
-  recs = helper.bindFullImgUrl(recs);
-
-  localData[ 'recommend' == type ? 'recommendSKUs' : 'newSKUs' ] = recs;
-
-  // 绑定数据
-  this.setData(localData);
 },
 /* ------------------------------
  大图幻灯片切换

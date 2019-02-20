@@ -1,0 +1,35 @@
+<!--
+/**
+ * 组件 - 活动列表
+ * activitiesView.wxml
+ * -----------------------------------
+ * 19/02/18 Jerry 新增
+ */
+-->
+
+<template name="activitiesView">
+
+  <view class="activities-view">
+
+    <navigator
+      class="activity-item"
+      url="/pages/activity/activityDetail/activityDetail?activityId={{ activity.activityId }}"
+      hover-class="activity-item-hover"
+      wx:for="{{ activities.records || activities }}"
+      wx:for-item="activity"
+      wx:key="activityId">
+
+      <view class="activity-img">
+        <image src="{{ activity.fullBrandImageUrl || '../../../image/deli_logo.png' }}" mode="aspectFit" lazy-load="true" />
+      </view> <!-- .activity-img -->
+
+      <view class="activity-text">
+        <view class="activity-name">{{activity.activityName}}</view>
+        <view class="activity-summary">{{activity.summary}}</view>
+      </view> <!-- .activity-text -->
+
+    </navigator> <!-- .activity-item -->
+
+  </view> <!-- .activities-view -->
+
+</template>

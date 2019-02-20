@@ -1,10 +1,50 @@
 /**
  * 活动详情样式
- * activityDetail.less
+ * activityDetail
  * -----------------------------------
- * 18/09/18 Jerry 新增
+ * 19/02/19 Jerry 新增
  */
 
 @import '../../../variables.less';
-@import '../../../component/common/tabNav/tabNav.less';
-@import '../../../component/common/skusView/skusView.less';
+@import '../../../component/common/activitySpusView/activitySpusView.less';
+
+.activity-detail {
+
+  /* 顶部区域 */
+  .activity-top {
+    .flex-start;
+    height: @bar-height * 2;
+    border-bottom: @border-gray-light-5;
+
+    /* 活动首图 */
+    .activity-image {
+      padding: 0 @text-margin;
+
+      image {
+        width: @bar-height-xl;
+        height: @bar-height-xl;
+      }
+
+    } /* .activity-image */
+
+    .activity-text {
+      padding: 0 @text-margin 0 0;
+
+      .activity-name {
+        font-size: @text-size-m5;
+      } /* .activity-name */
+
+      .activity-spu-count {
+
+        text {
+          margin: 0 @text-margin-xs;
+          color: @color-red;
+        }
+
+      } /* .activity-spu-count */
+
+    } /* .activity-text */
+
+  } /* .activity-top */
+
+} /* .activity-detail */

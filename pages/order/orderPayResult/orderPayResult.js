@@ -53,6 +53,8 @@ bindOrder: function(order){
 
   // 付款时效
   order.payExpireTimeString = helper.dt2str(order.payExpireTime);
+  order.payableAmountString = helper.fen2str(order.payableAmount);
+  order.paidAmountString = helper.fen2str(order.paidAmount);
 
   // 绑定数据
   helper.setData(this, { order: order }, false);

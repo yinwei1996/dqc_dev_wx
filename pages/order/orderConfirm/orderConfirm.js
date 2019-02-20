@@ -49,18 +49,6 @@ onShow: function(){
     // 收货地址
     this.bindAddress(addressId);
   }
-  else if (invoiceId){
-    // 发票
-    this.bindInvoice(invoiceId);
-  }
-  else if (couponItemId){
-    // 优惠券
-    this.bindCoupon(couponItemId);
-  }
-  else if (bean){
-    // 云豆抵扣
-    this.bindBean(bean);
-  }
 
 },
 /* ------------------------------
@@ -84,6 +72,9 @@ bindOrder: function(order){
   helper.each(order.skuGroups, function(idx, grp){
     helper.bindFullImgUrl(grp.skuMaps);
   });
+
+  order.skuAmountString = helper.fen2str(order.skuAmount);
+  order.payableAmountString = helper.fen2str(order.payableAmount);
 
   // 绑定数据
   helper.setData(this, { order: order }, false);
@@ -223,18 +214,12 @@ preparePay: function(){
 
   var
   order = this.data.order,
-  addr = order.address || {},
-  invoice = order.invoice || {},
-  couponItem = order.couponItem || {},
-  bean = order.bean || {};
+  addr = order.address || {};
 
   helper.preparePay({
+    payType: 'WechatPay',
     orderId: order.orderId,
-    addressId: addr.addressId,
-    invoiceId: invoice.invoiceId,
-    couponItemId: couponItem.itemId,
-    // 注意这里传的是云豆数量
-    bean: bean.val
+    addressId: addr.addressId
   });
 }
 

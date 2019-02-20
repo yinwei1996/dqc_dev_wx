@@ -5,13 +5,20 @@
  */
 
 @import '../../../variables.less';
+@import '../../../component/common/tabNav/tabNav.less';
 @import '../../../component/common/searchBar/searchBar.less';
-@import '../../../component/common/flashSalesFloor/flashSalesFloor.less';
-@import '../../../component/common/activitiesFloor/activitiesFloor.less';
-@import '../../../component/common/brandsFloor/brandsFloor.less';
-@import '../../../component/common/pintuansView/pintuansView.less';
-@import '../../../component/common/skusView/skusView.less';
-@import '../../../component/common/resaleItem/resaleItem.less';
+@import '../../../component/common/activitiesView/activitiesView.less';
+
+/* 搜索区域 */
+.search-wrapper {
+  .flex-between;
+
+  .brand-entry {
+    .ico-m;
+    margin-left: @text-margin;
+  }
+
+} /* .search-wrapper */
 
 /* 广告楼层 */
 .ad-wrapper {

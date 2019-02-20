@@ -1,0 +1,63 @@
+<!--
+/**
+ * 活动SPU列表
+ * activitySpusView
+ * -----------------------------------
+ * 19/02/19 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="activitySpusView">
+
+  <view>
+
+    <view class="spu-item" wx:for="{{ spus.records || spus }}" wx:for-item="spu" wx:key="spuId">
+
+      <!-- SPU信息 -->
+      <view class="spu-text">
+        <view class="spu-name">{{ spu.brandName }} {{ spu.frontName }}</view>
+        <view class="spu-desc">{{ spu.desc }}</view>
+      </view>
+
+      <!-- SPU图片 -->
+      <view class="spu-images">
+        <view class="spu-image" wx:for="{{ spu.fullImageUrls }}" wx:for-item="imgUrl" wx:key="url">
+          <image src="{{ imgUrl }}" />
+        </view>
+      </view>
+
+      <!-- 销售价 -->
+      <view class="spu-price">
+        <text class="price">销售价：<text>￥{{ spu.priceBString }}</text></text>
+        <text class="market-price" wx:if="{{ spu.marketPrice }}">￥{{ spu.marketPrice }}</text>
+      </view> <!-- .spu-price -->
+
+      <!-- 操作区 -->
+      <view class="spu-ops" data-batch-id="{{ spu.batchId }}" data-spu-id="{{ spu.spuId }}" catchtap="clickSpuOPs">
+
+        <view>
+          <!-- 买家 - 商品关注 -->
+          <button size="mini" class="btn" data-action="follow">商品关注</button>
+          <!-- 买家 - 售前咨询 -->
+          <button size="mini" class="btn" data-action="contact">售前咨询</button>
+        </view>
+
+        <view>
+          <!-- 买家 - 合成转发 -->
+          <button size="mini" class="btn btn-primary" data-action="share">合成转发</button>
+          <!-- 买家 - 加入购物车 -->
+          <button size="mini" class="btn btn-primary" data-action="addCart">加购物车</button>
+        </view>
+
+      </view> <!-- .spu-ops -->
+
+    </view> <!-- .spu-item -->
+
+  </view>
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: spus }}" />
+
+</template>

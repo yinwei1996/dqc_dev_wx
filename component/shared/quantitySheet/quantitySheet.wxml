@@ -1,0 +1,74 @@
+<!--
+/**
+ * 组件 - 数量Sheet
+ * quantitySheet
+ * -----------------------------------
+ * 19/01/03 Jerry 新增
+ */
+-->
+
+<view class="quantity-sheet">
+
+  <!-- 数量选择器-遮罩层 -->
+  <view class="quantity-mask {{hidden}}" bindtap="closeSheet"></view>
+
+  <!-- 数量选择器-浮动层，需要加上 if sku != null 的判断，否则初始时 image 读取不到图片会报错 -->
+  <view class="quantity-content {{hidden}}" wx:if="{{sku}}">
+
+    <!-- 关闭Sheet -->
+    <image class="op-cancel" src="../../../image/icos/remove_48.png" bindtap="closeSheet" />
+
+    <view class="sku-inf">
+
+      <!-- SKU小图 -->
+      <image class="sku-img" src="{{ sku.fullImageUrl }}" />
+
+      <view class="sku-text">
+        <view class="sku-name">{{ sku.skuName }}</view>
+        <view class="sku-price">销售价：<text>￥{{ sku.priceBString }}</text></view>
+      </view>
+
+    </view>
+
+    <view>
+
+      <!-- SKU分组（按skus） -->
+      <view class="sku-prop">
+        <view>
+          <view>尺码/规格</view>
+          <view class="sku-group">
+            <view>
+                <text class="{{ item.skuId == sku.skuId ? 'sel' : '' }}"
+                  data-sku-id="{{ item.skuId }}"
+                  bindtap="clickSpec"
+                  wx:for="{{skus}}"
+                  wx:key="skuId">{{ item.skuName }}</text>
+            </view>
+          </view>
+        </view>
+      </view> <!-- .sku-prop -->
+
+      <!-- SKU数量 -->
+      <view class="sku-prop sku-quantity">
+        <label>购买数量</label>
+        <quantitySpinner id="quantitySpinner" sku="{{sku}}" bind:changeQuantity="changeQuantity" />
+      </view> <!-- .sku-quantity -->
+
+      <view class="sku-prop">
+        <view>
+          <view>备注</view>
+          <textarea />
+        </view>
+      </view> <!-- .sku-prop -->
+
+    </view>
+
+    <view class="sku-ops">
+      <!-- 买家 - 立即下单 -->
+      <button class="btn" bindtap="clickBuyNow">立即下单</button>
+      <button class="btn btn-primary" bindtap="clickAddCart">加入购物车</button>
+    </view>
+
+  </view> <!-- .quantity-content -->
+
+</view>

@@ -1,0 +1,34 @@
+/**
+ * 组件 - 数量Spinner
+ * quantitySpinner
+ * -----------------------------------
+ * 19/01/03 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.quantity-spinner {
+  .flex-between;
+  border: @border-gray-light;
+  border-radius: @bar-height-s / 2;
+
+  image {
+    padding: @bar-height-s / 4;
+    width: @bar-height-s / 2;
+    height: @bar-height-s / 2;
+
+    &.disabled {
+      opacity: .1;
+    }
+
+  }
+
+  input {
+    width: @bar-height;
+    height: @bar-height-s;
+    text-align: center;
+    font-size: @text-size-l;
+    border: none;
+  }
+
+} /* .quantity-spinner */

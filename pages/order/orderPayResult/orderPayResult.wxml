@@ -27,13 +27,13 @@
     <!-- 实付金额（二选一显示） -->
     <view class="order-prop paid-amount" wx:if="{{order.payTime}}">
       <label>实付</label>
-      <text>￥{{order.paidAmount}}</text>
+      <text>￥{{order.paidAmountString}}</text>
     </view> <!-- .paid-amount -->
 
     <!-- 应付金额（二选一显示） -->
     <view class="order-prop payable-amount" wx:else>
       <label>应付</label>
-      <text>￥{{order.payableAmount}}</text>
+      <text>￥{{order.payableAmountString}}</text>
     </view> <!-- .payable-amount -->
 
   </view> <!-- .order-props -->
@@ -42,7 +42,7 @@
   <block wx:if="{{order.payTime}}">
 
     <view class="result-tip">
-      <image class="item-nav" src="../../../image/icos/checked_primary_48.png" />
+      <image class="item-nav" src="../../../image/icos/checked_primary_81.png" />
       <text>支付成功</text>
     </view>
 

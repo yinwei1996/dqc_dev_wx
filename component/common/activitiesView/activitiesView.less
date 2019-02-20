@@ -1,0 +1,56 @@
+/**
+ * 组件 - 活动列表
+ * activitiesView.less
+ * -----------------------------------
+ * 19/02/18 Jerry 新增
+ */
+
+.activities-view {
+  .clear-after;
+
+  .activity-item {
+    .flex-start;
+    padding: @text-margin;
+
+    .activity-text {
+      padding: 20rpx;
+      position: relative;
+    } /* .activity-text */
+
+    /* 活动名称 */
+    .activity-name {
+      overflow:hidden; /* 超出一行文字自动隐藏 */
+      text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+      white-space:nowrap; /* 强制不换行 */
+    }
+
+    /* 活动摘要 */
+    .activity-summary {
+      font-size: @text-size-s3;
+      color: @color-gray-dark;
+      overflow:hidden; /* 超出一行文字自动隐藏 */
+      text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
+      white-space:nowrap; /* 强制不换行 */
+
+    } /* .activity-name */
+
+    /* 入口主图 */
+    .activity-img {
+
+      image {
+        width: 100rpx;
+        height: 100rpx;
+      }
+    } /* .activity-img */
+
+    /* activity-item hover 样式 */
+    &.activity-item-hover {
+
+      .activity-img {
+        opacity: .7;
+      }
+    } /* &.activity-item-hover */
+
+  } /* .activity-item */
+
+} /* .activities-view */

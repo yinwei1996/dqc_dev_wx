@@ -1,0 +1,28 @@
+<!--
+/**
+ * 组件 - 数量Spinner
+ * quantitySpinner
+ * -----------------------------------
+ * 19/01/03 Jerry 新增
+ */
+-->
+
+<view class="quantity-spinner">
+
+  <image src="../../../image/icos/minus_48.png"
+    bindtap="reduceQuantity"
+    wx:if="{{ sku.quantity > sku.actualMinQuantity }}" />
+  <image src="../../../image/icos/minus_48.png"
+    class="disabled"
+    wx:else />
+
+  <input type="number" value="{{ sku.quantity }}" maxlength="8" bindblur="inputQuantity" bindconfirm="inputQuantity" />
+
+  <image src="../../../image/icos/plus_81.png"
+    bindtap="addQuantity"
+    wx:if="{{ !sku.actualMaxQuantity || sku.quantity < sku.actualMaxQuantity }}" />
+  <image src="../../../image/icos/plus_81.png"
+    class="disabled"
+    wx:else />
+
+</view>

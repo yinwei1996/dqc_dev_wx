@@ -1,17 +1,16 @@
   {
   "pages": [
     "pages/common/index/index",
+    "pages/activity/activityDetail/activityDetail",
     "pages/common/store/store",
     "pages/common/storeIntro/storeIntro",
     "pages/sku/skuDetail/skuDetail",
-    "pages/flashSale/flashSaleAll/flashSaleAll",
     "pages/order/orderAll/orderAll",
     "pages/order/orderDetail/orderDetail",
     "pages/sku/skuClassify/skuClassify",
     "pages/sku/skuCategory/skuCategory",
     "pages/my/login/login",
     "pages/my/myCenter/myCenter",
-    "pages/activity/activityDetail/activityDetail",
     "pages/bean/myBeanAll/myBeanAll",
     "pages/brand/brandDetail/brandDetail",
     "pages/pintuan/pintuanAll/pintuanAll",
@@ -44,15 +43,6 @@
     "pages/userAgent/userAgentDetail/userAgentDetail",
     "pages/my/myAbout/myAbout",
 
-    "pages/demand/demandAll/demandAll",
-    "pages/demand/demandModify/demandModify",
-    "pages/demand/myDemandAll/myDemandAll",
-    "pages/demand/demandDetails/demandDetails",
-    "pages/demand/myDemandQuoteModify/myDemandQuoteModify",
-    "pages/demand/myDemandDetail/myDemandDetail",
-    "pages/demand/myDemandQuoteAll/myDemandQuoteAll",
-    "pages/demand/demandCenter/demandCenter",
-
     "pages/invoice/invoiceCenter/invoiceCenter",
     "pages/invoice/invoiceApplication/invoiceApplication",
     "pages/invoice/invoiceDetail/invoiceDetail"
@@ -61,7 +51,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#f9f9f9",
-    "navigationBarTitleText": "合采网",
+    "navigationBarTitleText": "大清仓",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#f9f9f9",
     "enablePullDownRefresh": false
@@ -76,25 +66,25 @@
         "iconPath": "image/tabBar_icon/home.png",
         "selectedIconPath": "image/tabBar_icon/home_selected.png",
         "pagePath": "pages/common/index/index",
-        "text": "首页"
+        "text": "主页"
       },
       {
         "iconPath": "image/tabBar_icon/category.png",
         "selectedIconPath": "image/tabBar_icon/category_selected.png",
         "pagePath": "pages/sku/skuClassify/skuClassify",
-        "text": "分类"
+        "text": "消息"
       },
       {
         "iconPath": "image/tabBar_icon/shopping.png",
         "selectedIconPath": "image/tabBar_icon/shopping_selected.png",
         "pagePath": "pages/my/myCart/myCart",
-        "text": "采购单"
+        "text": "购物车"
       },
       {
         "iconPath": "image/tabBar_icon/ucenter.png",
         "selectedIconPath": "image/tabBar_icon/ucenter_selected.png",
         "pagePath": "pages/my/myCenter/myCenter",
-        "text": "企业中心"
+        "text": "个人中心"
       }
     ]
   },

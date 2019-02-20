@@ -7,35 +7,43 @@
  */
 -->
 
-<import src="../../../component/common/tabNav/tabNav.wxml" />
-<import src="../../../component/common/skusView/skusView.wxml" />
+<import src="../../../component/common/activitySpusView/activitySpusView.wxml" />
 
 <view class="activity-detail">
 
-  <!-- Tab区域 -->
-  <view class="tabs">
+  <!-- 顶部区域 -->
+  <view class="activity-top">
 
-    <!-- Tab导航 -->
-    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab, fullwidth: true }}" />
+    <!-- 活动首图 -->
+    <view class="activity-image">
+    <image src="../../../image/deli_logo.png" />
+    </view> <!-- .activity-image -->
 
-    <!-- Tab内容 -->
-    <view class="tab-content">
+    <!-- 活动信息 -->
+    <view class="activity-text">
+      <view class="activity-name">{{ activity.activityName }}</view>
+      <view class="activity-spu-count">在售<text>{{ spuMaps.recordCount }}</text>款商品</view>
+    </view>
 
-      <!-- 商品列表 -->
-      <scroll-view
-        class="content-item {{ tab == navItem.key ? 'active' : '' }}"
-        scroll-y="true"
-        enable-back-to-top="true"
-        bindscrolltolower="scrollToLower"
-        style="height:{{scrollViewHeight}}"
-        wx:for="{{ tabNavItems }}" wx:for-item="navItem" wx:key="key">
+  </view> <!-- .activity-top -->
 
-        <template is="skusView" data="{{ skus: navItem.skus }}" />
+  <!-- 商品列表 -->
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
 
-      </scroll-view> <!-- .content-item -->
+    <template is="activitySpusView" data="{{ spus: spuMaps }}" />
 
-    </view> <!-- .tab-content -->
+  </scroll-view>
 
-  </view> <!-- .tabs -->
+  <!-- 数量选择Sheet -->
+  <quantitySheet id="quantitySheet"
+    sku="{{ skuMap }}"
+    skus="{{ skuMaps }}"
+    bind:clickSpec="clickSpec"
+    bind:clickBuyNow="clickBuyNow"
+    bind:changeQuantity="changeQuantity" />
 
 </view>

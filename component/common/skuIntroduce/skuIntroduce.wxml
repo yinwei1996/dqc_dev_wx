@@ -1,5 +1,0 @@
-<!--
-  * skuDetail的商品介绍
--->
-<import src="../../../component/common/tabNav/tabNav.wxml"/>
-<import src="../../../component/common/skuIntroduce/skuIntroduce.wxml"/>

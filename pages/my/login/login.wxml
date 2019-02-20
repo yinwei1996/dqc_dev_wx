@@ -11,8 +11,9 @@
 
 <view class="login">
 
+  <!-- LOGO -->
   <view class="logo">
-    <image mode="aspectFit" src="../../../image/logo_start.png" />
+    <image mode="aspectFit" src="../../../image/logo_login.png" />
   </view>
 
   <view class="op-btns">
@@ -26,7 +27,7 @@
   </view>
 
   <view class="copyright">
-    ©2018 云南炬龙科技有限公司
+    ©2019
   </view>
 
    <template is="agreementSheet" data="{{ hidden: hiddenAgreementSheet, hide: 'closeAgreementSheet' }}" />

@@ -18,7 +18,7 @@ __cfg = {
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
   host: 'http://localbox.hecai360.com/',
-  //host: 'http://localhost/',
+  host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -28,7 +28,7 @@ __pagePath = {
   // 首页
   index: '/pages/common/index/index',
   // 个人
-  login: '/pages/my/login/login',
+  login: '/pages/common/userLogin/userLogin',
   myCenter: '/pages/my/myCenter/myCenter',
   myCode: '/pages/my/myCode/myCode',
   myCart: '/pages/my/myCart/myCart',
@@ -415,12 +415,9 @@ request: function(opts){
         return;
       }
 
-      // 401：要求登录
+      // 401：要求登录，跳转到登录页
       if ('401' == ret.statusCode){
-        // 微信登录（不获取用户信息）
-        __me.wxLogin({
-            success: function(){ __me.request(opts) }
-          });
+        __me.navigateTo('login');
         return;
       }
 
@@ -562,21 +559,31 @@ switchTab: function(url, loginRequired){
   __me.navigateTo({ url: url, type: 'tab' }, loginRequired);
 },
 /* ------------------------------
+ 微信注册
+------------------------------ */
+wxRegister(opts){
+  wx.login({ success: (ret) => __me.afterWxLogin('wx/register', ret.code, opts || {}) });
+},
+/* ------------------------------
  微信登录
 ------------------------------ */
-wxLogin: function(opts){
-  wx.login({ success: function(ret) { __me.afterWxLogin(ret.code, opts || {}) } });
+wxLogin(opts){
+  wx.login({ success: (ret) => __me.afterWxLogin('wx/login', ret.code, opts || {}) });
 },
 /* ------------------------------
  业务登录
 ------------------------------ */
-afterWxLogin: function(code, opts){
+afterWxLogin(url, code, opts){
 
   var
   // 业务登录用的data
   data = {
     wechatCode: code,
-    // 推荐用户
+    // 手机号
+    mobile: opts.mobile,
+    // 短信验证码
+    smsCaptcha: opts.smsCaptcha,
+    // 推荐会员
     fromUser: opts.fromUser,
     // 场景值
     scene: opts.scene,
@@ -584,19 +591,21 @@ afterWxLogin: function(code, opts){
     shareTicket: opts.shareTicket
   };
 
+  // 发起请求
   __me.request({
-    url: 'wx/login',
+    url: url,
     data: data,
-    success: function(ret){
+    success: (ret) => {
 
       // 保存到本地缓存
       wx.setStorageSync('sessionId', ret.token);
       wx.setStorageSync('user', ret.user);
+
       // 这里要强制将 wxUser 移除，以便后续操作更新 wxUser
       wx.removeStorageSync('wxUser');
 
       // 尝试获取微信用户信息，如果获取不到，跳转到登录页
-      __me.wxTryGetUserInfo(opts);
+      __me.wxGetUserInfo(opts);
 
     }
   });
@@ -605,10 +614,10 @@ afterWxLogin: function(code, opts){
 /* ------------------------------
  尝试获取微信用户信息
 ------------------------------ */
-wxTryGetUserInfo: function(opts){
+wxGetUserInfo(opts){
 
   wx.getSetting({
-    success: function(settings){
+    success: (settings) => {
 
       // 未授权获取用户信息，跳转到登录页
       if (!settings.authSetting['scope.userInfo']) {
@@ -618,7 +627,8 @@ wxTryGetUserInfo: function(opts){
 
       // 已授权获取用户信息
       wx.getUserInfo({
-        success: function(ret) { __me.wxBindUserInfo(ret, opts) }
+        withCredentials: true,
+        success: (ret) => { __me.wxBindUserInfo(ret, opts) }
       });
 
     }
@@ -628,18 +638,17 @@ wxTryGetUserInfo: function(opts){
 /* ------------------------------
  同步微信用户信息
 ------------------------------ */
-wxBindUserInfo: function(e, opts){
+wxBindUserInfo(e, opts){
 
   var
-  fromButtonClick = e.detail != null,
   // 微信用户信息
-  // 两个渠道：1. wxTryGetUserInfo；2. login页的按钮Click
+  // 两个渠道：1. wxGetUserInfo；2. login页的按钮Click
   wxUser = e.userInfo || e.detail.userInfo;
 
   __me.request({
     url: 'wx/my/bind',
     data: { encryptedData: e.encryptedData || e.detail.encryptedData, iv: e.iv || e.detail.iv },
-    success: function(ret){
+    success: (ret) => {
 
       // 保存到本地缓存
       wx.setStorageSync('wxUser', wxUser);
@@ -650,11 +659,9 @@ wxBindUserInfo: function(e, opts){
         return;
       }
 
-      // 如果来自登录页的按钮Click
-      if (fromButtonClick){
-        // 设置刷新数据标志（要求其他页面根据情况刷新数据）
-        __me.pageArg('refresh', 'refresh');
-        // 返回到首页
+      // 如果来自注册/登录页的按钮Click，返回到上一页
+      if (opts.fromButtonClick){
+        console.log('wxBindUserInfo.success => fromButtonClick, will navigate back');
         wx.navigateBack();
         return;
       }
@@ -868,6 +875,12 @@ maskMobile: function(mobile){
 
   return [m[1] || '', '****', m[3]].join('');
 
+},
+/* ------------------------------
+ 检查是否有效手机号
+------------------------------ */
+isMobile: function(val){
+  return /^1[345789][0-9]{9}$/ig.test(val);
 },
 /* ------------------------------
  拼接分页业务数据

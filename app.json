@@ -1,9 +1,8 @@
   {
   "pages": [
     "pages/common/index/index",
+    "pages/common/userLogin/userLogin",
     "pages/activity/activityDetail/activityDetail",
-    "pages/common/store/store",
-    "pages/common/storeIntro/storeIntro",
     "pages/sku/skuDetail/skuDetail",
     "pages/order/orderAll/orderAll",
     "pages/order/orderDetail/orderDetail",

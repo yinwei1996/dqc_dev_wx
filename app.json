@@ -1,6 +1,7 @@
   {
   "pages": [
     "pages/common/index/index",
+    "pages/my/myCenter/myCenter",
     "pages/common/userLogin/userLogin",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuDetail/skuDetail",
@@ -8,8 +9,6 @@
     "pages/order/orderDetail/orderDetail",
     "pages/sku/skuClassify/skuClassify",
     "pages/sku/skuCategory/skuCategory",
-    "pages/my/login/login",
-    "pages/my/myCenter/myCenter",
     "pages/bean/myBeanAll/myBeanAll",
     "pages/brand/brandDetail/brandDetail",
     "pages/pintuan/pintuanAll/pintuanAll",
@@ -57,7 +56,7 @@
   },
   "tabBar": {
     "color": "#808080",
-    "selectedColor": "#005fbc",
+    "selectedColor": "#ff9900",
     "backgroundColor": "#f9f9f9",
     "borderStyle": "black",
     "list": [

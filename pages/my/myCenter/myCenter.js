@@ -1,8 +1,8 @@
 /**
  * 个人中心
- * myCenter.js
+ * myCenter
  * -----------------------------------
- * 18/03/14 Jerry 新增
+ * 19/02/20 Jerry 更新
  */
 
 var
@@ -18,8 +18,15 @@ data: { hidden: 'hidden' },
  页面加载
 ------------------------------ */
 onLoad: function(){
+
   // 更新导航
-  helper.navTitle('企业中心');
+  helper.navTitle('个人中心');
+
+  wx.setNavigationBarColor({
+    frontColor: '#ffffff',
+    backgroundColor: '#ff9900'
+  });
+
 },
 /* ------------------------------
  页面显示

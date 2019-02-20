@@ -1,23 +1,19 @@
 /**
- * 个人中心样式
- * myCenter.less
+ * 个人中心
+ * myCenter
  * -----------------------------------
- * 18/03/16 Jerry 新增
+ * 19/02/20 Jerry 更新
  */
  
 @import '../../../variables.less';
-@import '../../../component/common/ordersView/ordersView.less';
-@import '../../../component/common/orderSkusView/orderSkusView.less';
 
 .my-center {
-  background-color: transparent;
 
-  /* 会员区域 */
-  .user {
+  /* 会员楼层 */
+  .user-floor {
     .flex-between;
-    .block-padding;
-    height: 220rpx;
-    border-bottom: @border-gray-light-5;
+    padding: @text-margin-xxl;
+    background-color: @color-primary;
 
     /* 会员信息 */
     .user-inf {
@@ -26,115 +22,110 @@
       /* 会员头像 */
       .user-avatar {
         .ico-avatar;
-        margin-right: 25rpx;
+        margin-right: @text-margin-xxl;
         border-radius: 100rpx;
       } /*.user-avatar  */
 
     } /* .user-inf */
 
-    /* 会员昵称及手机号 */
-    .user-text {
+    /* 会员编号/已购服务数 */
+    .user-ex {
+      text-align: right;
 
-      .user-name {
-        .flex-start;
-        height: 40rpx;
-        font-size: @text-size-l;
+      .user-code {
+        font-size: @text-size-s3;
       }
 
-      .user-mobile {
-        .flex-start;
-        height: 40rpx;
-        font-size: @text-size-s5;
+      .user-serv-cnt {
 
-        image {
-          .ico-s;
-          margin-left: @text-margin-s;
-        }
-
-      }
-
-    } /* .user-text */
-
-  } /* .user */
-
-  /* 最近订单 */
-  .recent-order {
-    padding: @text-margin 0;
-    border-bottom: @border-gray-light-5;
-  } /* .recent-order */
-
-  /* 菜单区域 */
-  .menu {
-    padding: 25rpx @block-padding-left;
-
-    /* 菜单项 */
-    .menu-item {
-      .flex-between;
-      padding: 0;
-      height: @bar-height-l;
-      border: none;
-      border-bottom: @border-gray-light;
-      border-radius: 0;
-
-      &:last-child {
-        border-bottom-color: @color-white;
-      }
-
-      .menu-inf {
-        .flex-start;
-
-        /* 前置图标 */
-        .menu-ico {
-          margin: 0 15rpx 0 5rpx;
-          .ico-m;
-        } /* .menu-ico */
-
-        /* 文字 */
         text {
-          font-size: @text-size-m3;
-        } /* text */
+          font-size: @text-size-s3;
+          color: @color-white;
+          background-color: @color-blue;
+        }
 
-      } /* .menu-inf */
+      } /* .user-serv-cnt */
 
-      .menu-nav {
-        padding: 0 5rpx;
-        .ico-xs;
-        .opacity-gray;
+    } /* .user-ex */
+
+  } /* .user-floor */
+
+  /* 积分账户 */
+  .point-floor {
+    .flex-between;
+    margin: @text-margin;
+    padding: @text-margin;
+    border: @border-gray-light;
+    border-radius: @text-margin;
+
+  } /* .point-floor */
+
+  /* 销售业绩 */
+  .sale-floor {
+
+    .count-grp {
+      .clear-after;
+      padding: @text-margin-xl 0;
+
+      > view {
+        float: left;
+        width: 33.3%;
+        text-align: center;
+
+        view:last-child {
+          color: @color-red;
+        }
+
+      } /* > view */
+
+    } /* .count-group */
+
+  } /* .sale-floor */
+
+  /* 通用楼层 */
+  .my-floor {
+    margin: @text-margin;
+    border: @border-gray-light;
+    border-radius: @text-margin;
+
+    /* 楼层标题 */
+    .floor-title {
+      .flex-between;
+      padding: @text-margin;
+      background-color: @color-primary;
+      border-top-left-radius: @text-margin;
+      border-top-right-radius: @text-margin;
+
+      .title-text {
+        color: @color-white;
       }
 
-      &.menu-item-hover {
+      .title-nav {
+        color: @color-white;
+      }
 
-        .menu-nav {
-          opacity: 1;
+    } /* .floor-title */
+
+    /* 功能图标 */
+    .floor-icos {
+      .clear-after;
+      padding: @text-margin-xl;
+
+      .ico-item {
+        float: left;
+        margin: @text-margin 0;
+        width: 25%;
+        text-align: center;
+
+        > image {
+          width: @bar-height-s;
+          height: @bar-height-s;
         }
-      } /* &.menu-item-hover */
 
-    } /* .menu-item */
+      } /* .ico-item */
 
-  } /* .menu */
-
-  /* 操作区域 */
-  .ops {
-    padding: 20rpx 45rpx;
-    border-top: solid 15rpx @color-gray-light;
-
-    button {
-      font-size: @text-size-l;
-    }
-
-  } /* .ops */
-
-  .login-btn {
-    margin: 40rpx 0;
-    height: 96rpx;
-    line-height: 96rpx;
-    color: #fff;
-    font-size: 30rpx;
-    width: 50%;
-    background: #005fbc;
-    border-radius: 6rpx;
-    margin-left:25%;
-
-  }
+    } /* .floor-icos */
+  
+  } /* .my-floor */
 
 } /* .my-center */

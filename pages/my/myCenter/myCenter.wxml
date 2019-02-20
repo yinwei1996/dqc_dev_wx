@@ -1,177 +1,180 @@
 <!--
 /**
  * 个人中心
- * myCenter.wxml
+ * myCenter
  * -----------------------------------
- * 18/03/16 Jerry 新增
+ * 19/02/20 Jerry 更新
  */
 -->
 
-<import src="../../../component/common/ordersView/ordersView.wxml" />
-
 <view class="my-center {{hidden}}">
 
-  <!-- 个人信息 -->
-  <view class="user">
+  <!-- 会员信息 -->
+  <view class="user-floor">
 
-    <view class="user-inf" bindtap="redirectUserModify">
+    <!-- 会员基础信息 -->
+    <view class="user-inf" bindtap="clickUser">
 
       <!-- 头像 -->
       <image src="{{wxUser.avatarUrl}}" class="user-avatar" wx:if="{{wxUser.avatarUrl}}" />
 
       <!-- 昵称、手机号 -->
       <view class="user-text">
+        <view class="user-member {{ user.isMember ? 'user-vip' : '' }}">VIP</view>
         <view class="user-name">{{ wxUser.nickName || user.userNameMasked }}</view>
-        <view class="user-mobile" wx:if="{{ !user.userNameMasked || !user.mobileMasked }}">绑定会员信息</view>
-        <view class="user-mobile" wx:else>
-          {{ user.mobileMasked }}
-          <!--  确认图标 -->
-          <!--<image src="../../../image/icos/success_green_48.png" />-->
-        </view>
-      </view>
+      </view> <!-- .user-text -->
 
     </view> <!-- .user-inf -->
-    <!--<view class="entry-icos">-->
-  <!-- 云小茗二维码 隐藏 -->
-    <!--&lt;!&ndash; 二维码 &ndash;&gt;-->
-    <!--<view class="user-agent" bindtap="redirectAgentDetail" wx:if="{{agentId}}">-->
-      <!--<image src="../../../image/icos/agent_81.png" />-->
-    <!--</view> &lt;!&ndash; .user-agent &ndash;&gt;-->
 
-    <!--&lt;!&ndash; 二维码 &ndash;&gt;-->
-    <!--<view class="user-qr-code" bindtap="redirectMyCode">-->
-      <!--<image src="../../../image/icos/qr_code_81.png" />-->
-    <!--</view> &lt;!&ndash; .user-qr-code &ndash;&gt;-->
-    <!--</view>-->
+    <!-- 会员扩展信息 -->
+    <view class="user-ex">
+        <view class="user-code">会员编号：{{ user.userCode }}</view>
+        <view class="user-serv-cnt"><text>已购买N项服务</text></view>
+    </view> <!-- .user-ex -->
 
-  </view> <!-- .user -->
-  <!--  个人财产 -->
+  </view> <!-- .user-floor -->
 
+  <!--  积分账户 -->
+  <view class="point-floor">
+    <view class="point-text">积分账户：<text>{{ pointAmount }}</text></view>
+    <view class="point-ops"><button size="mini" class="btn" bindtap="clickPointRecharge">充值</button></view>
+  </view> <!-- .point-floor -->
 
-  <!-- 最近订单 -->
-  <view class="recent-order" wx:if="{{recentOrder}}">
-    <template is="ordersView" data="{{ orders: [ recentOrder ], ignoreSkuQuantity: true }}" />
-  </view> <!-- .recent-order -->
+  <!-- 销售业绩 -->
+  <view class="my-floor sale-floor">
 
-  <!-- 菜单区域 -->
-  <view class="menu">
+    <view class="floor-title">
+      <view class="title-text">销售业绩</view>
+      <view class="title-nav">销售明细</view>
+    </view>
 
-    <!-- 采购需求 -->
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handlePurchaseDemand">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
-        <!--<text>采购需求</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+    <swiper
+        style="height: 180rpx"
+        indicator-dots="true"
+        indicator-color="rgba(0, 0, 0, .1)"
+        indicator-active-color="rgba(255, 153, 0, 1)"
+        circular="true"
+        bindchange="changeSaleCount">
 
-    <!-- 我的订单 -->
-    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleOrderClick">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/purchase_icon.png" class="menu-ico" />
-        <text>我的订单</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+      <!-- 今日销售统计 -->
+      <swiper-item>
+        <view class="count-grp">
+          <view><view>今日销售件数</view><view>0</view></view>
+          <view><view>今日订单量</view><view>0</view></view>
+          <view><view>今日销售额</view><view>￥0.00</view></view>
+        </view>
+      </swiper-item>
 
-    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleInvoiceClick">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/supplay_demand.png" class="menu-ico" />
-        <text>我的发票</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+      <!-- 本周销售统计 -->
+      <swiper-item>
+        <view class="count-grp">
+          <view><view>本周销售件数</view><view>0</view></view>
+          <view><view>本周订单量</view><view>0</view></view>
+          <view><view>本周销售额</view><view>￥0.00</view></view>
+        </view>
+      </swiper-item>
 
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleDemandClick">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
-        <!--<text>求购中心</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+      <!-- 本月销售统计 -->
+      <swiper-item>
+        <view class="count-grp">
+          <view><view>本月销售件数</view><view>0</view></view>
+          <view><view>本月订单量</view><view>0</view></view>
+          <view><view>本月销售额</view><view>￥0.00</view></view>
+        </view>
+      </swiper-item>
 
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleSupplyClick">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/supply_icon.png" class="menu-ico" />-->
-        <!--<text>供应中心</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+    </swiper>
 
-    <!-- 供应需求 -->
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleSupplyDemand">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/supplay_demand.png" class="menu-ico" />-->
-        <!--<text>供应需求</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+  </view> <!-- .sale-floor -->
 
-    <!-- 提现 -->
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleWithdraw">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/withdraw_icon.png" class="menu-ico" />-->
-        <!--<text>提现</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+  <!-- 我的订单 -->
+  <view class="my-floor order-floor">
 
-    <!-- 商户资料 -->
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleBeanClick">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/aptitude.png" class="menu-ico" />-->
-        <!--<text>商户资料</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+    <view class="floor-title">
+      <view class="title-text">我的订单</view>
+      <view class="title-nav">查看全部</view>
+    </view>
 
-    <!-- 地址 -->
-    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleAddressClick">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/address_icon.png" class="menu-ico" />
-        <text>收货地址</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+    <view class="floor-icos">
 
-    <!-- 退换货申请 -->
-    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleRMAClick">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/return_icon.png" class="menu-ico" />
-        <text>退换货</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>待支付</view>
+      </view> <!-- .ico-item -->
 
-    <!--<button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleMessage">-->
-      <!--<view class="menu-inf">-->
-        <!--<image src="../../../image/nav_icon/message.png" class="menu-ico" />-->
-        <!--<text>消息</text>-->
-      <!--</view>-->
-      <!--<image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />-->
-    <!--</button>-->
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>待发货</view>
+      </view> <!-- .ico-item -->
 
-    <!-- 联系客服 -->
-    <button class="btn menu-item" hover-class="menu-item-hover" open-type="contact">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/customer_service.png" class="menu-ico" />
-        <text>联系客服</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>待收货</view>
+      </view> <!-- .ico-item -->
 
-    <!-- 关于合采 -->
-    <button class="btn menu-item" hover-class="menu-item-hover" bindtap="handleAboutClick">
-      <view class="menu-inf">
-        <image src="../../../image/nav_icon/returnMessage.png" class="menu-ico" />
-        <text>关于合采</text>
-      </view>
-      <image src="../../../image/icos/arrow_right_48.png" class="menu-nav" />
-    </button>
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>已取消</view>
+      </view> <!-- .ico-item -->
 
-  </view> <!-- .menu -->
+    </view> <!-- .floor-icos -->
+
+  </view> <!-- .order-floor -->
+
+  <!-- 个性服务 -->
+  <view class="my-floor serv-floor">
+
+    <view class="floor-title">
+      <view class="title-text">个性服务</view>
+    </view>
+
+    <view class="floor-icos">
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>售后记录</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>收支记录</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>对账清单</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>扫码分拣</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>购买服务</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>客户列表</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>卡包</view>
+      </view> <!-- .ico-item -->
+
+      <view class="ico-item">
+        <image src="../../../image/icos/flower_primary_81.png" />
+        <view>我的搭档</view>
+      </view> <!-- .ico-item -->
+
+    </view> <!-- .floor-icos -->
+
+  </view> <!-- .serv-floor -->
 
   <!--  退出账号 -->
-    <!--<button type="" class="login-btn" bindtap="">退出登录</button>-->
+  <!--<button type="" class="login-btn" bindtap="">退出登录</button>-->
 
 </view>

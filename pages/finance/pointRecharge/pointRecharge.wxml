@@ -1,0 +1,38 @@
+<!--
+/**
+ * 积分充值
+ * pointRecharge
+ * -----------------------------------
+ * 19/02/22 Jerry 更新
+ */
+-->
+
+<view class="point-recharge">
+
+  <!-- 积分余额 -->
+  <view class="point-amount">
+    <view>当前积分余额：{{ normalAmount }}</view>
+  </view> <!-- .point-amount -->
+
+  <!-- 充值项 -->
+  <view class="recharge-items">
+
+    <view class="recharge-item {{ item.selected ? 'sel' : '' }}"
+      data-idx="{{ index }}"
+      bindtap="clickRechargeItem"
+      wx:for="{{ rechargeItems }}"
+      wx:key="amount">
+      <text>充值{{ item.amountString }}元</text>
+      <text>{{ item.point }}积分</text>
+    </view>
+
+  </view> <!-- .recharge-items -->
+
+  <view class="recharge-tip">充值积分仅用于平台内消费，不能提现，请谨慎操作。100积分折算为1元消费抵用。</view>
+
+  <!-- 操作按钮 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="confirmRecharge" disabled="{{ !anyToRecharge }}">充值</button>
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .point-recharge -->

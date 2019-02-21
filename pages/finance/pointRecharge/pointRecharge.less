@@ -1,0 +1,55 @@
+/**
+ * 积分充值
+ * pointRecharge
+ * -----------------------------------
+ * 19/02/22 Jerry 更新
+ */
+
+@import '../../../variables.less';
+
+.point-recharge {
+
+  .point-amount {
+    .flex-center;
+    height: @bar-height * 2;
+    background-color: @color-primary;
+
+    view {
+      color: @color-white;
+      font-weight: bold;
+    }
+
+  } /* .point-amount */
+
+  .recharge-tip {
+    .flex-start;
+    padding: 0 @text-margin-l;
+    height: @bar-height;
+    color: @color-red-light;
+    font-size: @text-size-s3;
+  } /* recharge-tip */
+
+  .recharge-items {
+    padding: @text-margin-xl @text-margin-l;
+
+    .recharge-item {
+      .flex-between;
+      margin-bottom: @text-margin-xl;
+      padding: @text-margin-l;
+      border: @border-gray-light;
+      border-radius: @text-margin-s;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &.sel {
+        color: @color-primary;
+        border-color: @color-primary;
+      } /* &.sel */
+
+    } /* .recharge-item */
+
+  } /* .recharge-items */
+
+} /* .point-recharge */

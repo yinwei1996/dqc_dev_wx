@@ -45,7 +45,7 @@
 
   <!--  积分账户 -->
   <view class="point-floor">
-    <view class="point-text">积分账户：<text>{{ pointAmount || 0 }}</text></view>
+    <view class="point-text" bindtap="clickPointLogAll">积分账户：<text>{{ pointAmount || 0 }}</text></view>
     <view class="point-recharge" bindtap="clickPointRecharge">充值</view>
   </view> <!-- .point-floor -->
 

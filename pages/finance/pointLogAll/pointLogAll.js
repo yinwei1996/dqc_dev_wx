@@ -1,8 +1,8 @@
 /**
- * 我的云豆
- * myBeanAll.js
+ * 积分日志列表
+ * pointLogAll
  * -----------------------------------
- * 18/04/06 Jerry 新增
+ * 19/02/22 Jerry 更新
  */
 
 var
@@ -17,9 +17,8 @@ data: {
   hidden: 'hidden',
   tabNavItems: [
     { key: 'all', text: '全部' },
-    { key: 'commission', text: '返佣' },
-    { key: 'reduce', text: '抵扣' },
-    { key: 'withdrawal', text: '提现' }
+    { key: 'in', text: '入账' },
+    { key: 'out', text: '出账' }
   ],
   tab: 'all'
 },

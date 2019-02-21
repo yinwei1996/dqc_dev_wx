@@ -68,28 +68,16 @@ clickConfig(){
   helper.navigateTo('userConfig');
 },
 /* ------------------------------
- 跳转到"采购订单"
+ 跳转到积分日志列表
 ------------------------------ */
-handleOrderClick: function(){
-    helper.navigateTo('orderAll', 'myCenter');
+clickPointLogAll: function(){
+    helper.navigateTo('pointLogAll');
 },
 /* ------------------------------
- 跳转到"退换货"
+ 跳转到积分充值
  ------------------------------ */
-handleRMAClick: function(){
-  helper.navigateTo('rmaAll', 'myCenter');
-},
-/* ------------------------------
- 跳转到"收货地址"
------------------------------- */
-handleAddressClick: function(){
-  helper.navigateTo('addressAll', 'myCenter');
-},
-/* ------------------------------
- 跳转到"消息"
------------------------------- */
-handleMessage: function(){
-  helper.navigateTo('message', 'myCenter');
+clickPointRecharge: function(){
+  helper.navigateTo('pointRecharge');
 }
 
 });

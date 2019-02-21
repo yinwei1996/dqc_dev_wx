@@ -35,6 +35,9 @@ __pagePath = {
   userShareModeConfig: '/pages/common/userShareModeConfig/userShareModeConfig',
   userWxPayTypeConfig: '/pages/common/userWxPayTypeConfig/userWxPayTypeConfig',
 
+  pointLogAll: '/pages/finance/pointLogAll/pointLogAll',
+  pointRecharge: '/pages/finance/pointRecharge/pointRecharge',
+
   myCenter: '/pages/my/myCenter/myCenter',
   myCode: '/pages/my/myCode/myCode',
   myCart: '/pages/my/myCart/myCart',
@@ -48,12 +51,6 @@ __pagePath = {
   brandDetail: '/pages/brand/brandDetail/brandDetail',
   // 活动
   activityDetail: '/pages/activity/activityDetail/activityDetail',
-  // 拼团
-  pintuanAll: '/pages/pintuan/pintuanAll/pintuanAll',
-  pintuanDetail: '/pages/pintuan/pintuanDetail/pintuanDetail',
-  pintuanItem: '/pages/pintuan/pintuanItem/pintuanItem',
-  // 限时购
-  flashSaleAll: '/pages/flashSale/flashSaleAll/flashSaleAll',
   // 订单
   orderAll: '/pages/order/orderAll/orderAll',
   orderConfirm: '/pages/order/orderConfirm/orderConfirm',
@@ -80,9 +77,6 @@ __pagePath = {
   withdrawalAll: '/pages/withdrawal/withdrawalAll/withdrawalAll',
   withdrawalModify: '/pages/withdrawal/withdrawalModify/withdrawalModify',
   withdrawalDetail: '/pages/withdrawal/withdrawalDetail/withdrawalDetail',
-  // 云豆
-  beanAll: '/pages/bean/myBeanAll/myBeanAll',
-  beanReduce: '/pages/bean/beanReduce/beanReduce',
 
 //   消息
   message: '/pages/my/message/message',
@@ -1464,7 +1458,7 @@ dateToDateString: function (d, noYear) {
 /* ----------------------------------------
  * 将以分为单位的金额转为字符串显示
  -----------------------------------------*/
-fen2str: function (val) {
+fen2str: function (val, ignoreZeroAfterDot) {
 
   if (!val)
     val = 0;
@@ -1476,7 +1470,11 @@ fen2str: function (val) {
   else if (valString.length === 2)
     valString = '0' + valString;
 
-  return valString.replace(/([0-9]{2})$/ig, '.$1');
+  valString = valString.replace(/([0-9]{2})$/ig, '.$1');
+
+  return ignoreZeroAfterDot === true
+    ? valString.replace(/\.00$/ig, '')
+    : valString;
 
 }
 

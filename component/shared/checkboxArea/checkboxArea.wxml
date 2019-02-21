@@ -1,0 +1,30 @@
+<!--
+/**
+ * 组件 - CheckBox区域
+ * smsCaptchaArea
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+-->
+
+<view class="checkbox-area">
+
+  <view class="ipt-item item-checkbox" bindtap="changeStatus">
+
+    <label class="ipt-label" wx:if="{{ label }}">{{ label }}</label>
+
+    <block wx:if="{{ text }}">
+      <view>
+        <text>{{ text }}</text>
+        <image class="check-ico" src="../../../image/icos/checked_primary_81.png" wx:if="{{ isChecked }}" />
+        <image class="check-ico" src="../../../image/icos/uncheck_81.png" wx:else />
+      </view>
+    </block>
+    <block wx:else>
+        <image class="check-ico" src="../../../image/icos/checked_primary_81.png" wx:if="{{ isChecked }}" />
+        <image class="check-ico" src="../../../image/icos/uncheck_81.png" wx:else />
+    </block>
+
+  </view>
+
+</view>

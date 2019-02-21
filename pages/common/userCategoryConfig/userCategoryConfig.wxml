@@ -1,0 +1,36 @@
+<!--
+/**
+ * 关注品类设置
+ * userCategoryConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 更新
+ */
+-->
+
+<view class="user-category-config">
+
+  <view class="config-tip">选择你日常关注的品类，最多可选三个，选择完成后，首页将会优先显示你关注的品类。</view>
+
+  <!-- 一级类目 -->
+  <scroll-view
+    class="categories"
+    scroll-y="true"
+    enable-back-to-top="true"
+    style="height:{{scrollViewHeight}}">
+
+    <view class="category-item {{ item.userMapped ? 'sel' : '' }} {{ item.enabled || item.userMapped ? '' : 'disabled' }}"
+      data-category-id="{{ item.categoryId }}"
+      bindtap="clickCategory"
+      wx:for="{{ categories }}"
+      wx:key="categoryId">
+      <view>{{ item.categoryName }}</view>
+    </view>
+
+  </scroll-view>
+
+  <!-- 操作按钮 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="saveConfig" disabled="{{ !anyToSave }}">确认关注</button>
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .user-category-config -->

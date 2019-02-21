@@ -1,0 +1,167 @@
+/**
+ * 转发配置
+ * userShareModeConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.user-share-mode-config {
+
+  .cfg-group {
+    border-bottom: @border-gray-light-5;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+  } /* .cfg-group */
+
+  .cfg-item {
+    .flex-between;
+    padding: @text-margin-xl;
+    border-bottom: @border-gray-light;
+
+    > view {
+      .flex-end;
+    }
+
+    .item-label {
+      font-weight: bold;
+    }
+
+    .item-nav {
+      .ico-m;
+      margin: 0 -@text-margin-s 0 @text-margin;
+    }
+  
+  } /* .cfg-item */
+
+  /* 遮罩Sheet */
+  .share-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: @bar-height-l;
+    background-color: @color-text;
+    opacity: .4;
+    z-index: 998;
+  }
+
+  /* 转发模式Sheet */
+  .share-sheet {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: @bar-height-l;
+    padding: @text-margin-xl;
+    background: @color-white;
+    z-index: 999;
+  }
+
+  /* 转发模式Sheet */
+  .share-mode-sheet {
+    padding-top: @text-margin-xl * 2;
+
+    .mode-item {
+      display: inline-block;
+      width: 50%;
+
+      > view {
+        margin: 0 @text-margin-xl @text-margin-xl 0;
+        text-align: center;
+        border: @border-gray-light-5;
+
+        view {
+          .flex-center;
+          height: @bar-height;
+        }
+
+        image {
+          width: 200rpx;
+          opacity: .5;
+        }
+
+      } /* > view */
+
+      &:nth-child(2n) {
+
+        > view {
+          margin-right: 0;
+        }
+
+      } /* &:nth-child */
+
+      /* 选中的转发模式 */
+      &.sel {
+
+        > view {
+          border-color: @color-primary;
+
+          image {
+            opacity: 1;
+          }
+
+        } /* > view */
+
+      } /* &.sel */
+
+    } /* .mode-item */
+
+  } /* share-mode-sheet */
+
+  .share-price-sheet {
+
+    .price-title {
+      .flex-start;
+      height: @bar-height;
+    } /* .price-title */
+
+    .price-items {
+
+      .price-item {
+        display: inline-block;
+        width: 33.3%;
+
+        > view {
+          .flex-center;
+          margin: 0 @text-margin-xl @text-margin-xl 0;
+          height: @bar-height;
+          border: @border-gray-light-2;
+          border-radius: @text-margin;
+
+        } /* > view */
+
+        &:nth-child(3n) {
+
+          > view {
+            margin-right: 0;
+          }
+
+        } /* &:nth-child */
+
+        /* 选中的转发加价 */
+        &.sel {
+
+          > view {
+            color: @color-white;
+            border-color: @color-primary;
+            background-color: @color-primary;
+
+            image {
+              opacity: 1;
+            }
+
+          } /* > view */
+
+        } /* &.sel */
+
+      } /* .price-item */
+
+    } /* .price-items */
+
+  } /* .share-price-sheet */
+
+} /* .user-share-mode-config */

@@ -40,7 +40,7 @@
 
     </view>
 
-    <image src="../../../image/icos/arrow_right_48.png" class="nav-arrow" wx:if="{{!ignoreArrow}}" />
+    <image src="../../../image/icos/nav_81.png" class="nav-arrow" wx:if="{{!ignoreArrow}}" />
 
     <!-- 删除地址 -->
     <view class="address-del {{ opAddressId == address.addressId ? '' : 'hidden' }}" data-action="del" wx:if="{{!readonly}}">删除</view>

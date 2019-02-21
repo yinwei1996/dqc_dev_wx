@@ -1,0 +1,80 @@
+<!--
+/**
+ * 转发配置
+ * userShareModeConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+-->
+
+<view class="user-share-mode-config">
+
+  <!-- 转发设置 -->
+  <view class="cfg-item" bindtap="clickMode">
+    <text class="item-label">图片合成模式：</text>
+    <view>
+      <text>{{ user.shareModeTitle }}</text>
+      <image src="../../../image/icos/nav_81.png" class="item-nav" />
+    </view>
+  </view> <!-- .cfg-item -->
+
+  <!-- 默认支付方式 -->
+  <view class="cfg-item" bindtap="clickPrice">
+    <text class="item-label">转发统一加价设置：</text>
+    <view>
+      <text wx:if="{{ !user.sharePriceString || user.sharePriceString == '0' }}"></text>
+      <text wx:else>+{{ user.sharePriceString }}元</text>
+      <image src="../../../image/icos/nav_81.png" class="item-nav" />
+    </view>
+  </view> <!-- .cfg-item -->
+
+  <!-- 遮罩Sheet -->
+  <view class="share-mask {{ hiddenModeSheet && hiddenPriceSheet ? 'hidden' : '' }}" bindtap="hideSheet"></view>
+
+  <!-- 转发模式Sheet -->
+  <view class="share-sheet share-mode-sheet {{ hiddenModeSheet }}">
+
+    <view class="mode-item {{ item.selected ? 'sel' : '' }}"
+      data-key="{{ item.key }}"
+      bindtap="clickModeItem"
+      wx:for="{{ modes }}"
+      wx:key="key">
+      <view>
+        <view>{{ item.text }}</view>
+        <image mode="widthFix" src="../../../image/icos/shareModes/{{ item.imageName }}" />
+      </view>
+    </view> <!-- .mode-item -->
+
+    <view class="op-btns-fixed">
+      <button class="btn btn-primary" bindtap="saveMode" disabled="{{ !anyModeToSave }}">设置为默认</button>
+    </view>
+
+  </view>
+
+  <!-- 转发加价Sheet -->
+  <view class="share-sheet share-price-sheet {{ hiddenPriceSheet }}">
+
+    <view class="price-title">设置加价金额</view>
+
+    <view class="price-items">
+      <view class="price-item {{ item.selected ? 'sel' : '' }}"
+        data-key="{{ item.key }}"
+        bindtap="clickPriceItem"
+        wx:for="{{ prices }}"
+        wx:key="key">
+        <view>{{ item.text }}</view>
+      </view> <!-- .price-item -->
+    </view> <!-- .price-items -->
+
+    <view class="price-custom">
+      <text>自定义：</text>
+      <input type="number" maxlength="8" value="{{ priceCustom || '' }}" bindinput="inputPriceCustom" />
+    </view> <!-- .price-custom -->
+
+    <view class="op-btns-fixed">
+      <button class="btn btn-primary" bindtap="savePrice" disabled="{{ !anyPriceToSave }}">确认设置</button>
+    </view>
+
+  </view>
+
+</view> <!-- .user-share-mode-config -->

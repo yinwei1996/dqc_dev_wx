@@ -7,7 +7,13 @@
  */
 -->
 
-<view class="my-center {{hidden}}">
+<view class="my-center">
+
+  <!-- 用户设置 -->
+  <view class="config-floor" bindtap="clickConfig">
+      <image src="../../../image/icos/config_81.png" />
+      <text>用户设置</text>
+  </view> <!-- .config-floor -->
 
   <!-- 会员信息 -->
   <view class="user-floor">
@@ -16,12 +22,12 @@
     <view class="user-inf" bindtap="clickUser">
 
       <!-- 头像 -->
-      <image src="{{wxUser.avatarUrl}}" class="user-avatar" wx:if="{{wxUser.avatarUrl}}" />
+      <image src="{{ user.avatar || user.wxAvatarUrl || '../../../image/icos/avatar.png' }}" class="user-avatar" />
 
       <!-- 昵称、手机号 -->
       <view class="user-text">
-        <view class="user-member {{ user.isMember ? 'user-vip' : '' }}">VIP</view>
-        <view class="user-name">{{ wxUser.nickName || user.userNameMasked }}</view>
+        <text class="user-member {{ user.isMember ? 'user-vip' : 'user-vip' }}">VIP</text>
+        <view class="user-name">{{ user.userName || user.wxNickName }}</view>
       </view> <!-- .user-text -->
 
     </view> <!-- .user-inf -->
@@ -29,15 +35,18 @@
     <!-- 会员扩展信息 -->
     <view class="user-ex">
         <view class="user-code">会员编号：{{ user.userCode }}</view>
-        <view class="user-serv-cnt"><text>已购买N项服务</text></view>
+        <view class="user-serv-cnt">
+          <text wx:if="{{ varCount }}">已购买{{ vasCount }}项服务</text>
+          <text wx:else>未购买服务</text>
+        </view>
     </view> <!-- .user-ex -->
 
   </view> <!-- .user-floor -->
 
   <!--  积分账户 -->
   <view class="point-floor">
-    <view class="point-text">积分账户：<text>{{ pointAmount }}</text></view>
-    <view class="point-ops"><button size="mini" class="btn" bindtap="clickPointRecharge">充值</button></view>
+    <view class="point-text">积分账户：<text>{{ pointAmount || 0 }}</text></view>
+    <view class="point-recharge" bindtap="clickPointRecharge">充值</view>
   </view> <!-- .point-floor -->
 
   <!-- 销售业绩 -->
@@ -45,7 +54,7 @@
 
     <view class="floor-title">
       <view class="title-text">销售业绩</view>
-      <view class="title-nav">销售明细</view>
+      <view class="title-nav">销售明细<image src="../../../image/icos/nav_white_81.png" class="menu-nav" /></view>
     </view>
 
     <swiper
@@ -59,27 +68,27 @@
       <!-- 今日销售统计 -->
       <swiper-item>
         <view class="count-grp">
-          <view><view>今日销售件数</view><view>0</view></view>
-          <view><view>今日订单量</view><view>0</view></view>
-          <view><view>今日销售额</view><view>￥0.00</view></view>
+          <view><view>今日销售件数</view><view>{{ todaySaleSkuQuantity }}</view></view>
+          <view><view>今日订单量</view><view>{{ todaySaleQuantity }}</view></view>
+          <view><view>今日销售额</view><view>￥{{ todaySaleAmountString }}</view></view>
         </view>
       </swiper-item>
 
       <!-- 本周销售统计 -->
       <swiper-item>
         <view class="count-grp">
-          <view><view>本周销售件数</view><view>0</view></view>
-          <view><view>本周订单量</view><view>0</view></view>
-          <view><view>本周销售额</view><view>￥0.00</view></view>
+          <view><view>本周销售件数</view><view>{{ weekSaleSkuQuantity }}</view></view>
+          <view><view>本周订单量</view><view>{{ weekSaleQuantity }}</view></view>
+          <view><view>本周销售额</view><view>￥{{ weekSaleAmountString }}</view></view>
         </view>
       </swiper-item>
 
       <!-- 本月销售统计 -->
       <swiper-item>
         <view class="count-grp">
-          <view><view>本月销售件数</view><view>0</view></view>
-          <view><view>本月订单量</view><view>0</view></view>
-          <view><view>本月销售额</view><view>￥0.00</view></view>
+          <view><view>本月销售件数</view><view>{{ monthSaleSkuQuantity }}</view></view>
+          <view><view>本月订单量</view><view>{{ monthSaleQuantity }}</view></view>
+          <view><view>本月销售额</view><view>￥{{ monthSaleAmountString }}</view></view>
         </view>
       </swiper-item>
 
@@ -92,7 +101,7 @@
 
     <view class="floor-title">
       <view class="title-text">我的订单</view>
-      <view class="title-nav">查看全部</view>
+      <view class="title-nav">查看全部<image src="../../../image/icos/nav_white_81.png" class="menu-nav" /></view>
     </view>
 
     <view class="floor-icos">
@@ -100,16 +109,19 @@
       <view class="ico-item">
         <image src="../../../image/icos/flower_primary_81.png" />
         <view>待支付</view>
+        <text wx:if="{{ orderToPayCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item">
         <image src="../../../image/icos/flower_primary_81.png" />
         <view>待发货</view>
+        <text wx:if="{{ orderToDeliveryCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item">
         <image src="../../../image/icos/flower_primary_81.png" />
         <view>待收货</view>
+        <text wx:if="{{ orderToDoneCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item">

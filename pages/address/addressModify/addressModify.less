@@ -1,14 +1,29 @@
 /**
  * 收货地址编辑
- * addressModify.less
+ * addressModify
  * -----------------------------------
- * 18/03/27 Jerry 新增
+ * 19/02/21 Jerry 更新
  */
 
 @import '../../../variables.less';
-@import '../../../component/common/regionSheet/regionSheet.less';
 
-.settingAddr {
-  margin-top:40rpx;
-  text-align: center;
-}
+.address-modify {
+
+  /* 识别地址文本 */
+  .item-parse-text {
+    position: relative;
+    border-bottom: @border-gray-light-5;
+
+    textarea {
+      border-bottom: none;
+    }
+
+    .btn {
+      position: absolute;
+      bottom: @text-margin-s;
+      right: 0;
+    }
+
+  } /* .item-parse-text */
+
+} /* .address-modify */

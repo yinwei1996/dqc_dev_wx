@@ -1,0 +1,90 @@
+<!--
+/**
+ * 用户配置
+ * userConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+-->
+
+<view class="user-config">
+
+  <!-- 配置分组-->
+  <view class="cfg-group">
+
+    <!-- 头像 -->
+    <view class="cfg-item" bindtap="clickAvatar">
+      <text class="item-label">头像：</text>
+      <view>
+        <image src="{{ user.avatar || user.wxAvatarUrl || '../../../image/icos/avatar.png' }}" class="user-avatar" />
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 昵称 -->
+    <view class="cfg-item" bindtap="clickUserName">
+      <text class="item-label">昵称：</text>
+      <view>
+        <text>{{ user.userName || user.wxNickName }}</text>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 绑定手机号 -->
+    <view class="cfg-item" bindtap="clickMobile">
+      <text class="item-label">绑定手机号：</text>
+      <view>
+        <text>{{ user.mobile }}</text>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 实名认证 -->
+    <view class="cfg-item" bindtap="clickDesc">
+      <text class="item-label">实名认证：</text>
+      <view>
+        <text>暂未开放</text>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+  </view> <!-- .cfg-group -->
+
+  <!-- 配置分组-->
+  <view class="cfg-group">
+
+    <!-- 地址管理 -->
+    <view class="cfg-item" bindtap="clickAddress">
+      <text class="item-label">地址管理：</text>
+      <view>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 品类关注设置 -->
+    <view class="cfg-item" bindtap="clickCategory">
+      <text class="item-label">品类关注设置：</text>
+      <view>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 转发设置 -->
+    <view class="cfg-item" bindtap="clickShareMode">
+      <text class="item-label">转发设置：</text>
+      <view>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+    <!-- 默认支付方式 -->
+    <view class="cfg-item" bindtap="clickWxPayType">
+      <text class="item-label">默认支付方式：</text>
+      <view>
+        <image src="../../../image/icos/nav_81.png" class="item-nav" />
+      </view>
+    </view> <!-- .cfg-item -->
+
+  </view> <!-- .cfg-group -->
+
+</view> <!-- .user-config -->

@@ -7,52 +7,52 @@
  */
 -->
 
-<import src="../../../component/common/regionSheet/regionSheet.wxml" />
-
 <view class="address-modify">
-  <scroll-view scroll-y="true" style="height:100%">
-    <!--<view class="ipt-item">-->
-      <!--<label class="ipt-label">公司名称</label>-->
-      <!--<input value="{{address.userName}}" maxlength="20" placeholder="请输入公司名称" focus="true" bindinput="inputUserName" />-->
-    <!--</view>-->
 
-    <view class="ipt-item">
-      <label class="ipt-label">{{ typeText }}人</label>
-      <input value="{{address.userName}}" maxlength="20" placeholder="请输入收货人姓名" focus="true" bindinput="inputUserName" />
-    </view>
-
-    <view class="ipt-item">
-      <label class="ipt-label">{{ typeText }}人电话</label>
-      <input value="{{address.mobile}}" maxlength="11" placeholder="请输入{{ typeText }}人电话" type="number" bindinput="inputMobile" />
-    </view>
-
-    <view class="ipt-item">
-      <label class="ipt-label">所在地区</label>
-      <view class="region-label" bindtap="showRegionSheet">
-        <text class="empty" wx:if="{{!address.provinceName}}">{{ typeText }}省市区</text>
-        <text wx:if="{{address.provinceName}}">{{address.provinceName}}<block wx:if="{{address.cityName}}"> {{address.cityName}}</block><block wx:if="{{address.areaName}}"> {{address.areaName}}</block>
-        </text>
-        <image src="../../../image/icos/arrow_right_48.png" />
-      </view>
-    </view>
-
-    <view class="ipt-item">
-      <label class="ipt-label">详细地址</label>
-      <input value="{{address.address}}" maxlength="100" placeholder="请输入详细地址" bindinput="inputAddress" bindconfirm="saveAddress" />
-    </view>
-
-    <!--<view class="ipt-item">-->
-      <!--<label class="ipt-label">身份证号码</label>-->
-      <!--<input value="{{address.address}}" maxlength="18" placeholder="请输入身份证号码" bindinput="inputAddress" bindconfirm="saveAddress" />-->
-    <!--</view>-->
-
-    <!--<view class="settingAddr">设为默认地址</view>-->
-  </scroll-view>
-
-  <view class="op-btns">
-    <button class="btn btn-primary" bindtap="saveAddress">提交</button>
+  <!-- 地址自动识别 -->
+  <view class="ipt-item item-parse-text">
+    <textarea placeholder="请输入或粘贴地址文本，可识别格式如下：江苏省，南京市，雨花台区，凤舞路15号903室，某某某，12345678901" maxlength="200" />
+    <button size="mini" class="btn" bindtap="clickParseText">自动识别</button>
   </view>
 
-  <template is="regionSheet" data="{{ hidden: hiddenRegionSheet, provinces: provinces, cities: cities, districts: districts, input: input, hiddenCandidate: hiddenCandidate }}" />
+  <!-- 收件人 -->
+  <view class="ipt-item">
+    <label class="ipt-label">收件人</label>
+    <input value="{{ address.userName }}" maxlength="20" placeholder="请输入收件人" focus="true" bindinput="inputUserName" />
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="ipt-item">
+    <label class="ipt-label">联系方式</label>
+    <input value="{{ address.mobile }}" maxlength="11" placeholder="请输入联系方式" type="number" bindinput="inputMobile" />
+  </view>
+
+  <!-- 所在地区/街道 -->
+  <regionArea id="regionArea"
+    region="{{ address }}"
+    bind:change="changeRegion" />
+
+  <!-- 详细地址 -->
+  <view class="ipt-item">
+    <label class="ipt-label">详细地址</label>
+    <input value="{{ address.address }}" maxlength="100" placeholder="请输入详细地址" bindinput="inputAddress" />
+  </view>
+
+  <!-- 收件人身份证号 -->
+  <view class="ipt-item">
+    <label class="ipt-label">收件人身份证号（非必填）</label>
+    <input value="{{ address.userIdNo }}" maxlength="20" placeholder="请输入收件人身份证号" bindinput="inputUserIdNo" />
+  </view>
+
+  <!-- 设置为默认地址 -->
+  <checkboxArea id="chkDefault"
+    label="默认地址"
+    text="将当前地址设置为默认地址"
+    checked="{{ address.isDefault }}"
+    bind:change="changeDefault" />
+
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="saveAddress">{{ address.addressId ? '编辑收货地址' : '新增收货地址' }}</button>
+  </view>
 
 </view>

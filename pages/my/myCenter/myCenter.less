@@ -9,6 +9,22 @@
 
 .my-center {
 
+  /* 配置楼层 */
+  .config-floor {
+    .flex-start;
+    padding: @text-margin @text-margin-xxl;
+    background-color: @color-primary;
+
+    image {
+      .ico-m;
+    }
+
+    text {
+      margin-left: @text-margin-s;
+    }
+
+  } /* .config-floor */
+
   /* 会员楼层 */
   .user-floor {
     .flex-between;
@@ -22,9 +38,30 @@
       /* 会员头像 */
       .user-avatar {
         .ico-avatar;
-        margin-right: @text-margin-xxl;
+        margin-right: @text-margin-l;
         border-radius: 100rpx;
       } /*.user-avatar  */
+
+      /* VIP标识 */
+      .user-member {
+        padding: 0 @text-margin;
+        text-align: center;
+        font-size: @text-size-s3;
+        color: @color-gray;
+        border: @border-gray;
+        border-radius: @text-margin-s;
+        background-color: @color-white;
+
+        &.user-vip {
+          color: @color-blue;
+          border-color: @color-blue;
+        }
+
+      } /* .user-member */
+
+      .user-name {
+        margin-top: @text-margin-s;
+      }
 
     } /* .user-inf */
 
@@ -37,10 +74,13 @@
       }
 
       .user-serv-cnt {
+        margin-top: @text-margin-s;
 
         text {
+          padding: 0 @text-margin;
           font-size: @text-size-s3;
           color: @color-white;
+          border-radius: @text-margin-s;
           background-color: @color-blue;
         }
 
@@ -54,9 +94,26 @@
   .point-floor {
     .flex-between;
     margin: @text-margin;
-    padding: @text-margin;
+    padding: @text-margin-s @text-margin;
     border: @border-gray-light;
     border-radius: @text-margin;
+
+    .point-text {
+      .flex-start;
+
+      text {
+        color: @color-red-light;
+        font-size: @text-size-xl;
+      }
+
+    } /* .point-text */
+
+    .point-recharge {
+      padding: 0 @text-margin-xl;
+      color: @color-primary;
+      border: @border-primary;
+      border-radius: @text-margin-s;
+    } /* .point-recharge */
 
   } /* .point-floor */
 
@@ -73,7 +130,9 @@
         text-align: center;
 
         view:last-child {
-          color: @color-red;
+          margin-top: @text-margin-xs;
+          color: @color-red-light;
+          font-size: @text-size-l;
         }
 
       } /* > view */
@@ -101,8 +160,14 @@
       }
 
       .title-nav {
+        .flex-end;
         color: @color-white;
-      }
+
+        image {
+          .ico-m;
+        }
+
+      } /* .title-nav */
 
     } /* .floor-title */
 
@@ -112,6 +177,7 @@
       padding: @text-margin-xl;
 
       .ico-item {
+        position: relative;
         float: left;
         margin: @text-margin 0;
         width: 25%;
@@ -120,6 +186,17 @@
         > image {
           width: @bar-height-s;
           height: @bar-height-s;
+        }
+
+        > text {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: block;
+          width: @text-margin-l;
+          height: @text-margin-l;
+          border-radius: @text-margin-l;
+          background-color: @color-red-light;
         }
 
       } /* .ico-item */

@@ -18,7 +18,7 @@ __cfg = {
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
   host: 'http://localbox.hecai360.com/',
-  //host: 'http://localhost/',
+  host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -29,10 +29,15 @@ __pagePath = {
   index: '/pages/common/index/index',
   // 个人
   login: '/pages/common/userLogin/userLogin',
+
+  userConfig: '/pages/common/userConfig/userConfig',
+  userCategoryConfig: '/pages/common/userCategoryConfig/userCategoryConfig',
+  userShareModeConfig: '/pages/common/userShareModeConfig/userShareModeConfig',
+  userWxPayTypeConfig: '/pages/common/userWxPayTypeConfig/userWxPayTypeConfig',
+
   myCenter: '/pages/my/myCenter/myCenter',
   myCode: '/pages/my/myCode/myCode',
   myCart: '/pages/my/myCart/myCart',
-  userModify: '/pages/my/userModify/userModify',
   // SKU
   skuDetail: '/pages/sku/skuDetail/skuDetail',
   skuSearch: '/pages/sku/skuSearch/skuSearch',
@@ -78,39 +83,9 @@ __pagePath = {
   // 云豆
   beanAll: '/pages/bean/myBeanAll/myBeanAll',
   beanReduce: '/pages/bean/beanReduce/beanReduce',
-  // 会员代理
-  userAgentApply: '/pages/userAgent/userAgentApply/userAgentApply',
-  userAgentDetail: '/pages/userAgent/userAgentDetail/userAgentDetail',
-
-//  采购需求 采购订单
-  purchaseDemand: '/pages/purchase/purchaseDemand/purchaseDemand',
-  purchaseOrder: '/pages/purchase/purchaseOrder/purchaseOrder',
-
-  //  供应需求
-  supplyDemand:"/pages/supply/supplyDemand/supplyDemand",
 
 //   消息
   message: '/pages/my/message/message',
-
-//   关于我们
-  myAbout: 'pages/my/myAbout/myAbout',
-
-  //  求购列表主页
-  demandAll: '/pages/demand/demandAll/demandAll',
-  //  发布求购
-  demandModify: '/pages/demand/demandModify/demandModify',
-  //  求购列表
-  myDemandAll:  "/pages/demand/myDemandAll/myDemandAll",
-  //  求购单详情
-  demandDetails: "/pages/demand/demandDetails/demandDetails",
-  //  报价页
-  myDemandQuoteModify: "/pages/demand/myDemandQuoteModify/myDemandQuoteModify",
-  //  求购详情页
-  myDemandDetail: "/pages/demand/myDemandDetail/myDemandDetail",
-  //  求购报价列表页
-  myDemandQuoteAll: "/pages/demand/myDemandQuoteAll/myDemandQuoteAll",
-  //  求购中心
-  demandCenter: "/pages/demand/demandCenter/demandCenter",
 
   //  我的发票
   invoiceCenter: "/pages/invoice/invoiceCenter/invoiceCenter",
@@ -119,14 +94,7 @@ __pagePath = {
   //  开票申请
   invoiceApplication: "/pages/invoice/invoiceApplication/invoiceApplication",
   //  发票详情
-  invoiceDetail: "/pages/invoice/invoiceDetail/invoiceDetail",
-
-  //  店铺首页
-  store: "/pages/common/store/store",
-  //  企业介绍
-  storeIntro: "/pages/common/storeIntro/storeIntro",
-  //  公司地址
-  storeLocation: "/pages/common/storeLocation/storeLocation"
+  invoiceDetail: "/pages/invoice/invoiceDetail/invoiceDetail"
 
 },
 /* ------------------------------
@@ -1498,7 +1466,8 @@ dateToDateString: function (d, noYear) {
  -----------------------------------------*/
 fen2str: function (val) {
 
-  if (!val) return '';
+  if (!val)
+    val = 0;
 
   var valString = '' + val;
 

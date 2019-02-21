@@ -1,0 +1,35 @@
+/**
+ * 默认微信支付方式
+ * userWxPayTypeConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.user-share-mode-config {
+
+  .cfg-item {
+    .flex-start;
+    padding: @text-margin-xl;
+    border-bottom: @border-gray-light;
+
+    .check-ico {
+      .ico-m;
+      margin-right: @text-margin-xl;
+      opacity: .3;
+
+      &.checked {
+        opacity: 1;
+      }
+
+    } /* .check-ico */
+
+    .pay-ico {
+      .ico-xl;
+      margin-right: @text-margin;
+    }
+
+  } /* .cfg-item */
+
+} /* .user-share-mode-config */

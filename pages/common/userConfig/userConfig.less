@@ -1,0 +1,46 @@
+/**
+ * 用户配置
+ * userConfig
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.user-config {
+
+  .cfg-group {
+    border-bottom: @border-gray-light-5;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+  } /* .cfg-group */
+
+  .cfg-item {
+    .flex-between;
+    padding: @text-margin-xl;
+    border-bottom: @border-gray-light;
+
+    > view {
+      .flex-end;
+    }
+
+    .item-label {
+      font-weight: bold;
+    }
+
+    .item-nav {
+      .ico-m;
+      margin: 0 -@text-margin-s 0 @text-margin;
+    }
+  
+  } /* .cfg-item */
+
+  .user-avatar {
+    .ico-avatar;
+    border-radius: 100rpx;
+  } /* .user-avatar */
+
+} /* .user-config */

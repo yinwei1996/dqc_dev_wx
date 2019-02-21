@@ -1,8 +1,8 @@
 /**
  * 收货地址列表
- * addressAll.js
+ * addressAll
  * -----------------------------------
- * 18/03/27 Jerry 新增
+ * 19/02/21 Jerry 更新
  */
 
 var
@@ -13,21 +13,11 @@ Page({
 /* ------------------------------
  初始数据
 ------------------------------ */
-data: {
-  tabNavItems: [{
-      text: '收货地址',
-      key: 'Order'
-    },
-    {
-      text: '发货地址',
-      key: 'ContractDelivery'
-    }],
-  tab: 'Order'
-},
+data: { },
 /* ------------------------------
  页面加载
 ------------------------------ */
-onLoad: function(opts) {
+onLoad(opts) {
 
   // 更新导航
   helper.navTitle('地址管理');
@@ -35,52 +25,34 @@ onLoad: function(opts) {
   // 设置scroll-view高度
   helper.setScrollViewHeight(this);
 
-  // 来自收发地址确认
-  this.setData({ addressType: opts.type, typeText: opts.type == 'ContractDelivery' ? '发货' : '收货' });
-
   // 是否来自订单确认
   this.setData({ orderConfirm: 'orderConfirmAddress' == opts.from });
-
-  // 是否来发布求购
-  this.setData({ demandModify: 'demandModifyAddress' == opts.from });
 
 },
 /* ------------------------------
  页面显示
 ------------------------------ */
-onShow: function() {
-
-  var _type = this.data.addressType;
-
-  // 查询收发地址
-  this.queryAddress(_type);
+onShow() {
+  // 查询地址列表
+  this.queryAddress();
 },
 /* ------------------------------
  查询收货地址
 ------------------------------ */
-queryAddress: function(_type) {
-
-  helper.request({
-    url: 'wx/address/list',
-    data: {
-      type: _type || 'Order'
-    },
-    success: this.bindAddress });
+queryAddress() {
+  helper.request({ url: 'wx/address/list', success: this.bindAddress });
 },
 /* ------------------------------
  绑定显示收货地址
 ------------------------------ */
-bindAddress: function(ret) {
-
-  console.log(ret);
-
+bindAddress(ret) {
   // 绑定数据
   this.setData({ allAddress: ret });
 },
 /* ------------------------------
  处理地址Click
 ------------------------------ */
-addressClick: function(e) {
+addressClick(e) {
 
   var
   ds = e.currentTarget.dataset,
@@ -89,13 +61,6 @@ addressClick: function(e) {
   // （最优先）如果来自"订单确认"页，返回 addressId 至前一页
   if (this.data.orderConfirm){
     helper.pageArg('orderConfirmAddress', ds.addressId);
-    wx.navigateBack(1);
-    return;
-  }
-
-  // 如果来自"发布求购"页，返回
-  if (this.data.demandModify){
-    helper.pageArg('demandModifyAddress', ds.addressId);
     wx.navigateBack(1);
     return;
   }
@@ -116,7 +81,7 @@ addressClick: function(e) {
 /* ------------------------------
  显示地址项ActionSheet
 ------------------------------ */
-showAddressAction: function(ds){
+showAddressAction(ds){
 
   var
   that =this,
@@ -135,14 +100,14 @@ showAddressAction: function(ds){
 
   wx.showActionSheet({
     itemList: items,
-    success: function(ret) { that.handleAddressAction(ret.tapIndex, ds) }
+    success: (ret) => { that.handleAddressAction(ret.tapIndex, ds) }
   });
 
 },
 /* ------------------------------
  处理地址ActionSheet Click
 ------------------------------ */
-handleAddressAction: function(tapIndex, ds){
+handleAddressAction(tapIndex, ds){
 
   var
   addressId = ds.addressId;
@@ -169,14 +134,14 @@ handleAddressAction: function(tapIndex, ds){
 /* ------------------------------
  跳转到新增地址页
 ------------------------------ */
-addAddress: function(){
+addAddress(){
   // helper.navigateTo('addressModify');
   helper.navigateFormat('addressModify', { type: this.data.addressType });
 },
 /* ------------------------------
  设为默认地址
 ------------------------------ */
-setDefaultAddress: function(addressId){
+setDefaultAddress(addressId){
 
   helper.request({
     url: 'wx/address/setDefault',
@@ -188,7 +153,7 @@ setDefaultAddress: function(addressId){
 /* ------------------------------
  禁用收货地址
 ------------------------------ */
-disableAddress: function(addressId, ds){
+disableAddress(addressId, ds){
 
   var
   userName = ds.userName,
@@ -205,7 +170,7 @@ disableAddress: function(addressId, ds){
 /* ------------------------------
  地址项滑动开始
 ------------------------------ */
-addressTouchStart: function(e){
+addressTouchStart(e){
 
   if (!e.touches || e.touches.length == 0)
     return;
@@ -226,7 +191,7 @@ addressTouchStart: function(e){
 /* ------------------------------
  地址项滑动
 ------------------------------ */
-addressTouchMove: function(e){
+addressTouchMove(e){
 
   if (!e.touches || e.touches.length == 0)
     return;
@@ -247,7 +212,7 @@ addressTouchMove: function(e){
 /* ------------------------------
  地址项滑动结束
 ------------------------------ */
-addressTouchEnd: function(e){
+addressTouchEnd(e){
 
   var
   addressId = e.currentTarget.dataset.addressId,
@@ -266,27 +231,6 @@ addressTouchEnd: function(e){
   this.setData({ opAddressId: distanceX >= 60 ? addressId : null });
 
   console.log(['touch end => ', startAddressId, ', distanceX: ', distanceX, ', distanceY: ', distanceY].join(''));
-
-},
-/* ------------------------------
- 收发货地址tab切换
- ------------------------------ */
-tabNavClick:function (e) {
-
-  var
-      tab = e.currentTarget.dataset.navKey;
-
-  // 切换tab
-  this.setData({ tab: tab });
-
-  // 查询数据；
-  if (tab === 'Order') {
-    this.queryAddress();
-  }
-
-  if (tab === 'ContractDelivery') {
-    this.queryAddress(tab);
-  }
 
 }
 

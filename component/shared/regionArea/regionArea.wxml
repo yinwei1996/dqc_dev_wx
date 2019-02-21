@@ -1,0 +1,87 @@
+<!--
+/**
+ * 组件 - 区域选择
+ * regionArea
+ * -----------------------------------
+ * 19/02/21 Jerry 新增
+ */
+-->
+
+<view class="region-area">
+
+  <!-- 所在地区 -->
+  <view class="ipt-item">
+
+    <label class="ipt-label">所在地区</label>
+
+    <view class="region-label" bindtap="showSheet">
+      <text class="empty" wx:if="{{ !local.provinceName }}">请选择省市区</text>
+      <text wx:if="{{ local.provinceName }}">{{ local.provinceName }}<block wx:if="{{ local.cityName }}"> {{ local.cityName }}</block><block wx:if="{{ local.areaName }}"> {{ local.areaName }}</block></text>
+      <image src="../../../image/icos/nav_81.png" />
+    </view> <!-- .region-label -->
+
+  </view> <!-- .ipt-item -->
+
+  <view class="ipt-item">
+    <label class="ipt-label">街道（非必选）</label>
+    <input value="{{ local.streetName }}" maxlength="100" placeholder="请选择街道" />
+  </view>
+
+  <!-- 区域选择器-遮罩层 -->
+  <view class="region-mask {{ hidden }}" bindtap="hideSheet"></view>
+
+  <!-- 区域选择器-浮动层 -->
+  <view class="region-sheet {{ hidden }}">
+
+    <view class="title">所在地区</view>
+
+    <view class="selected-values">
+
+      <text wx:if="{{ input.province }}" bindtap="selectedProvinceClick">{{ input.province.name }}</text>
+      <text wx:if="{{ !input.province && hiddenCandidate.province != 'hidden' }}" class="placeholder">选择省份</text>
+
+      <text wx:if="{{ input.city }}" bindtap="selectedCityClick">{{ input.city.name }}</text>
+      <text wx:if="{{ !input.city && hiddenCandidate.city != 'hidden' }}" class="placeholder">选择城市</text>
+
+      <text wx:if="{{ input.area }}" bindtap="selectedAreaClick">{{ input.area.name }}</text>
+      <text wx:if="{{ !input.area && hiddenCandidate.area != 'hidden' }}" class="placeholder">选择区县</text>
+
+    </view> <!-- .selected-values -->
+
+    <view class="candidate-values">
+
+      <!-- 备选省份 -->
+      <scroll-view scroll-y="true" class="provinces {{ hiddenCandidate.province }}" bindtap="candidateProvinceClick">
+        <text class="{{ item.provinceId == input.province.id ? 'checked' : '' }}"
+          wx:for="{{ provinces }}"
+          wx:key="item"
+          data-province-id="{{ item.provinceId }}"
+          data-province-name="{{ item.provinceName }}">{{ item.provinceName }}</text>
+      </scroll-view>
+
+      <!-- 备选城市 -->
+      <scroll-view scroll-y="true" class="cities {{ hiddenCandidate.city }}" bindtap="candidateCityClick">
+        <text class="{{ item.cityId == input.city.id ? 'checked' : '' }}"
+          wx:for="{{ cities }}"
+          wx:key="item"
+          data-city-id="{{ item.cityId }}"
+          data-city-name="{{ item.cityName }}">{{ item.cityName }}</text>
+      </scroll-view>
+
+      <!-- 备选区县 -->
+      <scroll-view scroll-y="true" class="areas {{ hiddenCandidate.area }}" bindtap="candidateAreaClick">
+        <text class="{{ item.districtId == input.area.id ? 'checked' : '' }}"
+          wx:for="{{ areas }}"
+          wx:key="item"
+          data-area-id="{{ item.districtId }}"
+          data-area-name="{{ item.districtName }}">{{ item.districtName }}</text>
+      </scroll-view>
+
+    </view> <!-- .candidate-values -->
+
+    <!-- 确定按钮 -->
+    <text class="op-ok {{ input.area ? '' : 'disabled' }}" data-is-ok="true" bindtap="hideSheet">确定</text>
+
+  </view> <!-- .region-sheet -->
+
+</view> <!-- .regionArea -->

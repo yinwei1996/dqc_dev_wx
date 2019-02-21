@@ -1,3 +1,6 @@
 {
-  "disableScroll": true
+  "usingComponents": {
+    "checkboxArea": "../../../component/shared/checkboxArea/checkboxArea",
+    "regionArea": "../../../component/shared/regionArea/regionArea"
+  }
 }

@@ -70,14 +70,32 @@ clickConfig(){
 /* ------------------------------
  跳转到积分日志列表
 ------------------------------ */
-clickPointLogAll: function(){
+clickPointLogAll(){
     helper.navigateTo('pointLogAll');
 },
 /* ------------------------------
  跳转到积分充值
  ------------------------------ */
-clickPointRecharge: function(){
+clickPointRecharge(){
   helper.navigateTo('pointRecharge');
+},
+/* ------------------------------
+ 跳转到销售明细
+ ------------------------------ */
+clickSaleCount(){
+  helper.navigateTo('userSaleCountAll');
+},
+/* ------------------------------
+ 跳转到全部订单
+ ------------------------------ */
+clickOrderAll(e){
+  helper.navigateFormat('orderAll', { tab: e.currentTarget.dataset.tab });
+},
+/* ------------------------------
+ 跳转到购买服务
+ ------------------------------ */
+clickExService(e){
+  helper.navigateTo('userExServiceAll');
 }
 
 });

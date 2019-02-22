@@ -1,0 +1,36 @@
+/**
+ * 销售明细列表
+ * userSaleCountAll
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+@import '../../../component/common/tabNav/tabNav.less';
+@import '../../../component/common/userSaleCountsView/userSaleCountsView.less';
+
+.sale-count-all {
+
+  .count-tip {
+    .flex-center;
+    height: @bar-height;
+    background-color: @color-primary;
+
+    view {
+      color: @color-white;
+    }
+
+  } /* .count-tip */
+
+  .date-range {
+    .flex-between;
+    padding: 0 @text-margin-xl;
+    height: @bar-height;
+
+    text, view {
+      font-size: @text-size-s5;
+    }
+
+  } /* .date-range */
+
+} /* .sale-count-all */

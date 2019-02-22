@@ -1,6 +1,9 @@
   {
   "pages": [
+    "pages/common/userExServiceAll/userExServiceAll",
     "pages/my/myCenter/myCenter",
+    "pages/order/orderAll/orderAll",
+    "pages/common/userSaleCountAll/userSaleCountAll",
     "pages/finance/pointLogAll/pointLogAll",
     "pages/finance/pointRecharge/pointRecharge",
     "pages/common/userConfig/userConfig",
@@ -13,7 +16,6 @@
     "pages/common/userLogin/userLogin",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuDetail/skuDetail",
-    "pages/order/orderAll/orderAll",
     "pages/order/orderDetail/orderDetail",
     "pages/sku/skuClassify/skuClassify",
     "pages/sku/skuCategory/skuCategory",

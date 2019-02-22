@@ -10,9 +10,12 @@
 <import src="../../../component/common/tabNav/tabNav.wxml" />
 <import src="../../../component/common/accountLogsView/accountLogsView.wxml" />
 
-<view class="my-bean-all {{hidden}}">
+<view class="point-log-all">
 
-  <view class="page-title">当前拥有 {{account.normalAmount}} 个云豆</view>
+  <!-- 积分余额 -->
+  <view class="point-amount">
+    <view>当前积分余额：{{ normalAmount || '-' }}</view>
+  </view> <!-- .point-amount -->
 
   <!-- Tab区域 -->
   <view class="tabs logs">
@@ -35,56 +38,32 @@
 
       </scroll-view>
 
-      <!-- 返佣 -->
+      <!-- 入账 -->
       <scroll-view
-        class="content-item {{ tab == 'commission' ? 'active' : '' }}"
+        class="content-item {{ tab == 'in' ? 'active' : '' }}"
         scroll-y="true"
         enable-back-to-top="true"
         bindscrolltolower="scrollToLower"
         style="height:{{scrollViewHeight}}">
 
-        <template is="accountLogsView" data="{{ logs: commission_logs }}" />
+        <template is="accountLogsView" data="{{ logs: in_logs }}" />
 
       </scroll-view>
 
-      <!-- 抵扣 -->
+      <!-- 出账 -->
       <scroll-view
-        class="content-item {{ tab == 'reduce' ? 'active' : '' }}"
+        class="content-item {{ tab == 'out' ? 'active' : '' }}"
         scroll-y="true"
         enable-back-to-top="true"
         bindscrolltolower="scrollToLower"
         style="height:{{scrollViewHeight}}">
 
-        <template is="accountLogsView" data="{{ logs: reduce_logs }}" />
-
-      </scroll-view>
-
-      <!-- 提现 -->
-      <scroll-view
-        class="content-item {{ tab == 'withdrawal' ? 'active' : '' }}"
-        scroll-y="true"
-        enable-back-to-top="true"
-        bindscrolltolower="scrollToLower"
-        style="height:{{scrollViewHeight}}">
-
-        <template is="accountLogsView" data="{{ logs: withdrawal_logs }}" />
+        <template is="accountLogsView" data="{{ logs: out_logs }}" />
 
       </scroll-view>
 
     </view> <!-- .tab-content -->
 
   </view> <!-- .tabs -->
-
-  <view class="op-btns-fixed">
-
-    <button class="btn" bindtap="redirectWithdrawalAll">
-      <text>我的提现</text>
-    </button>
-
-    <button class="btn" bindtap="redirectWithdrawalModify">
-      <text>申请提现</text>
-    </button>
-
-  </view> <!-- .ops -->
 
 </view>

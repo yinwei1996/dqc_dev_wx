@@ -1,0 +1,85 @@
+<!--
+/**
+ * 销售明细列表
+ * userSaleCountAll
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/userSaleCountsView/userSaleCountsView.wxml" />
+
+<view class="sale-count-all">
+
+  <!-- 提示信息 -->
+  <view class="count-tip">
+    <view>销售额统计会因售后等因素产生变化，仅供参考。</view>
+  </view> <!-- .point-amount -->
+
+  <!-- Tab区域 -->
+  <view class="tabs logs">
+
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+    <!-- Tab内容 -->
+    <view class="tab-content body">
+
+    <!-- 日销售额 -->
+    <view class="content-item {{ tab == 'day' ? 'active' : '' }}">
+
+      <!-- 日期周期 -->
+      <view class="date-range">
+        <text>日期范围</text>
+        <picker mode="date" value="{{ dayStart }}" bindchange="changeDayStart">
+          <view>{{ dayStart }}</view>
+        </picker>
+        <text>至</text>
+        <picker mode="date" value="{{ dayEnd }}" bindchange="changeDayEnd">
+          <view>{{ dayEnd }}</view>
+        </picker>
+    </view>
+
+      <!-- 日销售额列表 -->
+      <scroll-view
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="userSaleCountsView" data="{{ logs: day_logs }}" />
+      </scroll-view>
+
+    </view>
+
+    <!-- 月销售额 -->
+    <view class="content-item {{ tab == 'month' ? 'active' : '' }}">
+
+      <!-- 月销售额周期 -->
+      <view class="date-range">
+        <text>日期范围</text>
+        <picker mode="date" fields="month" value="{{ monthStart }}" bindchange="changeMonthStart">
+          <view>{{ monthStart }}</view>
+        </picker>
+        <text>至</text>
+        <picker mode="date" fields="month" value="{{ monthEnd }}" bindchange="changeMonthEnd">
+          <view>{{ monthEnd }}</view>
+        </picker>
+      </view>
+
+      <!-- 月销售额列表 -->
+      <scroll-view
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="userSaleCountsView" data="{{ logs: month_logs }}" />
+      </scroll-view>
+
+      </view>
+
+    </view> <!-- .tab-content -->
+
+  </view> <!-- .tabs -->
+
+</view>

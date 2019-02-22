@@ -11,7 +11,7 @@
 
   <!-- 积分余额 -->
   <view class="point-amount">
-    <view>当前积分余额：{{ normalAmount }}</view>
+    <view>当前积分余额：{{ normalAmount || '-' }}</view>
   </view> <!-- .point-amount -->
 
   <!-- 充值项 -->
@@ -20,7 +20,7 @@
     <view class="recharge-item {{ item.selected ? 'sel' : '' }}"
       data-idx="{{ index }}"
       bindtap="clickRechargeItem"
-      wx:for="{{ rechargeItems }}"
+      wx:for="{{ availableRecharges }}"
       wx:key="amount">
       <text>充值{{ item.amountString }}元</text>
       <text>{{ item.point }}积分</text>

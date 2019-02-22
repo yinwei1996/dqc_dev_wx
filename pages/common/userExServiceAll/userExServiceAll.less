@@ -1,0 +1,70 @@
+/**
+ * 增值服务列表
+ * userExServiceAll
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.user-ex-service-all {
+
+  .serv-items {
+    padding: @text-margin-xl;
+
+    .serv-item {
+      display: inline-block;
+      width: 50%;
+      border: @border-gray-light-2;
+      border-radius: @text-margin-s;
+      box-sizing: border-box;
+
+      > view {
+        padding: @text-margin-xl;
+      }
+
+      .item-text {
+        .flex-between;
+      }
+
+      .item-name {
+        font-size: @text-size-l;
+      }
+
+      .item-time {
+        margin-top: @text-margin-l;
+      }
+
+      &.sel {
+        border-color: @color-primary;
+        background-color: @color-primary;
+
+        view {
+          color: @color-white;
+        }
+
+      }
+
+    } /* .serv-item */
+
+    /* 置顶服务 */
+    .item-recommend {
+      width: 100%;
+
+      .item-name {
+        font-size: @text-size-xxl;
+      }
+
+      .item-price {
+        font-size: @text-size-xxl;
+      }
+
+      .item-time {
+        font-size: @text-size-m3;
+      }
+
+    } /* .item-member */
+
+  } /* .serv-items */
+
+} /* .user-ex-service-all */

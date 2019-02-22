@@ -1,9 +1,9 @@
 <!--
 /**
  * 账户日志列表
- * accountLogsView.wxml
+ * accountLogsView
  * -----------------------------------
- * 18/05/03 Jerry 新增
+ * 19/02/22 Jerry 更新
  */
 -->
 
@@ -11,15 +11,23 @@
 
 <template name="accountLogsView">
 
-  <view class="log-item" wx:for="{{ logs.records || logs }}" wx:for-item="log" wx:key="sysNo">
+  <view class="log-item"
+    data-idx="{{ index }}"
+    bindtap="clickLogItem"
+    wx:for="{{ logs.records || logs }}"
+    wx:for-item="log"
+    wx:key="sysNo">
 
     <view class="log-text">
-      <text class="log-time">{{log.createTimeString}}</text>
-      <text class="log-summary">{{ log.memo || '未备注' }}</text>
+      <view class="log-summary">{{ log.refTypeTitle }}</view>
+      <view class="log-label">{{ log.createTimeString }}</view>
     </view> <!-- .log-text -->
 
-    <view class="log-val" wx:if="{{ log.difAmount >= 0 }}">+{{log.difAmount}}</view>
-    <view class="log-val minus-val" wx:else>{{log.difAmount}}</view>
+    <view class="log-val-and-op">
+      <view class="log-val" wx:if="{{ log.difAmount >= 0 }}">+{{ log.difAmount }}积分</view>
+      <view class="log-val minus-val" wx:else>{{ log.difAmount }}积分</view>
+      <view class="log-label">查看详情</view>
+    </view>
 
   </view> <!-- .log-item -->
 

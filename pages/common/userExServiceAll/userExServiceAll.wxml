@@ -1,0 +1,36 @@
+<!--
+/**
+ * 增值服务列表
+ * userExServiceAll
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+-->
+
+<view class="user-ex-service-all">
+
+  <view class="serv-items">
+
+    <!-- 购买VIP会员 -->
+    <view class="serv-item {{ item.isRecommend ? 'item-recommend' : '' }} {{ item.selected ? 'sel' : '' }}"
+      data-idx="{{ index }}"
+      bindtap="clickServiceItem"
+      wx:for="{{ services }}" wx:key="serviceId">
+      <view>
+        <view class="item-text">
+          <view class="item-name">{{ item.serviceName }}</view>
+          <view class="item-price">￥{{ item.priceString }} / {{ item.validDuration }}{{ item.validUnitTitle }}</view>
+        </view> <!-- .item-text -->
+        <view class="item-time" wx:if="{{ item.userMapped }}">剩余时间 {{ item.userExpireTimeString }} {{ item.validUnitTitle }}</view>
+        <view class="item-time" wx:else>未生效</view>
+      </view>
+    </view> <!-- .serv-item -->
+
+  </view> <!-- .serv-items -->
+
+  <!-- 操作按钮 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="confirmBuy" disabled="{{ !anyToConfirm }}">购买服务</button>
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .user-ex-service-all -->

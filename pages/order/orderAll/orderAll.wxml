@@ -1,9 +1,9 @@
 <!--
 /**
  * 订单列表
- * orderAll.wxml
+ * orderAll
  * -----------------------------------
- * 18/03/27 Jerry 新增
+ * 19/02/22 Jerry 更新
  */
 -->
 
@@ -51,7 +51,7 @@
         <template is="ordersView" data="{{ orders: toDelivery_orders, buyerOps: true, ignoreSkuQuantity: true }}" />
       </scroll-view>
 
-      <!-- 待收货 -->
+      <!-- 已发货 -->
       <scroll-view
         class="content-item {{ tab == 'toReceive' ? 'active' : '' }}"
         scroll-y="true"
@@ -61,15 +61,15 @@
         <template is="ordersView" data="{{ orders: toReceive_orders, buyerOps: true, ignoreSkuQuantity: true }}" />
       </scroll-view>
 
-      <!-- 待评价 -->
-      <!--<scroll-view-->
-        <!--class="content-item {{ tab == 'toComment' ? 'active' : '' }}"-->
-        <!--scroll-y="true"-->
-        <!--enable-back-to-top="true"-->
-        <!--bindscrolltolower="scrollToLower"-->
-        <!--style="height:{{scrollViewHeight}}">-->
-        <!--<template is="ordersView" data="{{ orders: toComment_orders, buyerOps: true, ignoreSkuQuantity: true }}" />-->
-      <!--</scroll-view>-->
+      <!-- 已取消 -->
+      <scroll-view
+        class="content-item {{ tab == 'canceled' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+        <template is="ordersView" data="{{ orders: canceled_orders, buyerOps: true, ignoreSkuQuantity: true }}" />
+      </scroll-view>
 
     </view> <!-- .tab-content -->
 

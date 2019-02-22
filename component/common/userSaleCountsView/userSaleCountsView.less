@@ -1,0 +1,26 @@
+/**
+ * 会员销售统计列表
+ * userSaleCountsView
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.log-item {
+  .flex-between;
+  padding: 0 @text-margin-xl;
+  height: @bar-height-l;
+  border-bottom: @border-gray-light;
+
+  .log-text {
+    width: 30%;
+  } /* .log-text */
+
+  .log-val {
+    width: 70%;
+    text-align: right;
+    color: @color-red-light;
+  }
+
+} /* .log-item */

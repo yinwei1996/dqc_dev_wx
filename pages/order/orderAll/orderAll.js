@@ -1,8 +1,8 @@
 /**
  * 订单列表
- * orderAll.js
+ * orderAll
  * -----------------------------------
- * 18/03/27 Jerry 新增
+ * 19/02/22 Jerry 更新
  */
 
 var
@@ -16,10 +16,10 @@ Page({
 data: {
   tabNavItems: [
     { key: 'all', text: '全部' },
-    { key: 'toPay', text: '待付款' },
+    { key: 'toPay', text: '待支付' },
     { key: 'toDelivery', text: '待发货' },
-    { key: 'toReceive', text: '待收货' },
-    //{ key: 'toComment', text: '待评价' }
+    { key: 'toReceive', text: '已发货' },
+    { key: 'canceled', text: '已取消' }
   ],
   tab: 'all'
 },
@@ -100,6 +100,9 @@ queryOrders: function(paging){
   }
   else if ('toComment' == tab) {
     status = 'Done';
+  }
+  else if ('canceled' == tab) {
+    status = 'Canceled';
   }
 
   helper.request({

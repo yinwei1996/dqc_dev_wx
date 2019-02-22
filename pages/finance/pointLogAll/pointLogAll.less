@@ -9,7 +9,19 @@
 @import '../../../component/common/tabNav/tabNav.less';
 @import '../../../component/common/accountLogsView/accountLogsView.less';
 
-.my-bean-all {
+.point-log-all {
+
+  .point-amount {
+    .flex-center;
+    height: @bar-height * 2;
+    background-color: @color-primary;
+
+    view {
+      color: @color-white;
+      font-weight: bold;
+    }
+
+  } /* .point-amount */
 
   /* 最近统计 */
   .recent {
@@ -33,4 +45,4 @@
 
   } /* .recent */
 
-} /* .my-bean-all */
+} /* .point-log-all */

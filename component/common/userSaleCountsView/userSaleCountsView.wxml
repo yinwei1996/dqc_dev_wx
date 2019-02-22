@@ -1,0 +1,27 @@
+<!--
+/**
+ * 会员销售统计列表
+ * userSaleCountsView
+ * -----------------------------------
+ * 19/02/22 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="userSaleCountsView">
+
+  <view class="log-item"
+    wx:for="{{ logs.records || logs }}"
+    wx:for-item="log"
+    wx:key="sysNo">
+
+    <view class="log-text">{{ log.countTimeString }}</view>
+    <view class="log-val">￥{{ log.saleAmountString }}</view>
+
+  </view> <!-- .log-item -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: logs }}" />
+
+</template>

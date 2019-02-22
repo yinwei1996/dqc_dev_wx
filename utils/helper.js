@@ -35,6 +35,9 @@ __pagePath = {
   userShareModeConfig: '/pages/common/userShareModeConfig/userShareModeConfig',
   userWxPayTypeConfig: '/pages/common/userWxPayTypeConfig/userWxPayTypeConfig',
 
+  userSaleCountAll: '/pages/common/userSaleCountAll/userSaleCountAll',
+  userExServiceAll: '/pages/common/userExServiceAll/userExServiceAll',
+
   pointLogAll: '/pages/finance/pointLogAll/pointLogAll',
   pointRecharge: '/pages/finance/pointRecharge/pointRecharge',
 
@@ -1413,6 +1416,10 @@ dateDiff: function (d1, d2, unit) {
 
     //单位转换为天并返回
     unit = unit || 'day';
+
+    if ('month' === unit) {
+      return ( d2.getFullYear() * 12 + d2.getMonth() ) - ( d1.getFullYear() * 12 + d1.getMonth() );
+    }
 
     if ('day' === unit) {
 

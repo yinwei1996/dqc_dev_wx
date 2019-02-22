@@ -1,8 +1,8 @@
 /**
- * 积分充值
- * pointRecharge
+ * 增值服务列表
+ * userExServiceAll
  * -----------------------------------
- * 19/02/22 Jerry 更新
+ * 19/02/22 Jerry 新增
  */
 
 var
@@ -22,7 +22,7 @@ data: {
 onLoad(opts) {
 
   // 更新导航
-  helper.navTitle('积分充值');
+  helper.navTitle('购买服务');
 
   // 设置scroll-view高度
   helper.setScrollViewHeight(this, 100);
@@ -32,64 +32,67 @@ onLoad(opts) {
  页面显示
 ------------------------------ */
 onShow() {
-  // 查询积分余额
-  this.queryPoint();
+  // 查询可用服务
+  this.queryServices();
 },
 /* ------------------------------
- 查询积分余额
+ 查询可用服务
 ------------------------------ */
-queryPoint() {
-  helper.request({ url: 'wx/account/point', data: { returnAvailableRecharges: true }, success: this.bindPoint });
+queryServices() {
+  helper.request({ url: 'wx/exServ/onSaleList', success: this.bindServices });
 },
 /* ------------------------------
  绑定数据
 ------------------------------ */
-bindPoint(ret){
-  helper.each(ret.availableRecharges, (idx, item) => { item.amountString = helper.fen2str(item.amount, true) });
-  this.setData(ret);
-},
-/* ------------------------------
- 选中充值项
------------------------------- */
-clickRechargeItem(e) {
+bindServices(ret){
 
-  var
-  availableRecharges = this.data.availableRecharges,
-  curIdx = e.currentTarget.dataset.idx,
-  curItem = availableRecharges[ curIdx ];
-
-  helper.each(availableRecharges, (idx, item) => {
-    if (idx !== curIdx)
-      item.selected = false;
+  helper.each(ret, (idx, serv) => {
+    serv.priceString = helper.fen2str(serv.price);
+    serv.userExpireTimeString = helper.d2str(serv.userExpireTime);
   });
 
-  if (curItem.selected)
-    return;
+  this.setData({ services: ret });
+
+},
+/* ------------------------------
+ 选中服务项
+------------------------------ */
+clickServiceItem(e) {
+
+  var
+    services = this.data.services,
+    curIdx = parseInt(e.currentTarget.dataset.idx),
+    curServ = services[ curIdx ];
+
+  helper.each(services, (idx, serv) => {
+    if (idx !== curIdx)
+      serv.selected = false;
+  });
 
   // 切换选中状态
-  curItem.selected = !curItem.selected;
+  curServ.selected = !curServ.selected;
 
   // 绑定数据
   this.setData({
-    availableRecharges: availableRecharges,
-    rechargeAmount: curItem.amount,
-    anyToRecharge: true
+    services: services,
+    serviceId: curServ.serviceId,
+    anyToConfirm: curServ.selected
   });
 
 },
 /* ------------------------------
  确认充值
 ------------------------------ */
-confirmRecharge(){
+confirmBuy(){
 
   var
     that = this,
-    rechargeAmount = this.data.rechargeAmount;
+    serviceId = this.data.serviceId;
 
   helper.request({
     loading: true,
-    url: 'wx/order/confirmRecharge',
-    data: { payableAmount: rechargeAmount },
+    url: 'wx/order/confirmExService',
+    data: { serviceId: serviceId },
     success: (order) => {
       // 禁用"充值"按钮
       that.setData({ anyToRecharge: false });

@@ -25,23 +25,23 @@ data: {
 /* ------------------------------
  页面加载
 ------------------------------ */
-onLoad: function(opts) {
+onLoad(opts) {
 
   // 设置scroll-view高度
-  helper.setScrollViewHeight(this, 320);
+  helper.setScrollViewHeight(this, 240);
 
 },
 /* ------------------------------
  页面显示
 ------------------------------ */
-onShow: function(){
-  // 查询统计
-  this.querySummary();
+onShow(){
+  // 查询积分余额
+  this.queryPoint();
 },
 /* ------------------------------
  视图滚动到底部
 ------------------------------ */
-scrollToLower: function(){
+scrollToLower(){
 
   // 分页查询（标识scrollend）
   this.queryLogs('scrollend');
@@ -49,7 +49,7 @@ scrollToLower: function(){
 },/* ------------------------------
  处理Tab导航Click
 ------------------------------ */
-tabNavClick: function(e) {
+tabNavClick(e) {
 
   var
   tab = e.currentTarget.dataset.navKey,
@@ -65,26 +65,21 @@ tabNavClick: function(e) {
 /* ------------------------------
  查询统计
 ------------------------------ */
-querySummary: function(){
+queryPoint(){
 
   helper.request({
-    url: 'wx/bean/summary',
-    success: this.bindSummary
+    url: 'wx/account/point',
+    success: this.bindPoint
   });
 
 },
 /* ------------------------------
- 绑定显示统计
+ 绑定积分余额
 ------------------------------ */
-bindSummary: function(ret){
-
-  var
-  data = {
-    account: ret.account
-  };
+bindPoint(ret){
 
   // 绑定数据
-  helper.setData(this, data, false);
+  this.setData(ret);
 
   // 继续查询日志列表
   this.queryLogs();
@@ -93,37 +88,41 @@ bindSummary: function(ret){
 /* ------------------------------
  查询日志列表
 ------------------------------ */
-queryLogs: function(paging){
+queryLogs(paging){
 
   var
   tab = this.data.tab,
   existLogs = this.data[ tab + '_logs' ],
   pageIndex = helper.nextPageIndex( existLogs, paging ),
-  refType;
+  queryArgs = {},
+  isAdd = null;
 
   if (pageIndex < 0)
     return;
 
-  if ('commission' == tab){
-    refType = 'OrderCommission';
+  if ('in' == tab){
+    isAdd = 'true';
   }
-  else if ('reduce' == tab){
-    refType = 'OrderReduce';
-  }
-  else if ('withdrawal' == tab){
-    refType = 'Withdrawal';
+  else if ('out' == tab){
+    isAdd = 'false';
   }
 
+  if (isAdd)
+    queryArgs[ 'add' ] = isAdd;
+
+  queryArgs[ 'type' ] =  'Point';
+  queryArgs[ 'pageIndex' ] = pageIndex || 0;
+
   helper.request({
-    url: [ 'wx/bean/logs?pageIndex=', pageIndex || 0, '&refType=', refType || '' ].join(''),
-    success: this.bindBeans
+    url: helper.formatUrl('wx/account/log/list', queryArgs),
+    success: this.bindLogs
   });
 
 },
 /* ------------------------------
- 绑定显示云豆
+ 绑定显示日志
 ------------------------------ */
-bindBeans: function(ret){
+bindLogs(ret){
 
   var
   key = this.data.tab + '_logs';
@@ -135,17 +134,28 @@ bindBeans: function(ret){
   helper.setData(this, key, helper.concatPaging(this, key, ret));
 
 },
+
 /* ------------------------------
- 跳转到"提现列表"
+ 绑定显示日志
 ------------------------------ */
-redirectWithdrawalAll: function(){
-  helper.navigateTo('withdrawalAll');
-},
-/* ------------------------------
- 跳转到"申请提现"
------------------------------- */
-redirectWithdrawalModify: function(){
-  helper.navigateTo('withdrawalModify');
+clickLogItem(e){
+
+  var
+    key = this.data.tab + '_logs',
+    logs = this.data[ key ],
+    curIdx = parseInt(e.currentTarget.dataset.idx),
+    curLog = logs.records[ curIdx ];
+
+  wx.showModal({
+    title: '详情',
+    content: [
+      curLog.createTimeString, ' ',
+      curLog.refTypeTitle, curLog.difAmount, '积分。',
+      curLog.memo ? [ '备注：', curLog.memo ].join('') : ''
+    ].join(''),
+    showCancel: false
+  });
+
 }
 
 })

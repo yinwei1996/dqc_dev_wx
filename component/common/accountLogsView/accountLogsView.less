@@ -1,43 +1,40 @@
 /**
  * 账户日志列表
- * accountLogsView.less
+ * accountLogsView
  * -----------------------------------
- * 18/05/03 Jerry 新增
+ * 19/02/22 Jerry 更新
  */
 
 @import '../pagingTip/pagingTip.less';
 
 .log-item {
   .flex-between;
-  padding: 0 @block-padding-left;
+  padding: @text-margin @text-margin-xl;
   border-bottom: @border-gray-light;
+
+  .log-label {
+    margin-top: @text-margin-xs;
+    color: @color-gray-dark;
+    font-size: @text-size-s3;
+  }
 
   .log-text {
     width: 75%;
-
-    text {
-      display: block;
-      font-size: @text-size-s3;
-
-      &.log-time {
-        color: @color-gray-dark;
-        font-size: @text-size-xs;
-      }
-
-    }
-
   } /* .log-text */
 
-  .log-val {
-    .flex-end;
+  .log-val-and-op {
     width: 25%;
-    height: @list-line-height;
-    font-size: @text-size-m;
+    text-align: right;
 
-    &.minus-val {
-      color: @color-red;
-    }
+    .log-val {
+      color: @color-green;
 
-  } /* .log-val */
+      &.minus-val {
+        color: @color-red;
+      }
+
+    } /* .log-val */
+
+  } /* .log-val-and-op */
 
 } /* .log-item */

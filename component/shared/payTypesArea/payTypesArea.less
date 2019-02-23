@@ -1,0 +1,35 @@
+/**
+ * 组件 - 支付方式选择区域
+ * payTypesArea
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.pay-types-area {
+
+  .type-item {
+    .flex-start;
+    padding: @text-margin-xl;
+    border-bottom: @border-gray-light;
+
+    .check-ico {
+      .ico-m;
+      margin-right: @text-margin-xl;
+      opacity: .3;
+
+      &.checked {
+        opacity: 1;
+      }
+
+    } /* .check-ico */
+
+    .pay-ico {
+      .ico-xl;
+      margin-right: @text-margin;
+    }
+
+  } /* .type-item */
+
+} /* .pay-types-area */

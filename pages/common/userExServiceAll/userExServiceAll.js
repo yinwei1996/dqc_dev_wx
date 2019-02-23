@@ -36,6 +36,13 @@ onShow() {
   this.queryServices();
 },
 /* ------------------------------
+ 下拉刷新
+------------------------------ */
+onPullDownRefresh(){
+  // 查询可用服务
+  this.queryServices();
+},
+/* ------------------------------
  查询可用服务
 ------------------------------ */
 queryServices() {
@@ -51,7 +58,11 @@ bindServices(ret){
     serv.userExpireTimeString = helper.d2str(serv.userExpireTime);
   });
 
+  // 绑定数据
   this.setData({ services: ret });
+
+  // 如果是通过下拉操作触发的，收起下拉
+  wx.stopPullDownRefresh();
 
 },
 /* ------------------------------
@@ -92,12 +103,12 @@ confirmBuy(){
   helper.request({
     loading: true,
     url: 'wx/order/confirmExService',
-    data: { serviceId: serviceId },
-    success: (order) => {
+    data: { serviceId },
+    success: order => {
       // 禁用"充值"按钮
       that.setData({ anyToRecharge: false });
-      // 跳转到订单确认页
-      helper.navigateFormat('orderConfirm', { orderId: order.orderId });
+      // 跳转到支付确认页
+      helper.navigateFormat('orderPayConfirm', { orderId: order.orderId });
     }
   });
 

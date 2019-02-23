@@ -1,0 +1,61 @@
+<!--
+/**
+ * 订单支付确认
+ * orderPayConfirm
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+-->
+
+<view class="order-pay-confirm" wx:if="{{ order }}">
+
+  <!-- 订单汇总项 -->
+  <view class="order-props">
+
+    <!-- 虚拟订单显示订单摘要 -->
+    <view class="order-prop order-summary" wx:if="{{ order.isVirtual }}">
+      {{ order.summary }}
+    </view>
+
+    <!-- 实物订单显示收货地址 -->
+    <view class="order-prop order-address" wx:else>
+
+      <block wx:if="{{ order.address }}">
+        <template is="addressesView" data="{{ addresses: [ order.address ], readonly: true }}" />
+      </block>
+      <block wx:else>
+        <label>未选择收货地址</label>
+        <image class="nav-arrow" src="../../../image/icos/nav_81.png" />
+      </block>
+
+    </view> <!-- .order-address -->
+
+    <!-- 支付订单号 TODO 1902 -->
+    <view class="order-prop order-code">
+      <label>支付订单号：</label>
+      <text>{{ order.payMapCode || order.orderCode }}</text>
+    </view> <!-- .order-code -->
+
+    <!-- 应付金额 -->
+    <view class="order-prop payable-amount">
+      <label>应付金额：</label>
+      <text>￥{{ order.payableAmountString }}</text>
+    </view> <!-- .sku-amount -->
+
+  </view> <!-- .order-props -->
+
+  <!-- 支付方式选择区域 -->
+  <view class="pay-types-label">选择支付方式：</view>
+  <payTypesArea checked="{{ order.payType }}" disablePoint="{{ disablePayTypePoint }}" bind:change="changePayType" />
+
+  <!-- 服务协议 -->
+  <view class="order-agreement" wx:if="{{!order.environmentProduct}}">
+    您正在使用体验系统，订单付款结果不作为业务依据
+  </view> <!-- .order-agreement -->
+
+  <!-- 合计金额及"付款"操作 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary order-pay" bindtap="preparePay">立即支付 ￥{{order.payableAmountString}}</button>
+  </view>
+
+</view>

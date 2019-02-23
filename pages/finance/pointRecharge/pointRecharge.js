@@ -45,13 +45,13 @@ queryPoint() {
  绑定数据
 ------------------------------ */
 bindPoint(ret){
-  helper.each(ret.availableRecharges, (idx, item) => { item.amountString = helper.fen2str(item.amount, true) });
+  helper.each(ret.availableRecharges, (idx, item) => item.priceString = helper.fen2str(item.price, true));
   this.setData(ret);
 },
 /* ------------------------------
  选中充值项
 ------------------------------ */
-clickRechargeItem(e) {
+clickItem(e) {
 
   var
   availableRecharges = this.data.availableRecharges,
@@ -71,8 +71,8 @@ clickRechargeItem(e) {
 
   // 绑定数据
   this.setData({
-    availableRecharges: availableRecharges,
-    rechargeAmount: curItem.amount,
+    availableRecharges,
+    rechargeId: curItem.selected ? curItem.rechargeId : 0,
     anyToRecharge: true
   });
 
@@ -82,19 +82,17 @@ clickRechargeItem(e) {
 ------------------------------ */
 confirmRecharge(){
 
-  var
-    that = this,
-    rechargeAmount = this.data.rechargeAmount;
+  var rechargeId = this.data.rechargeId;
 
   helper.request({
     loading: true,
-    url: 'wx/order/confirmRecharge',
-    data: { payableAmount: rechargeAmount },
+    url: 'wx/order/confirmPointRecharge',
+    data: { rechargeId },
     success: (order) => {
       // 禁用"充值"按钮
-      that.setData({ anyToRecharge: false });
-      // 跳转到订单确认页
-      helper.navigateFormat('orderConfirm', { orderId: order.orderId });
+      this.setData({ anyToRecharge: false });
+      // 跳转到支付确认页
+      helper.navigateFormat('orderPayConfirm', { orderId: order.orderId });
     }
   });
 

@@ -7,11 +7,10 @@
  */
 -->
 
-<import src="../../../component/common/checkboxCustom/checkboxCustom.wxml" />
 <import src="../../../component/common/addressesView/addressesView.wxml" />
 <import src="../../../component/common/orderSkusView/orderSkusView.wxml" />
 
-<view class="order-confirm {{hidden}}">
+<view class="order-confirm">
 
   <!-- 订单汇总项 -->
   <view class="order-props">
@@ -24,7 +23,7 @@
       </block>
       <block wx:else>
         <label>未选择收货地址</label>
-        <image class="nav-arrow" src="../../../image/icos/arrow_right_48.png" />
+        <image class="nav-arrow" src="../../../image/icos/nav_81.png" />
       </block>
 
     </view> <!-- .order-address -->
@@ -60,8 +59,7 @@
 
   <!-- 合计金额及"付款"操作 -->
   <view class="op-btns-fixed">
-    <button wx:if="{{ isAgree && order.address }}" class="btn btn-primary order-pay" bindtap="preparePay">去付款 ￥{{order.payableAmountString}}</button>
-    <button wx:else class="btn order-pay" disabled="true">去付款 ￥{{order.payableAmountString}}</button>
+    <button class="btn btn-primary order-pay {{ !anyToPay ? 'disabled' : '' }}" bindtap="preparePay">立即支付 ￥{{order.payableAmountString}}</button>
   </view>
 
 </view>

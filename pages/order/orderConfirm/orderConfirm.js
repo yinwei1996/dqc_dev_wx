@@ -15,35 +15,31 @@ Page({
 ------------------------------ */
 data: {
   hidden: 'hidden',
-  /* 默认同意服务协议（目前不显示CheckBox） */
-  isAgree: true
+  anyToPay: false
 },
 /* ------------------------------
  页面加载
 ------------------------------ */
-onLoad: function(opts){
+onLoad(opts){
 
   // 更新导航
-  helper.navTitle(opts.isPintuan ? '拼团订单' : '填写订单');
+  helper.navTitle('订单确认');
 
   // 查询订单
-  this.queryOrder(opts.orderId);
+  this.queryOrder(opts.orderId || 'dca7e6b3a8b845c9aee61ada6678df05');
 
 },
 /* ------------------------------
  页面显示
 ------------------------------ */
-onShow: function(){
+onShow(){
 
   // 确认是否有来自地址列表页传入的addressId，
   // 如果有，查询地址详情，并更新 order.address
-  // 确认是否有传入的收货地址、发票、优惠券、云豆扣减
+  // 确认是否有传入的收货地址
   var
   that = this,
-  addressId = helper.pageArg('orderConfirmAddress'),
-  invoiceId = helper.pageArg('orderConfirmInvoice'),
-  couponItemId = helper.pageArg('orderConfirmCoupon'),
-  bean = helper.pageArg('orderConfirmBean');
+  addressId = helper.pageArg('orderConfirmAddress');
 
   if (addressId) {
     // 收货地址
@@ -54,7 +50,7 @@ onShow: function(){
 /* ------------------------------
  查询订单
 ------------------------------ */
-queryOrder: function(orderId){
+queryOrder(orderId){
 
   helper.request({
     url: 'wx/order/detail',
@@ -66,28 +62,26 @@ queryOrder: function(orderId){
 /* ------------------------------
  绑定显示订单
 ------------------------------ */
-bindOrder: function(order){
+bindOrder(order){
 
   // 绑定SKU缩略图的完整URL
-  helper.each(order.skuGroups, function(idx, grp){
-    helper.bindFullImgUrl(grp.skuMaps);
-  });
+  helper.each(order.skuGroups, (idx, grp) => helper.bindFullImgUrl(grp.skuMaps));
 
   order.skuAmountString = helper.fen2str(order.skuAmount);
   order.payableAmountString = helper.fen2str(order.payableAmount);
 
   // 绑定数据
-  helper.setData(this, { order: order }, false);
+  this.setData({ order: order });
 
-  // 如果订单没有默认收货地址，跳转到地址新增页
-  if (!order.address)
+  // 实物订单没有备选收货地址的，跳转到地址新增页
+  if (!order.isVirtual && !order.address)
     this.selectAddress();
 
 },
 /* ------------------------------
  选择收货地址
 ------------------------------ */
-selectAddress: function(){
+selectAddress(){
 
   // 有备选地址时，跳转到地址列表页；没有时，跳转到地址新增页。
   helper.navigateFormat( this.data.order.address ? 'addressAll' : 'addressModify', { from: 'orderConfirmAddress' } );
@@ -95,122 +89,39 @@ selectAddress: function(){
 /* ------------------------------
  绑定收货地址
 ------------------------------ */
-bindAddress: function(addressId){
+bindAddress(addressId){
 
   var that = this;
 
   helper.request({
     url: 'wx/address/detail',
     data: { addressId: addressId },
-    success: function (ret) { helper.setDataProp(that, 'order.address', ret) }
+    success (ret) { helper.setDataProp(that, 'order.address', ret) }
   });
-},
-/* ------------------------------
- 选择发票
------------------------------- */
-selectInvoice: function(){
-
-  var
-  invoice = this.data.order.invoice,
-  invoiceId = invoice ? invoice.invoiceId : null;
-
-  // 跳转到发票编辑页
-  helper.navigateFormat( 'invoiceModify', { from: 'orderConfirmInvoice', invoiceId: invoiceId } );
-},
-/* ------------------------------
- 绑定发票
------------------------------- */
-bindInvoice: function(invoiceId){
-
-  var that = this;
-
-  helper.request({
-    url: 'wx/invoice/detail',
-    data: { invoiceId: invoiceId },
-    success: function (ret) { helper.setDataProp(that, 'order.invoice', ret) }
-  });
-},
-/* ------------------------------
- 选择优惠券
------------------------------- */
-selectCoupon: function(){
-
-  var availableCouponItemCount = this.data.order.availableCouponItemCount;
-
-  if (!availableCouponItemCount)
-    return;
-
-  // 跳转到可用优惠券列表页
-  helper.navigateFormat( 'couponAll', { from: 'orderConfirmCoupon' } );
-},
-/* ------------------------------
- 绑定优惠券
------------------------------- */
-bindCoupon: function(itemId){
-
-  var that = this;
-
-  helper.request({
-    url: 'wx/coupon/itemBeforeUse',
-    data: { itemId: itemId, orderId: this.data.order.orderId },
-    success: function (ret) {
-
-      helper.setDataProp(that, 'order.couponItem', ret);
-      // 刷新应付金额
-      that.refreshPayableAmount();
-    }
-  });
-},
-/* ------------------------------
- 选择云豆抵扣
------------------------------- */
-selectBean: function(){
-
-  var availableBean = this.data.order.availableBean;
-
-  if (!availableBean)
-    return;
-
-  // 跳转到云豆抵扣页
-  helper.navigateFormat( 'beanReduce', { orderId: this.data.order.orderId } );
-},
-/* ------------------------------
- 绑定云豆抵扣
------------------------------- */
-bindBean: function(bean){
-
-  // 绑定数据
-  helper.setDataProp(this, 'order.bean', bean);
-
-  // 刷新应付金额
-  this.refreshPayableAmount();
 },
 /* ------------------------------
  刷新应付金额
 ------------------------------ */
-refreshPayableAmount: function(){
+refreshPayableAmount(){
 
   var
   order = this.data.order,
   skuAmount = order.skuAmount || 0,
   deliveryAmount = order.deliveryAmount || 0,
-  commissionAmount = order.commisionAmount || 0,
-  couponItemAmount = order.couponItem ? order.couponItem.denomination : 0,
-  beanAmount = order.bean ? order.bean.amount : 0,
-  payableAmount = skuAmount + deliveryAmount + commissionAmount - couponItemAmount - beanAmount;
+  payableAmount = skuAmount + deliveryAmoun;
 
   helper.setDataProp(this, 'order.payableAmount', payableAmount);
 },
 /* ------------------------------
  勾选"服务协议"
 ------------------------------ */
-agreementCheckChange: function(){
+agreementCheckChange(){
   this.setData({ isAgree: !this.data.isAgree });
 },
 /* ------------------------------
  准备付款
 ------------------------------ */
-preparePay: function(){
+preparePay(){
 
   var
   order = this.data.order,

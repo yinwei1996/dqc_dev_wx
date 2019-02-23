@@ -7,7 +7,6 @@
 
 @import '../../../variables.less';
 @import '../../../less/orderProps.less';
-@import '../../../component/common/checkboxCustom/checkboxCustom.less';
 @import '../../../component/common/addressesView/addressesView.less';
 @import '../../../component/common/orderSkusView/orderSkusView.less';
 
@@ -22,25 +21,5 @@
     font-size: @text-size-s;
     color: @color-red;
   } /* .order-agreement */
-
-
-  /* 合计及下单 */
-  .order-pay {
-    .flex-center;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: @bar-height;
-    font-size: @text-size-l;
-    color: @color-white;
-    background-color: @color-primary;
-
-    &.disabled {
-      color: @color-gray;
-      background-color: @color-gray-dark;
-    }
-
-  } /* .order-ops */
 
 } /* .order-confirm */

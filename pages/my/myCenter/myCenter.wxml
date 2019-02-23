@@ -37,7 +37,7 @@
     <view class="user-ex">
         <view class="user-code">会员编号：{{ user.userCode }}</view>
         <view class="user-serv-cnt">
-          <text wx:if="{{ varCount }}">已购买{{ vasCount }}项服务</text>
+          <text wx:if="{{ vasCount }}">已购买{{ vasCount }}项服务</text>
           <text wx:else>未购买服务</text>
         </view>
     </view> <!-- .user-ex -->
@@ -108,25 +108,25 @@
     <view class="floor-icos">
 
       <view class="ico-item" data-tab="toPay" bindtap="clickOrderAll">
-        <image src="../../../image/icos/flower_primary_81.png" />
+        <image src="../../../image/icos/myCenter/order_pay_81.png" />
         <view>待支付</view>
         <text wx:if="{{ orderToPayCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item" data-tab="toDelivery" bindtap="clickOrderAll">
-        <image src="../../../image/icos/flower_primary_81.png" />
+        <image src="../../../image/icos/myCenter/order_delivery_81.png" />
         <view>待发货</view>
         <text wx:if="{{ orderToDeliveryCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item" data-tab="toReceive" bindtap="clickOrderAll">
-        <image src="../../../image/icos/flower_primary_81.png" />
+        <image src="../../../image/icos/myCenter/order_receive_81.png" />
         <view>已发货</view>
         <text wx:if="{{ orderToDoneCount }}"></text>
       </view> <!-- .ico-item -->
 
       <view class="ico-item" data-tab="canceled" bindtap="clickOrderAll">
-        <image src="../../../image/icos/flower_primary_81.png" />
+        <image src="../../../image/icos/myCenter/order_canceled_81.png" />
         <view>已取消</view>
       </view> <!-- .ico-item -->
 
@@ -164,7 +164,7 @@
       </view> <!-- .ico-item -->
 
       <view class="ico-item" bindtap="clickExService">
-        <image src="../../../image/icos/flower_primary_81.png" />
+        <image src="../../../image/icos/myCenter/ex_serv_primary_81.png" />
         <view>购买服务</view>
       </view> <!-- .ico-item -->
 

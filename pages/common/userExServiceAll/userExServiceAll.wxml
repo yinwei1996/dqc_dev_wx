@@ -21,7 +21,7 @@
           <view class="item-name">{{ item.serviceName }}</view>
           <view class="item-price">￥{{ item.priceString }} / {{ item.validDuration }}{{ item.validUnitTitle }}</view>
         </view> <!-- .item-text -->
-        <view class="item-time" wx:if="{{ item.userMapped }}">剩余时间 {{ item.userExpireTimeString }} {{ item.validUnitTitle }}</view>
+        <view class="item-time" wx:if="{{ item.userMapped }}">{{ item.userExpireTimeString }} 到期</view>
         <view class="item-time" wx:else>未生效</view>
       </view>
     </view> <!-- .serv-item -->

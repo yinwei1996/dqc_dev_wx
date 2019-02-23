@@ -1,0 +1,56 @@
+/**
+ * 订单支付确认
+ * orderPayConfirm
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+
+@import '../../../variables.less';
+@import '../../../less/orderProps.less';
+
+
+/* 订单确认区域 */
+.order-pay-confirm {
+
+  .order-prop {
+
+    /* 订单摘要 */
+    &.order-summary {
+      height: @bar-height-xl;
+      font-size: @text-size-xl;
+      border-bottom: @border-gray-light-5;
+    } /* .order-summary */
+
+    /* 应付金额 */
+    &.payable-amount {
+      border-bottom: @border-gray-light-5;
+
+      label {
+        font-weight: bold;
+      }
+
+      text {
+        font-weight: bold;
+        color: @color-red-light;
+      }
+
+    } /* .payable-amount */
+
+  } /* .order-prop */
+
+  .pay-types-label {
+    .flex-start;
+    padding: @text-margin @text-margin-l 0;
+    height: @bar-height;
+    font-weight: bold;
+  }
+
+  /* 服务协议 */
+  .order-agreement {
+    .flex-center;
+    height: @bar-height-xl;
+    font-size: @text-size-s3;
+    color: @color-red-light;
+  } /* .order-agreement */
+
+} /* .order-pay-confirm */

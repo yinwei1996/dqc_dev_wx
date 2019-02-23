@@ -1,0 +1,24 @@
+<!--
+/**
+ * 组件 - 支付方式选择区域
+ * payTypesArea
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+-->
+
+<view class="pay-types-area">
+
+  <view class="type-item"
+    data-key="{{ item.key }}"
+    bindtap="clickType"
+    wx:for="{{ payTypes }}"
+    wx:key="key"
+    wx:if="{{ !item.disabled }}">
+    <image class="check-ico checked" src="../../../image/icos/checked_primary_81.png" wx:if="{{ item.selected }}" />
+    <image class="check-ico" src="../../../image/icos/uncheck_81.png" wx:else />
+    <image class="pay-ico" src="../../../image/icos/payTypes/{{ item.icoName }}" />
+    <text>{{ item.text }}</text>
+  </view> <!-- .pay-type-item -->
+
+</view>

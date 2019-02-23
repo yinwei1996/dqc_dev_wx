@@ -13,41 +13,44 @@
 
   /* 支付结果提示 */
   .result-tip {
-    .flex-center;
-    .block-padding;
-    margin-top: 150rpx;
-    height: 100rpx;
+    margin-top: @bar-height-xl;
+    text-align: center;
 
-    image {
-      .ico-xl;
+    .tip-ico {
+      .ico-avatar-l;
     }
 
-    text {
-      margin-left: @text-margin-l;
-      font-size: @text-size-xxl;
-      color: @color-primary;
+    .tip-text {
+      margin-top: @text-margin;
+      font-size: @text-size-xl;
+      font-weight: bold;
     }
 
-    /* 支付失败 */
-    &.failed {
-
-      text {
-        color: @color-red;
-      }
-
-    } /* &.failed */
+    .tip-summary {
+      .flex-center;
+      margin-bottom: @bar-height-xl;
+      height: @bar-height;
+      font-size: @text-size-s3;
+    }
 
   } /* .result-tip */
 
-  /* 支付结果摘要 */
-  .result-summary {
-    .flex-center;
-    margin-bottom: 80rpx;
-    font-size: @text-size-s3;
-  } /* .result-summary */
+  .op-btns {
 
-  .btn-wechat {
-    margin: @block-padding;
-  }
+     .btn {
+      display: inline-block;
+      margin: 0;
+      width: 50%;
+      color: darken(@color-blue, 15%);
+      border: none;
+      box-sizing: border-box;
+
+      &:first-child {
+        border-right: @border-gray-light;
+      }
+
+     } /* .btn */
+
+  } /* .op-btns */
 
 } /* .order-pay-result */

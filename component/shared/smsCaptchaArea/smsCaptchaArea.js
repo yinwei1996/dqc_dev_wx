@@ -53,7 +53,7 @@ methods: {
       throw '未支持的短信验证码类型, type: ' + type;
     }
 
-    this.setData({ url: url });
+    this.setData({ url });
     console.log(['smsCaptchaArea.initType => type: ', type, ', url: ', url].join(''));
 
   },
@@ -99,8 +99,8 @@ methods: {
 
     helper.request({
       url: url,
-      data: { mobile: mobile },
-      success: (ret) => {
+      data: { mobile },
+      success: ret => {
         // 隐藏提示
         helper.hideLoading();
         // 开始倒计时
@@ -122,13 +122,13 @@ methods: {
     timeout = ( initTimeout || this.data.timeout ) - 1;
 
     // 刷新倒计时
-    this.setData({ timeout: timeout });
+    this.setData({ timeout });
 
     if (timeout <= 0)
       return;
 
     // 继续下一秒倒计时
-    setTimeout(function(){ that.afterSendCaptcha() }, 1000);
+    setTimeout( () => that.afterSendCaptcha(), 1000);
 
   }
 

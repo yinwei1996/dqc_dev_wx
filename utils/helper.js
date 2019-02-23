@@ -18,7 +18,7 @@ __cfg = {
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
   host: 'http://localbox.hecai360.com/',
-  host: 'http://localhost/',
+  //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -57,6 +57,7 @@ __pagePath = {
   // 订单
   orderAll: '/pages/order/orderAll/orderAll',
   orderConfirm: '/pages/order/orderConfirm/orderConfirm',
+  orderPayConfirm: '/pages/order/orderPayConfirm/orderPayConfirm',
   orderPayResult: '/pages/order/orderPayResult/orderPayResult',
   orderDetail: '/pages/order/orderDetail/orderDetail',
   orderTrace: '/pages/order/orderTrace/orderTrace',
@@ -106,7 +107,7 @@ __me = {
 /* ------------------------------
  更新导航名称
 ------------------------------ */
-navTitle: function(title, showLoading){
+navTitle(title, showLoading){
 
   // 更新导航标题
   wx.setNavigationBarTitle({ title: title });
@@ -119,7 +120,7 @@ navTitle: function(title, showLoading){
 /* ------------------------------
  显示或隐藏导航"正在处理"
 ------------------------------ */
-navLoading: function(showLoading){
+navLoading(showLoading){
 
   // 显示"正在处理"
   if (showLoading) {
@@ -133,37 +134,37 @@ navLoading: function(showLoading){
 /* ------------------------------
  显示提示
 ------------------------------ */
-showToast: function(title, icon){
+showToast(title, icon){
   wx.showToast({ title: title, icon: icon || 'success', mask: true });
 },
 /* ------------------------------
  隐藏提示
 ------------------------------ */
-hideToast: function(){
+hideToast(){
   wx.hideToast();
 },
 /* ------------------------------
  显示"正在处理"
 ------------------------------ */
-showLoading: function(title){
+showLoading(title){
   wx.showLoading({ title: title || '加载中', mask: true });
 },
 /* ------------------------------
  隐藏"正在处理"
 ------------------------------ */
-hideLoading: function(){
+hideLoading(){
   wx.hideLoading();
 },
 /* ------------------------------
  返回当前已登录的用户SessionId
 ------------------------------ */
-getSessionId: function(){
+getSessionId(){
   return wx.getStorageSync('sessionId');
 },
 /* ------------------------------
  返回当前已登录的用户信息
 ------------------------------ */
-getUser: function(page){
+getUser(page){
 
   var user = wx.getStorageSync('user');
 
@@ -180,19 +181,19 @@ getUser: function(page){
 /* ------------------------------
  更新当前已登录的用户信息
 ------------------------------ */
-setUser: function(user){
+setUser(user){
   wx.setStorageSync('user', user);
 },
 /* ------------------------------
  返回当前已登录的微信用户信息
 ------------------------------ */
-getWxUser: function(){
+getWxUser(){
   return wx.getStorageSync('wxUser');
 },
 /* ------------------------------
  存取页面参数
 ------------------------------ */
-pageArg: function(key, val){
+pageArg(key, val){
 
   var globalData = getApp().globalData;
 
@@ -217,7 +218,7 @@ pageArg: function(key, val){
 /* ------------------------------
  计算并绑定ScrollViewHeight
 ------------------------------ */
-setScrollViewHeight: function(page, otherHeight, prop){
+setScrollViewHeight(page, otherHeight, prop){
 
   // 默认高度参照 @bar-height 值
   if (undefined == otherHeight)
@@ -239,7 +240,7 @@ setScrollViewHeight: function(page, otherHeight, prop){
 /* ------------------------------
  page.setData方法安全封装
 ------------------------------ */
-setData: function(){
+setData(){
 
   var
   args = arguments,
@@ -274,7 +275,7 @@ setData: function(){
 /* ------------------------------
  同步页面数据的指定属性
 ------------------------------ */
-setDataProp: function(page, propNamesString, val, isHidden){
+setDataProp(page, propNamesString, val, isHidden){
 
   if (!propNamesString)
     throw 'propNamesString is null';
@@ -296,13 +297,13 @@ setDataProp: function(page, propNamesString, val, isHidden){
 /* ------------------------------
  设置页面隐藏/显示
  ------------------------------ */
-setHidden: function(page, isHidden){
+setHidden(page, isHidden){
   page.setData({ hidden: isHidden ? 'hidden' : '' });
 },
 /* ------------------------------
  wx.request封装（带Session）
  ------------------------------ */
-request: function(opts){
+request(opts){
 
   // 如果需要向用户确认？
   if (opts.confirm){
@@ -397,7 +398,7 @@ request: function(opts){
   });
 
 },
-uploadFile: function(opts){
+uploadFile(opts){
 
   var
   fullUrl = __cfg.host + opts.url,
@@ -425,19 +426,19 @@ uploadFile: function(opts){
 /* ------------------------------
  wx.navigateFormat 简单调用
 ------------------------------ */
-navigateFormat: function(baseUrl, urlArgs, loginRequired){
+navigateFormat(baseUrl, urlArgs, loginRequired){
   __me.navigateTo(__me.formatUrl(baseUrl, urlArgs), loginRequired);
 },
 /* ------------------------------
  wx.redirectFormat 简单调用
 ------------------------------ */
-redirectFormat: function(baseUrl, urlArgs, loginRequired){
+redirectFormat(baseUrl, urlArgs, loginRequired){
   __me.redirectTo(__me.formatUrl(baseUrl, urlArgs), loginRequired);
 },
 /* ------------------------------
  wx.navigateTo 简单调用
 ------------------------------ */
-navigateTo: function(inf, loginRequired){
+navigateTo(inf, loginRequired){
 
   var
   keyOrUrl,
@@ -518,13 +519,13 @@ navigateTo: function(inf, loginRequired){
 /* ------------------------------
  wx.redirectTo 简单调用
 ------------------------------ */
-redirectTo: function(url, loginRequired){
+redirectTo(url, loginRequired){
   __me.navigateTo({ url: url, type: 'redirect' }, loginRequired);
 },
 /* ------------------------------
  wx.switchTab 简单调用
 ------------------------------ */
-switchTab: function(url, loginRequired){
+switchTab(url, loginRequired){
   __me.navigateTo({ url: url, type: 'tab' }, loginRequired);
 },
 /* ------------------------------
@@ -649,7 +650,7 @@ wxBindUserInfo(e, opts){
 /* ------------------------------
  退出账号
 ------------------------------ */
-logout: function(opts){
+logout(opts){
 
   wx.removeStorageSync('sessionId');
   wx.removeStorageSync('user');
@@ -662,7 +663,7 @@ logout: function(opts){
 /* ------------------------------
  尝试扫描二维码登录/注册
 ------------------------------ */
-parseQueryArgs: function(q){
+parseQueryArgs(q){
 
   // 这里返回空对象
   if (!q)
@@ -688,7 +689,7 @@ parseQueryArgs: function(q){
 /* ------------------------------
  尝试扫描二维码登录/注册
 ------------------------------ */
-tryLoginByQrCode: function(q, scene){
+tryLoginByQrCode(q, scene){
 
   var queryOpts = __me.parseQueryArgs(q);
 
@@ -732,7 +733,7 @@ tryLoginByQrCode: function(q, scene){
 /* ------------------------------
  尝试通过分享信息登录/注册
 ------------------------------ */
-tryLoginByShare: function(opts){
+tryLoginByShare(opts){
 
   if (!opts || !opts.query || !opts.query.r)
     return;
@@ -745,31 +746,37 @@ tryLoginByShare: function(opts){
 
 },
 /* ------------------------------
- 发起支付
+ 准备支付
 ------------------------------ */
-preparePay: function(opts){
+preparePay(opts){
 
   __me.request({
     loading: true,
     url: 'wx/pay/prepare',
     data: opts,
-    success: function(ret) { __me.payRequest(ret, opts.orderId) }
+    success: ret => __me.payRequest(opts.orderId, opts.payType, ret)
   });
 
 },
 /* ------------------------------
- 发起微信支付
+ 发起实际支付
 ------------------------------ */
-payRequest: function(ret, orderId){
+payRequest(orderId, payType, ret){
 
-  // 如果订单免单，跳转到付款结果页
+  // 如果免单，跳转到付款结果页
   if (ret.isFree) {
     __me.paySuccess(orderId);
     return;
   }
 
-  ret[ 'success' ]  = function(ret) { __me.paySuccess(orderId) };
-  ret[ 'fail' ]  = function(ret) { __me.payFail(ret, orderId) };
+  // 如果是积分支付 TODO 1902
+  if (payType === 'Point') {
+    return;
+  }
+
+  // 默认发起微信支付
+  ret[ 'success' ]  = ret => __me.paySuccess(orderId);
+  ret[ 'fail' ]  = ret => __me.payFail(ret, orderId);
 
   // 发起支付请求
   wx.requestPayment(ret);
@@ -778,7 +785,7 @@ payRequest: function(ret, orderId){
 /* ------------------------------
  支付成功
 ------------------------------ */
-paySuccess: function(orderId){
+paySuccess(orderId){
 
   // 每隔1秒轮询订单付款状态
   __me.payCheck(orderId, 1);
@@ -787,37 +794,24 @@ paySuccess: function(orderId){
 /* ------------------------------
  支付失败
 ------------------------------ */
-payCheck: function(orderId, currentCount){
+payCheck(orderId, currentCount){
 
   var maxTryCount = 10;
 
   __me.request({
     loading: true,
     url: 'wx/order/checkPaid',
-    data: { orderId: orderId },
-    success: function(ret){
+    data: { orderId },
+    success: ret => {
 
-      var
-      isPaid = ret.paid,
-      pintuanItemId = ret.pintuanItemId;
-
-      // 已付款，或已超过最大轮询次数的
+      // 已付款，或已超过最大轮询次数，跳转到付款结果页
       if (ret.paid || currentCount > maxTryCount){
-
-        // 如果是拼团订单，付款成功之后跳转到 PintuanItem 页
-        if (pintuanItemId){
-          __me.redirectFormat('pintuanItem', { itemId: pintuanItemId });
-          return;
-        }
-
-        // 默认跳转到付款结果页
-        __me.redirectFormat('orderPayResult', { orderId: orderId });
+        __me.redirectFormat('orderPayResult', { orderId });
         return;
-
       }
 
       // 否则继续轮询
-      setTimeout(function(){ __me.payCheck(orderId, currentCount+1) }, 1000);
+      setTimeout( () => __me.payCheck(orderId, currentCount+1), 1000);
 
     }
   });
@@ -826,7 +820,7 @@ payCheck: function(orderId, currentCount){
 /* ------------------------------
  支付失败
 ------------------------------ */
-payFail: function(ret, orderId){
+payFail(ret, orderId){
 
   var msg = ret.errMsg;
 
@@ -838,7 +832,7 @@ payFail: function(ret, orderId){
 /* ------------------------------
  将手机号中间4位进行星号处理
 ------------------------------ */
-maskMobile: function(mobile){
+maskMobile(mobile){
 
   if (!mobile)
     return;
@@ -853,13 +847,13 @@ maskMobile: function(mobile){
 /* ------------------------------
  检查是否有效手机号
 ------------------------------ */
-isMobile: function(val){
+isMobile(val){
   return /^1[345789][0-9]{9}$/ig.test(val);
 },
 /* ------------------------------
  拼接分页业务数据
 ------------------------------ */
-concatPaging: function(page, keyForOriData, newData){
+concatPaging(page, keyForOriData, newData){
 
   var oriData = page.data[ keyForOriData ];
 
@@ -888,7 +882,7 @@ concatPaging: function(page, keyForOriData, newData){
 /* ------------------------------
  拼接分页业务数据
 ------------------------------ */
-concatPagingData: function(oriData, newData){
+concatPagingData(oriData, newData){
 
   if (oriData) {
 
@@ -908,7 +902,7 @@ concatPagingData: function(oriData, newData){
 /* ------------------------------
  获取下一个分页索引
 ------------------------------ */
-nextPageIndex: function(existPagingData, isPaging){
+nextPageIndex(existPagingData, isPaging){
 
   if (isPaging && existPagingData) {
 
@@ -928,7 +922,7 @@ nextPageIndex: function(existPagingData, isPaging){
 /* ------------------------------
  拼接图片完整URL
 ------------------------------ */
-concatFullImgUrl: function(imgUrl, useHost){
+concatFullImgUrl(imgUrl, useHost){
 
   if (!imgUrl)
     imgUrl = '';
@@ -950,7 +944,7 @@ concatFullImgUrl: function(imgUrl, useHost){
 /* ------------------------------
  绑定图片完整URL
 ------------------------------ */
-bindFullImgUrl: function(objs, oriProp, newProp){
+bindFullImgUrl(objs, oriProp, newProp){
 
   var idx, obj, imgUrl;
 
@@ -977,7 +971,7 @@ bindFullImgUrl: function(objs, oriProp, newProp){
 /* ------------------------------
  获取分享路径
 ------------------------------ */
-getSharePath: function(page, key, args){
+getSharePath(page, key, args){
 
   var
   url = __pagePath[ key ],
@@ -1010,7 +1004,7 @@ getSharePath: function(page, key, args){
 /* ------------------------------
  Each实现
 ------------------------------ */
-each: function(array, callback){
+each(array, callback){
 
   if (!array || typeof array != 'object')
     return;
@@ -1037,7 +1031,7 @@ each: function(array, callback){
 * 拼接URL
 * url不能为null
 ---------------------------------------- */
-formatUrl: function (url, args, opts) {
+formatUrl (url, args, opts) {
 
   if (undefined === url)
     throw 'url为空，formatUrl失败';
@@ -1082,13 +1076,13 @@ formatUrl: function (url, args, opts) {
 /* ------------------------------
  去掉字符串左右两边的空格
 ------------------------------ */
-trim: function(str){
+trim(str){
   return ( str || '' ).replace(/^\s+/ig, '').replace(/\s+$/ig, '');
 },
 /* ------------------------------
  将日期转为yyyy-MM-dd格式字符串
 ------------------------------ */
-d2str: function(d, opts){
+d2str(d, opts){
 
   d = __me.obj2dt(d);
 
@@ -1139,7 +1133,7 @@ d2str: function(d, opts){
 /* ----------------------------------------
 * 将object转为日期
 ---------------------------------------- */
-obj2dt: function(obj) {
+obj2dt(obj) {
 
   if ( !obj || ( 'object' == typeof obj && obj instanceof Date ) )
     return obj;
@@ -1180,7 +1174,7 @@ obj2dt: function(obj) {
 /* ----------------------------------------
 * 增减日期
 ---------------------------------------- */
-dtAdd: function(obj, num, unit) {
+dtAdd(obj, num, unit) {
 
   var
   d = __me.obj2dt(obj),
@@ -1267,7 +1261,7 @@ dtAdd: function(obj, num, unit) {
 /* ------------------------------
  将日期转为yyyy-MM-dd H:mm格式字符串
 ------------------------------ */
-dt2str: function(d, includeSeconds){
+dt2str(d, includeSeconds){
 
   d = __me.obj2dt(d);
 
@@ -1295,7 +1289,7 @@ dt2str: function(d, includeSeconds){
 /* ------------------------------
  将秒数转为hh:mm:ss格式字符串
 ------------------------------ */
-seconds2Str: function(totalSeconds){
+seconds2Str(totalSeconds){
 
   var
     buffer = [],
@@ -1331,7 +1325,7 @@ seconds2Str: function(totalSeconds){
 /* ------------------------------
  将日期转为yyyy-MM-dd格式字符串
 ------------------------------ */
-bindD2Str: function(objs, oriProp, newProp){
+bindD2Str(objs, oriProp, newProp){
 
   if (!objs || objs.length == 0 || !oriProp)
     return;
@@ -1347,7 +1341,7 @@ bindD2Str: function(objs, oriProp, newProp){
 /* ------------------------------
  将日期转为yyyy-MM-dd H:mm格式字符串
 ------------------------------ */
-bindDt2Str: function(objs, oriProp, newProp){
+bindDt2Str(objs, oriProp, newProp){
 
   if (!objs || objs.length == 0 || !oriProp)
     return;
@@ -1370,7 +1364,7 @@ bindDt2Str: function(objs, oriProp, newProp){
  * 前天：显示 前天
  * 之前的日期：仅显示日期 MM-dd (不是今年的日期，额外显示年份)
  ------------------------------ */
-bindDt2readable: function(objs, oriProp, newProp){
+bindDt2readable(objs, oriProp, newProp){
 
   if (!objs || objs.length == 0 || !oriProp)
     return;
@@ -1409,7 +1403,7 @@ bindDt2readable: function(objs, oriProp, newProp){
 /*-------------------------------------
  * 获取2个日期的间隔
  -----------------------------------------*/
-dateDiff: function (d1, d2, unit) {
+dateDiff (d1, d2, unit) {
 
     if (!d1) throw '传入参数d1转为日期失败';
     if (!d2) throw '传入参数d2转为日期失败';
@@ -1455,7 +1449,7 @@ dateDiff: function (d1, d2, unit) {
 /* ----------------------------------------
  * 将日期类型解析为字符串(仅日期部分)
  -----------------------------------------*/
-dateToDateString: function (d, noYear) {
+dateToDateString (d, noYear) {
 
   if (!d) return '';
 
@@ -1465,7 +1459,7 @@ dateToDateString: function (d, noYear) {
 /* ----------------------------------------
  * 将以分为单位的金额转为字符串显示
  -----------------------------------------*/
-fen2str: function (val, ignoreZeroAfterDot) {
+fen2str (val, ignoreZeroAfterDot) {
 
   if (!val)
     val = 0;

@@ -9,71 +9,52 @@
 
 <import src="../../../component/common/addressesView/addressesView.wxml" />
 
-<view class="order-pay-result {{hidden}}">
+<view class="order-pay-result" wx:if="{{ order }}">
 
   <view class="order-props">
 
-    <!-- 收货地址 -->
-    <view class="order-prop order-address">
-      <template is="addressesView" data="{{ addresses: [ order.address ], readonly: true, ignoreDefault: true, ignoreArrow: true }}" />
-    </view>
-
     <!-- 订单单号 -->
     <view class="order-prop order-code">
-      <label>订单</label>
-      <text>{{order.orderCode}}</text>
+      <label>支付订单号</label>
+      <text>{{ order.payMapCode || order.orderCode }}</text>
     </view> <!-- .order-code -->
 
     <!-- 实付金额（二选一显示） -->
-    <view class="order-prop paid-amount" wx:if="{{order.payTime}}">
+    <view class="order-prop paid-amount" wx:if="{{ order.payTime }}">
       <label>实付</label>
-      <text>￥{{order.paidAmountString}}</text>
+      <text>￥{{ order.paidAmountString }}</text>
     </view> <!-- .paid-amount -->
 
     <!-- 应付金额（二选一显示） -->
     <view class="order-prop payable-amount" wx:else>
       <label>应付</label>
-      <text>￥{{order.payableAmountString}}</text>
+      <text>￥{{ order.payableAmountString }}</text>
     </view> <!-- .payable-amount -->
 
   </view> <!-- .order-props -->
 
-  <!-- 支付成功提示（二选一显示） -->
-  <block wx:if="{{order.payTime}}">
+  <view class="result-tip" wx:if="{{ order.payTime }}">
+    <!-- 支付成功 -->
+    <image class="tip-ico" src="../../../image/icos/success_200.png" />
+    <view class="tip-text">支付成功</view>
+    <view class="tip-summary" wx:if="{{ timeout }}">{{ timeout }}秒后自动跳转至{{ timeoutPage }}</view>
+  </view>
+  <view class="result-tip" wx:else>
+    <!-- 支付失败 -->
+    <image class="tip-ico" src="../../../image/icos/fail_200.png" />
+    <view class="tip-text">支付失败</view>
+    <view class="tip-summary">请在 {{ order.payExpireTimeString }} 之前完成支付，超期自动取消</view>
+  </view>
 
-    <view class="result-tip">
-      <image class="item-nav" src="../../../image/icos/checked_primary_81.png" />
-      <text>支付成功</text>
-    </view>
-
-    <view class="result-summary">我们将尽快为您发货</view>
-
-  </block>
-
-  <!-- 支付失败提示（二选一显示） -->
-  <block wx:else>
-
-    <view class="result-tip failed">
-      <image class="item-nav" src="../../../image/icos/fail_red_48.png" />
-      <text>支付失败</text>
-    </view>
-
-    <view class="result-summary failed">请在 {{order.payExpireTimeString}} 之前完成付款，否则订单取消</view>
-
-    <!-- 重新支付 -->
-    <button class="btn btn-wechat" bindtap="handlePay" wx:if="{{!order.payTime}}">重新支付</button>
-
-  </block>
+  <!-- 联系客服 / 查看订单 -->
+  <view class="op-btns">
+    <button class="btn" open-type="contact">联系客服</button>
+    <button class="btn" bindtap="redirectOrder">查看订单</button>
+  </view> <!-- .op-btns -->
 
   <!-- 操作区域 -->
-  <view class="op-btns-fixed">
-
-    <!-- 联系客服 -->
-    <button class="btn" open-type="contact">联系客服</button>
-
-    <!-- 查看订单 -->
-    <button class="btn" bindtap="redirectOrder">查看订单</button>
-
+  <view class="op-btns-fixed" wx:if="{{ !order.payTime }}">
+    <button class="btn btn-primary" bindtap="clickPay">重新支付</button>
   </view> <!-- .op-btns-fixed -->
 
 </view> <!-- .order-pay-result -->

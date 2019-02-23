@@ -9,17 +9,8 @@
 
 <view class="user-share-mode-config">
 
-  <view class="cfg-item"
-    data-key="{{ item.key }}"
-    bindtap="clickPayType"
-    wx:for="{{ payTypes }}"
-    wx:key="key">
-    <image class="check-ico checked" src="../../../image/icos/checked_primary_81.png" wx:if="{{ item.selected }}" />
-    <image class="check-ico" src="../../../image/icos/uncheck_81.png" wx:else />
-    <image class="pay-ico" src="../../../image/icos/payTypes/{{ item.icoName }}" />
-    <text>{{ item.text }}</text>
-  </view> <!-- .cfg-item -->
-
+  <!-- 支付方式选择区域 -->
+  <payTypesArea checked="{{ user.wxPayType }}" bind:change="changePayType" />
 
   <view class="op-btns-fixed">
     <button class="btn btn-primary" bindtap="savePayType" disabled="{{ !anyToSave }}">确认设置</button>

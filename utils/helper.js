@@ -38,6 +38,8 @@ __pagePath = {
   userSaleCountAll: '/pages/common/userSaleCountAll/userSaleCountAll',
   userExServiceAll: '/pages/common/userExServiceAll/userExServiceAll',
 
+  msgAll: '/pages/common/msgAll/msgAll',
+
   pointLogAll: '/pages/finance/pointLogAll/pointLogAll',
   pointRecharge: '/pages/finance/pointRecharge/pointRecharge',
 
@@ -83,22 +85,13 @@ __pagePath = {
   withdrawalDetail: '/pages/withdrawal/withdrawalDetail/withdrawalDetail',
 
 //   消息
-  message: '/pages/my/message/message',
-
-  //  我的发票
-  invoiceCenter: "/pages/invoice/invoiceCenter/invoiceCenter",
-  //  发票资质
-  invoiceModify: "/pages/invoice/invoiceModify/invoiceModify",
-  //  开票申请
-  invoiceApplication: "/pages/invoice/invoiceApplication/invoiceApplication",
-  //  发票详情
-  invoiceDetail: "/pages/invoice/invoiceDetail/invoiceDetail"
+  message: '/pages/my/message/message'
 
 },
 /* ------------------------------
  tab页面定义（用于确认是否使用 switchTab 方式跳转）
 ------------------------------ */
-__tabPath = [ 'myCart', 'myCenter', 'pintuanAll' ],
+__tabPath = [ 'myCart', 'myCenter', 'msgAll' ],
 /* ------------------------------
  对外接口对象
 ------------------------------ */

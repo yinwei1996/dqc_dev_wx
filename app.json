@@ -1,5 +1,6 @@
   {
   "pages": [
+    "pages/common/msgAll/msgAll",
     "pages/my/myCenter/myCenter",
     "pages/order/orderPayConfirm/orderPayConfirm",
     "pages/finance/pointRecharge/pointRecharge",
@@ -20,7 +21,6 @@
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuDetail/skuDetail",
     "pages/order/orderDetail/orderDetail",
-    "pages/sku/skuClassify/skuClassify",
     "pages/sku/skuCategory/skuCategory",
     "pages/brand/brandDetail/brandDetail",
     "pages/bankcard/bankcardAll/bankcardAll",
@@ -36,17 +36,12 @@
     "pages/my/myCart/myCart",
     "pages/order/orderComment/orderComment",
     "pages/order/orderTrace/orderTrace",
-    "pages/invoice/invoiceModify/invoiceModify",
     "pages/withdrawal/withdrawalAll/withdrawalAll",
     "pages/withdrawal/withdrawalModify/withdrawalModify",
     "pages/withdrawal/withdrawalDetail/withdrawalDetail",
     "pages/userAgent/userAgentApply/userAgentApply",
     "pages/userAgent/userAgentDetail/userAgentDetail",
-    "pages/my/myAbout/myAbout",
-
-    "pages/invoice/invoiceCenter/invoiceCenter",
-    "pages/invoice/invoiceApplication/invoiceApplication",
-    "pages/invoice/invoiceDetail/invoiceDetail"
+    "pages/my/myAbout/myAbout"
 
   ],
   "window": {
@@ -64,26 +59,26 @@
     "borderStyle": "black",
     "list": [
       {
-        "iconPath": "image/tabBar_icon/home.png",
-        "selectedIconPath": "image/tabBar_icon/home_selected.png",
+        "iconPath": "image/icos/tabBar/home.png",
+        "selectedIconPath": "image/icos/tabBar/home_selected.png",
         "pagePath": "pages/common/index/index",
         "text": "主页"
       },
       {
-        "iconPath": "image/tabBar_icon/category.png",
-        "selectedIconPath": "image/tabBar_icon/category_selected.png",
-        "pagePath": "pages/sku/skuClassify/skuClassify",
+        "iconPath": "image/icos/tabBar/msg.png",
+        "selectedIconPath": "image/icos/tabBar/msg_selected.png",
+        "pagePath": "pages/common/msgAll/msgAll",
         "text": "消息"
       },
       {
-        "iconPath": "image/tabBar_icon/shopping.png",
-        "selectedIconPath": "image/tabBar_icon/shopping_selected.png",
+        "iconPath": "image/icos/tabBar/cart.png",
+        "selectedIconPath": "image/icos/tabBar/cart_selected.png",
         "pagePath": "pages/my/myCart/myCart",
         "text": "购物车"
       },
       {
-        "iconPath": "image/tabBar_icon/ucenter.png",
-        "selectedIconPath": "image/tabBar_icon/ucenter_selected.png",
+        "iconPath": "image/icos/tabBar/user.png",
+        "selectedIconPath": "image/icos/tabBar/user_selected.png",
         "pagePath": "pages/my/myCenter/myCenter",
         "text": "个人中心"
       }

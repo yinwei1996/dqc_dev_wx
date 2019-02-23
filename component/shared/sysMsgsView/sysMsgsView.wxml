@@ -1,0 +1,53 @@
+<!--
+/**
+ * 系统消息列表
+ * sysMsgAll
+ * -----------------------------------
+ * 19/02/23 Jerry 更新
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/activityMsgsView/activityMsgsView.wxml" />
+<import src="../../../component/common/noticeMsgsView/noticeMsgsView.wxml" />
+
+<view class="sys-msgs-view {{ hidden }}">
+
+  <!-- Tab区域 -->
+  <view class="tabs">
+
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+    <!-- Tab内容 -->
+    <view class="tab-content body">
+
+      <!-- 活动推荐 -->
+      <scroll-view
+        class="content-item {{ tab == 'activity' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+
+        <template is="activityMsgsView" data="{{ msgs: activity_msgs }}" />
+
+      </scroll-view>
+
+      <!-- 公告通知 -->
+      <scroll-view
+        class="content-item {{ tab == 'notice' ? 'active' : '' }}"
+        scroll-y="true"
+        enable-back-to-top="true"
+        bindscrolltolower="scrollToLower"
+        style="height:{{scrollViewHeight}}">
+
+        <template is="noticeMsgsView" data="{{ msgs: notice_msgs }}" />
+
+      </scroll-view>
+
+    </view> <!-- .tab-content -->
+
+  </view> <!-- .tabs -->
+
+</view>

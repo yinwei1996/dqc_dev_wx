@@ -1,0 +1,47 @@
+/**
+ * 消息列表
+ * msgAll
+ * -----------------------------------
+ * 19/02/23 Jerry 更新
+ */
+ 
+@import '../../../variables.less';
+@import '../../../component/common/tabNav/tabNav.less';
+@import '../../../component/common/noticeMsgsView/noticeMsgsView.less';
+@import '../../../component/common/activityMsgsView/activityMsgsView.less';
+
+.msg-all {
+
+  .msg-nav-area {
+    .flex-center;
+    height: @bar-height * 2;
+    border-bottom: @border-gray-light;
+    box-sizing: border-box;
+
+    .nav-item {
+      display: inline-block;
+      width: 33.3%;
+      text-align: center;
+
+      image {
+        .ico-l;
+        filter: grayscale(1);
+      }
+
+      &.sel {
+
+        image {
+          filter: none;
+        }
+
+        view {
+          color: @color-primary;
+        }
+
+      } /* &.sel */
+
+    } /* .nav-item */
+
+  } /* .msg-nav-area */
+
+} /* .msg-all */

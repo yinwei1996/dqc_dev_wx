@@ -27,6 +27,9 @@ data: {
 ------------------------------ */
 onLoad(opts) {
 
+  // 导航标题
+  helper.navTitle('积分账户');
+
   // 设置scroll-view高度
   helper.setScrollViewHeight(this, 240);
 
@@ -46,7 +49,8 @@ scrollToLower(){
   // 分页查询（标识scrollend）
   this.queryLogs('scrollend');
 
-},/* ------------------------------
+},
+/* ------------------------------
  处理Tab导航Click
 ------------------------------ */
 tabNavClick(e) {

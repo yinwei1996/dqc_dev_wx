@@ -1,0 +1,45 @@
+<!--
+/**
+ * 消息列表
+ * msgAll
+ * -----------------------------------
+ * 19/02/23 Jerry 更新
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/activityMsgsView/activityMsgsView.wxml" />
+<import src="../../../component/common/noticeMsgsView/noticeMsgsView.wxml" />
+
+<view class="msg-all">
+
+  <!-- 消息导航区域 -->
+  <view class="msg-nav-area">
+
+    <!-- 系统消息 -->
+    <view class="nav-item {{ hiddenSysMsgs != 'hidden' ? 'sel' : '' }}" data-nav="sysMsgs" bindtap="clickNav">
+      <image mode="aspectFit" src="../../../image/icos/msgs/notice_81.png" />
+      <view>系统消息</view>
+    </view> <!-- .nav-item -->
+
+    <!-- 物流信息 -->
+    <view class="nav-item {{ hiddenDeliveryMsgs != 'hidden' ? 'sel' : '' }}" data-nav="deliveryMsgs" bindtap="clickNav">
+      <image src="../../../image/icos/msgs/delivery_81.png" />
+      <view>物流信息</view>
+    </view> <!-- .nav-item -->
+
+    <!-- 平台活动 -->
+    <view class="nav-item {{ hiddenActivityMsgs != 'hidden' ? 'sel' : '' }}" data-nav="activityMsgs" bindtap="clickNav">
+      <image src="../../../image/icos/msgs/gift_81.png" />
+      <view>平台活动</view>
+    </view> <!-- .nav-item -->
+
+  </view> <!-- .msg-nav-area -->
+
+  <!-- 系统消息 -->
+  <sysMsgsView hidden="{{ hiddenSysMsgs }}" />
+
+  <!-- 物流消息 -->
+  <deliveryMsgsView hidden="{{ hiddenDeliveryMsgs }}" />
+
+</view>

@@ -1,0 +1,46 @@
+<!--
+/**
+ * 公告通知列表
+ * noticeMsgsView
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="noticeMsgsView">
+
+  <view class="msg-item"
+    data-idx="{{ index }}"
+    bindtap="clickMsg"
+    wx:for="{{ msgs.records || msgs }}"
+    wx:for-item="msg"
+    wx:key="sysNo">
+
+    <view class="msg-user">
+      <image src="{{ msg.createrAvatar || '../../../image/icos/avatar.png' }}" />
+      <view>
+        <view class="user-name">{{ msg.createrName || '系统账号' }}</view>
+        <view class="msg-time">{{ msg.publishTimeString }}</view>
+      </view>
+    </view> <!-- .msg-user -->
+
+    <view class="msg-title">
+      {{ msg.title }}
+    </view> <!-- .msg-title -->
+
+    <view class="msg-content">
+      {{ msg.content }}
+    </view> <!-- .msg-content -->
+
+    <view class="msg-image" wx:if="{{ msg.firstImageUrl }}">
+      <image src="{{ msg.firstImageUrl }}" mode="widthFix" lazy-load="true" data-image-url="{{ msg.firstImageUrl }}" />
+    </view>
+
+  </view> <!-- .msg-item -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: msgs }}" />
+
+</template>

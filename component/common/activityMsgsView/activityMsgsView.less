@@ -1,0 +1,39 @@
+/**
+ * 活动推荐列表
+ * activityMsgsView
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+/* 活动推荐复用 noticeMsgsView 的样式 */
+.msg-item {
+
+  .msg-images {
+    .clear-after;
+    margin-top: @text-margin-xl;
+
+    view {
+      float: left;
+      .flex-center;
+
+      image {
+        margin: 0 @text-margin @text-margin 0;
+        width: 220rpx;
+        height: 220rpx;
+      }
+
+      &:nth-child(3n) {
+
+        image {
+          margin-right: 0;
+        }
+
+      }
+
+    } /* view */
+
+  } /* .msg-images */
+
+} /* .msg-item */

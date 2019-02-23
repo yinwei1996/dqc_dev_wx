@@ -1,0 +1,28 @@
+<!--
+/**
+ * 物流消息列表
+ * deliveryMsgAll
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+-->
+
+<view class="delivery-msgs-view {{ hidden }}">
+
+  <view class="delivery-search-area">
+    <input />
+    <view>搜索</view>
+  </view> <!-- .delivery-search-area -->
+
+  <!-- 活动推荐 -->
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+
+    <template is="activityMsgsView" data="{{ msgs: msgs }}" />
+
+  </scroll-view>
+
+</view>

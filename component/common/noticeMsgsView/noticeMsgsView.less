@@ -1,0 +1,56 @@
+/**
+ * 公告通知列表
+ * noticeMsgsView
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.msg-item {
+  padding: @text-margin @text-margin-xl @text-margin-xl;
+  border-bottom: @border-gray-light;
+
+  .msg-user {
+    .flex-start;
+
+    > image {
+      .ico-avatar-s;
+    }
+
+    > view {
+      margin-left: @text-margin-s;
+    }
+
+    .user-name {
+      font-size: @text-size-s5;
+    }
+
+    .msg-time {
+      font-size: @text-size-s3;
+    }
+
+  } /* .msg-user */
+
+  .msg-title {
+    margin-top: @text-margin-xl;
+    color: @color-primary;
+    word-break: break-all;
+  } /* .msg-title */
+
+  .msg-content {
+    margin-top: @text-margin-s;
+    word-break: break-all;
+  } /* .msg-content */
+
+  .msg-image {
+    margin-top: @text-margin-xl;
+    text-align: center;
+
+    image {
+      width: 100%;
+    }
+
+  } /* .msg-image */
+
+} /* .msg-item */

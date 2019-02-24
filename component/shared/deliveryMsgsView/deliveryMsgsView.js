@@ -102,8 +102,7 @@ methods: {
   ------------------------------ */
   bindMsgs(ret){
 
-    var
-    key = this.data.tab + '_msgs';
+    var key = 'msgs';
 
     // 格式化日期时间
     helper.each(ret.records, (idx, msg) => {
@@ -121,25 +120,22 @@ methods: {
     // 拼接绑定分页数据
     helper.setData(this, key, helper.concatPaging(this, key, ret));
 
+    console.log(this.data.msgs);
+
   },
   /* ------------------------------
-   点击消息
+   复制单号
   ------------------------------ */
-  clickMsg(e){
+  copyActualCode(e){
 
-    var
-      key = this.data.tab + '_msgs',
-      msgs = this.data[ key ],
-      curIdx = parseInt(e.currentTarget.dataset.idx),
-      curMsg = msgs.records[ curIdx ],
-      curImageUrl = e.target.dataset.imageUrl;
+    var actualCode = e.currentTarget.dataset.actualCode;
 
-    // 如果有图片Url，预览图片
-    if (curImageUrl) {
-      wx.previewImage({ urls: curMsg.fullImageUrls || [ curMsg.firstImageUrl ], current: curImageUrl });
-      return;
-    }
+    wx.setClipboardData({
+      data: actualCode,
+      success: () => helper.showToast('已复制单号')
+    });
 
+    console.log('copyActualCode => ' + actualCode);
   }
 
 }

@@ -27,4 +27,34 @@
 
   } /* .delivery-search-area */
 
+  .msg-item {
+
+    .item-prop {
+      .flex-start;
+      height: @bar-height-s;
+
+      &.actual-code {
+        position: relative;
+
+        .btn {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+
+      } /* &.actual-code */
+
+      &.total-quantity {
+
+        text {
+          margin: 0 @text-margin-xs;
+          color: @color-red-light;
+        }
+
+      } /* &.total-quantity */
+
+    } /* .item-prop */
+
+  } /* .msg-item */
+
 } /* .delivery-msgs-view */

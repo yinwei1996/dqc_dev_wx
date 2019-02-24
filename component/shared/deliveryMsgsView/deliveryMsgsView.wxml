@@ -21,7 +21,26 @@
     bindscrolltolower="scrollToLower"
     style="height:{{scrollViewHeight}}">
 
-    <template is="activityMsgsView" data="{{ msgs: msgs }}" />
+      <view class="msg-item" wx:for="{{ msgs.records }}" wx:for-item="msg" wx:key="deliveryId">
+
+        <view class="item-prop">
+          <view>发货单号：{{ msg.deliveryCode }}</view>
+        </view>
+
+        <view class="item-prop">
+          <view>物流公司：{{ msg.companyName }}</view>
+        </view>
+
+        <view class="item-prop actual-code">
+          <view>物流单号：{{ msg.actualCode }}</view>
+          <button size="mini" class="btn" data-actual-code="{{ msg.actualCode }}" bindtap="copyActualCode">复制单号</button>
+        </view>
+
+        <view class="item-prop total-quantity">
+          <view>共计<text>N</text>个包裹，<text>N</text>件物品</view>
+        </view>
+
+      </view> <!-- .msg-item -->
 
   </scroll-view>
 

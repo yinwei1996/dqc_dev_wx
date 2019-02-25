@@ -1,7 +1,7 @@
 <!--
 /**
  * 系统消息列表
- * sysMsgAll
+ * sysMsgsPart
  * -----------------------------------
  * 19/02/23 Jerry 更新
  */
@@ -11,7 +11,7 @@
 <import src="../../../component/common/activityMsgsView/activityMsgsView.wxml" />
 <import src="../../../component/common/noticeMsgsView/noticeMsgsView.wxml" />
 
-<view class="sys-msgs-view {{ hidden }}">
+<view class="sys-msgs-part {{ hidden }}">
 
   <!-- Tab区域 -->
   <view class="tabs">

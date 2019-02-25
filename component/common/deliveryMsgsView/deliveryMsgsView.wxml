@@ -1,0 +1,48 @@
+<!--
+/**
+ * 组件 - 物流信息（模板）
+ * -----------------------------------
+ * 19/02/25 Jerry 新增
+ */
+-->
+
+<import src="../pagingTip/pagingTip.wxml" />
+
+<template name="deliveryMsgsView">
+
+  <view class="delivery-msg-item" wx:for="{{ msgs.records || msgs }}" wx:for-item="msg" wx:key="deliveryId">
+
+    <view class="item-summary">
+
+      <view class="activity-inf">
+        <image mode="aspectFit" src="{{ msg.activityBrandImageUrl }}" />
+        <text>{{ msg.activityName }}</text>
+      </view>
+
+      <view class="status">{{ msg.doneTime ? '已签收' : '未签收' }}</view>
+
+    </view> <!-- .item-summary -->
+
+    <view class="item-prop">
+      <view>发货单号：{{ msg.deliveryCode }}</view>
+    </view>
+
+    <view class="item-prop">
+      <view>物流公司：{{ msg.companyName }}</view>
+    </view>
+
+    <view class="item-prop actual-code">
+      <view>物流单号：{{ msg.actualCode }}</view>
+      <button size="mini" class="btn" data-actual-code="{{ msg.actualCode }}" bindtap="copyActualCode">复制单号</button>
+    </view>
+
+    <view class="item-prop total-quantity">
+      <view>共计<text>{{ msg.packageQuantity || 1 }}</text>个包裹，<text>{{ msg.skuQuantity || 1 }}</text>件物品</view>
+    </view>
+
+  </view> <!-- .delivery-msg-item -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: msgs }}" />
+
+</template>

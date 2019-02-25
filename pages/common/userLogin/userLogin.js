@@ -14,6 +14,7 @@ Page({
  页面数据
 ------------------------------ */
 data: {
+  mobile: '18064871059',
   isRegister: false,
   btnDisabled: true,
   hiddenAgreementSheet: 'hidden'

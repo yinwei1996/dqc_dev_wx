@@ -8,8 +8,6 @@
 -->
 
 <import src="../../../component/common/tabNav/tabNav.wxml" />
-<import src="../../../component/common/activityMsgsView/activityMsgsView.wxml" />
-<import src="../../../component/common/noticeMsgsView/noticeMsgsView.wxml" />
 
 <view class="msg-all">
 
@@ -37,9 +35,9 @@
   </view> <!-- .msg-nav-area -->
 
   <!-- 系统消息 -->
-  <sysMsgsView hidden="{{ hiddenSysMsgs }}" />
+  <sysMsgsPart hidden="{{ hiddenSysMsgs }}" />
 
   <!-- 物流消息 -->
-  <deliveryMsgsView hidden="{{ hiddenDeliveryMsgs }}" />
+  <deliveryMsgsPart hidden="{{ hiddenDeliveryMsgs }}" />
 
 </view>

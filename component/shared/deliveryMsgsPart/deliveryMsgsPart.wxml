@@ -1,0 +1,34 @@
+<!--
+/**
+ * 物流消息列表
+ * deliveryMsgsPart
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/deliveryMsgsView/deliveryMsgsView.wxml" />
+
+<view class="delivery-msgs-part {{ hidden }}">
+
+  <view class="delivery-search-area">
+    <view class="search-input">
+      <image class="prefix" src="../../../image/icos/search_81.png" />
+      <input value="{{ keyword }}" bindinput="inputKeyword" bindconfirm="clickSearch" />
+      <image class="suffix" src="../../../image/icos/remove_81.png" bindtap="clickCancel" wx:if="{{ keyword }}" />
+    </view>
+    <view class="search-btn" bindtap="clickSearch">搜索</view>
+  </view> <!-- .delivery-search-area -->
+
+  <!-- 活动推荐 -->
+  <scroll-view
+    scroll-y="true"
+    enable-back-to-top="true"
+    bindscrolltolower="scrollToLower"
+    style="height:{{scrollViewHeight}}">
+
+    <template is="deliveryMsgsView" data="{{ msgs: msgs }}" />
+
+  </scroll-view>
+
+</view>

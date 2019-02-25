@@ -1,8 +1,8 @@
 /**
- * 系统消息列表
- * sysMsgAll
+ * 物流消息列表
+ * deliveryMsgsPart
  * -----------------------------------
- * 19/02/23 Jerry 更新
+ * 19/02/23 Jerry 新增
  */
 
 var
@@ -22,13 +22,7 @@ properties: {
 /* ------------------------------
  组件的初始数据
 ------------------------------ */
-data: {
-  tabNavItems: [
-    { key: 'activity', text: '活动推荐' },
-    { key: 'notice', text: '公告通知' }
-  ],
-  tab: 'activity'
-},
+data: { },
 /* ------------------------------
  组件生命周期
 ------------------------------ */
@@ -80,49 +74,20 @@ methods: {
 
   },
   /* ------------------------------
-   处理Tab导航Click
-  ------------------------------ */
-  tabNavClick(e) {
-
-    var
-    tab = e.currentTarget.dataset.navKey,
-    isSame = tab == this.data.tab;
-
-    // 切换tab
-    this.setData({ tab: tab });
-
-    // 重复点击tab时，重新查询数据；
-    // 否则按分页方式查询数据。
-    this.queryMsgs( !isSame );
-  },
-  /* ------------------------------
    查询消息列表
   ------------------------------ */
   queryMsgs(paging){
 
     var
-    tab = this.data.tab,
-    existLogs = this.data[ tab + '_msgs' ],
-    pageIndex = helper.nextPageIndex( existLogs, paging ),
-    queryUrl,
-    queryArgs;
+    existMsgs = this.data.msgs,
+    keyword = this.data.keyword,
+    pageIndex = helper.nextPageIndex( existMsgs, paging );
 
     if (pageIndex < 0)
       return;
 
-    if ('activity' == tab){
-      queryUrl = 'wx/act/list';
-      queryArgs = { approveStatus: 'Enabled', onlyAttention: true, recommend: true };
-    }
-    else if ('notice' == tab){
-      queryUrl = 'wx/content/list';
-      queryArgs = { };
-    }
-
-    queryArgs[ 'pageIndex' ] = pageIndex || 0;
-
     helper.request({
-      url: helper.formatUrl(queryUrl, queryArgs),
+      url: helper.formatUrl('wx/delivery/list', { deliveryDone: true, s: keyword, pageIndex: pageIndex }),
       success: ret => this.bindMsgs(ret)
     });
 
@@ -132,8 +97,7 @@ methods: {
   ------------------------------ */
   bindMsgs(ret){
 
-    var
-    key = this.data.tab + '_msgs';
+    var key = 'msgs';
 
     // 格式化日期时间
     helper.each(ret.records, (idx, msg) => {
@@ -151,25 +115,43 @@ methods: {
     // 拼接绑定分页数据
     helper.setData(this, key, helper.concatPaging(this, key, ret));
 
+    console.log(this.data.msgs);
+
   },
   /* ------------------------------
-   点击消息
+   复制单号
   ------------------------------ */
-  clickMsg(e){
+  copyActualCode(e){
 
-    var
-      key = this.data.tab + '_msgs',
-      msgs = this.data[ key ],
-      curIdx = parseInt(e.currentTarget.dataset.idx),
-      curMsg = msgs.records[ curIdx ],
-      curImageUrl = e.target.dataset.imageUrl;
+    var actualCode = e.currentTarget.dataset.actualCode;
 
-    // 如果有图片Url，预览图片
-    if (curImageUrl) {
-      wx.previewImage({ urls: curMsg.fullImageUrls || [ curMsg.firstImageUrl ], current: curImageUrl });
-      return;
-    }
+    wx.setClipboardData({
+      data: actualCode,
+      success: () => helper.showToast('已复制单号')
+    });
 
+    console.log('copyActualCode => ' + actualCode);
+  },
+  /* ------------------------------
+   输入搜索关键词
+  ------------------------------ */
+  inputKeyword(e){
+    // 绑定数据
+    this.setData({ keyword: e.detail.value });
+    console.log('deliveryMsgsPart.inputKeyword => keyword: ' + this.data.keyword);
+  },
+  /* ------------------------------
+   移除搜索关键词
+  ------------------------------ */
+  clickCancel(){
+    this.setData({ keyword: '' });
+  },
+  /* ------------------------------
+   点击搜索
+  ------------------------------ */
+  clickSearch(){
+    // 查询消息列表
+    this.queryMsgs();
   }
 
 }

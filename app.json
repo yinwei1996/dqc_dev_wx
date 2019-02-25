@@ -23,8 +23,6 @@
     "pages/order/orderDetail/orderDetail",
     "pages/sku/skuCategory/skuCategory",
     "pages/brand/brandDetail/brandDetail",
-    "pages/bankcard/bankcardAll/bankcardAll",
-    "pages/bankcard/bankcardModify/bankcardModify",
     "pages/sku/skuCommentAll/skuCommentAll",
     "pages/sku/skuSearch/skuSearch",
     "pages/coupon/couponAll/couponAll",

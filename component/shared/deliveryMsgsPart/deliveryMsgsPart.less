@@ -1,0 +1,51 @@
+/**
+ * 物流消息列表
+ * deliveryMsgsPart
+ * -----------------------------------
+ * 19/02/23 Jerry 新增
+ */
+ 
+@import '../../../variables.less';
+@import '../../../component/common/deliveryMsgsView/deliveryMsgsView.less';
+
+.delivery-msgs-part {
+
+  .delivery-search-area {
+    .flex-between;
+    padding: 0 @text-margin-xl;
+    height: @bar-height;
+    border-bottom: @border-gray-light;
+
+    .search-input {
+      .flex-start;
+      padding: 0 @text-margin-l;
+      width: 88%;
+      border-radius: @text-margin-xxl;
+      background-color: @color-gray-light;
+
+      input {
+        margin: 0 @text-margin;
+        width: 500rpx;
+        height: @bar-height-xs;
+        text-align: left;
+        border: none;
+      }
+
+      .prefix {
+        .ico-m;
+      }
+
+      .suffix {
+        .ico-s;
+      }
+
+    } /* .search-input */
+
+    view {
+      width: 12%;
+      text-align: right;
+    }
+
+  } /* .delivery-search-area */
+
+} /* .delivery-msgs-part */

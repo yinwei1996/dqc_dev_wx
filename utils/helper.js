@@ -18,7 +18,7 @@ __cfg = {
   //host: 'https://sandbox2.hecai360.com/',
   // 开发版
   host: 'http://localbox.hecai360.com/',
-  host: 'http://localhost/',
+  //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------

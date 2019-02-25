@@ -25,7 +25,7 @@ type: { type: String, observer(newVal) { this.initType( newVal ) } }
  组件的初始数据
 ------------------------------ */
 data: {
-
+  mobile: '18064871059'
 }, /* data */
 
 /* ------------------------------

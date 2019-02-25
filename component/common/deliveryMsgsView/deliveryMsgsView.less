@@ -1,0 +1,64 @@
+/**
+ * 组件 - 物流信息（模板）
+ * -----------------------------------
+ * 19/02/25 Jerry 新增
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+.delivery-msg-item {
+  padding: 0 @text-margin-l;
+  border-bottom: @border-gray-light;
+
+  .item-summary {
+    .flex-between;
+    height: @bar-height-xl;
+
+    .status {
+      color: @color-primary;
+    } /* .status */
+
+    /* 活动信息 */
+    .activity-inf {
+      .flex-start;
+
+      image {
+        .ico-xl;
+      }
+
+      text {
+        margin-left: @text-margin-l;
+        color: @color-primary;
+        font-weight: bold;
+      }
+
+    } /* .activity-inf */
+
+  } /* .item-summary */
+
+  .item-prop {
+    .flex-start;
+    height: @bar-height;
+
+    &.actual-code {
+      position: relative;
+
+      .btn {
+        position: absolute;
+        right: 0;
+      }
+
+    } /* &.actual-code */
+
+    &.total-quantity {
+
+      text {
+        margin: 0 @text-margin-xs;
+        color: @color-red-light;
+      }
+
+    } /* &.total-quantity */
+
+  } /* .item-prop */
+
+} /* .delivery-msg-item */

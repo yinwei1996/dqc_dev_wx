@@ -40,4 +40,7 @@
   <!-- 物流消息 -->
   <deliveryMsgsPart hidden="{{ hiddenDeliveryMsgs }}" />
 
+  <!-- 活动消息 -->
+  <activityMsgsPart hidden="{{ hiddenActivityMsgs }}" />
+
 </view>

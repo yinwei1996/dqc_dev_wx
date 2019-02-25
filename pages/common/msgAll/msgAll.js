@@ -51,6 +51,9 @@ clickNav(e){
   else if (curNav === 'deliveryMsgs') {
     args.hiddenDeliveryMsgs = '';
   }
+  else if (curNav === 'activityMsgs') {
+    args.hiddenActivityMsgs = '';
+  }
 
   // 绑定数据
   this.setData(args);

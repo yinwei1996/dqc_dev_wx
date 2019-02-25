@@ -1,6 +1,7 @@
 {
   "usingComponents": {
     "sysMsgsPart": "../../../component/shared/sysMsgsPart/sysMsgsPart",
-    "deliveryMsgsPart": "../../../component/shared/deliveryMsgsPart/deliveryMsgsPart"
+    "deliveryMsgsPart": "../../../component/shared/deliveryMsgsPart/deliveryMsgsPart",
+    "activityMsgsPart": "../../../component/shared/activityMsgsPart/activityMsgsPart"
   }
 }

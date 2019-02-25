@@ -10,7 +10,7 @@
 <view class="sms-captcha-area">
 
   <view class="ipt-item">
-    <input type="number" maxlength="11" placeholder="手机号" value="18064871059" focus="true" bindinput="inputMobile" />
+    <input type="number" maxlength="11" placeholder="手机号" focus="true" bindinput="inputMobile" />
    </view>
 
   <view class="ipt-item">

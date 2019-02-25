@@ -138,7 +138,6 @@ bindLogs(ret){
   helper.setData(this, key, helper.concatPaging(this, key, ret));
 
 },
-
 /* ------------------------------
  绑定显示日志
 ------------------------------ */

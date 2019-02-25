@@ -1,9 +1,9 @@
 <!--
  /**
  * 首页
- * index.wxml
+ * index
  * -----------------------------------
- * 18/03/19 Jerry 新增
+ * 19/02/25 Jerry 更新
  */
  -->
 
@@ -27,7 +27,7 @@
     <!--  wx:if="{{ ads && ads.length }}"-->
 
     <!-- 广告楼层 -->
-    <view wx:if="{{swiperList}}">
+    <view wx:if="{{ads}}">
 
       <swiper
           indicator-dots="false"
@@ -39,13 +39,13 @@
           duration="1500"
           bindchange="changeAD">
 
-        <swiper-item wx:for="{{swiperList}}" wx:key="advertisementId">
+        <swiper-item wx:for="{{ads}}" wx:key="advertisementId">
           <image mode="widthFix" lazy-load="true" wx:if="{{item.fullImgUrl}}" src="{{item.fullImgUrl}}" data-lnk-url="{{item.linkUrl}}" bindtap="clickAD" />
         </swiper-item>
 
       </swiper>
 
-      <text class="indicator-tip">{{ swiperIndex || 1 }}/{{ swiperList.length }}</text>
+      <text class="indicator-tip">{{ adIdx || 1 }}/{{ ads.length }}</text>
 
     </view> <!-- .ad-wrapper -->
 
@@ -65,7 +65,7 @@
   </view> <!-- .ops-wrapper -->
 
   <!-- 活动楼层 -->
-  <view class="tabs floor-wrapper" wx:if="{{ activities && previewActivities }}">
+  <view class="tabs floor-wrapper">
 
     <!-- Tab导航 -->
     <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />

@@ -1,8 +1,8 @@
 /**
- * index.js - 首页
+ * 首页
+ * index
  * -----------------------------------
- * 18/03/14 Jerry 新增
- * 18/09/18 Jerry 新增活动楼层的查询及加载
+ * 19/02/25 Jerry 更新
  */
 var
   helper = require('../../../utils/helper.js');
@@ -22,7 +22,7 @@ data: {
 /* ------------------------------
  页面加载
  ------------------------------ */
-onLoad: function (opts) {
+onLoad (opts) {
 
   // 更新导航标题
   helper.navTitle('大清仓');
@@ -30,7 +30,7 @@ onLoad: function (opts) {
 /* ------------------------------
  页面显示
  ------------------------------ */
-onShow: function(){
+onShow(){
 
   // 查询数据
   this.queryData();
@@ -38,7 +38,7 @@ onShow: function(){
 /* ------------------------------
  页面隐藏
  ------------------------------ */
-onHide: function(){
+onHide(){
 
   // 清除已存在的活动计时器
   this.clearActivityTimer();
@@ -46,7 +46,7 @@ onHide: function(){
 /* ------------------------------
  下拉刷新
  ------------------------------ */
-onPullDownRefresh: function(){
+onPullDownRefresh(){
 
   // 查询数据
   this.queryData();
@@ -54,7 +54,7 @@ onPullDownRefresh: function(){
 /* ------------------------------
  分享小程序
  ------------------------------ */
-onShareAppMessage: function(){
+onShareAppMessage(){
 
   var path = helper.getSharePath(this, 'index');
 
@@ -66,9 +66,25 @@ onShareAppMessage: function(){
   }
 },
 /* ------------------------------
+ 处理Tab导航Click
+------------------------------ */
+tabNavClick(e) {
+
+  var
+  tab = e.currentTarget.dataset.navKey,
+  isSame = tab == this.data.tab;
+
+  // 切换tab
+  this.setData({ tab: tab });
+
+  // 重复点击tab时，重新查询数据；
+  // 否则按分页方式查询数据。
+  this.queryActivities( !isSame );
+},
+/* ------------------------------
  查询首页数据
  ------------------------------ */
-queryData: function(){
+queryData(){
 
   // 清除已存在的活动计时器
   this.clearActivityTimer();
@@ -78,48 +94,14 @@ queryData: function(){
 
 },
 /* ------------------------------
- 绑定显示顶部广告列表
+ 绑定显示初始数据
  ------------------------------ */
-bindData: function(ret){
-
-  // 广告
-  this.bindADs(ret.ads);
-
-  // SKU类目
-  this.bindCategories(ret.categories);
-
-  // 活动
-  this.bindActivities(ret);
-
-  // 停止下拉动画
-  wx.stopPullDownRefresh();
-
-},
-/* ------------------------------
- 绑定显示广告列表
- ------------------------------ */
-bindADs: function(recs){
-  this.setData({ swiperList: helper.bindFullImgUrl(recs) });
-},
-/* ------------------------------
- 绑定显示一级分类
- ------------------------------ */
-bindCategories(ret){
-
-  // 最多显示4个
-  ret = ret.slice(0, 4);
-
-  // 绑定分类
-  this.setData({ categories: ret });
-
-},
-/* ------------------------------
- 绑定显示活动列表
- ------------------------------ */
-bindActivities(ret){
+bindData(ret){
 
   // 绑定数据
   this.setData({
+    ads: helper.bindFullImgUrl(ret.ads),
+    categories: ret.categories.slice(0, 4),
     activities: ret.activities,
     activityCount: ret.activityCount,
     previewActivities: ret.previewActivities,
@@ -130,11 +112,14 @@ bindActivities(ret){
     ]
   });
 
+  // 停止下拉动画
+  wx.stopPullDownRefresh();
+
 },
 /* ------------------------------
  刷新限时购倒计时
 ------------------------------ */
-refreshActivityCountdown: function(){
+refreshActivityCountdown(){
 
   var
     that = this,
@@ -185,7 +170,7 @@ refreshActivityCountdown: function(){
 /* ------------------------------
  清除活动计时器
  ------------------------------ */
-clearActivityTimer: function(){
+clearActivityTimer(){
 
     if (!this.data.flashSaleCountdownTimer)
       return;
@@ -200,17 +185,17 @@ clearActivityTimer: function(){
 /* ------------------------------
  大图幻灯片切换
  ------------------------------ */
-changeAD: function(e){
-  this.setData({ swiperIndex: e.detail.current + 1 });
+changeAD(e){
+  this.setData({ adIdx: e.detail.current + 1 });
 },
 /* ------------------------------
  处理广告Click
  ------------------------------ */
-clickAD: function(e){
+clickAD(e){
 
   var
-      lnkUrl = e.currentTarget.dataset.lnkUrl,
-      m;
+    lnkUrl = e.currentTarget.dataset.lnkUrl,
+    m;
 
   if (!lnkUrl)
     return;
@@ -219,13 +204,6 @@ clickAD: function(e){
   m = /\bskuId=([a-z0-9]+)/ig.exec(lnkUrl);
   if (m) {
     helper.navigateFormat('skuDetail', { skuId: m[1] });
-    return;
-  }
-
-  // 拼团详情页
-  m = /\bpintuanId=([a-z0-9]+)/ig.exec(lnkUrl);
-  if (m) {
-    helper.navigateFormat('pintuanDetail', { pintuanId: m[1] });
     return;
   }
 
@@ -240,89 +218,50 @@ clickAD: function(e){
 /* ------------------------------
  处理搜索框Click
  ------------------------------ */
-handleSearchClick: function(){
+handleSearchClick(){
   helper.navigateTo('skuSearch');
 },
 /* ------------------------------
- 处理一级分类Click
- ------------------------------ */
-handleTypesClick: function(e){
+ 查询活动列表
+------------------------------ */
+queryActivities(paging){
 
-  var key = e.currentTarget.dataset.key;
+  var
+  tab = this.data.tab,
+  existActivities = this.data[ tab ],
+  pageIndex = helper.nextPageIndex( existActivities, paging ),
+  approveStatus;
 
-  if (!key)
+  if (pageIndex < 0)
     return;
 
-  helper.navigateFormat('skuCategory', { type1: key });
-
-},
-/* ------------------------------
- 跳转到拼团列表
- ------------------------------ */
-redirectPintuanAll: function(){
-  helper.switchTab('pintuanAll');
-},
-/* ------------------------------
- 跳转到限时购列表
- ------------------------------ */
-redirectFlashSaleAll: function(){
-  helper.navigateTo('flashSaleAll');
-},
-/* ------------------------------
- 跳转到求购列表
- ------------------------------ */
-redirectDemandAll: function(){
-  helper.navigateTo('demandAll');
-},
-/* ------------------------------
- 查询采供列表
- ------------------------------ */
-queryResale: function(){
+  if ('activities' == tab){
+    approveStatus = 'Enabled';
+  }
+  else if ('previewActivities' == tab){
+    approveStatus = 'Approved';
+  }
 
   helper.request({
-    url: 'wx/demand/all',
-    data: { pageSize: 4, pageIndex: 0 },
-    success: this.bindResale
+    url: helper.formatUrl('wx/act/list', { approveStatus, pageIndex }),
+    success: this.bindActivities
   });
 
 },
 /* ------------------------------
- 绑定采购列表
- ------------------------------ */
-bindResale: function(ret){
+ 绑定显示活动
+------------------------------ */
+bindActivities(ret){
 
-  // 绑定数据
-  helper.bindDt2readable(ret.records, 'expireTime');
+  var key = this.data.tab;
 
-  this.setData({ demandList: ret });
+  // 格式化日期时间
+  helper.bindDt2Str(ret.records, 'createTime');
 
-},
-/* ------------------------------
- 供求信息tab切换
- ------------------------------ */
-resTabClick:function (e) {
-
-  var
-      key = e.target.dataset.key,
-      depot = this.data.depot;
-
-  if (depot.res == key)
-    return;
-
-      depot['res'] = key;
-
-  if (key === 'demand') {
-    depot['idx'] = 0;
-    depot['resUrl'] = '/pages/demand/demandAll/demandAll';
-  }
-
-  if (key === 'supply') {
-    depot['idx'] = 1;
-    depot['resUrl'] = '/pages/supply/supplyAll/supplyAll';
-  }
-
-  this.setData({ depot: depot });
+  // 拼接绑定分页数据
+  helper.setData(this, key, helper.concatPaging(this, key, ret));
 
 }
+
 
 })

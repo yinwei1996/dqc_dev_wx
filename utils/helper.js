@@ -12,12 +12,10 @@ var
  全局参数
 ------------------------------ */
 __cfg = {
-  // 正式版
-  host: 'https://www.hecai360.com/',
-  // 体验版
-  //host: 'https://sandbox2.hecai360.com/',
+  // 测试版
+  host: 'https://47.102.124.0/',
   // 开发版
-  host: 'http://localbox.hecai360.com/',
+  //host: 'http://localbox.hecai360.com/',
   //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },

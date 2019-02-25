@@ -1,5 +1,6 @@
   {
   "pages": [
+    "pages/common/index/index",
     "pages/common/msgAll/msgAll",
     "pages/my/myCenter/myCenter",
     "pages/order/orderPayConfirm/orderPayConfirm",
@@ -16,7 +17,6 @@
     "pages/common/userShareModeConfig/userShareModeConfig",
     "pages/address/addressAll/addressAll",
     "pages/address/addressModify/addressModify",
-    "pages/common/index/index",
     "pages/common/userLogin/userLogin",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuDetail/skuDetail",

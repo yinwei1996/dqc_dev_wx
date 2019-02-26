@@ -1,0 +1,33 @@
+<!--
+/**
+ * 活动列表
+ * activitiesPart
+ * -----------------------------------
+ * 19/02/26 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/tabNav/tabNav.wxml" />
+<import src="../../../component/common/activitiesView/activitiesView.wxml" />
+
+<view class="activity-part tabs">
+
+  <!-- Tab导航 -->
+  <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+
+  <!-- Tab内容 -->
+  <view class="tab-content">
+
+    <!-- 活动中 -->
+    <view class="content-item {{ tab == 'activities' ? 'active' : '' }}">
+      <template is="activitiesView" data="{{ activities: activities }}" />
+    </view>
+
+    <!-- 预告 -->
+    <view class="content-item {{ tab == 'previewActivities' ? 'active' : '' }}">
+      <template is="activitiesView" data="{{ activities: previewActivities }}" />
+    </view>
+
+  </view> <!-- .tab-content -->
+
+</view> <!-- .activity-part -->

@@ -1,0 +1,31 @@
+<!--
+ /**
+ * 活动列表
+ * activityAll
+ * -----------------------------------
+ * 19/02/26 Jerry 新增
+ */
+ -->
+
+<import src="../../../component/common/searchBar/searchBar.wxml" />
+
+<view class="activity-all">
+
+  <!-- 类目列表 -->
+  <view class="category-items" wx:if="{{ categories }}">
+
+      <view class="category-item {{ categoryId == item.categoryId  ? 'sel' : '' }}"
+          wx:for="{{ categories }}"
+          wx:key="{{ categoryId }}"
+          data-idx="{{ index }}"
+          data-category-id="{{ item.categoryId }}"
+          bindtap="clickCategory">
+        <view>{{ item.categoryName }}</view>
+      </view> <!-- .category-item -->
+
+  </view> <!-- .category-items -->
+
+  <!-- 活动列表 -->
+  <activitiesPart id="activitiesPart" categoryId="{{ categoryId }}" initActivities="{{ activities }}" initPreviewActivities="{{ previewActivities }}" />
+
+</view> <!-- activity-all -->

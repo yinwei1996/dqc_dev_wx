@@ -7,15 +7,13 @@
  */
  -->
 
-<import src="../../../component/common/tabNav/tabNav.wxml" />
 <import src="../../../component/common/searchBar/searchBar.wxml" />
-<import src="../../../component/common/activitiesView/activitiesView.wxml" />
 
 <view class="index">
 
   <!-- 活动入口及搜索框 -->
   <view class="search-wrapper">
-    <image class="activity-entry" src="../../../image/icos/index_category_81.png" />
+    <image class="activity-entry" src="../../../image/icos/index_category_81.png" bindtap="clickActivityAll" />
     <template is="searchBar" bindtap="handleSearchClick" />
   </view> <!-- .search-wrapper -->
 
@@ -51,35 +49,15 @@
       <view class="category-item"
           wx:for="{{ categories }}"
           wx:key="{{ categoryId }}"
-          data-key="{{ item.categoryId }}"
-          bindtap="clickCategory">{{ item.categoryName }}</view>
+          data-category-id="{{ item.categoryId }}"
+          bindtap="clickActivityAll">{{ item.categoryName }}</view>
       </scroll-view>
 
-      <view class="category-all">全部</view>
+      <view class="category-all" bindtap="clickActivityAll">全部</view>
 
   </view> <!-- .category-wrapper -->
 
-  <!-- 活动楼层 -->
-  <view class="tabs floor-wrapper">
-
-    <!-- Tab导航 -->
-    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
-
-    <!-- Tab内容 -->
-    <view class="tab-content">
-
-      <!-- 活动中 -->
-      <view class="content-item {{ tab == 'activities' ? 'active' : '' }}">
-        <template is="activitiesView" data="{{ activities: activities }}" />
-      </view>
-
-      <!-- 预告 -->
-      <view class="content-item {{ tab == 'previewActivities' ? 'active' : '' }}">
-        <template is="activitiesView" data="{{ activities: previewActivities }}" />
-      </view>
-
-    </view> <!-- .tab-content -->
-
-  </view> <!-- .floor-wrapper -->
+  <!-- 活动列表 -->
+  <activitiesPart initActivities="{{ activities }}" initPreviewActivities="{{ previewActivities }}" />
 
 </view>

@@ -59,7 +59,7 @@ pageLifetimes: {
 methods: {
 
   /* ------------------------------
-   视图滚动到底部
+   初始化 hidden 参数
   ------------------------------ */
   initHidden(hidden){
     this.setData({ hidden });

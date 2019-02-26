@@ -16,7 +16,7 @@ __cfg = {
   host: 'https://47.102.124.0/',
   // 开发版
   //host: 'http://localbox.hecai360.com/',
-  //host: 'http://localhost/',
+  host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -41,6 +41,9 @@ __pagePath = {
   userSaleCountAll: '/pages/common/userSaleCountAll/userSaleCountAll',
   // 个人中心 - 购买服务（增值服务）
   userExServiceAll: '/pages/common/userExServiceAll/userExServiceAll',
+
+  // 活动列表
+  activityAll: '/pages/marketing/activityAll/activityAll',
 
   // 消息
   msgAll: '/pages/common/msgAll/msgAll',

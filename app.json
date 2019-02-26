@@ -1,6 +1,7 @@
   {
   "pages": [
     "pages/common/index/index",
+    "pages/marketing/activityAll/activityAll",
     "pages/common/msgAll/msgAll",
     "pages/common/userLogin/userLogin",
     "pages/common/userExServiceAll/userExServiceAll",

@@ -7,6 +7,8 @@
  */
 -->
 
+<import src="../pagingTip/pagingTip.wxml" />
+
 <template name="activitiesView">
 
   <view class="activities-view">
@@ -31,5 +33,8 @@
     </navigator> <!-- .activity-item -->
 
   </view> <!-- .activities-view -->
+
+  <!-- 分页提示 -->
+  <template is="pagingTip" data="{{ records: activities }}" />
 
 </template>

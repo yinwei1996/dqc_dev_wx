@@ -11,58 +11,53 @@
 <import src="../../../component/common/searchBar/searchBar.wxml" />
 <import src="../../../component/common/activitiesView/activitiesView.wxml" />
 
-<view>
+<view class="index">
 
+  <!-- 活动入口及搜索框 -->
   <view class="search-wrapper">
-
-    <!-- 品牌列表入口 -->
-    <image class="brand-entry" src="../../../image/icos/index_category_81.png" />
-
-    <!-- 搜索楼层（与广告保持同样的显示条件） -->
+    <image class="activity-entry" src="../../../image/icos/index_category_81.png" />
     <template is="searchBar" bindtap="handleSearchClick" />
+  </view> <!-- .search-wrapper -->
 
-  </view>
+  <!-- 广告楼层 -->
+  <view class="ad-wrapper" wx:if="{{ ads }}">
 
-  <view class="floor-wrapper ad-wrapper">
-    <!--  wx:if="{{ ads && ads.length }}"-->
+    <swiper
+        indicator-dots="false"
+        indicator-color="rgba(0, 0, 0, 0)"
+        indicator-active-color="rgba(0, 0, 0, 0)"
+        autoplay="true"
+        circular="true"
+        interval="10000"
+        duration="1500"
+        bindchange="changeAd"
+        wx:if="{{ ads }}">
+      <swiper-item wx:for="{{ ads }}" wx:key="advertisementId">
+        <image mode="widthFix" lazy-load="true" src="{{ item.fullImgUrl }}" data-lnk-url="{{ item.linkUrl }}" bindtap="clickAd" wx:if="{{ item.fullImgUrl }}" />
+      </swiper-item>
+    </swiper>
 
-    <!-- 广告楼层 -->
-    <view wx:if="{{ads}}">
+    <text class="indicator-tip">{{ adIdx || 1 }}/{{ ads.length }}</text>
 
-      <swiper
-          indicator-dots="false"
-          indicator-color="rgba(0, 0, 0, 0)"
-          indicator-active-color="rgba(0, 0, 0, 0)"
-          autoplay="true"
-          circular="true"
-          interval="10000"
-          duration="1500"
-          bindchange="changeAD">
+  </view> <!-- .ad-wrapper -->
 
-        <swiper-item wx:for="{{ads}}" wx:key="advertisementId">
-          <image mode="widthFix" lazy-load="true" wx:if="{{item.fullImgUrl}}" src="{{item.fullImgUrl}}" data-lnk-url="{{item.linkUrl}}" bindtap="clickAD" />
-        </swiper-item>
+  <!-- 活动品类 -->
+  <view class="category-wrapper" wx:if="{{ categories }}">
+    <image src="../../../image/icos/index_activity_81.png" />
+    <text class="category-label">主题活动</text>
 
-      </swiper>
+    <!-- 品类项 -->
+    <scroll-view class="category-items" scroll-x="true">
+      <view class="category-item"
+          wx:for="{{ categories }}"
+          wx:key="{{ categoryId }}"
+          data-key="{{ item.categoryId }}"
+          bindtap="clickCategory">{{ item.categoryName }}</view>
+      </scroll-view>
 
-      <text class="indicator-tip">{{ adIdx || 1 }}/{{ ads.length }}</text>
+      <view class="category-all">全部</view>
 
-    </view> <!-- .ad-wrapper -->
-
-  </view> <!-- .floor-wrapper -->
-
-  <!-- 快捷操作入口楼层 取前12条 -->
-  <view class="floor-wrapper ops-wrapper" wx:if="{{ categories }}">
-    <view class="op-item"
-        wx:for="{{ categories }}"
-        wx:key="{{ categoryId }}"
-        hover-class="none"
-        data-key="{{ item.categoryId }}"
-        bindtap="handleCategoriesClick">
-      <text>{{ item.categoryName }}</text>
-    </view>
-
-  </view> <!-- .ops-wrapper -->
+  </view> <!-- .category-wrapper -->
 
   <!-- 活动楼层 -->
   <view class="tabs floor-wrapper">
@@ -74,24 +69,14 @@
     <view class="tab-content">
 
       <!-- 活动中 -->
-      <scroll-view
-        class="content-item {{ tab == 'activities' ? 'active' : '' }}"
-        scroll-y="true"
-        enable-back-to-top="true"
-        bindscrolltolower="scrollToLower"
-        style="height:{{scrollViewHeight}}">
+      <view class="content-item {{ tab == 'activities' ? 'active' : '' }}">
         <template is="activitiesView" data="{{ activities: activities }}" />
-      </scroll-view>
+      </view>
 
       <!-- 预告 -->
-      <scroll-view
-        class="content-item {{ tab == 'previewActivities' ? 'active' : '' }}"
-        scroll-y="true"
-        enable-back-to-top="true"
-        bindscrolltolower="scrollToLower"
-        style="height:{{scrollViewHeight}}">
-        <template is="activitiesView" data="{{ orders: previewActivities }}" />
-      </scroll-view>
+      <view class="content-item {{ tab == 'previewActivities' ? 'active' : '' }}">
+        <template is="activitiesView" data="{{ activities: previewActivities }}" />
+      </view>
 
     </view> <!-- .tab-content -->
 

@@ -26,6 +26,7 @@ onLoad (opts) {
 
   // 更新导航标题
   helper.navTitle('大清仓');
+
 },
 /* ------------------------------
  页面显示
@@ -102,13 +103,11 @@ bindData(ret){
   this.setData({
     ads: helper.bindFullImgUrl(ret.ads),
     categories: ret.categories.slice(0, 4),
-    activities: ret.activities,
-    activityCount: ret.activityCount,
-    previewActivities: ret.previewActivities,
-    previewActivityCount: ret.previewActivityCount,
+    activities: helper.bindFullImgUrl(ret.activities.records, 'brandImageUrl', 'fullBrandImageUrl'),
+    previewActivities: helper.bindFullImgUrl(ret.previewActivities.records, 'brandImageUrl', 'fullBrandImageUrl'),
     tabNavItems: [
-      { key: 'activities', text: '活动中[' + ret.activityCount + ']' },
-      { key: 'previewActivities', text: '预告[' + ret.previewActivityCount + ']' }
+      { key: 'activities', text: '活动中[' + ret.activities.recordCount + ']' },
+      { key: 'previewActivities', text: '预告[' + ret.previewActivities.recordCount + ']' }
     ]
   });
 
@@ -122,8 +121,7 @@ bindData(ret){
 refreshActivityCountdown(){
 
   var
-    that = this,
-    sale = that.data.flashSale,
+    sale = this.data.flashSale,
     countdown,
     label,
     val;
@@ -132,7 +130,7 @@ refreshActivityCountdown(){
     return;
 
   // 获取倒计时秒数
-  countdown = that.data.flashSaleCountdown || sale.countdown;
+  countdown = this.data.flashSaleCountdown || sale.countdown;
 
   if (countdown && countdown > 1) {
 
@@ -141,8 +139,8 @@ refreshActivityCountdown(){
     val = helper.seconds2Str(countdown);
     countdown--;
 
-    if (!that.data.flashSaleCountdownTimer) {
-      that.setData({ flashSaleCountdownTimer: setInterval(function(){ that.refreshActivityCountdown() }, 1000) });
+    if (!this.data.flashSaleCountdownTimer) {
+      this.setData({ flashSaleCountdownTimer: setInterval(() => this.refreshActivityCountdown(), 1000) });
       console.log('已创建活动计时器');
     }
 
@@ -160,7 +158,7 @@ refreshActivityCountdown(){
   }
 
   // 同步数据
-  that.setData({
+  this.setData({
     flashSaleCountdown: countdown,
     flashSaleCountdownLabel: label,
     flashSaleCountdownVal: val
@@ -185,13 +183,13 @@ clearActivityTimer(){
 /* ------------------------------
  大图幻灯片切换
  ------------------------------ */
-changeAD(e){
+changeAd(e){
   this.setData({ adIdx: e.detail.current + 1 });
 },
 /* ------------------------------
  处理广告Click
  ------------------------------ */
-clickAD(e){
+clickAd(e){
 
   var
     lnkUrl = e.currentTarget.dataset.lnkUrl,

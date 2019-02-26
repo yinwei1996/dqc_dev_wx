@@ -25,66 +25,75 @@ __cfg = {
 __pagePath = {
   // 首页
   index: '/pages/common/index/index',
-  // 个人
+  // 登录/注册
   login: '/pages/common/userLogin/userLogin',
 
+  // 个人中心 - 用户设置
   userConfig: '/pages/common/userConfig/userConfig',
+  // 用户设置 - 品类关注设置
   userCategoryConfig: '/pages/common/userCategoryConfig/userCategoryConfig',
+  // 用户设置 - 转发设置
   userShareModeConfig: '/pages/common/userShareModeConfig/userShareModeConfig',
+  // 用户设置 - 默认支付方式
   userWxPayTypeConfig: '/pages/common/userWxPayTypeConfig/userWxPayTypeConfig',
 
+  // 个人中心 - 销售业绩 - 明细
   userSaleCountAll: '/pages/common/userSaleCountAll/userSaleCountAll',
+  // 个人中心 - 购买服务（增值服务）
   userExServiceAll: '/pages/common/userExServiceAll/userExServiceAll',
 
+  // 消息
   msgAll: '/pages/common/msgAll/msgAll',
 
+  // 个人中心 - 积分账户 - 明细
   pointLogAll: '/pages/finance/pointLogAll/pointLogAll',
+  // 个人中心 - 积分账户 - 充值
   pointRecharge: '/pages/finance/pointRecharge/pointRecharge',
 
+  // 个人中心
   myCenter: '/pages/my/myCenter/myCenter',
-  myCode: '/pages/my/myCode/myCode',
+  // 购物车
   myCart: '/pages/my/myCart/myCart',
-  // SKU
-  skuDetail: '/pages/sku/skuDetail/skuDetail',
+
+  // SKU搜索
   skuSearch: '/pages/sku/skuSearch/skuSearch',
+  // SKU品类
   skuCategory: '/pages/sku/skuCategory/skuCategory',
+  // SKU评论（非一期，可忽略）
   skuCommentAll: '/pages/sku/skuCommentAll/skuCommentAll',
-  skuHowTo: '/pages/sku/skuHowTo/skuHowTo',
-  // 品牌
+  // 品牌详情（非一期，可忽略）
   brandDetail: '/pages/brand/brandDetail/brandDetail',
-  // 活动
+  // 活动详情
   activityDetail: '/pages/activity/activityDetail/activityDetail',
-  // 订单
+
+  // 订单列表
   orderAll: '/pages/order/orderAll/orderAll',
+  // 订单下单确认
   orderConfirm: '/pages/order/orderConfirm/orderConfirm',
+  // 订单支付确认
   orderPayConfirm: '/pages/order/orderPayConfirm/orderPayConfirm',
+  // 订单支付结果
   orderPayResult: '/pages/order/orderPayResult/orderPayResult',
+  // 订单详情
   orderDetail: '/pages/order/orderDetail/orderDetail',
+  // 订单跟踪
   orderTrace: '/pages/order/orderTrace/orderTrace',
+  // 订单评论（非一期，可忽略）
   orderComment: '/pages/order/orderComment/orderComment',
-  // 发票
-  invoiceModify: '/pages/invoice/invoiceModify/invoiceModify',
-  // 退换货
+  // 售后申请列表（待调整，可忽略）
   rmaAll: '/pages/rma/rmaAll/rmaAll',
+  // 可申请售后的订单列表（待调整，可忽略）
   rmaOrders: '/pages/rma/rmaOrders/rmaOrders',
+  // 售后申请编辑（待调整，可忽略）
   rmaModify: '/pages/rma/rmaModify/rmaModify',
+  // 售后申请详情（待调整，可忽略）
   rmaDetail: '/pages/rma/rmaDetail/rmaDetail',
   // 优惠券
   couponAll: '/pages/coupon/couponAll/couponAll',
-  // 收货地址
+  // 收货地址列表
   addressAll: '/pages/address/addressAll/addressAll',
-  addressModify: '/pages/address/addressModify/addressModify',
-  // 银行卡
-  bankcardAll: '/pages/bankcard/bankcardAll/bankcardAll',
-  bankcardModify: '/pages/bankcard/bankcardModify/bankcardModify',
-  // 提现
-  withdrawalAll: '/pages/withdrawal/withdrawalAll/withdrawalAll',
-  withdrawalModify: '/pages/withdrawal/withdrawalModify/withdrawalModify',
-  withdrawalDetail: '/pages/withdrawal/withdrawalDetail/withdrawalDetail',
-
-//   消息
-  message: '/pages/my/message/message'
-
+  // 收货地址编辑
+  addressModify: '/pages/address/addressModify/addressModify'
 },
 /* ------------------------------
  tab页面定义（用于确认是否使用 switchTab 方式跳转）

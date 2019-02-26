@@ -14,7 +14,7 @@
 .search-wrapper {
   .flex-between;
 
-  .brand-entry {
+  .activity-entry {
     .ico-m;
     margin-left: @text-margin;
   }
@@ -27,11 +27,11 @@
   border-bottom: none;
 
   swiper {
-    height: 345rpx;
+    height: @bar-height * 3;
   }
 
   image {
-    width: 750rpx;
+    width: 100%;
   }
 
   .indicator-tip {
@@ -51,131 +51,37 @@
 } /* .ad-wrapper */
 
 /* 快捷入口区 */
-.ops-wrapper {
-  .clear-after;
-  padding: @text-margin 0;
-  box-sizing: border-box;
+.category-wrapper {
+  .flex-between;
+  padding: 0 @text-margin;
+  height: @bar-height;
   border-top: @border-gray-light;
 
-  .op-item {
-    display: inline-block;
-    width: 25%;
-    text-align: center;
-    margin-bottom: 15rpx;
-    image {
-      padding: 10rpx 0 5rpx;
-      width: 50rpx;
-      height: 50rpx;
-    }
-
-    text {
-      display: block;
-      text-align: center;
-      color: fade(@color-text, 70%);
-      font-size: @text-size-s3;
-    }
-
-  } /* .op-item */
-
-} /* .ops-wrapper */
-
-/* 限时购楼层 */
-.flash-sale-countdown {
-  margin-left: -@text-margin-l;
-
-  text {
-    height: 35rpx;
-    line-height: 35rpx;
-    padding: 0 5rpx;
-    font-size: @text-size-s;
-    border: @border-primary;
-    border-radius: 5rpx;
-  }
-
-  .countdown-label {
-    color: @color-white;
-    background-color: @color-primary;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-
-    &:only-child {
-      background-color: @color-gray-dark;
-      border: none;
-      border-radius: 5rpx;
-    }
-
-  } /* .countdown-label */
-
-  .countdown-val {
-    color: @color-primary;
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-  }
-
-} /* .flash-sale-countdown */
-
-.no-records {
-  display: none;
-  text-align: center;
-
   image {
-    .opacity-gray-light;
-    margin-bottom: 30rpx;
-    width: 300rpx;
-    height: 300rpx;
+    .ico-s;
   }
 
-  text {
-    display: block;
+  .category-label {
+    color: @color-primary;
   }
 
-  &:first-child {
-    display: block;
-  }
+  .category-items {
+    padding: 0 @text-margin;
+    width: 480rpx;
+    white-space: nowrap;
+    box-sizing: border-box;
+    border-left: @border-gray;
 
-} /* .no-records */
+    .category-item {
+      display: inline-block;
+      margin: 0 @text-margin-xl 0 0;
 
-/* 供求列表主页入口楼层 */
-.resale-wrapper {
+      &:last-child {
+        margin: 0;
+      }
 
-  .tit {
-    .flex-center;
-    padding: 0 220rpx;
-    border-bottom: 4rpx solid #eee;
+    } /* .category-item */
 
-    .tab {
-      width: 120rpx;
-      height: 88rpx;
-      color: #505050;
-      font-size: 28rpx;
-      line-height: 88rpx;
-      text-align: center;
-      margin-bottom:-4rpx;
-    }
+  } /* .category-items */
 
-    .active {
-      color: rgba(0, 95, 188, 1);
-      border-bottom: 4rpx solid rgba(0, 95, 188, 1);;
-    }
-
-  } /* .tab  */
-
-  .body {
-
-    .more {
-      height: 80rpx;
-      color: rgba(80, 80, 80, 1);
-      background-color: rgba(255, 255, 255, 1);
-      font-size: 28rpx;
-      line-height: 80rpx;
-      text-align: center;
-    }
-
-  } /* .body  */
-
-} /* .resale-wrapper */
-
-.noData {
-
-
-} /* .noData  */
+} /* .category-wrapper */

@@ -85,11 +85,23 @@ querySKUs: function(paging){
 ------------------------------ */
 bindSKUs: function(ret){
 
-  // 绑定SKU图片完整URL
-  helper.bindFullImgUrl(ret.records);
+  // 绑定SPU图片完整Url
+  this.bindSpuImageUrls(ret);
 
   // 绑定数据，同时隐藏搜索历史UI
   helper.setData(this, { spuMaps: helper.concatPaging(this, 'spuMaps', ret) }, false);
+
+},
+/* ------------------------------
+ 绑定SPU九宫格完整URL
+------------------------------ */
+bindSpuImageUrls: function(spuMaps){
+
+  helper.each(spuMaps.records, (idx, map) => {
+    map.fullImageUrls = [];
+    helper.each(map.imageUrls || [], (idx, url) => map.fullImageUrls.push(helper.concatFullImgUrl(url)));
+    map.priceBString = helper.fen2str(map.priceB);
+  });
 
 }
 

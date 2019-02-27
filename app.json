@@ -1,8 +1,8 @@
   {
   "pages": [
-    "pages/activity/activityDetail/activityDetail",
-    "pages/sku/skuSearch/skuSearch",
     "pages/common/index/index",
+    "pages/sku/skuSearch/skuSearch",
+    "pages/activity/activityDetail/activityDetail",
     "pages/marketing/activityAll/activityAll",
     "pages/common/msgAll/msgAll",
     "pages/common/userLogin/userLogin",

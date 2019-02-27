@@ -116,9 +116,9 @@ clickActivityAll(e){
   helper.navigateFormat('activityAll', { categoryId: e.currentTarget.dataset.categoryId });
 },
 /* ------------------------------
- 处理搜索框Click
+ 点击搜索框
  ------------------------------ */
-handleSearchClick(){
+clickSearchBar(){
   helper.navigateTo('skuSearch');
 }
 

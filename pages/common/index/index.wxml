@@ -14,7 +14,7 @@
   <!-- 活动入口及搜索框 -->
   <view class="search-wrapper">
     <image class="activity-entry" src="../../../image/icos/index_category_81.png" bindtap="clickActivityAll" />
-    <template is="searchBar" bindtap="handleSearchClick" />
+    <template is="searchBar" data="{{ readonly: true }}" />
   </view> <!-- .search-wrapper -->
 
   <!-- 广告楼层 -->

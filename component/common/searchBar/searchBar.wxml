@@ -6,32 +6,24 @@
  * 18/03/14 Jerry 新增
  */
 -->
-<import src="../filterPanel/filterPanel.wxml"/>
 
-<template name="searchBar" xmlns:wx="http://www.w3.org/1999/xhtml">
+<template name="searchBar">
 
   <!-- 输入框模式 -->
-  <block wx:if="{{inputable}}">
+  <block wx:if="{{ !readonly }}">
 
-  <view class="search-bar inputable">
+  <view class="search-bar">
 
-    <image class="prefix-ico" src="../../../image/icos/search_32.png" />
+    <view>
+      <image class="prefix" src="../../../image/icos/search_81.png" />
+      <input class="ipt" type="text" value="{{keyword}}" placeholder="输入品牌/货号/款号" confirm-type="搜索" bindinput="searchInput" bindfocus="searchFocus" bindconfirm="searchConfirm"/>
+      <image class="endfix {{ hiddenClear }}" src="../../../image/icos/remove_81.png" bindtap="searchClear" />
+    </view>
 
-    <input class="ipt" type="text" value="{{keyword}}" placeholder="输入关键词搜索商品" confirm-type="搜索" bindinput="searchInput" bindfocus="searchFocus" bindconfirm="searchConfirm"/>
-
-    <image class="endfix-ico {{hiddenClear}}" src="../../../image/icos/remove_gray_dark_48.png" bindtap="searchClear" />
-
-    <block wx:if="{{ 'hidden' != hiddenClear }}">
-      <text class="op" bindtap="searchConfirm">搜索</text>
-    </block>
-    <block wx:else>
-      <text class="op" bindtap="searchCancel">取消</text>
-    </block>
+    <text class="op" bindtap="searchConfirm" wx:if="{{ 'hidden' != hiddenClear }}">搜索</text>
+    <text class="op" bindtap="searchCancel" wx:else>取消</text>
 
   </view>
-
-    <!--  筛选模板 -->
-    <template is="filterPanel" data="{{status:status,tabText:tabText,hideMenu:hideMenu,tab:tab,brand:brand}}"/>
 
   <!-- 搜索历史 -->
   <view class="search-history {{hiddenHistory}}">
@@ -50,11 +42,12 @@
 
   </block>
 
-  <block wx:else>
-  <view class="search-bar" bindtap="handleSearchClick">
-    <image class="prefix-ico" src="../../../image/icos/search_32.png" />
-    <text class="ipt">输入关键词搜索商品</text>
+  <!-- 只读模式 -->
+  <view class="search-bar readonly" bindtap="clickSearchBar" wx:else>
+    <view>
+      <image class="prefix" src="../../../image/icos/search_81.png" />
+      <text class="ipt">输入品牌/货号/款号</text>
+    </view>
   </view>
-  </block>
 
 </template>

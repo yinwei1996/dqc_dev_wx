@@ -7,8 +7,6 @@
  */
  -->
 
-<import src="../../../component/common/searchBar/searchBar.wxml" />
-
 <view class="activity-all">
 
   <!-- 类目列表 -->

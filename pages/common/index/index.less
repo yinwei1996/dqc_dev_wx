@@ -6,15 +6,18 @@
  */
 
 @import '../../../variables.less';
-@import '../../../component/common/searchBar/searchBar.less';
 
 /* 搜索区域 */
 .search-wrapper {
-  .flex-between;
+  .flex-start;
 
   .activity-entry {
     .ico-m;
     margin: 0 @text-margin;
+  }
+
+  searchBar {
+    width: 100%;
   }
 
 } /* .search-wrapper */

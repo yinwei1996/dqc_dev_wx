@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "searchBar": "../../../component/shared/searchBar/searchBar",
     "activitiesPart": "../../../component/shared/activitiesPart/activitiesPart"
   }
 }

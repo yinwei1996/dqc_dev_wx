@@ -1,260 +1,32 @@
 <!--
 /**
- * 搜索入口
- * searchEntry.wxml
+ * SKU搜索
+ * skuSearch
  * -----------------------------------
- * 18/03/26 Jerry 新增
+ * 19/02/27 Jerry 新增
  */
 -->
 
-<import src="../../../component/common/searchBar/searchBar.wxml" />
-<import src="../../../component/common/skusView/skusView.wxml" />
-
-<template is="searchBar"
-  data="{{ inputable: inputable, opText: opText, keyword: inputKeyword, histories: histories, hiddenClear: hiddenClear, hiddenHistory: hiddenHistory }}" />
-
-
+<import src="../../../component/common/activitySpusView/activitySpusView.wxml" />
 
 <view class="sku-all">
 
-  <view class="lst-nav">
-
-    <view class="sort-item {{ sort.isSelected ? 'sel' : '' }}"
-      data-key="multiple"
-      bindtap="showFilterSheet">
-
-      <text>综合</text>
-      <image class="multipleIcon {{ hiddenMultipleLayer ? 'rotate90' : 'rotate270' }}" src="../../../image/icos/arrow_right_48.png" />
-
-    </view>
-
-    <view class="sort-item"
-      bindtap="lstImgSwitchClick">
-
-      <text>{{ lstImgSwitch ? '图片' : '列表' }}</text>
-
-    </view>
-
-    <view class="sort-item {{ sort.isSelected ? 'sel' : '' }}"
-      data-key="filter"
-      bindtap="showFilterSheet">
-
-      <text class="{{ index }}">筛选</text>
-      <text class="countTags" wx:if="{{ countTags !=0 && countTags }}">{{ countTags }}</text>
-      <image wx:else class="filterIcon" src="../../../image/images/filter.png" />
-
-    </view>
-
-  </view>
+  <searchBar keyword="{{ keyword }}" bind:confirm="searchConfirm" />
 
   <view class="sku-wrapper">
 
     <!-- sku -->
     <scroll-view
-            scroll-y="true"
-            enable-back-to-top="true"
-            style="height:{{scrollViewHeight}}"
-            bindscrolltolower="scrollToLower">
+      scroll-y="true"
+      enable-back-to-top="true"
+      style="height:{{scrollViewHeight}}"
+      bindscrolltolower="scrollToLower">
 
-      <template is="skusView" data="{{ skus: skus, lst: lstImgSwitch }}" />
+    <template is="activitySpusView" data="{{ spus: spuMaps }}" />
 
     </scroll-view>
 
-    <!--综合 弹层-->
-    <view class="muptile-floor">
-
-      <!-- 遮罩层 -->
-      <view class="mask {{ hiddenMultipleLayer }}" bindtap="hideLayer"></view>
-
-      <!-- 综合-浮动层 -->
-      <view class="muptile-sheet {{ hiddenMultipleLayer }}">
-
-        <block wx:for="{{ skus.sortFields }}"
-               wx:key="{{ item.id }}">
-
-          <block wx:if="{{ item.isAscEnabled && item.isDescEnabled }}">
-
-            <block wx:if="{{ item.name == '货期' }}">
-
-              <view class="m-item"
-                    data-val="{{ item.nextVal }}"
-                    bindtap="multipleItemClick">
-
-                <text>货期升序</text>
-
-                <image wx:if="{{ item.isAscSelected }}" src="../../../image/images/checked.png" />
-
-              </view>
-
-              <view class="m-item"
-                    data-val="{{ item.nextVal }}"
-                    bindtap="multipleItemClick">
-
-                <text>货期降序</text>
-
-                <image wx:if="{{ item.isDescSelected }}" src="../../../image/images/checked.png" />
-
-              </view>
-
-            </block>
-
-            <block wx:if="{{ item.name == '价格' }}">
-
-              <view class="m-item"
-                    data-val="{{ item.nextVal }}"
-                    bindtap="multipleItemClick">
-
-                <text>价格升序</text>
-
-                  <image wx:if="{{ item.isAscSelected }}" src="../../../image/images/checked.png" />
-
-              </view>
-
-              <view class="m-item"
-                    data-val="{{ item.nextVal }}"
-                    bindtap="multipleItemClick">
-
-                <text>价格降序</text>
-
-                <image wx:if="{{ item.isDescSelected }}" src="../../../image/images/checked.png" />
-
-              </view>
-
-            </block>
-
-
-          </block>
-
-          <block wx:else>
-
-            <view class="m-item"
-                  data-val="{{ item.nextVal }}"
-                  bindtap="multipleItemClick">
-
-              <text>{{ item.name }}</text>
-
-                <image wx:if="{{ item.isSelected }}" src="../../../image/images/checked.png" />
-
-            </view>
-
-          </block>
-
-        </block>
-
-      </view> <!-- .muptile-floor -->
-
-    </view>
-
-  </view>
-
-  <!--筛选 弹层-->
-  <view class="filter-floor">
-
-    <!-- 遮罩层 -->
-    <view class="mask {{ hiddenFilterLayer }}" bindtap="hideLayer"></view>
-
-    <!-- 筛选 浮动层 -->
-    <view class="filter-sheet {{ hiddenFilterLayer }}">
-
-      <scroll-view
-              scroll-y="true"
-              enable-back-to-top="true"
-              style="height:{{scrollViewHeight}}">
-
-        <!-- 筛选 可多选标签 -->
-        <!--<view class="filter-tag">-->
-          <!--<view-->
-            <!--class="tag-item {{ item.isSelected ? 'sel':'' }}"-->
-            <!--wx:for="{{ tags }}"-->
-            <!--wx:key="id"-->
-            <!--data-id="{{ item.id }}"-->
-            <!--data-index="{{ index }}"-->
-            <!--data-select="{{ item.isSelected }}"-->
-            <!--bindtap="optTagClick">-->
-              <!--{{ item.name }}-->
-          <!--</view>-->
-        <!--</view>-->
-
-        <!--价格筛选-->
-        <!--<view class="filter-tag">-->
-          <!--<view class="title">-->
-            <!--<text>价格</text>-->
-          <!--</view>-->
-          <!--<view class="price-box">-->
-            <!--<input class="ipt" type="number" placeholder="最低价" bindinput="inputMinPrice" />-->
-            <!--<view>—</view>-->
-            <!--<input class="ipt" type="number" placeholder="最高价" bindinput="inputMaxPrice" />-->
-          <!--</view>-->
-        <!--</view>-->
-
-        <!-- 筛选 品牌分组 -->
-        <view class="filter-tag" wx:if="{{ filterBrandGroups }}">
-
-          <view
-              class="title border-bom"
-              bindtap="filterBrandClick">
-
-            <text>{{ filterBrandGroups.name }}</text>
-            <image class="multipleIcon {{ hiddenFilterBrand ? 'rotate270' : 'rotate90' }}" src="../../../image/icos/arrow_right_48.png" />
-          </view>
-
-          <view wx:if="{{ hiddenFilterBrand }}">
-
-            <view class="tag-item {{ item.selected ? 'sel':'' }}"
-                wx:for="{{ filterBrandGroups.fields }}"
-                wx:key="id"
-                data-index="{{ index }}"
-                data-select="{{ item.selected }}"
-                data-type="brand"
-                bindtap="optTagClick">
-
-                {{ item.name }}
-            </view>
-
-          </view>
-
-        </view>
-
-        <!-- 筛选 其他分组 -->
-        <view class="filter-tag"
-            wx:for="{{ otherGroups }}"
-            wx:key="groups"
-            wx:for-item="groups"
-            wx:for-index="aIndex">
-
-            <view class="title border-bom">
-              <text>{{ groups.name }}</text>
-            </view>
-
-            <view>
-              <view wx:for="{{ groups.fields }}"
-                wx:key="id"
-                wx:for-item="group"
-                class="tag-item {{ group.selected ? 'sel':'' }}"
-                wx:for-index="bIndex"
-                data-aindex="{{ aIndex }}"
-                data-bindex="{{ bIndex }}"
-                data-select="{{ group.selected }}"
-                bindtap="optTagClick">
-
-                {{ group.name }}
-              </view>
-            </view>
-
-        </view>
-
-      </scroll-view>
-
-      <view class="filter-btn">
-        <view class="reset" bindtap="resettingClick">重置</view>
-        <view class="confirm" bindtap="saveFilterClick">确定
-          <text class="countTags" wx:if="{{ countTags !=0 && countTags }}">{{ countTags }}</text>
-        </view>
-      </view>
-
-    </view> <!-- .filter-sheet -->
-
-  </view>
+  </view> <!-- .sku-wrapper -->
 
 </view>
 

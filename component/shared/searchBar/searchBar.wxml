@@ -1,0 +1,59 @@
+<!--
+/**
+ * 组件 - 搜索栏
+ * searchBar
+ * -----------------------------------
+ * 19/02/27 Jerry 新增
+ */
+-->
+
+<!-- 输入框模式 -->
+<block wx:if="{{ !readonly }}">
+
+  <view class="search-bar">
+
+    <view>
+      <image class="prefix" src="../../../image/icos/search_81.png" />
+      <input type="text"
+        class="ipt"
+        value="{{ keyword }}"
+        placeholder="输入品牌/货号/款号"
+        confirm-type="搜索"
+        bindinput="searchInput"
+        bindfocus="searchFocus"
+        bindconfirm="searchConfirm"/>
+      <image class="endfix {{ keyword ? '' : 'hidden' }}" src="../../../image/icos/remove_81.png" bindtap="searchClear" />
+    </view>
+
+    <text class="op" bindtap="searchConfirm" wx:if="{{ keyword }}">搜索</text>
+    <text class="op" bindtap="searchCancel" wx:else>取消</text>
+
+  </view>
+
+  <!-- 搜索历史 -->
+  <view class="search-history {{ hiddenHistory }}">
+
+    <!-- 没有搜索历史的，只要 hiddenHistory 不等于 hidden，仍要显示出来进行屏幕展位 -->
+    <block wx:if="{{ histories != null && histories.length }}">
+
+      <view class="title">
+        <text>历史记录</text>
+        <image src="../../../image/icos/trash_gray_dark_48.png" bindtap="searchHistoryClear" />
+      </view>
+      <view class="body">
+        <text wx:for="{{ histories }}" wx:key="item" data-keyword="{{item}}" bindtap="clickHistory">{{ item }}</text>
+      </view>
+
+    </block>
+
+  </view> <!-- .search-history -->
+
+</block>
+
+<!-- 只读模式 -->
+<view class="search-bar readonly" bindtap="clickBar" wx:else>
+  <view>
+    <image class="prefix" src="../../../image/icos/search_81.png" />
+    <text class="ipt">输入品牌/货号/款号</text>
+  </view>
+</view>

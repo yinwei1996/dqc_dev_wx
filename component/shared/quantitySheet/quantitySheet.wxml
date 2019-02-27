@@ -16,12 +16,12 @@
   <view class="quantity-content {{hidden}}" wx:if="{{sku}}">
 
     <!-- 关闭Sheet -->
-    <image class="op-cancel" src="../../../image/icos/remove_48.png" bindtap="closeSheet" />
+    <image class="op-cancel" src="../../../image/icos/remove_81.png" bindtap="closeSheet" />
 
     <view class="sku-inf">
 
       <!-- SKU小图 -->
-      <image class="sku-img" src="{{ sku.fullImageUrl }}" />
+      <image mode="aspectFill" class="sku-img" src="{{ sku.fullImageUrl }}" />
 
       <view class="sku-text">
         <view class="sku-name">{{ sku.skuName }}</view>

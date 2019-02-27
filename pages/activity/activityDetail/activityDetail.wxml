@@ -81,8 +81,8 @@
 
         <!-- SPU操作按钮 -->
         <view class="op-btns-fixed">
-          <button class="btn btn-primary-outline" bindtap="downloadCombinedImage">下载全部合成图片</button>
-          <button class="btn btn-primary-outline" bindtap="copyH5Url">转发活动H5链接</button>
+          <button class="btn btn-primary-outline" data-activity-id="{{ activity.activityId }}" bindtap="downloadCombinedImage">下载全部合成图片</button>
+          <button class="btn btn-primary-outline" data-activity-id="{{ activity.activityId }}" bindtap="copyH5Url">转发活动H5链接</button>
         </view> <!-- .op-btns-fixed -->
 
       </view>

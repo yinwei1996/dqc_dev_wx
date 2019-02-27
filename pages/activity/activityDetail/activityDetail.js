@@ -173,7 +173,7 @@ bindSPUs(ret){
 querySKUs(batchId, spuId){
 
   helper.request({
-    url: helper.formatUrl('/wx/act/sku/list', { batchId: batchId, spuId: spuId }),
+    url: helper.formatUrl('/wx/act/sku/list', { batchId, spuId }),
     success: this.bindSKUs
   });
 
@@ -184,6 +184,7 @@ querySKUs(batchId, spuId){
 bindSKUs(skuMaps){
 
   helper.each(skuMaps, (idx, map) => {
+    map.fullImageUrl = helper.concatFullImgUrl(map.imageUrl);
     map.priceBString = helper.fen2str(map.priceB);
     map.marketPriceString = helper.fen2str(map.marketPrice);
     map.quantity = 1;
@@ -205,11 +206,19 @@ clickSpu(e){
     spuMaps = this.data.spuMaps,
     curIdx = parseInt(e.currentTarget.dataset.idx),
     curMap = spuMaps.records[ curIdx ],
-    curImageUrl = e.target.dataset.imageUrl;
+    curImageUrl = e.target.dataset.imageUrl,
+    action = e.target.dataset.action;
 
   // 如果有图片Url，预览图片
   if (curImageUrl) {
     wx.previewImage({ urls: curMap.fullImageUrls, current: curImageUrl });
+    return;
+  }
+
+  // 加入购物车
+  if (action === 'addCart') {
+    // 查询相关SKU映射列表
+    this.querySKUs(curMap.batchId, curMap.spuId);
     return;
   }
 
@@ -239,18 +248,79 @@ clickSortItem(e){
 
 },
 /* ------------------------------
- 处理SPUClick
+ 下载全部合成图片
 ------------------------------ */
-clickSpuOPs(e){
+downloadCombinedImage(e){
 
-  var
-  batchId = e.currentTarget.dataset.batchId,
-  spuId = e.currentTarget.dataset.spuId,
-  action = e.target.dataset.action,
-  curMap = null;
+  var activityId = e.currentTarget.dataset.activityId;
 
-  // 查询相关SKU映射列表
-  this.querySKUs(batchId, spuId);
+  helper.request({
+    loading: true,
+      url: 'wx/act/poster',
+      data: { activityId },
+      success: (ret) => {
+        // 绑定海报URL
+        this.setData({ posterUrl: ret.url });
+        // 保存海报图片
+        this.savePoster();
+    }
+  });
+
+},
+/* ------------------------------
+ 保存商品海报之前获取授权
+------------------------------ */
+savePoster(){
+
+  wx.authorize({
+    scope: 'scope.writePhotosAlbum',
+    success: this.savePosterImpl,
+    fail: () => {
+      // 保存失败
+      wx.showModal({
+        title: '提示',
+        content: '您未授权大清仓保存图片到系统相册，相关功能暂不可用。',
+        showCancel: false,
+        confirmText: '知道了'
+      });
+
+    }
+  });
+
+},
+/* ------------------------------
+ 保存商品海报到系统相册
+------------------------------ */
+savePosterImpl(){
+
+  var posterUrl = this.data.posterUrl;
+
+  // 下载海报到本地
+  wx.downloadFile({
+    url: posterUrl,
+    success: (ret) => {
+      // 保存图片到系统相册
+      wx.saveImageToPhotosAlbum({
+        filePath: ret.tempFilePath,
+        success: () => wx.showToast({ title: '已保存商品海报', icon: 'success' })
+      });
+    }
+  });
+
+},
+/* ------------------------------
+ 转发活动H5链接
+------------------------------ */
+copyH5Url(e){
+
+  var activityId = e.currentTarget.dataset.activityId;
+
+  helper.request({
+    loading: true,
+      url: 'wx/act/shareUrl',
+      data: { activityId },
+      success: (ret) => helper.showToast(ret.url, 'none')
+  });
 
 },
 /* ------------------------------

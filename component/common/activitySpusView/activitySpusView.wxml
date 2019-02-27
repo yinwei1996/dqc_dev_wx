@@ -15,7 +15,7 @@
 
     <view class="spu-item"
       data-idx="{{ index }}"
-     bindtap="clickSpu"
+      bindtap="clickSpu"
       wx:for="{{ spus.records || spus }}"
       wx:for-item="spu"
       wx:key="spuId">
@@ -40,13 +40,13 @@
       </view> <!-- .spu-price -->
 
       <!-- 操作区 -->
-      <view class="spu-ops" data-batch-id="{{ spu.batchId }}" data-spu-id="{{ spu.spuId }}" catchtap="clickSpuOPs">
+      <view class="spu-ops">
 
         <view>
           <!-- 买家 - 商品关注 -->
           <button size="mini" class="btn" data-action="follow">商品关注</button>
           <!-- 买家 - 售前咨询 -->
-          <button size="mini" class="btn" data-action="contact">售前咨询</button>
+          <button size="mini" class="btn" open-type="contact">售前咨询</button>
         </view>
 
         <view>

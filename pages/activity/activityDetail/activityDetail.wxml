@@ -7,6 +7,7 @@
  */
 -->
 
+<import src="../../../component/common/tabNav/tabNav.wxml" />
 <import src="../../../component/common/activitySpusView/activitySpusView.wxml" />
 
 <view class="activity-detail">
@@ -16,7 +17,7 @@
 
     <!-- 活动首图 -->
     <view class="activity-image">
-    <image src="../../../image/deli_logo.png" />
+    <image mode="aspectFit" src="{{ activity.fullBrandImageUrl }}" />
     </view> <!-- .activity-image -->
 
     <!-- 活动信息 -->
@@ -27,16 +28,73 @@
 
   </view> <!-- .activity-top -->
 
-  <!-- 商品列表 -->
-  <scroll-view
-    scroll-y="true"
-    enable-back-to-top="true"
-    bindscrolltolower="scrollToLower"
-    style="height:{{scrollViewHeight}}">
+  <!-- Tab区域 -->
+  <view class="tabs">
 
-    <template is="activitySpusView" data="{{ spus: spuMaps }}" />
+    <!-- Tab导航 -->
+    <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
 
-  </scroll-view>
+    <!-- Tab内容 -->
+    <view class="tab-content body">
+
+      <!-- 活动SPU列表 -->
+      <view class="content-item {{ tab == 'spuMaps' ? 'active' : '' }}">
+
+        <!-- 排序菜单 -->
+        <view class="sort-menu">
+
+          <!-- 排序标签 -->
+          <view class="sort-label {{ hiddenSortItems === '' ? 'open' : '' }}" bindtap="clickSortLabel">
+            <text>{{ sortLabelText || '综合' }}</text>
+            <image src="{{ sortLabelIco || '../../../image/icos/sort_up_81.png' }}" />
+          </view> <!-- .sort-label -->
+
+          <!-- 排序项 -->
+          <view class="sort-items {{ hiddenSortItems }}">
+
+            <view class="sort-item" data-key="" bindtap="clickSortItem">
+              <text>综合</text><image src="../../../image/icos/sort_up_81.png" />
+            </view>
+
+            <view class="sort-item" data-key="priceBAsc" data-text="销售价" data-ico="../../../image/icos/sort_up_81.png" bindtap="clickSortItem">
+              <text>销售价</text><image src="../../../image/icos/sort_up_81.png" />
+            </view>
+
+            <view class="sort-item" data-key="priceBDesc" data-text="销售价" data-ico="../../../image/icos/sort_down_81.png" bindtap="clickSortItem">
+              <text>销售价</text><image src="../../../image/icos/sort_down_81.png" />
+            </view>
+
+          </view> <!-- .sort-items -->
+
+        </view> <!-- .sort-menu -->
+
+        <!-- 商品列表 -->
+        <scroll-view
+          scroll-y="true"
+          enable-back-to-top="true"
+          bindscrolltolower="scrollToLower"
+          style="height:{{scrollViewHeight}}">
+
+          <template is="activitySpusView" data="{{ spus: spuMaps }}" />
+
+        </scroll-view>
+
+        <!-- SPU操作按钮 -->
+        <view class="op-btns-fixed">
+          <button class="btn btn-primary-outline" bindtap="downloadCombinedImage">下载全部合成图片</button>
+          <button class="btn btn-primary-outline" bindtap="copyH5Url">转发活动H5链接</button>
+        </view> <!-- .op-btns-fixed -->
+
+      </view>
+
+      <!-- 活动素材列表 -->
+      <view class="content-item {{ tab == 'material' ? 'active' : '' }}">
+        活动素材TODO
+      </view>
+
+    </view> <!-- .tab-content -->
+
+  </view> <!-- .tabs -->
 
   <!-- 数量选择Sheet -->
   <quantitySheet id="quantitySheet"

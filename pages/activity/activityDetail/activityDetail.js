@@ -14,7 +14,13 @@ Page({
  页面数据
 ------------------------------ */
 data: {
-  hiddenQuantitySheet: 'hidden'
+  hiddenSortItems: 'hidden',
+  hiddenQuantitySheet: 'hidden',
+  tabNavItems: [
+    { key: 'spuMaps', text: '商品列表' },
+    { key: 'material', text: '内容素材' }
+  ],
+  tab: 'spuMaps'
 },
 /* ------------------------------
  页面加载
@@ -39,7 +45,7 @@ onLoad: function (opts) {
   helper.navTitle('活动专场');
 
   // 设置scroll-view高度
-  helper.setScrollViewHeight(this, 200);
+  helper.setScrollViewHeight(this, 340);
 
   // 绑定数据
   helper.setData(this, { activityId: activityId });
@@ -61,6 +67,22 @@ scrollToLower: function(){
   this.querySPUs('scrollend');
 },
 /* ------------------------------
+ 处理Tab导航Click
+------------------------------ */
+tabNavClick(e) {
+
+  var
+  tab = e.currentTarget.dataset.navKey,
+  isSame = tab == this.data.tab;
+
+  // 切换tab
+  this.setData({ tab: tab });
+
+  // 重复点击tab时，重新查询数据；
+  // 否则按分页方式查询数据。
+  this.querySPUs( !isSame );
+},
+/* ------------------------------
  查询活动详情
 ------------------------------ */
 queryActivity: function(){
@@ -77,27 +99,33 @@ queryActivity: function(){
 ------------------------------ */
 bindActivity: function(ret){
 
-  this.bindSpuImageUrls(ret);
+  var
+    tabNavItems = this.data.tabNavItems,
+    activity = ret.activity,
+    spuMaps = ret.spuMaps;
+
+  // 绑定活动品牌完整Url
+  activity.fullBrandImageUrl = helper.concatFullImgUrl(activity.brandImageUrl);
+
+  // 绑定SPU图片完整Url
+  this.bindSpuImageUrls(spuMaps);
+
+  // Tab导航项的数量显示
+  tabNavItems[ 0 ].count = spuMaps.recordCount;
 
   // 绑定数据
-  helper.setData(this, ret);
+  this.setData({ activity, spuMaps, tabNavItems });
 
 },
 /* ------------------------------
  绑定SPU九宫格完整URL
 ------------------------------ */
-bindSpuImageUrls: function(ret){
+bindSpuImageUrls: function(spuMaps){
 
-  // TODO 1902
-  helper.each(ret.spuMaps.records, function(idx, map){
-
+  helper.each(spuMaps.records, (idx, map) => {
     map.fullImageUrls = [];
-
-    for (var idx = 0; idx < 9; idx++)
-      map.fullImageUrls.push('../../../image/deli_logo.png');
-
+    helper.each(map.imageUrls || [], (idx, url) => map.fullImageUrls.push(helper.concatFullImgUrl(url)));
     map.priceBString = helper.fen2str(map.priceB);
-
   });
 
 },
@@ -109,13 +137,14 @@ querySPUs(paging){
   var
   activityId = this.data.activityId,
   existSPUs = this.data.spuMaps,
+  sort = this.data.sort,
   pageIndex = helper.nextPageIndex( existSPUs, paging );
 
   if (pageIndex < 0)
     return;
 
   helper.request({
-    url: helper.formatUrl('/wx/act/spu/list', { activityId: activityId, pageIndex: pageIndex }),
+    url: helper.formatUrl('/wx/act/spu/list', { activityId, sort, pageIndex }),
     success: this.bindSPUs
   });
 
@@ -124,8 +153,18 @@ querySPUs(paging){
  绑定显示SPU列表
 ------------------------------ */
 bindSPUs(ret){
+
+  var tabNavItems = this.data.tabNavItems;
+
+  // 绑定SPU图片完整Url
+  this.bindSpuImageUrls(ret);
+
+  // Tab导航项的数量显示
+  tabNavItems[ 0 ].count = ret.recordCount;
+
   // 绑定数据
-  helper.setData(this, { spuMaps: helper.concatPaging(this, 'spuMaps', ret) }, false);
+  this.setData({ spuMaps: helper.concatPaging(this, 'spuMaps', ret), tabNavItems });
+
 },
 
 /* ------------------------------
@@ -144,9 +183,9 @@ querySKUs(batchId, spuId){
 ------------------------------ */
 bindSKUs(skuMaps){
 
-  helper.each(skuMaps, function(idx, map){
+  helper.each(skuMaps, (idx, map) => {
     map.priceBString = helper.fen2str(map.priceB);
-    map.fullImageUrl = '../../../image/deli_logo.png';
+    map.marketPriceString = helper.fen2str(map.marketPrice);
     map.quantity = 1;
   });
 
@@ -155,6 +194,48 @@ bindSKUs(skuMaps){
 
   // 加购物车
   this.showQuantitySheet();
+
+},
+/* ------------------------------
+ 点击图片
+------------------------------ */
+clickSpu(e){
+
+  var
+    spuMaps = this.data.spuMaps,
+    curIdx = parseInt(e.currentTarget.dataset.idx),
+    curMap = spuMaps.records[ curIdx ],
+    curImageUrl = e.target.dataset.imageUrl;
+
+  // 如果有图片Url，预览图片
+  if (curImageUrl) {
+    wx.previewImage({ urls: curMap.fullImageUrls, current: curImageUrl });
+    return;
+  }
+
+},
+/* ------------------------------
+ 点击排序标签
+------------------------------ */
+clickSortLabel(){
+  this.setData({ hiddenSortItems: this.data.hiddenSortItems === 'hidden' ? ''  : 'hidden'});
+},
+/* ------------------------------
+ 点击排序项
+------------------------------ */
+clickSortItem(e){
+
+  var
+    ds = e.currentTarget.dataset,
+    sort = ds.key,
+    sortLabelText = ds.text || '',
+    sortLabelIco = ds.ico || '';
+
+  // 绑定数据
+  this.setData({ sortLabelText, sortLabelIco, sort, hiddenSortItems: 'hidden' });
+
+  // 查询SPU列表
+  this.querySPUs();
 
 },
 /* ------------------------------

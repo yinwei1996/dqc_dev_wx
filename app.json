@@ -1,5 +1,6 @@
   {
   "pages": [
+    "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuSearch/skuSearch",
     "pages/common/index/index",
     "pages/marketing/activityAll/activityAll",
@@ -17,7 +18,6 @@
     "pages/finance/pointLogAll/pointLogAll",
     "pages/address/addressAll/addressAll",
     "pages/address/addressModify/addressModify",
-    "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuCategory/skuCategory",
     "pages/sku/skuCommentAll/skuCommentAll",
     "pages/brand/brandDetail/brandDetail",

@@ -13,7 +13,12 @@
 
   <view>
 
-    <view class="spu-item" wx:for="{{ spus.records || spus }}" wx:for-item="spu" wx:key="spuId">
+    <view class="spu-item"
+      data-idx="{{ index }}"
+     bindtap="clickSpu"
+      wx:for="{{ spus.records || spus }}"
+      wx:for-item="spu"
+      wx:key="spuId">
 
       <!-- SPU信息 -->
       <view class="spu-text">
@@ -23,15 +28,15 @@
 
       <!-- SPU图片 -->
       <view class="spu-images">
-        <view class="spu-image" wx:for="{{ spu.fullImageUrls }}" wx:for-item="imgUrl" wx:key="url">
-          <image src="{{ imgUrl }}" />
+        <view class="spu-image" wx:for="{{ spu.fullImageUrls }}" wx:key="url">
+          <image src="{{ item }}" mode="aspectFill" lazy-load="true" data-image-url="{{ item }}" />
         </view>
       </view>
 
       <!-- 销售价 -->
       <view class="spu-price">
         <text class="price">销售价：<text>￥{{ spu.priceBString }}</text></text>
-        <text class="market-price" wx:if="{{ spu.marketPrice }}">￥{{ spu.marketPrice }}</text>
+        <text class="market-price" wx:if="{{ spu.marketPrice }}">￥{{ spu.marketPriceString }}</text>
       </view> <!-- .spu-price -->
 
       <!-- 操作区 -->

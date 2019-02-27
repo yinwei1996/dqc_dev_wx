@@ -6,6 +6,7 @@
  */
 
 @import '../../../variables.less';
+@import '../../../component/common/tabNav/tabNav.less';
 @import '../../../component/common/activitySpusView/activitySpusView.less';
 
 .activity-detail {
@@ -46,5 +47,77 @@
     } /* .activity-text */
 
   } /* .activity-top */
+
+  /* Tab容器 */
+  .tabs {
+    position: relative;
+
+    .tab-nav {
+      padding-right: @bar-height * 2;
+    } /* .tab-nav */
+
+    .sort-menu {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 1;
+
+      .sort-label {
+        .flex-center;
+        width: @bar-height * 2;
+        height: @bar-height;
+        border-left: @border-gray-light;
+        border-bottom: solid 4rpx transparent;
+
+        image {
+          .ico-m;
+        }
+
+        text {
+          margin-right: @text-margin-xs;
+        }
+
+        &.open {
+          background-color: @color-white;
+        } /* &.open */
+
+      } /* .sort-label */
+
+      .sort-items {
+        position: absolute;
+        top: @bar-height;
+        right: 0;
+        z-index: 2;
+        border-left: @border-gray-light;
+        border-bottom: @border-gray-light;
+        background-color: @color-white;
+        border-bottom-left-radius: @text-margin-s;
+
+        .sort-item {
+          .flex-end;
+          padding: 0 @text-margin-s;
+          width: @bar-height-s * 3;
+          height: @bar-height;
+          border-bottom: @border-gray-light;
+
+          text {
+            margin-right: @text-margin-s;
+          }
+
+          image {
+            .ico-m;
+          }
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+        } /* .sort-item */
+
+      } /* .sort-items */
+
+    } /* .sort-menu */
+
+  } /* .tabs */
 
 } /* .activity-detail */

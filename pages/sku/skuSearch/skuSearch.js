@@ -13,17 +13,14 @@ Page({
 /* ------------------------------
  页面数据
 ------------------------------ */
-data: {
-  inputable: true,
-  focus: true
-},
+data: { },
 /* ------------------------------
  页面加载
 ------------------------------ */
 onLoad: function(opts){
 
   var
-  keyword = opts.keyword,
+  keyword = opts.keyword || 'hello',
   // 如果没有传入关键词，显示搜索历史
   histories = !keyword ? wx.getStorageSync('searchHistory') : null;
 

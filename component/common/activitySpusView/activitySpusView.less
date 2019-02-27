@@ -19,23 +19,27 @@
 
   .spu-images {
     .clear-after;
-    padding: 65rpx;
+    padding: @text-margin-xl;
 
-    .spu-image {
+    view {
       float: left;
-      margin-left: @text-margin-l;
+      .flex-center;
 
       image {
-        width: @bar-height * 2;
-        height: @bar-height * 2;
+        margin: 0 @text-margin @text-margin 0;
+        width: @bar-height-l * 2;
+        height: @bar-height-l * 2;
       }
 
-      &:nth-child(3n),
-      &:last-child {
-        margin-right: 0;
+      &:nth-child(3n) {
+
+        image {
+          margin-right: 0;
+        }
+
       }
 
-    } /* .spu-image */
+    } /* view */
 
   } /* .spu-images */
 

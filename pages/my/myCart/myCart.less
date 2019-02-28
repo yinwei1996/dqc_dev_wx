@@ -1,20 +1,19 @@
 /**
- * 采购单样式
- * myCart.less
+ * 购物车
+ * myCart
  * -----------------------------------
- * 18/03/21 Jerry 新增
+ * 19/02/28 Jerry 更新
  */
 
 @import '../../../variables.less';
 @import '../../../component/common/pagingTip/pagingTip.less';
 
-/* 采购单 */
 .my-cart {
   /* 留出底部"统计"栏的高度，总计：100rpx。这里扣掉 最后一个 .cart-item 的 margin-bottom 10rpx，剩 90rpx */
   padding-bottom: 70rpx;
 
-  /* 商家信息 */
-  .seller-title {
+  /* 活动信息 */
+  .activity-inf {
     .flex-start;
     padding:@text-margin-l;
     border-bottom: @border-gray-light;
@@ -23,15 +22,15 @@
       margin-right: @text-margin-s;
     }
 
-  } /* .seller-title */
+  } /* .activity-inf */
 
-  .seller-name {
+  .activity-inf {
     .flex-start;
     padding: @block-padding;
     height: 80rpx;
     border-bottom: @border-gray;
 
-    .seller-ico {
+    .activity-ico {
       padding: 0 8rpx;
       .ico-m;
     }
@@ -41,26 +40,15 @@
       font-size: @text-size-l;
     }
 
-  } /* .seller-name */
+  } /* .activity-inf */
 
-  /* .cart-seller */
-  .cart-seller {
-    clear: both;
-    /* .wire */
-    .wire {
-      width: 100%;
-      height: 30rpx;
-      background-color: #eee;
-    } /* .wire */
-  }/* .cart-seller */
-
-  /* 采购单项目 */
+  /* 购物车项 */
   .cart-item {
     .flex-start;
     padding-left: @text-margin-l;
     position: relative;
 
-      /* 是否选中项目 */
+      /* 是否选中 */
       .item-check {
         .ico-m;
       } /* .item-check */

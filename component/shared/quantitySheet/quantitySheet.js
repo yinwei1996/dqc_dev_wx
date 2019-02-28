@@ -36,13 +36,13 @@ methods: {
    初始化SKU
   ------------------------------ */
   initSku(sku) {
-    this.setData({ sku: sku });
+    this.setData({ sku });
   },
   /* ------------------------------
    初始化SKU集合
   ------------------------------ */
   initSkus(skus) {
-    this.setData({ skus: skus });
+    this.setData({ skus });
   },
   /* ------------------------------
    显示Sheet
@@ -61,7 +61,14 @@ methods: {
   ------------------------------ */
   clickBuyNow() {
     var sku = this.data.sku;
-    this.triggerEvent('clickBuyNow', { batchId: sku.batchId, skuId: sku.skuId, quantity: sku.quantity || 1 });
+    this.triggerEvent('clickBuyNow', { batchId: sku.batchId, skuId: sku.skuId, quantity: sku.quantity || 1, memo: sku.memo });
+  },
+  /* ------------------------------
+   加入购物车
+  ------------------------------ */
+  clickAddCart() {
+    var sku = this.data.sku;
+    this.triggerEvent('clickAddCart', { batchId: sku.batchId, skuId: sku.skuId, quantity: sku.quantity || 1, memo: sku.memo });
   },
   /* ------------------------------
    处理规格Click(有多个规格时)
@@ -75,19 +82,40 @@ methods: {
     if (!curSkuId || curSkuId === sku.skuId)
       return;
 
-    console.log('quantitySheet.clickSpec => curSkuId: ' + curSkuId);
-
     // 触发事件
     this.triggerEvent('clickSpec', { skuId: curSkuId });
+    console.log([ 'quantitySheet.clickSpec => curSkuId: ', curSkuId ].join(''));
 
   },
   /* ------------------------------
    SKU数量变更
   ------------------------------ */
-  changeQuantity(ret) {
-    var d = ret.detail;
-    console.log([ 'quantitySheet.changeQuantity => skuId: ', d.skuId, ', quantity: ', d.quantity ].join(''));
-    this.triggerEvent('changeQuantity', d);
+  changeQuantity(e) {
+
+    var sku = this.data.sku;
+
+    // 更新数量
+    sku.quantity = e.detail.quantity;
+
+    // 绑定数据
+    this.setData({ sku });
+    console.log([ 'quantitySheet.changeQuantity => skuId: ', sku.skuId, ', quantity: ', sku.quantity ].join(''));
+
+  },
+  /* ------------------------------
+   输入备注
+  ------------------------------ */
+  inputMemo(e) {
+
+    var sku = this.data.sku;
+
+    // 更新备注
+    sku.memo = e.detail.value;
+
+    // 绑定数据
+    this.setData({ sku });
+    console.log([ 'quantitySheet.inputMemo => memo: ', sku.memo ].join(''));
+
   }
 
 }

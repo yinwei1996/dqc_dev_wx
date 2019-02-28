@@ -1,8 +1,9 @@
   {
   "pages": [
+    "pages/my/myCart/myCart",
     "pages/common/index/index",
-    "pages/sku/skuSearch/skuSearch",
     "pages/activity/activityDetail/activityDetail",
+    "pages/sku/skuSearch/skuSearch",
     "pages/marketing/activityAll/activityAll",
     "pages/common/msgAll/msgAll",
     "pages/common/userLogin/userLogin",
@@ -12,7 +13,6 @@
     "pages/common/userWxPayTypeConfig/userWxPayTypeConfig",
     "pages/common/userCategoryConfig/userCategoryConfig",
     "pages/common/userShareModeConfig/userShareModeConfig",
-    "pages/my/myCart/myCart",
     "pages/my/myCenter/myCenter",
     "pages/finance/pointRecharge/pointRecharge",
     "pages/finance/pointLogAll/pointLogAll",

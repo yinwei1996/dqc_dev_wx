@@ -89,7 +89,14 @@
 
       <!-- 活动素材列表 -->
       <view class="content-item {{ tab == 'material' ? 'active' : '' }}">
+
         活动素材TODO
+
+        <!-- SPU操作按钮 -->
+        <view class="op-btns-fixed">
+          <button class="btn btn-primary-outline" data-activity-id="{{ activity.activityId }}" bindtap="downloadMaterial">下载全部素材</button>
+        </view> <!-- .op-btn-fixed -->
+
       </view>
 
     </view> <!-- .tab-content -->
@@ -102,6 +109,6 @@
     skus="{{ skuMaps }}"
     bind:clickSpec="clickSpec"
     bind:clickBuyNow="clickBuyNow"
-    bind:changeQuantity="changeQuantity" />
+    bind:clickAddCart="clickAddCart" />
 
 </view>

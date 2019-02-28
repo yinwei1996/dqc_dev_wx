@@ -51,13 +51,13 @@
       <!-- SKU数量 -->
       <view class="sku-prop sku-quantity">
         <label>购买数量</label>
-        <quantitySpinner id="quantitySpinner" sku="{{sku}}" bind:changeQuantity="changeQuantity" />
+        <quantitySpinner sku="{{sku}}" bind:changeQuantity="changeQuantity" />
       </view> <!-- .sku-quantity -->
 
       <view class="sku-prop">
         <view>
           <view>备注</view>
-          <textarea />
+          <textarea bindinput="inputMemo">{{ item.memo }}</textarea>
         </view>
       </view> <!-- .sku-prop -->
 

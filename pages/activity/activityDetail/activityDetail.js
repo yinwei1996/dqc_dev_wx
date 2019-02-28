@@ -25,7 +25,7 @@ data: {
 /* ------------------------------
  页面加载
 ------------------------------ */
-onLoad: function (opts) {
+onLoad(opts) {
 
   var
   // 先从 opts 获取 activityId
@@ -54,14 +54,14 @@ onLoad: function (opts) {
 /* ------------------------------
  页面呈现
 ------------------------------ */
-onShow: function(){
+onShow(){
   // 查询活动详情
   this.queryActivity();
 },
 /* ------------------------------
  页面触底
 ------------------------------ */
-scrollToLower: function(){
+scrollToLower(){
 
   // 分页查询（标识scrollend）
   this.querySPUs('scrollend');
@@ -85,7 +85,7 @@ tabNavClick(e) {
 /* ------------------------------
  查询活动详情
 ------------------------------ */
-queryActivity: function(){
+queryActivity(){
 
   helper.request({
     url: 'wx/act/detail',
@@ -97,7 +97,7 @@ queryActivity: function(){
 /* ------------------------------
  绑定显示活动
 ------------------------------ */
-bindActivity: function(ret){
+bindActivity(ret){
 
   var
     tabNavItems = this.data.tabNavItems,
@@ -120,7 +120,7 @@ bindActivity: function(ret){
 /* ------------------------------
  绑定SPU九宫格完整URL
 ------------------------------ */
-bindSpuImageUrls: function(spuMaps){
+bindSpuImageUrls(spuMaps){
 
   helper.each(spuMaps.records, (idx, map) => {
     map.fullImageUrls = [];
@@ -326,24 +326,43 @@ copyH5Url(e){
 /* ------------------------------
  立即下单
 ------------------------------ */
-clickBuyNow(ret){
+clickBuyNow(e){
 
-  var
-  that = this,
-  d = ret.detail;
+  var d = e.detail;
 
-  console.log('activityDetail =>');
+  console.log('activityDetail.clickBuyNow =>');
   console.log(d);
 
   helper.request({
     loading: true,
     url: 'wx/order/confirmBuyNow',
-    data: { batchId: d.batchId, skuId: d.skuId, skuQty: d.quantity },
-    success: function(order) {
+    data: d,
+    success: (order) => {
       // 关闭数量Sheet
-      that.closeQuantitySheet();
+      this.closeQuantitySheet();
       // 跳转到订单确认页
       helper.navigateFormat('orderConfirm', { orderId: order.orderId });
+    }
+  });
+
+},
+/* ------------------------------
+ 加入购物车
+------------------------------ */
+clickAddCart(e){
+
+  var d = e.detail;
+
+  console.log('activityDetail.clickAddCart =>');
+  console.log(d);
+
+  helper.request({
+    loading: true,
+    url: 'wx/cart/add',
+    data: d,
+    success: (order) => {
+      // 关闭数量Sheet
+      this.closeQuantitySheet();
     }
   });
 

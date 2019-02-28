@@ -1,8 +1,8 @@
 /**
- * 采购单
- * myCart.js
+ * 购物车
+ * myCart
  * -----------------------------------
- * 18/03/21 Jerry 新增
+ * 19/02/28 Jerry 更新
  */
 
 var
@@ -17,55 +17,55 @@ data: { hidden: 'hidden' },
 /* ------------------------------
  每次页面显示时，刷新数据
 ------------------------------ */
-onShow: function (){
+onShow (){
 
   // 更新导航
-  helper.navTitle('采购单');
+  helper.navTitle('购物车');
 
-  // 查询采购单列表
+  // 查询购物车列表
   this.queryCart();
 
 },
 /* ------------------------------
  下拉刷新
 ------------------------------ */
-onPullDownRefresh: function(){
+onPullDownRefresh(){
 
-  // 查询采购单列表
+  // 查询购物车列表
   this.queryCart();
 },
 /* ------------------------------
- 查询采购单列表
+ 查询购物车列表
 ------------------------------ */
-queryCart: function(){
+queryCart(){
 
   helper.request({
     url: 'wx/cart/groups',
-    success: this.bindCart
+    success: (ret)=> this.bindCart(ret)
   });
 
 },
 /* ------------------------------
- 绑定显示采购单列表
+ 绑定显示购物车列表
 ------------------------------ */
-bindCart: function(sellers){
+bindCart(activities){
 
   var
   totalQty = 0,
   payableQty = 0,
   payableAmount = 0,
-  sellerChecked;
+  activityChecked;
 
-  helper.each(sellers, function(idx, seller){
+  helper.each(activities, function(idx, activity){
 
     /* 是否选中卖家名称之前的CheckBox */
-    sellerChecked = true;
+    activityChecked = true;
 
     // 绑定SKU图片完整URL
-    helper.bindFullImgUrl(seller.items);
+    helper.bindFullImgUrl(activity.items);
 
     // 计算总额、总件数
-    helper.each(seller.items, function(idx2, item){
+    helper.each(activity.items, function(idx2, item){
 
       totalQty += item.quantity;
 
@@ -73,18 +73,18 @@ bindCart: function(sellers){
         payableQty += item.quantity;
         payableAmount += item.calculatedAmount;
       }
-      else if (sellerChecked)
-        sellerChecked = false;
+      else if (activityChecked)
+        activityChecked = false;
 
     });
 
-    // 更新seller.checked标志位
-    seller.checked = sellerChecked;
+    // 更新activity.checked标志位
+    activity.checked = activityChecked;
 
   });
 
   // 更新数据
-  helper.setData(this, { sellers: sellers, totalQty: totalQty, payableQty: payableQty, payableAmount: payableAmount }, false);
+  helper.setData(this, { activities, totalQty, payableQty, payableAmount }, false);
 
   // 如果是通过下拉操作触发的，收起下拉
   wx.stopPullDownRefresh();
@@ -93,12 +93,12 @@ bindCart: function(sellers){
 /* ------------------------------
  选中/取消选中项目
 ------------------------------ */
-itemCheck: function(skuId, toCheck){
+itemCheck(skuId, toCheck){
 
-  // returnAll: true, 总是返回采购单全部项目列表
+  // returnAll: true, 总是返回购物车全部项目列表
   helper.request({
     url: toCheck ? 'wx/cart/checkSingle' : 'wx/cart/uncheckSingle',
-    data: { skuId: skuId },
+    data: { skuId },
     success: this.bindCart
   })
 
@@ -106,7 +106,7 @@ itemCheck: function(skuId, toCheck){
 /* ------------------------------
  选中/取消选中全部项目
 ------------------------------ */
-itemCheckAll: function(toCheck){
+itemCheckAll(toCheck){
 
   helper.request({
     url: toCheck ? 'wx/cart/checkAll' : 'wx/cart/uncheckAll',
@@ -115,43 +115,16 @@ itemCheckAll: function(toCheck){
 
 },
 /* ------------------------------
- SKU数量减一
------------------------------- */
-quantityReduce: function(e){
-  this.quantityChange(e, false);
-},
-/* ------------------------------
- SKU数量加一
------------------------------- */
-quantityAdd: function(e){
-  this.quantityChange(e, true);
-},
-/* ------------------------------
  SKU数量变更
 ------------------------------ */
-quantityChange: function(e, isAdd){
-  var
-  that = this,
-  ds = e.target.dataset,
-  skuId = ds.key,
-  qty = parseInt(ds.quantity) + ( isAdd ? 1 : -1 ),
-  minQty = parseInt(ds.minQuantity),
-  maxQty = parseInt(ds.maxQuantity),
-  unit = ds.unit;
+changeQuantity(ret) {
 
-  if (!skuId || !qty || qty < 0)
-    return;
-
-  if (isAdd && qty >= maxQty) {
-    helper.showToast([ '商品限购', maxQty, unit ].join(''), 'none');
-  }
-  else if (!isAdd && qty <= minQty) {
-      helper.showToast([ '商品', minQty, unit, '起订' ].join(''), 'none');
-  }
+  var d = ret.detail;
+  console.log([ 'myCart.changeQuantity => skuId: ', d.skuId, ', quantity: ', d.quantity ].join(''));
 
   helper.request({
     url: 'wx/cart/setQty',
-    data: { skuId: skuId, qty: qty },
+    data: { skuId, qty },
     success: this.bindCart
   });
 
@@ -159,10 +132,11 @@ quantityChange: function(e, isAdd){
 /* ------------------------------
  采购项Click
 ------------------------------ */
-itemClick: function(e){
+itemClick(e){
+
   var
-  skuId = e.currentTarget.dataset.skuId,
-  action = e.target.dataset.action;
+    skuId = e.currentTarget.dataset.skuId,
+    action = e.target.dataset.action;
 
   // SKU详情
   if ('sku' == action){
@@ -195,7 +169,7 @@ itemClick: function(e){
 /* ------------------------------
  采购项滑动开始
 ------------------------------ */
-itemTouchStart: function(e){
+itemTouchStart(e){
 
   if (!e.touches || e.touches.length == 0)
     return;
@@ -219,7 +193,7 @@ itemTouchStart: function(e){
 /* ------------------------------
  采购项滑动
 ------------------------------ */
-itemTouchMove: function(e){
+itemTouchMove(e){
 
   if (!e.touches || e.touches.length == 0)
     return;
@@ -240,7 +214,7 @@ itemTouchMove: function(e){
 /* ------------------------------
  采购项滑动结束
 ------------------------------ */
-itemTouchEnd: function(e){
+itemTouchEnd(e){
 
   var
   itemSkuId = e.currentTarget.dataset.skuId,
@@ -259,18 +233,17 @@ itemTouchEnd: function(e){
 
   // X轴从右到左距离超过一定标准的，显示"删除"操作
   this.setData({ opItemSkuId: distanceX >= 60 ? itemSkuId : null });
-
   console.log(['touch end => ', startItemSkuId, ', distanceX: ', distanceX, ', distanceY: ', distanceY].join(''));
 
 },
 /* ------------------------------
  删除指定的采购项
 ------------------------------ */
-itemDelete: function(skuId){
+itemDelete(skuId){
 
   helper.request({
     url: 'wx/cart/delete',
-    data: { skuId: skuId },
+    data: { skuId },
     success: this.bindCart
   });
 
@@ -278,7 +251,7 @@ itemDelete: function(skuId){
 /* ------------------------------
  底部统计区域Click
 ------------------------------ */
-opsClick: function(e){
+opsClick(e){
 
   var action = e.target.dataset.action;
 
@@ -304,11 +277,11 @@ opsClick: function(e){
 /* ------------------------------
  卖家标题Click
  ------------------------------ */
-sellerClick: function(e){
+clickActivity(e){
 
   var
     action = e.currentTarget.dataset.action,
-    seller = e.currentTarget.dataset.sellerId,
+    activity = e.currentTarget.dataset.activityId,
     url = null;
 
   if (action == 'checkSeller') {
@@ -324,7 +297,7 @@ sellerClick: function(e){
   // 按卖家全选/取消全选
   helper.request({
     url: url,
-    data: { seller: seller },
+    data: { activity },
     success: this.bindCart
   })
 
@@ -332,12 +305,12 @@ sellerClick: function(e){
 /* ------------------------------
  底部统计区域Click
 ------------------------------ */
-confirmCart: function(){
+confirmCart(){
 
   helper.request({
     url: 'wx/order/confirmCart',
     // 跳转到订单下单页
-    success: function (order) { helper.navigateFormat('orderConfirm', { orderId: order.orderId }) }
+    success: order => helper.navigateFormat('orderConfirm', { orderId: order.orderId })
   });
 
 }

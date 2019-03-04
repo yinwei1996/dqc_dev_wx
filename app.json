@@ -60,6 +60,12 @@
         "text": "消息"
       },
       {
+        "iconPath": "image/icos/tabBar/share.png",
+        "selectedIconPath": "image/icos/tabBar/share_selected.png",
+        "pagePath": "pages/common/index/index",
+        "text": "分享"
+      },
+      {
         "iconPath": "image/icos/tabBar/cart.png",
         "selectedIconPath": "image/icos/tabBar/cart_selected.png",
         "pagePath": "pages/my/myCart/myCart",

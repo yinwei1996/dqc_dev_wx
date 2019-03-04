@@ -6,136 +6,39 @@
  */
 
 @import '../../../variables.less';
-@import '../../../component/common/pagingTip/pagingTip.less';
+@import '../../../component/common/cartGroupsView/cartGroupsView.less';
 
 .my-cart {
   /* 留出底部"统计"栏的高度，总计：100rpx。这里扣掉 最后一个 .cart-item 的 margin-bottom 10rpx，剩 90rpx */
   padding-bottom: 70rpx;
 
-  /* 活动信息 */
-  .activity-inf {
+  /* 购物车提示 */
+  .cart-tip {
     .flex-start;
-    padding:@text-margin-l;
+    padding: 0 @text-margin-l;
+    height: @bar-height;
+    font-size: @text-size-s5;
+    color: @color-white;
+    background-color: @color-primary;
+  } /* .cart-tip */
+
+  /* 回收清单入口 */
+  .cart-expired {
+    .flex-between;
+    padding: 0 @text-margin-l;
+    height: @bar-height;
     border-bottom: @border-gray-light;
 
-    image {
-      margin-right: @text-margin-s;
+    .btn {
+      float: left;
     }
 
-  } /* .activity-inf */
-
-  .activity-inf {
-    .flex-start;
-    padding: @block-padding;
-    height: 80rpx;
-    border-bottom: @border-gray;
-
-    .activity-ico {
-      padding: 0 8rpx;
-      .ico-m;
+    .expire-count {
+      text-align: right;
     }
 
-    text {
-      margin-left: 15rpx;
-      font-size: @text-size-l;
-    }
+  } /* .cart-expired */
 
-  } /* .activity-inf */
-
-  /* 购物车项 */
-  .cart-item {
-    .flex-start;
-    padding-left: @text-margin-l;
-    position: relative;
-
-      /* 是否选中 */
-      .item-check {
-        .ico-m;
-      } /* .item-check */
-
-    /* 图片、名称、规格、单价 */
-    .item-inf {
-      .flex-start;
-      padding-right: @text-margin-l;
-      height: 180rpx;
-      border-bottom: @border-gray-light;
-
-      /* SKU小图 */
-      .item-img {
-        .ico-sku-s;
-      } /* image */
-
-      /* SKU名称、规格、单价 */
-      .item-text {
-        margin-left: 15rpx;
-
-        text {
-          display: block;
-          font-size: @text-size-m;
-
-          &.item-name {
-            .text-ellipsis;
-            width: 500rpx;
-          }
-
-          &.item-spec {
-            margin-top: @text-margin-xs;
-            font-size: @text-size-xs;
-          }
-
-          &.item-price {
-            margin-top: 5rpx;
-            color: @color-primary;
-          }
-
-        } /* text */
-
-      } /* .item-text */
-
-    } /* .item-inf */
-
-    /* SKU数量 */
-    .quantity-spinner {
-      position: absolute;
-      top: 90rpx;
-      right: 15rpx;
-      /* 浮动在 .item-text 之上 */
-      z-index: 1;
-    } /* .quantity-spinner */
-
-    /* 删除项目 */
-    .item-del {
-      .flex-center;
-      position: absolute;
-      top: 90rpx;
-      right: 35rpx;
-      width: 255rpx;
-      height: 65rpx;
-      color: @color-white;
-      background-color: @color-red;
-      z-index: 2;
-    } /* .item-del */
-
-    &:last-child {
-      margin-bottom: 10rpx;
-      border-bottom: none;
-    }
-
-  } /* .cart-item */
-
-  .item-check {
-    .ico-m;
-  } /* .item-check */
-
-  /* 采购单邮费 */
-  .sku-delivery {
-    float: right;
-    margin: 30rpx 0;
-    padding-right: 30rpx;
-    text {
-      font-size: @text-size-s;
-    }
-  }
   /* 合计及下单 */
   .cart-ops {
     position: fixed;
@@ -198,5 +101,12 @@
     } /* .cart-done */
 
   } /* .cart-ops */
+
+  /* 关注商品标题 */
+  .wish-tip {
+    .flex-center;
+    height: @bar-height;
+    background-color: @color-gray-light;
+  }
 
 } /* .my-cart */

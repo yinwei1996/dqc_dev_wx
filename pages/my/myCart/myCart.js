@@ -13,7 +13,7 @@ Page({
 /* ------------------------------
  页面数据
 ------------------------------ */
-data: { hidden: 'hidden' },
+data: { },
 /* ------------------------------
  每次页面显示时，刷新数据
 ------------------------------ */
@@ -38,53 +38,19 @@ onPullDownRefresh(){
  查询购物车列表
 ------------------------------ */
 queryCart(){
-
-  helper.request({
-    url: 'wx/cart/groups',
-    success: (ret)=> this.bindCart(ret)
-  });
-
+  helper.request({ url: 'wx/cart/groups', success: this.bindCart });
 },
 /* ------------------------------
  绑定显示购物车列表
 ------------------------------ */
-bindCart(activities){
+bindCart(ret){
 
-  var
-  totalQty = 0,
-  payableQty = 0,
-  payableAmount = 0,
-  activityChecked;
+  // 格式化金额显示
+  ret.payableAmountString = helper.fen2str(ret.payableAmount);
+  helper.each(ret.groups, (idx, grp) => helper.bindfen2str(grp.items, 'price', 'amount', 'calculatedAmount'));
 
-  helper.each(activities, function(idx, activity){
-
-    /* 是否选中卖家名称之前的CheckBox */
-    activityChecked = true;
-
-    // 绑定SKU图片完整URL
-    helper.bindFullImgUrl(activity.items);
-
-    // 计算总额、总件数
-    helper.each(activity.items, function(idx2, item){
-
-      totalQty += item.quantity;
-
-      if (item.checked){
-        payableQty += item.quantity;
-        payableAmount += item.calculatedAmount;
-      }
-      else if (activityChecked)
-        activityChecked = false;
-
-    });
-
-    // 更新activity.checked标志位
-    activity.checked = activityChecked;
-
-  });
-
-  // 更新数据
-  helper.setData(this, { activities, totalQty, payableQty, payableAmount }, false);
+  // 绑定数据
+  this.setData(ret);
 
   // 如果是通过下拉操作触发的，收起下拉
   wx.stopPullDownRefresh();
@@ -93,7 +59,7 @@ bindCart(activities){
 /* ------------------------------
  选中/取消选中项目
 ------------------------------ */
-itemCheck(skuId, toCheck){
+checkItem(skuId, toCheck){
 
   // returnAll: true, 总是返回购物车全部项目列表
   helper.request({
@@ -106,7 +72,7 @@ itemCheck(skuId, toCheck){
 /* ------------------------------
  选中/取消选中全部项目
 ------------------------------ */
-itemCheckAll(toCheck){
+checkItemAll(toCheck){
 
   helper.request({
     url: toCheck ? 'wx/cart/checkAll' : 'wx/cart/uncheckAll',
@@ -120,11 +86,13 @@ itemCheckAll(toCheck){
 changeQuantity(ret) {
 
   var d = ret.detail;
-  console.log([ 'myCart.changeQuantity => skuId: ', d.skuId, ', quantity: ', d.quantity ].join(''));
+
+  console.log('myCart.changeQuantity =>');
+  console.log(d);
 
   helper.request({
     url: 'wx/cart/setQty',
-    data: { skuId, qty },
+    data: d,
     success: this.bindCart
   });
 
@@ -132,38 +100,71 @@ changeQuantity(ret) {
 /* ------------------------------
  采购项Click
 ------------------------------ */
-itemClick(e){
+clickItem(e){
 
   var
-    skuId = e.currentTarget.dataset.skuId,
+    ds = e.currentTarget.dataset,
+    batchId = ds.batchId,
+    spuId = ds.spuId,
+    skuId = ds.skuId,
     action = e.target.dataset.action;
 
-  // SKU详情
-  if ('sku' == action){
-    helper.navigateFormat('skuDetail', { skuId: skuId });
-    return;
-  }
-
   // 选中
-  if ('check' == action){
-    this.itemCheck(skuId, true);
+  if ('check' === action){
+    this.checkItem(skuId, true);
     return;
   }
 
   // 取消选中
-  if ('uncheck' == action){
-    this.itemCheck(skuId, false);
+  if ('uncheck' === action){
+    this.checkItem(skuId, false);
     return;
   }
 
-  // 删除操作
-  if ('del' == action){
-    this.itemDelete(skuId);
+  // 删除
+  if ('del' === action){
+    this.deleteItem(skuId);
+    return;
+  }
+
+  // 关注商品加入购物车（查询相关SKU映射列表）
+  if ('addCart' === action){
+    this.querySKUs(batchId, spuId);
     return;
   }
 
   // 其他情况，隐藏"删除"操作
   this.setData({ opItemSkuId: null });
+
+},
+/* ------------------------------
+ 查询SKU列表
+------------------------------ */
+querySKUs(batchId, spuId){
+
+  helper.request({
+    url: helper.formatUrl('/wx/act/sku/list', { batchId, spuId }),
+    success: this.bindSKUs
+  });
+
+},
+/* ------------------------------
+ 绑定显示SKU列表
+------------------------------ */
+bindSKUs(skuMaps){
+
+  helper.each(skuMaps, (idx, map) => {
+    map.fullImageUrl = helper.concatFullImgUrl(map.imageUrl);
+    map.priceBString = helper.fen2str(map.priceB);
+    map.marketPriceString = helper.fen2str(map.marketPrice);
+    map.quantity = 1;
+  });
+
+  // 绑定数据
+  helper.setData(this, { skuMaps, skuMap: skuMaps[0] });
+
+  // 加购物车
+  this.showQuantitySheet();
 
 },
 /* ------------------------------
@@ -239,7 +240,7 @@ itemTouchEnd(e){
 /* ------------------------------
  删除指定的采购项
 ------------------------------ */
-itemDelete(skuId){
+deleteItem(skuId){
 
   helper.request({
     url: 'wx/cart/delete',
@@ -257,13 +258,13 @@ opsClick(e){
 
   // 全选
   if ('checkAll' == action){
-    this.itemCheckAll(true);
+    this.checkItemAll(true);
     return;
   }
 
   // 取消全选
   if ('uncheckAll' == action){
-    this.itemCheckAll(false);
+    this.checkItemAll(false);
     return;
   }
 
@@ -275,29 +276,29 @@ opsClick(e){
 
 },
 /* ------------------------------
- 卖家标题Click
+ 活动标题Click
  ------------------------------ */
 clickActivity(e){
 
   var
     action = e.currentTarget.dataset.action,
-    activity = e.currentTarget.dataset.activityId,
+    activityId = e.currentTarget.dataset.activityId,
     url = null;
 
-  if (action == 'checkSeller') {
-    url = 'wx/cart/checkSeller';
+  if (action == 'checkActivity') {
+    url = 'wx/cart/checkActivity';
   }
-  else if (action == 'uncheckSeller') {
-    url = 'wx/cart/uncheckSeller';
+  else if (action == 'uncheckActivity') {
+    url = 'wx/cart/uncheckActivity';
   }
 
   if (!url)
     return;
 
-  // 按卖家全选/取消全选
+  // 按活动全选/取消全选
   helper.request({
     url: url,
-    data: { activity },
+    data: { activityId },
     success: this.bindCart
   })
 
@@ -313,6 +314,29 @@ confirmCart(){
     success: order => helper.navigateFormat('orderConfirm', { orderId: order.orderId })
   });
 
+},
+/* ------------------------------
+ 显示数量选择器
+------------------------------ */
+showQuantitySheet(){
+
+  if (!this.quantitySheet)
+    this.quantitySheet = this.selectComponent('#quantitySheet');
+
+  this.quantitySheet.showSheet();
+
+},
+/* ------------------------------
+ 显示数量选择器
+------------------------------ */
+closeQuantitySheet(){
+
+  if (!this.quantitySheet)
+    this.quantitySheet = this.selectComponent('#quantitySheet');
+
+  this.quantitySheet.closeSheet();
+
 }
+
 
 })

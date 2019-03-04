@@ -7,88 +7,35 @@
  */
 -->
 
-<import src="../../../component/common/pagingTip/pagingTip.wxml" />
+<import src="../../../component/common/cartGroupsView/cartGroupsView.wxml" />
 
-<view class="my-cart {{ hidden }}">
+<view class="my-cart" wx:if="{{ groups }}">
 
-  <!-- 按活动遍历 -->
-  <view class="cart-activities" wx:for="{{ activities }}" wx:for-item="activity" wx:key="{{ activity.activityId }}">
+  <!-- 购物车提示 -->
+  <view class="cart-tip">
+    提示：购物车内添加的商品将会在{{ expireMinutes }}分钟内回收。
+  </view> <!-- .cart-tip -->
 
-    <!-- 活动名称 -->
-    <view class="activity-inf"
-      bindtap="clickActivity"
-      data-action="uncheckSeller"
-      data-activity-id="{{ activity.activityId }}"
-      wx:if="{{ activity.checked }}">
-      <image class="item-check" src="../../../image/icos/checked_primary_81.png" />
-      <text class="self-label" wx:if="{{ activity.self }}">自营</text>
-      <text>{{ activity.activityName }}</text>
-    </view>
+  <!-- 回收清单入口 -->
+  <view class="cart-expired">
+    <view><button size="mini" class="btn btn-primary-outline">购物车回收清单</button></view>
+    <view class="expire-count">购物车回收清单内有<text>{{ expireCount }}</text>件商品</view>
+  </view> <!-- .cart-expired -->
 
-    <view class="activity-inf"
-      bindtap="clickActivity"
-      data-action="checkSeller"
-      data-activity-id="{{ activity.activityId }}"
-      wx:else>
-      <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" />
-      <text class="self-label" wx:if="{{ activity.self }}">自营</text>
-      <text>{{ activity.activityName }}</text>
-    </view>
+  <template is="cartGroupsView" data="{{ groups: groups }}" />
 
-    <view class="cart-item"
-          wx:for="{{ activity.items }}"
-          wx:key="{{ item.skuId }}"
-          data-sku-id="{{ item.skuId }}"
-          bindtap="itemClick"
-          bindtouchstart="itemTouchStart"
-          bindtouchmove="itemTouchMove"
-          bindtouchend="itemTouchEnd">
+  <!-- 合计及结算 -->
+  <view class="cart-ops" bindtap="opsClick" wx:if="{{ groups.length }}">
 
-        <image class="item-check" src="../../../image/icos/checked_primary_81.png" data-action="uncheck"wx:if="{{ item.checked }}" />
-        <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" data-action="check" wx:else />
-
-      <view class="item-inf" data-action="sku">
-
-        <!--<image src="{{ item.imgUrl }}" />-->
-        <image class="item-img sku-img" src="{{ item.fullImgUrl }}" data-action="sku" />
-
-        <view class="item-text">
-          <text class="item-name" data-action="sku">{{ item.skuName }}</text>
-          <text class="item-spec" data-action="sku">{{ item.spec }} </text>
-          <text class="item-price" data-action="sku">￥{{ item.price }}</text>
-        </view>
-
-      </view> <!-- .item-inf -->
-
-      <!-- 数量Spinner -->
-      <view class="quantity-spinner-wrapper">
-        <quantitySpinner sku="{{ item }}" bind:changeQuantity="changeQuantity" />
-      </view>
-
-      <!-- 删除SKU项 -->
-      <view class="item-del {{ opItemSkuId == item.skuId ? '' : 'hidden' }}" data-action="del">删除</view>
-
-    </view> <!-- .cart-sku -->
-    <view class="sku-delivery" wx:if="{{ activity.activityDeliveryFee != 0 }}">
-      <text>配送费用 ¥ {{ activity.activityDeliveryFee }}，满 ¥ {{ activity.activityDeliveryFreeAmount }}免邮</text>
-    </view><!-- .sku-delivery -->
-
-  </view> <!-- .cart-activities -->
-
-  <!-- 列表空白时的提示 -->
-  <template is="pagingTip" data="{{ records: activities }}" />
-
-  <!-- 合计及下单 -->
-  <view class="cart-ops" bindtap="opsClick" wx:if="{{ activities.length > 0 }}">
-
+    <!-- 合计区域 -->
     <view class="cart-total">
 
       <view class="total-qty">
 
-        <image class="item-check" src="../../../image/icos/checked_primary_81.png" data-action="uncheckAll" wx:if="{{ payableQty > 0 && payableQty == totalQty }}" />
+        <image class="item-check" src="../../../image/icos/checked_primary_81.png" data-action="uncheckAll" wx:if="{{ payableQuantity && payableQuantity == totalQuantity }}" />
         <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" data-action="checkAll" wx:else />
 
-        <text wx:if="{{ payableQty }}">已选 ({{ payableQty }})</text>
+        <text wx:if="{{ payableQuantity }}">已选 ({{ payableQuantity }})</text>
         <text wx:else>未选择</text>
 
       </view>
@@ -97,13 +44,21 @@
 
     </view> <!-- .cart-total -->
 
-    <block wx:if="{{ payableQty > 0 }}">
-      <view class="cart-done" data-action="done">下单</view>
-    </block>
-    <block wx:else>
-      <view class="cart-done disabled">下单</view>
-    </block>
+    <!-- 结算按钮 -->
+    <view class="cart-done" data-action="done" wx:if="{{ payableQuantity }}">结算</view>
+    <view class="cart-done disabled" wx:else>结算</view>
 
   </view> <!-- .cart-ops -->
+
+  <view class="wish-tip">---------- 关注商品 ----------</view>
+  <template is="cartGroupsView" data="{{ groups: groups, wish: true }}" />
+
+  <!-- 数量选择Sheet -->
+  <quantitySheet id="quantitySheet"
+    sku="{{ skuMap }}"
+    skus="{{ skuMaps }}"
+    bind:clickSpec="clickSpec"
+    bind:clickBuyNow="clickBuyNow"
+    bind:clickAddCart="clickAddCart" />
 
 </view>

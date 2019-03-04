@@ -1,6 +1,7 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "quantitySpinner": "../../../component/shared/quantitySpinner/quantitySpinner"
+    "quantitySpinner": "../../../component/shared/quantitySpinner/quantitySpinner",
+    "quantitySheet": "../../../component/shared/quantitySheet/quantitySheet"
   }
 }

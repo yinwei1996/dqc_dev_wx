@@ -1,0 +1,135 @@
+/**
+ * 购物车分组列表
+ * cartGroupsView
+ * -----------------------------------
+ * 19/03/01 Jerry 更新
+ */
+
+@import '../pagingTip/pagingTip.less';
+
+/* 活动 CheckBox */
+.item-check {
+  .ico-m;
+  padding-right: @text-margin-xl;
+} /* .item-check */
+
+/* 活动信息 */
+.activity-inf {
+  .flex-start;
+  padding:@text-margin-l;
+  border-bottom: @border-gray-light;
+
+   /* 品牌图片 */
+  .brand-image {
+    .ico-xl;
+  }
+
+  /* 活动名称 */
+  text {
+    margin-left: @text-margin-s;
+    color: @color-primary;
+    font-weight: bold;
+  }
+
+} /* .activity-inf */
+
+/* 购物车项 */
+.cart-item {
+  .flex-start;
+  padding-bottom: @text-margin;
+  border-bottom: @border-gray-light;
+
+  /* 购物车项 CheckBox */
+  .item-check {
+    .ico-m;
+    padding: @text-margin-xl;
+  } /* .item-check */
+
+  /* 购物车项详情 */
+  .item-inf {
+    width: 85%;
+
+    /* SKU名称 */
+    .item-name {
+      .flex-start;
+      height: @bar-height;
+      color: @color-primary;
+      font-weight: bold;
+    } /* .item-name */
+
+    /* SKU图片及文本 */
+    .item-img-and-text {
+      .flex-start;
+
+      /* SKU小图 */
+      .item-img {
+        .ico-sku;
+      } /* image */
+
+      /* SKU描述及规格 */
+      .item-text {
+        padding-left: @text-margin;
+
+        /* 规格 */
+        .item-spec {
+          
+        } /* .item-spec */
+
+      } /* .item-text */
+
+    } /* .item-img-and-text */
+
+    /* 销售价 */
+    .item-price {
+      .flex-start;
+      height: @bar-height-s;
+
+      text {
+        color: @color-red-light;
+      }
+
+    } /* .item-price */
+
+    /* 下单件数 */
+    .item-quantity {
+      .flex-between;
+      height: @bar-height-s;
+
+    } /* .item-quantity */
+
+    /* 备注及操作项 */
+    .item-memo-and-ops {
+      .flex-between;
+      height: @bar-height-s;
+
+      .item-memo {
+      } /* view */
+
+      .btn {
+        float: right;
+      }
+
+    } /* .item-memo-and-ops */
+
+    /* 没有前缀CheckBox时，增加左padding（关注商品） */
+    &:first-child {
+      padding: 0 @text-margin-xl;
+      width: 100%;
+    } /* &:first-child */
+
+  } /* .item-inf */
+
+  /* 删除项目 */
+  .item-del {
+    .flex-center;
+    position: absolute;
+    top: 90rpx;
+    right: 35rpx;
+    width: 255rpx;
+    height: 65rpx;
+    color: @color-white;
+    background-color: @color-red;
+    z-index: 2;
+  } /* .item-del */
+
+} /* .cart-item */

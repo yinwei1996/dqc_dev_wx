@@ -166,7 +166,6 @@ bindSPUs(ret){
   this.setData({ spuMaps: helper.concatPaging(this, 'spuMaps', ret), tabNavItems });
 
 },
-
 /* ------------------------------
  查询SKU列表
 ------------------------------ */

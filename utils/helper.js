@@ -230,7 +230,7 @@ setScrollViewHeight(page, otherHeight, prop){
   prop = prop || 'scrollViewHeight';
 
   wx.getSystemInfo({
-    success: function(inf){
+    success: inf => {
 
       var data = {};
       data[ prop ] = ( ( inf.windowHeight / ( inf.screenWidth / 750 ) ) - otherHeight ) + 'rpx';
@@ -314,7 +314,7 @@ request(opts){
     wx.showModal({
       title: '提示',
       content: opts.confirm,
-      success: function(ret) {
+      success: ret => {
 
         if (!ret.confirm)
           return;
@@ -358,7 +358,7 @@ request(opts){
     data: opts.data,
     header: header,
     method: method,
-    success: function(ret) {
+    success: ret => {
 
       // 导航隐藏"正在处理"
       if (!opts.ignoreNavLoading)
@@ -419,10 +419,8 @@ uploadFile(opts){
     url: fullUrl,
     filePath: opts.filePath,
     name: opts.name,
-    success: function(ret){
-      // 执行业务回调
-      opts.success(ret.data);
-    }
+    // 执行业务回调
+    success: ret => opts.success(ret.data)
   });
 
 },
@@ -714,8 +712,8 @@ tryLoginByQrCode(q, scene){
 
     wx.showModal({
       title: '提示',
-      content: '确认扫码登录合采网？',
-      success: function(ret) {
+      content: '确认扫码登录PC端？',
+      success: ret => {
 
         if (!ret.confirm)
           return;
@@ -724,7 +722,7 @@ tryLoginByQrCode(q, scene){
           loading: true,
           url: 'wx/scanTempLoginToken',
           data: { tokenKey: queryOpts['t'] },
-          success: function() { }
+          success: () => { }
         });
 
       }
@@ -1336,9 +1334,7 @@ bindD2Str(objs, oriProp, newProp){
   if (!newProp)
     newProp = oriProp + 'String';
 
-  __me.each(objs, function(idx, obj){
-    obj[ newProp ] = __me.d2str( obj[ oriProp ] );
-  });
+  __me.each(objs, (idx, obj) => obj[ newProp ] = __me.d2str( obj[ oriProp ] ));
 
 },
 /* ------------------------------
@@ -1352,9 +1348,7 @@ bindDt2Str(objs, oriProp, newProp){
   if (!newProp)
     newProp = oriProp + 'String';
 
-  __me.each(objs, function(idx, obj){
-    obj[ newProp ] = __me.dt2str( obj[ oriProp ] );
-  });
+  __me.each(objs, (idx, obj) => obj[ newProp ] = __me.dt2str( obj[ oriProp ] ));
 
 },
 /* ------------------------------
@@ -1375,7 +1369,7 @@ bindDt2readable(objs, oriProp, newProp){
   if (!newProp)
     newProp = oriProp + 'String';
 
-  __me.each(objs, function(idx, obj){
+  __me.each(objs, (idx, obj) => {
 
     // 转为date对象，并获取当前日期，并比较相差天数
     var d = __me.obj2dt(obj[ oriProp ]),
@@ -1462,7 +1456,7 @@ dateToDateString (d, noYear) {
 /* ----------------------------------------
  * 将以分为单位的金额转为字符串显示
  -----------------------------------------*/
-fen2str (val, ignoreZeroAfterDot) {
+fen2str(val, ignoreZeroAfterDot) {
 
   if (!val)
     val = 0;
@@ -1480,6 +1474,22 @@ fen2str (val, ignoreZeroAfterDot) {
     ? valString.replace(/\.00$/ig, '')
     : valString;
 
+},
+/* ----------------------------------------
+ * 将以分为单位的金额转为字符串显示
+ -----------------------------------------*/
+bindfen2str() {
+
+  var
+    args = [ ...arguments ],
+    objs = args[0];
+
+  // 遍历 objs
+  __me.each(objs, (idx, obj) => {
+      __me.each(args.slice(1), (idx2, prop) => obj[ prop + 'String' ] = __me.fen2str(obj[ prop ]));
+  });
+
+  return objs;
 }
 
 };

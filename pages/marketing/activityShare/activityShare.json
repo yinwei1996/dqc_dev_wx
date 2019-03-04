@@ -1,0 +1,6 @@
+{
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "activitiesPart": "../../../component/shared/activitiesPart/activitiesPart"
+  }
+}

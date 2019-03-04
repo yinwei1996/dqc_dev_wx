@@ -1,0 +1,41 @@
+/**
+ * 活动快速转发
+ * activityShare
+ * -----------------------------------
+ * 19/03/04 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.activity-all {
+
+  .category-items {
+    padding: @text-margin;
+    border-bottom: @border-gray-light;
+
+    .category-item {
+      display: inline-block;
+      width: 50%;
+
+      view {
+        .flex-center;
+        margin: @text-margin-xs 0;
+        height: @bar-height-s;
+        color: @color-gray;
+        border-radius: @text-margin;
+      } /* view */
+
+      &.sel {
+
+        view {
+          color: @color-white;
+          background-color: @color-primary;
+        }
+
+      } /* &.sel */
+
+    } /* .category-item */
+
+  } /* .category-items */
+
+} /* .activity-all */

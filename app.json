@@ -1,11 +1,12 @@
   {
   "pages": [
+    "pages/marketing/activityShare/activityShare",
+    "pages/marketing/activityAll/activityAll",
     "pages/my/myCart/myCart",
     "pages/my/myCartExpired/myCartExpired",
     "pages/common/index/index",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuSearch/skuSearch",
-    "pages/marketing/activityAll/activityAll",
     "pages/common/msgAll/msgAll",
     "pages/common/userLogin/userLogin",
     "pages/common/userExServiceAll/userExServiceAll",
@@ -63,7 +64,7 @@
       {
         "iconPath": "image/icos/tabBar/share.png",
         "selectedIconPath": "image/icos/tabBar/share_selected.png",
-        "pagePath": "pages/common/index/index",
+        "pagePath": "pages/marketing/activityShare/activityShare",
         "text": "分享"
       },
       {

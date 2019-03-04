@@ -44,6 +44,7 @@ __pagePath = {
 
   // 活动列表
   activityAll: '/pages/marketing/activityAll/activityAll',
+  activityShare: '/pages/marketing/activityShare/activityShare',
 
   // 消息
   msgAll: '/pages/common/msgAll/msgAll',

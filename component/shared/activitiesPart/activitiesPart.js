@@ -26,8 +26,7 @@ properties: {
 ------------------------------ */
 data: {
   tabNavItems: [
-    { key: 'activities', text: '活动中' },
-    { key: 'previewActivities', text: '预告' }
+    { key: 'activities', text: '活动中' }
   ],
   tab: 'activities'
 },
@@ -151,7 +150,7 @@ methods: {
     helper.setData(this, key, helper.concatPaging(this, key, ret));
 
     // 对应tab项的业务记录数
-    tabNavItems[ key === 'activities' ? 0 : 1 ].count = ret.recordCount;
+    tabNavItems[ 0 ].count = ret.recordCount;
 
     // 绑定数据
     this.setData({ tabNavItems });

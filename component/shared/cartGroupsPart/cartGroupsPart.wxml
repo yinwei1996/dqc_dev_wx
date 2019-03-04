@@ -1,0 +1,24 @@
+<!--
+/**
+ * 组件 - 购物车项分组列表
+ * cartGroupsPart
+ * -----------------------------------
+ * 19/03/04 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/cartGroupsView/cartGroupsView.wxml" />
+
+<view class="cart-groups-part">
+
+  <template is="cartGroupsView" data="{{ groups: groups, wish: wish, expired: expired }}" />
+
+  <!-- 数量选择Sheet -->
+  <quantitySheet id="quantitySheet"
+    sku="{{ skuMap }}"
+    skus="{{ skuMaps }}"
+    bind:clickSpec="clickSpec"
+    bind:clickBuyNow="clickBuyNow"
+    bind:clickAddCart="clickAddCart" />
+
+</view> <!-- .cart-groups-part -->

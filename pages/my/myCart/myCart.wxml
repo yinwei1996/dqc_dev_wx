@@ -7,8 +7,6 @@
  */
 -->
 
-<import src="../../../component/common/cartGroupsView/cartGroupsView.wxml" />
-
 <view class="my-cart" wx:if="{{ groups }}">
 
   <!-- 购物车提示 -->
@@ -22,10 +20,11 @@
     <view class="expire-count">购物车回收清单内有<text>{{ expireCount }}</text>件商品</view>
   </view> <!-- .cart-expired -->
 
-  <template is="cartGroupsView" data="{{ groups: groups }}" />
+  <!-- 购物车项分组列表 -->
+  <cartGroupsPart id="groupsPart" groups="{{ groups }}" bind:bindCart="bindCart" />
 
   <!-- 合计及结算 -->
-  <view class="cart-ops" bindtap="opsClick" wx:if="{{ groups.length }}">
+  <view class="cart-ops" bindtap="clickOps" wx:if="{{ groups.length }}">
 
     <!-- 合计区域 -->
     <view class="cart-total">
@@ -51,14 +50,8 @@
   </view> <!-- .cart-ops -->
 
   <view class="wish-tip">---------- 关注商品 ----------</view>
-  <template is="cartGroupsView" data="{{ groups: groups, wish: true }}" />
+  <cartGroupsPart groups="{{ wishGroups }}" wish="true" />
 
   <!-- 数量选择Sheet -->
-  <quantitySheet id="quantitySheet"
-    sku="{{ skuMap }}"
-    skus="{{ skuMaps }}"
-    bind:clickSpec="clickSpec"
-    bind:clickBuyNow="clickBuyNow"
-    bind:clickAddCart="clickAddCart" />
 
 </view>

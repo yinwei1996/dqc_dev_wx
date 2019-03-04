@@ -7,10 +7,6 @@
  */
 -->
 
-<import src="../../../component/common/cartGroupsView/cartGroupsView.wxml" />
-
-<view class="my-cart-expired" wx:if="{{ groups }}">
-
-  <template is="cartGroupsView" data="{{ groups: groups, expired: true }}" />
-
-</view>
+<view class="my-cart-expired">
+  <cartGroupsPart groups="{{ groups }}" expired="true" />
+</view> <!-- my-cart-expired -->

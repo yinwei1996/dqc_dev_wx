@@ -1,7 +1,7 @@
   {
   "pages": [
-    "pages/my/myCartExpired/myCartExpired",
     "pages/my/myCart/myCart",
+    "pages/my/myCartExpired/myCartExpired",
     "pages/common/index/index",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuSearch/skuSearch",

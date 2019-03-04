@@ -17,11 +17,11 @@
     <!-- 活动分组 -->
     <view class="activity-inf"
       bindtap="clickActivity"
-      data-action="{{ group.anyItemAvailable ? 'uncheckActivity' : 'checkActivity' }}"
+      data-action="{{ group.anyItemAvailable ? 'uncheck' : 'check' }}"
       data-activity-id="{{ group.activityId }}">
 
       <!-- 活动 CheckBox（关注商品时不显示） -->
-      <block wx:if="{{ !wish || !expired }}">
+      <block wx:if="{{ !wish && !expired }}">
         <image class="item-check" src="../../../image/icos/checked_primary_81.png" wx:if="{{ group.anyItemAvailable }}" />
         <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" wx:else />
       </block>

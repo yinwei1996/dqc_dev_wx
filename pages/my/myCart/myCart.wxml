@@ -18,7 +18,7 @@
 
   <!-- 回收清单入口 -->
   <view class="cart-expired">
-    <view><button size="mini" class="btn btn-primary-outline">购物车回收清单</button></view>
+    <view><button size="mini" class="btn btn-primary-outline" bindtap="clickExpired">购物车回收清单</button></view>
     <view class="expire-count">购物车回收清单内有<text>{{ expireCount }}</text>件商品</view>
   </view> <!-- .cart-expired -->
 

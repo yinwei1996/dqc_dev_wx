@@ -1,0 +1,16 @@
+<!--
+/**
+ * 购物车回收清单
+ * myCartExpired
+ * -----------------------------------
+ * 19/03/04 Jerry 新增
+ */
+-->
+
+<import src="../../../component/common/cartGroupsView/cartGroupsView.wxml" />
+
+<view class="my-cart-expired" wx:if="{{ groups }}">
+
+  <template is="cartGroupsView" data="{{ groups: groups, expired: true }}" />
+
+</view>

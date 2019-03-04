@@ -21,7 +21,7 @@
       data-activity-id="{{ group.activityId }}">
 
       <!-- 活动 CheckBox（关注商品时不显示） -->
-      <block wx:if="{{ !wish }}">
+      <block wx:if="{{ !wish || !expired }}">
         <image class="item-check" src="../../../image/icos/checked_primary_81.png" wx:if="{{ group.anyItemAvailable }}" />
         <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" wx:else />
       </block>
@@ -47,7 +47,7 @@
       wx:key="{{ item.skuId }}">
 
       <!-- SKU CheckBox（关注商品时不显示） -->
-      <block wx:if="{{ !wish }}">
+      <block wx:if="{{ !wish && !expired }}">
         <image class="item-check" src="../../../image/icos/checked_primary_81.png" data-action="uncheck"wx:if="{{ item.checked }}" />
         <image class="item-check opacity-gray" src="../../../image/icos/uncheck_81.png" data-action="check" wx:else />
       </block>
@@ -75,7 +75,7 @@
         <view class="item-price">销售价：<text>￥{{ item.priceString }}</text></view>
 
         <!-- 下单件数（关注商品时不显示） -->
-        <view class="item-quantity" wx:if="{{ !wish }}">
+        <view class="item-quantity" wx:if="{{ !wish && !expired }}">
           <view>下单件数：</view>
           <!-- 数量Spinner -->
           <view class="quantity-spinner-wrapper">
@@ -93,7 +93,7 @@
           <view class="item-ops">
 
             <!-- "备注"操作，普通购物车项显示 -->
-            <button size="mini" class="btn btn-primary-outline" data-action="memo" wx:if="{{ !wish }}">备注</button>
+            <button size="mini" class="btn btn-primary-outline" data-action="memo" wx:if="{{ !wish && !expired }}">备注</button>
 
             <!-- "加入购物车"操作，关注商品项显示 -->
             <button size="mini" class="btn btn-primary-outline" data-action="addCart" wx:else>加入购物车</button>

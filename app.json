@@ -1,5 +1,6 @@
   {
   "pages": [
+    "pages/my/myCartExpired/myCartExpired",
     "pages/my/myCart/myCart",
     "pages/common/index/index",
     "pages/activity/activityDetail/activityDetail",

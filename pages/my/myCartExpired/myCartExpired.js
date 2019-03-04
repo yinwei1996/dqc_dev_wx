@@ -1,8 +1,8 @@
 /**
- * 购物车
- * myCart
+ * 购物车回收清单
+ * myCartExpired
  * -----------------------------------
- * 19/02/28 Jerry 更新
+ * 19/03/04 Jerry 新增
  */
 
 var
@@ -20,7 +20,7 @@ data: { },
 onShow (){
 
   // 更新导航
-  helper.navTitle('购物车');
+  helper.navTitle('回收清单');
 
   // 查询购物车列表
   this.queryCart();
@@ -336,12 +336,6 @@ closeQuantitySheet(){
 
   this.quantitySheet.closeSheet();
 
-},
-/* ------------------------------
- 跳转到回收清单
------------------------------- */
-clickExpired(){
-  helper.navigateTo('myCartExpired');
 }
 
 

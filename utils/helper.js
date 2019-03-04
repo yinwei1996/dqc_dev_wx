@@ -57,6 +57,7 @@ __pagePath = {
   myCenter: '/pages/my/myCenter/myCenter',
   // 购物车
   myCart: '/pages/my/myCart/myCart',
+  myCartExpired: '/pages/my/myCartExpired/myCartExpired',
 
   // SKU搜索
   skuSearch: '/pages/sku/skuSearch/skuSearch',

@@ -1,0 +1,21 @@
+<!--
+/**
+ * 可折叠摘要
+ * foldableSummary
+ * -----------------------------------
+ * 19/03/05 Jerry 新增
+ */
+-->
+
+<view class="foldable-summary">
+
+  <block wx:if="{{ showMore && !showAll }}">
+  <view class="summary-text" id="foldableSummaryText" style="height:{{ rowHeight * rowCount }}rpx">{{ text }}</view>
+  <view class="summary-op" catchtap="showAll">展开全文</view>
+  </block>
+  <block wx:else>
+  <view class="summary-text" id="foldableSummaryText">{{ text }}</view>
+  <view class="summary-op" catchtap="hideAll" wx:if="{{ showMore && showAll }}">收起全文</view>
+  </block>
+
+</view> <!-- foldable-summary -->

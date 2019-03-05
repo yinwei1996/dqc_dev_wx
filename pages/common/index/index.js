@@ -65,12 +65,7 @@ queryData(){
 bindData(ret){
 
   // 绑定数据
-  this.setData({
-    ads: helper.bindFullImgUrl(ret.ads),
-    categories: ret.categories.slice(0, 4),
-    activities: ret.activities,
-    previewActivities: ret.previewActivities
-  });
+  this.setData(ret);
 
   // 停止下拉动画
   wx.stopPullDownRefresh();

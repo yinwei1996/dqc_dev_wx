@@ -12,10 +12,12 @@
 
   .activity-item {
     .flex-start;
-    padding: @text-margin;
+    align-items: flex-start;
+    padding: @text-margin-l @text-margin;
+    border-bottom: @border-gray-light;
 
     .activity-text {
-      padding: 20rpx;
+      padding-left: @text-margin;
       position: relative;
     } /* .activity-text */
 
@@ -26,22 +28,49 @@
       white-space:nowrap; /* 强制不换行 */
     }
 
+    /* 活动标签 */
+    .activity-tags {
+      padding: @text-margin-s 0;
+
+      .tag-item {
+        .flex-start;
+        margin-bottom: @text-margin-xs;
+        height: @bar-height-xs;
+
+        .tag-name {
+          margin-right: @text-margin;
+          padding: 0 @text-margin-xl;
+          color: @color-white;
+          background-color: @color-primary;
+          border-radius: @text-margin;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+      } /* .tag-item */
+
+    } /* .activity-tags */
+
     /* 活动摘要 */
     .activity-summary {
-      font-size: @text-size-s3;
+      height: @bar-height-xl;
+      overflow: hidden;
       color: @color-gray-dark;
-      overflow:hidden; /* 超出一行文字自动隐藏 */
-      text-overflow:ellipsis; /* 文字隐藏后添加省略号 */
-      white-space:nowrap; /* 强制不换行 */
+      background-color: #ccc;
+    } /* .activity-summary */
 
-    } /* .activity-name */
+    .activity-summary-more {
+      text-align: right;
+      color: @color-blue;
+    } /* .activity-summary-more */
 
     /* 入口主图 */
     .activity-img {
 
       image {
-        width: 100rpx;
-        height: 100rpx;
+        .ico-avatar;
       }
     } /* .activity-img */
 

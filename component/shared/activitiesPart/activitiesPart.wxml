@@ -12,8 +12,8 @@
 
 <view class="activity-part tabs">
 
-  <!-- Tab导航 -->
-  <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" />
+  <!-- Tab导航（仅同时拥有"活动中"/"预告"活动时才显示） -->
+  <template is="tabNav" data="{{ items: tabNavItems, currentTab: tab }}" wx:if="{{ activities && previewActivities }}" />
 
   <!-- Tab内容 -->
   <view class="tab-content">

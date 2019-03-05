@@ -7,14 +7,17 @@
 
 @import '../../../variables.less';
 
+.wrapper-title {
+  .flex-start;
+  margin: @text-margin-s;
+  padding-left: @text-margin-s;
+  color: @color-primary;
+  border-left: solid @text-margin-s @color-primary;
+}
+
 /* 搜索区域 */
 .search-wrapper {
   .flex-start;
-
-  .activity-entry {
-    .ico-m;
-    margin: 0 @text-margin;
-  }
 
   searchBar {
     width: 100%;
@@ -62,16 +65,11 @@
     .ico-s;
   }
 
-  .category-label {
-    color: @color-primary;
-  }
-
   .category-items {
     padding: 0 @text-margin;
-    width: 480rpx;
+    width: 610rpx;
     white-space: nowrap;
     box-sizing: border-box;
-    border-left: @border-gray;
 
     .category-item {
       display: inline-block;
@@ -86,3 +84,104 @@
   } /* .category-items */
 
 } /* .category-wrapper */
+
+/* 主题活动楼层 */
+.column-wrapper {
+  padding: @text-margin-s;
+
+  .column-item {
+    display: inline-block;
+    width: 50%;
+
+    > view {
+      position: relative;
+      margin: 0 @text-margin-s @text-margin-s 0;
+      height: @bar-height * 2;
+      border: @border-gray-light;
+      border-radius: @text-margin;
+    } /* > view */
+
+    image {
+      .ico-avatar;
+      margin: @text-margin;
+    }
+
+    .column-text {
+      position: absolute;
+      right: @text-margin;
+      bottom: @text-margin;
+
+      .column-name {
+        text-align: right;
+      }
+
+      .column-count {
+        text-align: right;
+      }
+
+    } /* .column-text */
+
+    &:nth-child(2),
+    &:nth-child(4) {
+
+      > view {
+        margin-right: 0;
+      }
+
+    } /* &:nth-child(1n) */
+
+  } /* .column-item */
+
+} /* .column-wrapper */
+
+/* 热销单品 */
+.top-sales-wrapper {
+  white-space: nowrap;
+  padding: @text-margin-s 0;
+
+  .top-item {
+    display: inline-block;
+    margin-right: @text-margin-s;
+    padding: @text-margin-s;
+    width: 33.3%;
+    text-align: center;
+    box-sizing: border-box;
+    border: @border-gray-light;
+    border-radius: @text-margin;
+
+    image {
+      .ico-avatar-l;
+    }
+
+    .brand-name {
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .spu-name {
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .ops {
+      padding-top: @text-margin-s;
+      text-align: left;
+
+      > view {
+        display: inline-block;
+        margin-right: @text-margin;
+        padding: 0 @text-margin-xl;
+        color: @color-white;
+        background-color: @color-primary;
+        border-radius: @text-margin-s;
+      }
+
+    } /* .ops */
+
+    &:first-child {
+      margin-left: @text-margin-s;
+    }
+
+  } /* top-item */
+
+} /* .top-sales-wrapper */

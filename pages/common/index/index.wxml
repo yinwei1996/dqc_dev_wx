@@ -11,7 +11,6 @@
 
   <!-- 活动入口及搜索框 -->
   <view class="search-wrapper">
-    <image class="activity-entry" src="../../../image/icos/index_category_81.png" bindtap="clickActivityAll" />
     <searchBar readonly="true" bind:clickSearchBar="clickSearchBar" />
   </view> <!-- .search-wrapper -->
 
@@ -28,8 +27,8 @@
         duration="1500"
         bindchange="changeAd"
         wx:if="{{ ads }}">
-      <swiper-item wx:for="{{ ads }}" wx:key="advertisementId">
-        <image mode="widthFix" lazy-load="true" src="{{ item.fullImgUrl }}" data-lnk-url="{{ item.linkUrl }}" bindtap="clickAd" wx:if="{{ item.fullImgUrl }}" />
+      <swiper-item wx:for="{{ ads }}" wx:key="advertisementId" wx:if="{{ item.imgUrl }}">
+        <image mode="widthFix" lazy-load="true" src="{{ item.imgUrl }}" data-lnk-url="{{ item.linkUrl }}" bindtap="clickAd" />
       </swiper-item>
     </swiper>
 
@@ -39,8 +38,7 @@
 
   <!-- 活动品类 -->
   <view class="category-wrapper" wx:if="{{ categories }}">
-    <image src="../../../image/icos/index_activity_81.png" />
-    <text class="category-label">主题活动</text>
+    <image class="activity-entry" src="../../../image/icos/index_category_81.png" bindtap="clickActivityAll" />
 
     <!-- 品类项 -->
     <scroll-view class="category-items" scroll-x="true">
@@ -55,7 +53,51 @@
 
   </view> <!-- .category-wrapper -->
 
-  <!-- 活动列表 -->
-  <activitiesPart initActivities="{{ activities }}" initPreviewActivities="{{ previewActivities }}" />
+  <!--
+    主题活动
+  -->
+
+  <view class="wrapper-title">主题活动</view>
+
+  <view class="column-wrapper" scroll-x="true">
+
+    <view class="column-item" wx:for="{{ activityColumns }}" wx:key="columnId">
+      <view>
+        <image mode="aspectFit" lazy-load="true" src="{{ item.indexImageUrl }}" />
+        <view class="column-text">
+          <view class="column-name">{{ item.columnName }}</view>
+          <view class="column-count">直播<text>N</text>场，预告<text>N</text>场</view>
+        </view>
+      </view>
+    </view> <!-- .column-item -->
+
+  </view> <!-- .column-wrapper -->
+
+  <!--
+    热销单品TOP10
+  -->
+
+  <view class="wrapper-title">热销单品TOP10</view>
+
+  <scroll-view scroll-x="true" class="top-sales-wrapper">
+
+    <view class="top-item" data-batch-id="{{ item.batchId }}" data-spu-id="{{ item.spuId }}" wx:for="{{ spuSaleCounts }}" wx:key="sysNo">
+      <image mode="aspectFit" lazy-load="true" src="{{ item.spuImageUrl }}" />
+      <view class="brand-name">{{ item.brandName }}</view>
+      <view class="spu-name">{{ item.spuName }}</view>
+      <view class="ops">
+        <view data-action="share">转发</view>
+        <view data-action="buy">购买</view>
+      </view>
+    </view> <!-- .top-item -->
+
+  </scroll-view> <!-- .top-sales-wrapper -->
+
+  <!--
+    活动列表
+  -->
+
+  <view class="wrapper-title">热播活动</view>
+  <activitiesPart initActivities="{{ activities }}" />
 
 </view>

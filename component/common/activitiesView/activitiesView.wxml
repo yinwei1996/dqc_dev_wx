@@ -22,12 +22,18 @@
       wx:key="activityId">
 
       <view class="activity-img">
-        <image src="{{ activity.fullBrandImageUrl || '../../../image/deli_logo.png' }}" mode="aspectFit" lazy-load="true" />
+        <image src="{{ activity.fullBrandImageUrl }}" mode="aspectFit" lazy-load="true" />
       </view> <!-- .activity-img -->
 
       <view class="activity-text">
-        <view class="activity-name">{{activity.activityName}}</view>
-        <view class="activity-summary">{{activity.summary}}</view>
+        <view class="activity-name">{{ activity.activityName }}</view>
+        <view class="activity-tags" wx:if="{{ activity.tagMaps && activity.tagMaps.length }}">
+          <view class="tag-item" wx:for="{{ activity.tagMaps }}" wx:key="sysNo">
+            <text class="tag-name">{{ item.tagName }}</text>
+            <text class="tag-val">{{ item.tagVal }}</text>
+          </view>
+        </view>
+        <foldableSummary text="{{ activity.summary }}" rowCount="3" />
       </view> <!-- .activity-text -->
 
     </navigator> <!-- .activity-item -->

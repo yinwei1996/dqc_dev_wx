@@ -1,10 +1,10 @@
   {
   "pages": [
+    "pages/common/index/index",
     "pages/marketing/activityShare/activityShare",
     "pages/marketing/activityAll/activityAll",
     "pages/my/myCart/myCart",
     "pages/my/myCartExpired/myCartExpired",
-    "pages/common/index/index",
     "pages/activity/activityDetail/activityDetail",
     "pages/sku/skuSearch/skuSearch",
     "pages/common/msgAll/msgAll",

@@ -150,7 +150,7 @@ methods: {
     helper.setData(this, key, helper.concatPaging(this, key, ret));
 
     // 对应tab项的业务记录数
-    tabNavItems[ 0 ].count = ret.recordCount;
+    tabNavItems[ key === 'previewActivities' ? 1 : 0 ].count = ret.recordCount;
 
     // 绑定数据
     this.setData({ tabNavItems });

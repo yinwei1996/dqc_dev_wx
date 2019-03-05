@@ -11,10 +11,13 @@
   .clear-after;
 
   .activity-item {
-    .flex-start;
-    align-items: flex-start;
     padding: @text-margin-l @text-margin;
     border-bottom: @border-gray-light;
+
+    .flex-start {
+      align-items: flex-start;
+      margin-bottom: @text-margin;
+    }
 
     .activity-text {
       padding-left: @text-margin;
@@ -74,13 +77,26 @@
       }
     } /* .activity-img */
 
-    /* activity-item hover 样式 */
-    &.activity-item-hover {
+    /* 倒计时 */
+    .activity-countdown {
 
-      .activity-img {
-        opacity: .7;
-      }
-    } /* &.activity-item-hover */
+      .countdown-val {
+        margin-left: @text-margin;
+
+        text {
+          display: inline-block;
+          margin: 0 @text-margin-xs;
+          width: @text-margin-xl * 2;
+          font-size: @text-size-s5;
+          text-align: center;
+          color: @color-white;
+          background-color: @color-primary;
+          border-radius: @text-margin-xs;
+        }
+
+      } /* .countdown-val */
+
+    } /* .activity-countdown */
 
   } /* .activity-item */
 

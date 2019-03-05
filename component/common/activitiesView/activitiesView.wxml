@@ -1,9 +1,10 @@
 <!--
 /**
  * 组件 - 活动列表
- * activitiesView.wxml
+ * activitiesView
  * -----------------------------------
  * 19/02/18 Jerry 新增
+ * 19/03/05 Jerry 新增关联标签展示、可折叠摘要、倒计时、"进入专场"按钮
  */
 -->
 
@@ -21,20 +22,45 @@
       wx:for-item="activity"
       wx:key="activityId">
 
-      <view class="activity-img">
-        <image src="{{ activity.fullBrandImageUrl }}" mode="aspectFit" lazy-load="true" />
-      </view> <!-- .activity-img -->
+      <view class="flex-start">
 
-      <view class="activity-text">
-        <view class="activity-name">{{ activity.activityName }}</view>
-        <view class="activity-tags" wx:if="{{ activity.tagMaps && activity.tagMaps.length }}">
-          <view class="tag-item" wx:for="{{ activity.tagMaps }}" wx:key="sysNo">
-            <text class="tag-name">{{ item.tagName }}</text>
-            <text class="tag-val">{{ item.tagVal }}</text>
+        <view class="activity-img">
+          <image src="{{ activity.brandImageUrl || activity.fullBrandImageUrl }}" mode="aspectFit" lazy-load="true" />
+        </view> <!-- .activity-img -->
+
+        <view class="activity-text">
+
+          <!-- 活动名称 -->
+          <view class="activity-name">{{ activity.activityName }}</view>
+
+          <!-- 关联标签集合 -->
+          <view class="activity-tags" wx:if="{{ activity.tagMaps && activity.tagMaps.length }}">
+            <view class="tag-item" wx:for="{{ activity.tagMaps }}" wx:key="sysNo">
+              <text class="tag-name">{{ item.tagName }}</text>
+              <text class="tag-val">{{ item.tagVal }}</text>
+            </view>
           </view>
+
+          <!-- 活动摘要（可折叠） -->
+          <foldableSummary text="{{ activity.summary }}" rowCount="5" />
+
+        </view> <!-- .activity-text -->
+
+      </view> <!-- .flex-start -->
+
+      <!-- 倒计时/进入专场 -->
+      <view class="flex-between">
+
+        <view class="activity-countdown">
+          <text class="countdown-label">结束时间</text>
+          <text class="countdown-val"><text>23</text>:<text>59</text>:<text>59</text></text>
+        </view> <!-- .countdown -->
+
+        <view class="activity-entry">
+          <button size="mini" class="btn btn-primary">进入专场</button>
         </view>
-        <foldableSummary text="{{ activity.summary }}" rowCount="3" />
-      </view> <!-- .activity-text -->
+
+      </view> <!-- .flex-between -->
 
     </navigator> <!-- .activity-item -->
 

@@ -26,7 +26,7 @@ properties: {
 data: {
   // 行高(rpx)，经验值：平均每行高度为 36.25 ~ 38 rpx
   rowHeight: 37,
-  rowCount: 4
+  rowCount: 5
 },
 /* ------------------------------
  组件生命周期

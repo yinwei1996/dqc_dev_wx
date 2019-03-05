@@ -1,8 +1,8 @@
   {
   "pages": [
     "pages/common/index/index",
-    "pages/marketing/activityShare/activityShare",
     "pages/marketing/activityAll/activityAll",
+    "pages/marketing/activityShare/activityShare",
     "pages/my/myCart/myCart",
     "pages/my/myCartExpired/myCartExpired",
     "pages/activity/activityDetail/activityDetail",

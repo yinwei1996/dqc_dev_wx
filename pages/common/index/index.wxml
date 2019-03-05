@@ -57,7 +57,7 @@
     主题活动
   -->
 
-  <view class="wrapper-title">主题活动</view>
+  <view class="wrapper-title" wx:if="{{ activityColumns }}">主题活动</view>
 
   <view class="column-wrapper" scroll-x="true">
 
@@ -77,7 +77,7 @@
     热销单品TOP10
   -->
 
-  <view class="wrapper-title">热销单品TOP10</view>
+  <view class="wrapper-title" wx:if="{{ spuSaleCounts }}">热销单品TOP10</view>
 
   <scroll-view scroll-x="true" class="top-sales-wrapper">
 
@@ -97,7 +97,7 @@
     活动列表
   -->
 
-  <view class="wrapper-title">热播活动</view>
+  <view class="wrapper-title" wx:if="{{ activities }}">热播活动</view>
   <activitiesPart initActivities="{{ activities }}" />
 
 </view>

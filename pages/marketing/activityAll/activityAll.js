@@ -21,6 +21,9 @@ onLoad (opts) {
   // 更新导航标题
   helper.navTitle('活动列表');
 
+  if (!opts.categoryId)
+    opts.categoryId = 'e164eb89b55a2d4bc1e81f5052c1dd7d';
+
   if (opts.categoryId)
     this.setData({ categoryId: opts.categoryId });
 
@@ -46,7 +49,10 @@ onPullDownRefresh(){
  ------------------------------ */
 queryData(){
   // 查询数据
-  helper.request({ url: helper.formatUrl('wx/act', { categoryId: this.data.categoryId }), success: this.bindData });
+  helper.request({
+    url: helper.formatUrl('wx/act', { categoryId: this.data.categoryId }),
+    success: this.bindData
+  });
 },
 /* ------------------------------
  绑定显示初始数据

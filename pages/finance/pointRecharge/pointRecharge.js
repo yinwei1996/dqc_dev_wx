@@ -36,6 +36,13 @@ onShow() {
   this.queryPoint();
 },
 /* ------------------------------
+ 下拉刷新
+ ------------------------------ */
+onPullDownRefresh(){
+  // 查询积分余额
+  this.queryPoint();
+},
+/* ------------------------------
  查询积分余额
 ------------------------------ */
 queryPoint() {
@@ -45,8 +52,13 @@ queryPoint() {
  绑定数据
 ------------------------------ */
 bindPoint(ret){
+
   helper.each(ret.availableRecharges, (idx, item) => item.priceString = helper.fen2str(item.price, true));
   this.setData(ret);
+
+  // 停止下拉动画
+  wx.stopPullDownRefresh();
+
 },
 /* ------------------------------
  选中充值项

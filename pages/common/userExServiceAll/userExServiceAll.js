@@ -85,20 +85,18 @@ clickServiceItem(e) {
 
   // 绑定数据
   this.setData({
-    services: services,
+    services,
     serviceId: curServ.serviceId,
     anyToConfirm: curServ.selected
   });
 
 },
 /* ------------------------------
- 确认充值
+ 确认购买
 ------------------------------ */
 confirmBuy(){
 
-  var
-    that = this,
-    serviceId = this.data.serviceId;
+  var serviceId = this.data.serviceId;
 
   helper.request({
     loading: true,
@@ -106,7 +104,7 @@ confirmBuy(){
     data: { serviceId },
     success: order => {
       // 禁用"充值"按钮
-      that.setData({ anyToRecharge: false });
+      this.setData({ anyToRecharge: false });
       // 跳转到支付确认页
       helper.navigateFormat('orderPayConfirm', { orderId: order.orderId });
     }

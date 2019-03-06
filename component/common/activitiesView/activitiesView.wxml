@@ -52,9 +52,14 @@
       <view class="flex-between">
 
         <view class="activity-countdown">
-          <text class="countdown-label">结束时间</text>
-          <text class="countdown-val"><text>23</text>:<text>59</text>:<text>59</text></text>
-        </view> <!-- .countdown -->
+          <view class="countdown-label">{{ activity.countdownLabel }}</view>
+          <view class="countdown-val" wx:if="{{ activity.countdownVal }}">
+            <view wx:if="{{ activity.countdownVal.days }}"><text>{{ activity.countdownVal.days }}</text>天</view>
+            <view><text>{{ activity.countdownVal.hours }}</text>:</view>
+            <view><text>{{ activity.countdownVal.minutes }}</text>:</view>
+            <view><text>{{ activity.countdownVal.seconds }}</text></view>
+          </view>
+        </view> <!-- .activity-countdown -->
 
         <view class="activity-entry">
           <button size="mini" class="btn btn-primary">进入专场</button>

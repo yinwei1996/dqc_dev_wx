@@ -50,10 +50,11 @@ lifetimes: {
 pageLifetimes: {
 
   /* ------------------------------
-   页面显示
+   页面隐藏
   ------------------------------ */
-  show() {
-
+  hide() {
+    // 清除已存在的倒计时
+    this.clearTimer();
   }
 
 },
@@ -81,12 +82,6 @@ methods: {
     this.bindActivities('previewActivities', previewActivities);
   },
   /* ------------------------------
-   视图滚动到底部
-  ------------------------------ */
-  scrollToLower(){
-
-  },
-  /* ------------------------------
    处理Tab导航Click
   ------------------------------ */
   tabNavClick(e) {
@@ -96,7 +91,7 @@ methods: {
     isSame = tab == this.data.tab;
 
     // 切换tab
-    this.setData({ tab: tab });
+    this.setData({ tab });
 
     // 重复点击tab时，重新查询数据；
     // 否则按分页方式查询数据。
@@ -135,6 +130,9 @@ methods: {
   ------------------------------ */
   bindActivities(key, ret){
 
+    // 清除已存在的倒计时
+    this.clearTimer();
+
     var tabNavItems = this.data.tabNavItems;
 
     if (!key)
@@ -155,6 +153,88 @@ methods: {
     // 绑定数据
     this.setData({ tabNavItems });
 
+    // 刷新倒计时
+    this.refreshCountdown();
+
+  },
+  /* ------------------------------
+   刷新全部倒计时
+  ------------------------------ */
+  refreshCountdown(){
+
+    var
+      activities = this.data.activities,
+      previewActivities = this.data.previewActivities,
+      curSale = this.data.curSale,
+      countSeconds = this.data.countSeconds || 0,
+      countdownString;
+
+    // 刷新"活动中"活动的倒计时
+    helper.each(
+      activities ? activities.records : null,
+      (idx, act) => this.refreshActivityCountdown('expireCountdown', act, countSeconds));
+
+    // 刷新"预告"活动的倒计时
+    helper.each(
+      previewActivities ? previewActivities.records : null,
+      (idx, act) => this.refreshActivityCountdown('validCountdown', act, countSeconds));
+
+    // countSeconds 是全局变量，要一直累加
+    let localData = { countSeconds: countSeconds + 1 };
+
+    if (activities)
+      localData.activities = activities;
+
+    if (previewActivities)
+      localData.previewActivities = previewActivities;
+
+    if (!this.data.countdownTimer) {
+      localData.countdownTimer = setInterval(() => this.refreshCountdown(), 1000);
+      console.log('已创建计时器');
+    }
+
+    // 绑定数据
+    this.setData(localData);
+
+  },
+  /* ------------------------------
+   按活动刷新倒计时
+  ------------------------------ */
+  refreshActivityCountdown(prop, act, countSeconds){
+
+    let countdown = act[ prop ] - countSeconds;
+
+    act.countdownLabel = countdown > 0 ? '结束时间' : '已结束';
+    act.countdownVal = countdown > 0 ? helper.seconds2obj(countdown) : null;
+
+    let { days, hours, minutes, seconds }  = act.countdownVal || {};
+
+/*
+    console.log([
+      'activitiesPart.refreshCountdown => ', act.activityName,
+      ', countdown: ', countdown,
+      ', label: ', act.countdownLabel,
+      ', days: ', days,
+      ', hours: ', hours,
+      ', minutes: ', minutes,
+      ', seconds: ', seconds
+      ].join(''));
+*/
+
+  },
+  /* ------------------------------
+   清除计时器
+  ------------------------------ */
+  clearTimer(){
+
+    if (!this.data.countdownTimer)
+      return;
+    
+    // 清除计时器（同时也清除秒数）
+    clearInterval(this.data.countdownTimer);
+    this.setData({ countdownTimer: null, countSeconds: null });
+
+    console.log('activitiesPart.clearTimer => 已清除计时器');
   }
 
 }

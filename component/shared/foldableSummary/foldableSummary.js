@@ -35,8 +35,10 @@ lifetimes: {
 
   ready() {
 
-    var query = this.createSelectorQuery();
-    query.select('#foldableSummaryText').boundingClientRect(rect => this.refreshFoldable(rect)).exec();
+    this.createSelectorQuery()
+      .select('.summary-hidden-space')
+      .boundingClientRect(rect => this.calculateRowHeight(rect))
+      .exec();
 
   }
 
@@ -60,9 +62,9 @@ methods: {
     console.log('initRowCount => ' + this.data.rowCount);
   },
   /* ------------------------------
-   刷新折叠状态
+   计算实际行高
   ------------------------------ */
-  refreshFoldable(rect){
+  calculateRowHeight(rect){
 
     if (!rect || !rect.height)
       return;
@@ -70,20 +72,39 @@ methods: {
     wx.getSystemInfo({
       success: inf => {
 
-        // 经验值：平均每行高度为 36.25 ~ 38 rpx
+        // 计算实际行高
+        let rowHeight = rect.height * 750.0 / inf.screenWidth;
 
-        var
-          totalHeight = rect.height * 750 / inf.screenWidth,
-          // 四舍五入
-          actualRowCount = ( totalHeight / this.data.rowHeight ).toFixed(0);
-
-        console.log('foldableSummary.refreshFoldable => text: ' + this.data.text);
-        console.log('foldableSummary.refreshFoldable => totalHeight: ' + totalHeight + 'rpx, actualRowCount: ' + actualRowCount);
-
-        this.setData({ showMore: actualRowCount > this.data.rowCount });
+        this.createSelectorQuery()
+          .select('.summary-text')
+          .boundingClientRect(rect => this.refreshFoldable(inf.screenWidth, rowHeight, rect))
+          .exec();
 
       }
     });
+
+  },
+  /* ------------------------------
+   刷新折叠状态
+  ------------------------------ */
+  refreshFoldable(screenWidth, rowHeight, rect){
+
+    if (!rect || !rect.height)
+      return;
+
+    let
+      totalHeight = rect.height * 750 / screenWidth,
+      // 四舍五入
+      actualRowCount = ( totalHeight / rowHeight ).toFixed(0);
+
+    console.log([
+      'foldableSummary.refreshFoldable => totalHeight: ', totalHeight, 'rpx',
+      ', rowHeight: ', rowHeight, 'rpx',
+      ', actualRowCount: ', actualRowCount,
+      ', text: ', this.data.text
+      ].join(''));
+
+    this.setData({ showMore: actualRowCount > this.data.rowCount });
 
   },
   /* ------------------------------

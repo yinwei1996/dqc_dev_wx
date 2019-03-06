@@ -8,7 +8,7 @@
 		"newFeature": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
+	"libVersion": "2.5.1",
 	"appid": "wx842f5705200518c7",
 	"projectname": "dqc-mall-wechat",
 	"condition": {

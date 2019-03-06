@@ -1290,38 +1290,48 @@ dt2str(d, includeSeconds){
 
 },
 /* ------------------------------
- 将秒数转为hh:mm:ss格式字符串
+ 将秒数转为{ days, hours, minutes, seconds }对象
 ------------------------------ */
-seconds2Str(totalSeconds){
+seconds2obj(totalSeconds){
 
   var
-    buffer = [],
     days = parseInt( totalSeconds / 86400 ),
     hours = parseInt( ( totalSeconds % 86400 ) / 3600 ),
     minutes = parseInt( ( ( totalSeconds % 86400 ) % 3600 ) / 60 ),
     seconds = parseInt( ( ( totalSeconds % 86400 ) % 3600 ) % 60 );
 
+    return { days, hours, minutes, seconds };
+},
+/* ------------------------------
+ 将秒数转为hh:mm:ss格式字符串
+------------------------------ */
+seconds2str(totalSeconds){
+
+  var
+    buffer = [],
+    obj = __me.seconds2obj(totalSeconds);
+
     // 天（后面带一个空格）
-    if (days > 0)
-      buffer.push(days + '天 ');
+    if (obj.days > 0)
+      buffer.push(obj.days + '天 ');
 
     // 小时
-    if (hours < 10)
+    if (obj.hours < 10)
       buffer.push('0');
 
-    buffer.push(hours + ':');
+    buffer.push(obj.hours + ':');
 
     // 分
-    if (minutes < 10)
+    if (obj.minutes < 10)
       buffer.push('0');
 
-    buffer.push(minutes + ':');
+    buffer.push(obj.minutes + ':');
 
     // 秒
-    if (seconds < 10)
+    if (obj.seconds < 10)
       buffer.push('0');
 
-    buffer.push(seconds);
+    buffer.push(obj.seconds);
 
     return buffer.join('');
 },

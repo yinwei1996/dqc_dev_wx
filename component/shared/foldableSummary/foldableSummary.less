@@ -8,6 +8,7 @@
 @import '../../../variables.less';
 
 .foldable-summary {
+  position: relative;
 
   /* 活动摘要 */
   .summary-text {
@@ -20,5 +21,12 @@
     height: @bar-height-s;
     color: @color-blue;
   } /* .activity-summary-more */
+
+  .summary-hidden-space {
+    position: absolute;
+    top: -99999rpx;
+    left: -99999rpx;
+    background-color: @color-red;
+  }
 
 } /* .foldable-summary */

@@ -80,19 +80,29 @@
     /* 倒计时 */
     .activity-countdown {
 
+      .countdown-label {
+        display: inline-block;
+      }
+
       .countdown-val {
+        display: inline-block;
         margin-left: @text-margin;
 
-        text {
+        > view {
           display: inline-block;
-          margin: 0 @text-margin-xs;
-          width: @text-margin-xl * 2;
-          font-size: @text-size-s5;
-          text-align: center;
-          color: @color-white;
-          background-color: @color-primary;
-          border-radius: @text-margin-xs;
-        }
+
+          > text {
+            display: inline-block;
+            margin: 0 @text-margin-xs;
+            width: @text-margin-xl * 2;
+            font-size: @text-size-s5;
+            text-align: center;
+            color: @color-white;
+            background-color: @color-primary;
+            border-radius: @text-margin-xs;
+          } /* > text */
+
+        } /* > text */
 
       } /* .countdown-val */
 

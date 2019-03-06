@@ -10,12 +10,14 @@
 <view class="foldable-summary">
 
   <block wx:if="{{ showMore && !showAll }}">
-  <view class="summary-text" id="foldableSummaryText" style="height:{{ rowHeight * rowCount }}rpx">{{ text }}</view>
+  <view class="summary-text" style="height:{{ rowHeight * rowCount }}rpx">{{ text }}</view>
   <view class="summary-op" catchtap="showAll">展开全文</view>
   </block>
   <block wx:else>
-  <view class="summary-text" id="foldableSummaryText">{{ text }}</view>
+  <view class="summary-text">{{ text }}</view>
   <view class="summary-op" catchtap="hideAll" wx:if="{{ showMore && showAll }}">收起全文</view>
   </block>
+
+  <view class="summary-hidden-space">-</view>
 
 </view> <!-- foldable-summary -->

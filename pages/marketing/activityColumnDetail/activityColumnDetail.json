@@ -1,7 +1,6 @@
 {
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "searchBar": "../../../component/shared/searchBar/searchBar",
     "skuCategoryNav": "../../../component/shared/skuCategoryNav/skuCategoryNav",
     "activitiesPart": "../../../component/shared/activitiesPart/activitiesPart"
   }

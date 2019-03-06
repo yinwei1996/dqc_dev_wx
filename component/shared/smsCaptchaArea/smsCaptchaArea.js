@@ -16,9 +16,7 @@ options: {
  组件的属性列表
 ------------------------------ */
 properties: {
-
-type: { type: String, observer(newVal) { this.initType( newVal ) } }
-
+  type: { type: String, observer(newVal) { this.initType( newVal ) } }
 }, /* properties */
 
 /* ------------------------------
@@ -81,10 +79,7 @@ methods: {
   ------------------------------ */
   sendCaptcha(ret){
 
-    var
-      that = this,
-      url = this.data.url,
-      mobile = this.data.mobile;
+    let { url, mobile } = this.data;
 
     // 简单检查
     if (!helper.isMobile(mobile)) {
@@ -102,7 +97,7 @@ methods: {
         // 隐藏提示
         helper.hideLoading();
         // 开始倒计时
-        that.afterSendCaptcha(ret.timeout);
+        this.afterSendCaptcha(ret.timeout);
       }
     });
 

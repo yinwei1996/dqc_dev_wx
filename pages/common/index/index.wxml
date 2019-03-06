@@ -38,19 +38,7 @@
 
   <!-- 活动品类 -->
   <view class="category-wrapper" wx:if="{{ categories }}">
-    <image class="activity-entry" src="../../../image/icos/index_category_81.png" bindtap="clickActivityAll" />
-
-    <!-- 品类项 -->
-    <scroll-view class="category-items" scroll-x="true">
-      <view class="category-item"
-          wx:for="{{ categories }}"
-          wx:key="{{ categoryId }}"
-          data-category-id="{{ item.categoryId }}"
-          bindtap="clickActivityAll">{{ item.categoryName }}</view>
-      </scroll-view>
-
-      <view class="category-all" bindtap="clickActivityAll">全部</view>
-
+    <skuCategoryNav categories="{{ categories }}" />
   </view> <!-- .category-wrapper -->
 
   <!--
@@ -61,14 +49,26 @@
 
   <view class="column-wrapper" scroll-x="true">
 
-    <view class="column-item" wx:for="{{ activityColumns }}" wx:key="columnId">
+    <view class="column-item"
+      data-column-id="{{ item.columnId }}"
+      bindtap="clickColumn"
+      wx:for="{{ activityColumns }}"
+      wx:key="columnId">
+
       <view>
+
         <image mode="aspectFit" lazy-load="true" src="{{ item.indexImageUrl }}" />
+
         <view class="column-text">
           <view class="column-name">{{ item.columnName }}</view>
-          <view class="column-count">直播<text>N</text>场，预告<text>N</text>场</view>
-        </view>
+          <view class="column-count">
+            <view wx:if="{{ item.activityCount }}">直播<text>{{ item.activityCount }}</text>场</view>
+            <view wx:if="{{ item.previewActivityCount }}">预告<text>{{ item.previewActivityCount }}</text>场</view>
+          </view> <!-- .column-count -->
+        </view> <!-- .column-text -->
+
       </view>
+
     </view> <!-- .column-item -->
 
   </view> <!-- .column-wrapper -->

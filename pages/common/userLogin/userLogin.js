@@ -79,6 +79,9 @@ afterLogin(ret){
     return;
   }
 
+  // 默认跳转到上一页
+  wx.navigateBack();
+
 },
 /* ------------------------------
  会员关注品类Sheet已关闭（事件处理）

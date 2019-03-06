@@ -1,6 +1,7 @@
   {
   "pages": [
     "pages/common/index/index",
+    "pages/marketing/activityColumnDetail/activityColumnDetail",
     "pages/my/myCenter/myCenter",
     "pages/common/userLogin/userLogin",
     "pages/common/userCategoryConfig/userCategoryConfig",

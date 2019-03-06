@@ -1,0 +1,24 @@
+<!--
+ /**
+ * 活动栏目详情
+ * activityColumnDetail
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+ -->
+
+<view class="activity-column-detail" wx:if="{{ column }}">
+
+  <!-- 类目列表 -->
+  <skuCategoryNav categories="{{ categories }}" />
+
+  <!-- 栏目详情 -->
+  <view class="column-inf">
+    <image mode="widthFix" lazy-load="true" src="{{ column.innerImageUrl }}" />
+    <view>{{ column.summary }}</view>
+  </view> <!-- .column-inf -->
+
+  <!-- 活动列表 -->
+  <activitiesPart columnId="{{ columnId }}" initActivities="{{ activities }}" initPreviewActivities="{{ previewActivities }}" />
+
+</view> <!-- activity-column-detail -->

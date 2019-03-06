@@ -1,0 +1,25 @@
+<!--
+/**
+ * 组件 - 一级类目导航
+ * skuCategoryNav
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+-->
+
+<view class="sku-category-nav">
+
+  <image src="../../../image/icos/index_category_81.png" bindtap="clickCategory" />
+
+  <!-- 品类项 -->
+  <scroll-view class="category-items" scroll-x="true">
+    <view class="category-item"
+        wx:for="{{ categories }}"
+        wx:key="{{ categoryId }}"
+        data-category-id="{{ item.categoryId }}"
+        bindtap="clickCategory">{{ item.categoryName }}</view>
+    </scroll-view>
+
+    <view class="category-all" bindtap="clickCategory">全部</view>
+
+</view> <!-- .sku-category-nav -->

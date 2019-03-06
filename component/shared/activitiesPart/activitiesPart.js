@@ -16,8 +16,13 @@ options: {
  组件的属性列表
 ------------------------------ */
 properties: {
+  // 一级类目编号
   categoryId: { type: String, observer(newVal) { this.initCategoryId( newVal ) } },
+  // 活动栏目编号
+  columnId: { type: String, observer(newVal) { this.initColumnId( newVal ) } },
+  // "活动中"活动列表
   initActivities: { type: Object, observer(newVal) { this.initActivities( newVal ) } },
+  // "预告"活动列表
   initPreviewActivities: { type: Object, observer(newVal) { this.initPreviewActivities( newVal ) } }
 }, /* properties */
 
@@ -26,7 +31,8 @@ properties: {
 ------------------------------ */
 data: {
   tabNavItems: [
-    { key: 'activities', text: '活动中' }
+    { key: 'activities', text: '活动中' },
+    { key: 'previewActivities', text: '预告' }
   ],
   tab: 'activities'
 },
@@ -64,10 +70,16 @@ pageLifetimes: {
 methods: {
 
   /* ------------------------------
-   初始化类目编号
+   初始化一级类目编号
   ------------------------------ */
   initCategoryId(categoryId){
     this.setData({ categoryId });
+  },
+  /* ------------------------------
+   初始化活动栏目编号
+  ------------------------------ */
+  initColumnId(columnId){
+    this.setData({ columnId });
   },
   /* ------------------------------
    初始化活动中的活动列表
@@ -86,9 +98,9 @@ methods: {
   ------------------------------ */
   tabNavClick(e) {
 
-    var
-    tab = e.currentTarget.dataset.navKey,
-    isSame = tab == this.data.tab;
+    let
+      tab = e.currentTarget.dataset.navKey,
+      isSame = tab == this.data.tab;
 
     // 切换tab
     this.setData({ tab });
@@ -102,12 +114,11 @@ methods: {
   ------------------------------ */
   queryActivities(paging){
 
-    var
-    tab = this.data.tab,
-    existActivities = this.data[ tab ],
-    category = this.data.categoryId,
-    pageIndex = helper.nextPageIndex( existActivities, paging ),
-    approveStatus;
+    let
+      { tab, categoryId, columnId } = this.data,
+      existActivities = this.data[ tab ],
+      pageIndex = helper.nextPageIndex( existActivities, paging ),
+      approveStatus;
 
     if (pageIndex < 0)
       return;
@@ -120,7 +131,7 @@ methods: {
     }
 
     helper.request({
-      url: helper.formatUrl('wx/act/list', { category, approveStatus, pageIndex }),
+      url: helper.formatUrl('wx/act/list', { category: categoryId, columnId, approveStatus, pageIndex }),
       success: (ret) => this.bindActivities(null, ret)
     });
 
@@ -133,7 +144,7 @@ methods: {
     // 清除已存在的倒计时
     this.clearTimer();
 
-    var tabNavItems = this.data.tabNavItems;
+    let { tabNavItems } = this.data;
 
     if (!key)
       key = this.data.tab;
@@ -162,12 +173,12 @@ methods: {
   ------------------------------ */
   refreshCountdown(){
 
-    var
-      activities = this.data.activities,
-      previewActivities = this.data.previewActivities,
-      curSale = this.data.curSale,
-      countSeconds = this.data.countSeconds || 0,
+    let
+      { activities, previewActivities, curSale, countSeconds } = this.data,
       countdownString;
+
+    if (!countSeconds)
+      countSeconds = 0;
 
     // 刷新"活动中"活动的倒计时
     helper.each(

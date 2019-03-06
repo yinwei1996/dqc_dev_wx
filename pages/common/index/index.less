@@ -54,37 +54,6 @@
 
 } /* .ad-wrapper */
 
-/* 快捷入口区 */
-.category-wrapper {
-  .flex-between;
-  padding: 0 @text-margin;
-  height: @bar-height;
-  border-top: @border-gray-light;
-
-  image {
-    .ico-s;
-  }
-
-  .category-items {
-    padding: 0 @text-margin;
-    width: 610rpx;
-    white-space: nowrap;
-    box-sizing: border-box;
-
-    .category-item {
-      display: inline-block;
-      margin: 0 @text-margin-xl 0 0;
-
-      &:last-child {
-        margin: 0;
-      }
-
-    } /* .category-item */
-
-  } /* .category-items */
-
-} /* .category-wrapper */
-
 /* 主题活动楼层 */
 .column-wrapper {
   padding: @text-margin-s;
@@ -117,7 +86,13 @@
 
       .column-count {
         text-align: right;
-      }
+
+        > view {
+          display: inline-block;
+          margin-left: @text-margin;
+        } /* > view */
+
+      } /* .column-count */
 
     } /* .column-text */
 

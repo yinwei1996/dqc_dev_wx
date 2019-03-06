@@ -1,0 +1,38 @@
+/**
+ * 组件 - 一级类目导航
+ * skuCategoryNav
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.sku-category-nav {
+  .flex-between;
+  padding: 0 @text-margin;
+  height: @bar-height;
+  border-bottom: @border-gray-light;
+
+  image {
+    .ico-s;
+  }
+
+  .category-items {
+    padding: 0 @text-margin;
+    width: 610rpx;
+    white-space: nowrap;
+    box-sizing: border-box;
+
+    .category-item {
+      display: inline-block;
+      margin: 0 @text-margin-xl 0 0;
+
+      &:last-child {
+        margin: 0;
+      }
+
+    } /* .category-item */
+
+  } /* .category-items */
+
+} /* .sku-category-nav */

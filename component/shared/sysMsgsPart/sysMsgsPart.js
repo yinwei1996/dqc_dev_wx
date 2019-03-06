@@ -66,7 +66,7 @@ pageLifetimes: {
 methods: {
 
   /* ------------------------------
-   视图滚动到底部
+   初始化 hidden 标识
   ------------------------------ */
   initHidden(hidden){
     this.setData({ hidden });
@@ -76,10 +76,7 @@ methods: {
    视图滚动到底部
   ------------------------------ */
   scrollToLower(){
-
-    // 分页查询（标识scrollend）
     this.queryMsgs('scrollend');
-
   },
   /* ------------------------------
    处理Tab导航Click

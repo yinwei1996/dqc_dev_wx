@@ -13,10 +13,10 @@ var
 ------------------------------ */
 __cfg = {
   // 测试版
-  host: 'https://47.102.124.0/',
+  host: 'https://dqctest.yunxiaoming.cn/',
   // 开发版
   //host: 'http://localbox.hecai360.com/',
-  //host: 'http://localhost/',
+  host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------
@@ -45,6 +45,7 @@ __pagePath = {
   // 活动列表
   activityAll: '/pages/marketing/activityAll/activityAll',
   activityShare: '/pages/marketing/activityShare/activityShare',
+  activityColumnDetail: '/pages/marketing/activityColumnDetail/activityColumnDetail',
 
   // 消息
   msgAll: '/pages/common/msgAll/msgAll',

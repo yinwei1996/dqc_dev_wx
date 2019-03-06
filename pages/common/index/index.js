@@ -105,16 +105,16 @@ clickAd(e){
 
 },
 /* ------------------------------
- 处理搜索框Click
- ------------------------------ */
-clickActivityAll(e){
-  helper.navigateFormat('activityAll', { categoryId: e.currentTarget.dataset.categoryId });
-},
-/* ------------------------------
  点击搜索框
  ------------------------------ */
 clickSearchBar(){
   helper.navigateTo('skuSearch');
+},
+/* ------------------------------
+ 点击活动栏目
+ ------------------------------ */
+clickColumn(e){
+  helper.navigateFormat('activityColumnDetail', { columnId: e.currentTarget.dataset.columnId });
 }
 
 

@@ -17,7 +17,7 @@
 
     <view class="agreement-title">
       <text>用户协议</text>
-      <image src="../../../image/icos/remove_48.png" bindtap="{{hide}}" />
+      <image src="../../../image/icos/remove_81.png" bindtap="{{hide}}" />
     </view>
 
     <view>

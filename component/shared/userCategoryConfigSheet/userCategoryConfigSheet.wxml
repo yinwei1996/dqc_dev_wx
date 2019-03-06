@@ -1,0 +1,16 @@
+<!--
+/**
+ * 组件 - 会员关注品类Sheet
+ * userCategoryConfigSheet
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+-->
+
+<!-- 遮罩层 -->
+<view class="sheet-mask {{ hidden }}" data-action="mask" bindtap="closeSheet"></view>
+
+<!-- 显示层 -->
+<view class="sheet user-category-config-sheet {{ hidden }}">
+  <userCategoryConfigPart id="userCategoryConfigPart" tip="{{ tip }}" bind:configSaved="configSaved" />
+</view> <!-- .user-category-config-sheet -->

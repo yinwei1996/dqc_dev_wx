@@ -1,0 +1,63 @@
+/**
+ * 组件 - 会员关注品类设置
+ * userCategoryConfigPart
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+
+@import '../../../variables.less';
+
+.user-category-config-part {
+
+  .config-tip {
+    .flex-start;
+    height: @bar-height-xl;
+  }
+
+  .categories {
+
+    /* 类目项 */
+    .category-item {
+      display: inline-block;
+      padding: 0 @text-margin @text-margin 0;
+      width: 50%;
+      box-sizing: border-box;
+
+      /* 内视图 */
+      view {
+        padding: @text-margin-xl 0;
+        text-align: center;
+        border: @border-gray-light;
+        border-radius: @text-margin-s;
+
+      } /* view */
+
+      &:nth-child(2n) {
+        padding-right: 0;
+      } /* &:nth-child(2n) */
+
+      &.sel {
+
+        view {
+          color: @color-white;
+          border-color: @color-primary;
+          background-color: @color-primary;
+        }
+
+      } /* &.sel */
+
+      &.disabled {
+
+        view {
+          color: @color-gray;
+          border-color: @color-gray-light;
+          background-color: @color-gray-light;
+        }
+
+      } /* &.disabled */
+
+    } /* .category-item */
+
+  } /* .categories */
+
+} /* .user-category-config-part */

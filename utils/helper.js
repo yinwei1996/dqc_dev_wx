@@ -570,7 +570,7 @@ afterWxLogin(url, code, opts){
   __me.request({
     url: url,
     data: data,
-    success: (ret) => {
+    success: ret => {
 
       // 保存到本地缓存
       wx.setStorageSync('sessionId', ret.token);
@@ -580,7 +580,7 @@ afterWxLogin(url, code, opts){
       wx.removeStorageSync('wxUser');
 
       // 尝试获取微信用户信息，如果获取不到，跳转到登录页
-      __me.wxGetUserInfo(opts);
+      __me.wxGetUserInfo(opts, ret);
 
     }
   });
@@ -589,7 +589,7 @@ afterWxLogin(url, code, opts){
 /* ------------------------------
  尝试获取微信用户信息
 ------------------------------ */
-wxGetUserInfo(opts){
+wxGetUserInfo(opts, retLogin){
 
   wx.getSetting({
     success: (settings) => {
@@ -603,7 +603,7 @@ wxGetUserInfo(opts){
       // 已授权获取用户信息
       wx.getUserInfo({
         withCredentials: true,
-        success: (ret) => { __me.wxBindUserInfo(ret, opts) }
+        success: (ret) => { __me.wxBindUserInfo(ret, retLogin, opts) }
       });
 
     }
@@ -613,38 +613,32 @@ wxGetUserInfo(opts){
 /* ------------------------------
  同步微信用户信息
 ------------------------------ */
-wxBindUserInfo(e, opts){
+wxBindUserInfo(ret, retLogin, opts){
 
   var
   // 微信用户信息
   // 两个渠道：1. wxGetUserInfo；2. login页的按钮Click
-  wxUser = e.userInfo || e.detail.userInfo;
+  wxUser = ret.userInfo || ret.detail.userInfo;
 
   __me.request({
     url: 'wx/my/bind',
-    data: { encryptedData: e.encryptedData || e.detail.encryptedData, iv: e.iv || e.detail.iv },
-    success: (ret) => {
+    data: { encryptedData: ret.encryptedData || ret.detail.encryptedData, iv: ret.iv || ret.detail.iv },
+    success: ret => {
 
       // 保存到本地缓存
       wx.setStorageSync('wxUser', wxUser);
 
-      // 如果有回调
-      if (opts && 'function' == typeof opts.success){
-        opts.success();
-        return;
-      }
-
       // 隐藏提示
       __me.hideLoading();
 
-      // 如果来自注册/登录页的按钮Click，返回到上一页
-      if (opts.fromButtonClick){
-        console.log('wxBindUserInfo.success => fromButtonClick, will navigate back');
-        wx.navigateBack();
+      // 如果有回调
+      if (opts && 'function' == typeof opts.success){
+        opts.success(retLogin);
         return;
       }
 
-      // 其他情况目前不做操作
+      // 默认返回上一页
+      wx.navigateBack();
 
     }
   });

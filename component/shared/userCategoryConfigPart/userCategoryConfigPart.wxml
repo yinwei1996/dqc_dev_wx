@@ -1,0 +1,32 @@
+<!--
+/**
+ * 组件 - 会员关注品类设置
+ * userCategoryConfigPart
+ * -----------------------------------
+ * 19/03/06 Jerry 新增
+ */
+-->
+
+<view class="user-category-config-part">
+
+  <view class="config-tip">{{ tip }}</view>
+
+  <!-- 一级类目 -->
+  <view class="categories">
+
+    <view class="category-item {{ item.userMapped ? 'sel' : '' }} {{ item.enabled || item.userMapped ? '' : 'disabled' }}"
+      data-category-id="{{ item.categoryId }}"
+      bindtap="clickCategory"
+      wx:for="{{ categories }}"
+      wx:key="categoryId">
+      <view>{{ item.categoryName }}</view>
+    </view>
+
+  </view> <!-- .categories -->
+
+  <!-- 操作按钮 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="save" disabled="{{ !anyToSave }}">确认关注</button>
+  </view> <!-- .op-btns-fixed -->
+
+</view>

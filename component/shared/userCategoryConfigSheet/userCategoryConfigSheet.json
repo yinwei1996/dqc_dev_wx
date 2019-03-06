@@ -1,5 +1,5 @@
 {
-  "enablePullDownRefresh": true,
+  "component": true,
   "usingComponents": {
     "userCategoryConfigPart": "../../../component/shared/userCategoryConfigPart/userCategoryConfigPart"
   }

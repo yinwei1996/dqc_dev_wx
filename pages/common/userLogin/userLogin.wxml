@@ -7,8 +7,6 @@
  */
 -->
 
-<import src="../../../component/common/agreementSheet/agreementSheet.wxml" />
-
 <view class="user-register">
 
   <view class="logo">
@@ -37,6 +35,13 @@
     ©2019 大清仓
   </view>
 
-   <template is="agreementSheet" data="{{ hidden: hiddenAgreementSheet, hide: 'closeAgreementSheet' }}" />
+  <!-- 注册协议Sheet -->
+  <agreementSheet id="agreementSheet" />
+
+  <!-- 会员关注品类Sheet -->
+  <userCategoryConfigSheet
+    id="userCategoryConfigSheet"
+    tip="请选择您关注的品类"
+    bind:sheetClosed="categorySheetClosed" />
 
 </view> <!-- .user-register -->

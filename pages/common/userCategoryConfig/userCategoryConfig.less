@@ -8,59 +8,6 @@
 @import '../../../variables.less';
 
 .user-category-config {
-  padding: @text-margin-l;
-
-  .config-tip {
-    .flex-start;
-    height: @bar-height-xl;
-  }
-
-  .categories {
-    margin-top: @text-margin;
-
-    .category-item {
-      display: inline-block;
-      width: 50%;
-
-      view {
-        margin: 0 @text-margin-l @text-margin-l 0;
-        padding: @text-margin-l 0;
-        text-align: center;
-        border: @border-gray-light;
-        border-radius: @text-margin-s;
-
-      } /* view */
-
-      &:nth-child(2n) {
-
-        view {
-          margin-right: 0;
-        }
-
-      } /* &:nth-child */
-
-      &.sel {
-
-        view {
-          color: @color-white;
-          border-color: @color-primary;
-          background-color: @color-primary;
-        }
-
-      } /* &.sel */
-
-      &.disabled {
-
-        view {
-          color: @color-gray;
-          border-color: @color-gray-light;
-          background-color: @color-gray-light;
-        }
-
-      } /* &.disabled */
-
-    } /* .category-item */
-
-  } /* .categories */
+  padding: 0 @text-margin;
 
 } /* .user-category-config */

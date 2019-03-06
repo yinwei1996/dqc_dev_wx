@@ -19,32 +19,11 @@ data: {
   hiddenAgreementSheet: 'hidden'
 },
 /* ------------------------------
- 页面加载
+ 页面渲染完成
 ------------------------------ */
-onLoad(){
-
+onReady(){
   // 更新导航
   helper.navTitle( this.data.isRegister ? '注册' : '登录' );
-
-},
-
-/* ------------------------------
- 页面显示
------------------------------- */
-onShow(){
-
-},
-/* ------------------------------
- 显示协议
------------------------------- */
-showAgreement(e){
-  this.setData({ hiddenAgreementSheet: '' });
-},
-/* ------------------------------
- 关闭协议
------------------------------- */
-closeAgreementSheet(e){
-  this.setData({ hiddenAgreementSheet: 'hidden' });
 },
 /* ------------------------------
  输入手机号/验证码
@@ -67,12 +46,47 @@ clickLogin(){
   var args = {
     mobile: this.data.mobile,
     smsCaptcha: this.data.captcha,
-    fromButtonClick: true
+    success: ret => this.afterLogin(ret)
   };
 
   // 登录/注册
   helper[ this.data.isRegister ? 'wxRegister' : 'wxLogin' ](args);
 
+},
+/* ------------------------------
+ 显示注册协议Sheet
+------------------------------ */
+showAgreement(){
+
+  if (!this.agreementSheet)
+    this.agreementSheet = this.selectComponent('#agreementSheet');
+
+  this.agreementSheet.showSheet();
+
+},
+/* ------------------------------
+ 登录/注册成功回调
+------------------------------ */
+afterLogin(ret){
+
+  // 显示品类配置Sheet
+  if (ret.showCategoryConfig) {
+
+    if (!this.userCategoryConfigSheet)
+      this.userCategoryConfigSheet = this.selectComponent('#userCategoryConfigSheet');
+
+    this.userCategoryConfigSheet.showSheet();
+    return;
+  }
+
+},
+/* ------------------------------
+ 会员关注品类Sheet已关闭（事件处理）
+------------------------------ */
+categorySheetClosed(){
+  // 跳转到上一页
+  wx.navigateBack();
+  console.log('userLogin.categorySheetClosed invoked');
 }
 
 })

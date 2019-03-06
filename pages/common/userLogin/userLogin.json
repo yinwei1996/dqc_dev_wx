@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "smsCaptchaArea": "../../../component/shared/smsCaptchaArea/smsCaptchaArea"
+    "smsCaptchaArea": "../../../component/shared/smsCaptchaArea/smsCaptchaArea",
+    "agreementSheet": "../../../component/shared/agreementSheet/agreementSheet",
+    "userCategoryConfigSheet": "../../../component/shared/userCategoryConfigSheet/userCategoryConfigSheet"
   }
 }

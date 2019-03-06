@@ -469,13 +469,28 @@ label.checkbox {
 
 }
 
-.self-label {
-  margin-right: @text-margin-s;
-  padding: 0 5rpx;
-  font-size: @text-size-xs;
-  color: @color-white;
-  background-color: @color-primary;
-  border-radius: 5rpx;
+/* 分享选择器-遮罩层 */
+.sheet-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: @color-text;
+  opacity: .4;
+  z-index: 998;
+}
+
+/* 分享选择器-浮动层 */
+.sheet {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: @text-margin;
+  box-sizing: border-box;
+  background: @color-white;
+  z-index: 999;
 }
 
 /* 以上是新版的LESS内容 */

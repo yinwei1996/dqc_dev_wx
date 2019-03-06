@@ -16,7 +16,7 @@ __cfg = {
   host: 'https://dqctest.yunxiaoming.cn/',
   // 开发版
   //host: 'http://localbox.hecai360.com/',
-  host: 'http://localhost/',
+  //host: 'http://localhost/',
   header: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' }
 },
 /* ------------------------------

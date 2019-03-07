@@ -1,0 +1,28 @@
+<!--
+/**
+ * 组件 - 会员手机号绑定Sheet
+ * userMobileBindSheet
+ * -----------------------------------
+ * 19/03/07 Jerry 新增
+ */
+-->
+
+<!-- 遮罩层 -->
+<view class="sheet-mask {{ hidden }}" data-action="mask" bindtap="closeSheet"></view>
+
+<!-- 显示层 -->
+<view class="sheet user-mobile-bind-sheet {{ hidden }}">
+
+  <view class="tip">{{ tip }}</view>
+
+  <smsCaptchaArea
+    type="bind"
+    bind:inputMobile="inputText"
+    bind:inputCaptcha="inputText" />
+
+  <!-- 操作按钮 -->
+  <view class="op-btns-fixed">
+    <button class="btn btn-primary" bindtap="save" disabled="{{ !anyToSave }}">确认绑定</button>
+  </view> <!-- .op-btns-fixed -->
+
+</view> <!-- .user-mobile-bind-sheet -->

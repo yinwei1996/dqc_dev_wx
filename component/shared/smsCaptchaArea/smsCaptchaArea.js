@@ -110,18 +110,15 @@ methods: {
     // 隐藏提示
     helper.hideLoading();
 
-    var
-    that = this,
-    timeout = ( initTimeout || this.data.timeout ) - 1;
-
     // 刷新倒计时
+    let timeout = ( initTimeout || this.data.timeout ) - 1;
     this.setData({ timeout });
 
     if (timeout <= 0)
       return;
 
     // 继续下一秒倒计时
-    setTimeout( () => that.afterSendCaptcha(), 1000);
+    setTimeout( () => this.afterSendCaptcha(), 1000);
 
   }
 

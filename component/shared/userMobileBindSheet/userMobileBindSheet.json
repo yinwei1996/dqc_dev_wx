@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "smsCaptchaArea": "../../../component/shared/smsCaptchaArea/smsCaptchaArea"
+  }
+}

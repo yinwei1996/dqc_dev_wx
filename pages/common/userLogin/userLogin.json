@@ -2,6 +2,7 @@
   "usingComponents": {
     "smsCaptchaArea": "../../../component/shared/smsCaptchaArea/smsCaptchaArea",
     "agreementSheet": "../../../component/shared/agreementSheet/agreementSheet",
-    "userCategoryConfigSheet": "../../../component/shared/userCategoryConfigSheet/userCategoryConfigSheet"
+    "userCategoryConfigSheet": "../../../component/shared/userCategoryConfigSheet/userCategoryConfigSheet",
+    "userMobileBindSheet": "../../../component/shared/userMobileBindSheet/userMobileBindSheet"
   }
 }

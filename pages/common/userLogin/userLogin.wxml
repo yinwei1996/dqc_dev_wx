@@ -14,7 +14,7 @@
   </view>
 
   <!-- 手机号 / 验证码 -->
-  <smsCaptchaArea id="smsCaptchaArea"
+  <smsCaptchaArea
     type="{{ isRegister ? 'register' : 'login' }}"
     bind:inputMobile="inputText"
     bind:inputCaptcha="inputText" />
@@ -43,5 +43,11 @@
     id="userCategoryConfigSheet"
     tip="请选择您关注的品类"
     bind:sheetClosed="categorySheetClosed" />
+
+  <!-- 会员绑定手机号Sheet -->
+  <userMobileBindSheet
+    id="userMobileBindSheet"
+    tip="请绑定您的手机号"
+    bind:sheetClosed="mobileSheetClosed" />
 
 </view> <!-- .user-register -->

@@ -17,7 +17,7 @@
     <navigator
       class="activity-item"
       url="/pages/activity/activityDetail/activityDetail?activityId={{ activity.activityId }}"
-      hover-class="activity-item-hover"
+      hover-class="none"
       wx:for="{{ activities.records || activities }}"
       wx:for-item="activity"
       wx:key="activityId">

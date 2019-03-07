@@ -69,13 +69,20 @@ showAgreement(){
 ------------------------------ */
 afterLogin(ret){
 
+  let { showCategoryConfig, showMobileBind } = ret;
+
+  // 绑定标识
+  this.setData({ showCategoryConfig, showMobileBind });
+
   // 显示品类配置Sheet
-  if (ret.showCategoryConfig) {
+  if (this.data.showCategoryConfig) {
+    this.showCategorySheet()
+    return;
+  }
 
-    if (!this.userCategoryConfigSheet)
-      this.userCategoryConfigSheet = this.selectComponent('#userCategoryConfigSheet');
-
-    this.userCategoryConfigSheet.showSheet();
+  // 显示手机号绑定Sheet
+  if (this.data.showMobileBind) {
+    this.showMobileSheet();
     return;
   }
 
@@ -84,12 +91,49 @@ afterLogin(ret){
 
 },
 /* ------------------------------
+ 显示会员关注品类Sheet
+------------------------------ */
+showCategorySheet(){
+
+    if (!this.userCategoryConfigSheet)
+      this.userCategoryConfigSheet = this.selectComponent('#userCategoryConfigSheet');
+
+    this.userCategoryConfigSheet.showSheet();
+},
+/* ------------------------------
+ 显示会员手机号绑定Sheet
+------------------------------ */
+showMobileSheet(){
+
+    if (!this.userMobileBindSheet)
+      this.userMobileBindSheet = this.selectComponent('#userMobileBindSheet');
+
+    this.userMobileBindSheet.showSheet();
+},
+/* ------------------------------
  会员关注品类Sheet已关闭（事件处理）
 ------------------------------ */
 categorySheetClosed(){
+
+  console.log('userLogin.categorySheetClosed invoked');
+
+  // 如果需要显示手机号绑定Sheet
+  if (this.data.showMobileBind) {
+    this.showMobileSheet();
+    return;
+  }
+
+  // 其他情况，跳转到上一页
+  wx.navigateBack();
+
+},
+/* ------------------------------
+ 会员绑定手机号Sheet已关闭（事件处理）
+------------------------------ */
+mobileSheetClosed(){
   // 跳转到上一页
   wx.navigateBack();
-  console.log('userLogin.categorySheetClosed invoked');
+  console.log('userLogin.mobileSheetClosed invoked');
 }
 
 })
